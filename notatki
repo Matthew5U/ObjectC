@@ -124,12 +124,66 @@ operator zasiegu
 
 // Quiz w konsoli napisany obiektowo
 main.cpp - głowna czesc
-questio.cpp - 
-question.h - 
+questio.cpp - zawiera metody 
+question.h - zawiera klase i naglowki metod
 -------------------------------------------------------------------------------------------------
 Kurs 3. 
 -------------------------------------------------------------------------------------------------
+klauzule: (dostep do danych)
+-private - taki skladnik jest dostpepny tylko dla funkcji skladowych klasy
+-protected - dostepny tak jak skladnik private ale dodatkowo jest jeszcze dostepny dla klas 
+wywodzacych sie z danej klasy
 
+-public - skladni dostpeny bez ograniczen. Zwykle sa to wybrane meotdy skladowe za pomoca ktorych
+dokonuje sie z zewnatrz operacji na danych prywatnych
+
+Jesli nie podamy dostepu do danych to dostep bedzie domyslnie prywatny
+
+--Konstrukotr--
+Konstruktor - specjalna metoda skladowa klasy, wywolywana podczas tworzenia obiektu tej klasy. 
+Zadaniem konstrukotra jest zainicjowanie obiektu, czyli przypisanie atrybutom warosci startowych.
+
+Konstrukotr ma taka sama nazwe jak klasa
+
+Konstrukotr ma taka sama nazwe jak klasa
+
+Dla konstrukotra nie okresla sie zwracanego typu
+
+Konstrukotr jest zawsze wywolywany automatycznie ilekroc powolujemy do zycia nowy obiekt danej klasy
+
+Klasa moze miec wiecej niz jeden konstruktor (przeciazenie nazwy metody)
+
+Konsrukotr moze wywolac inne metody skladowe swojej klasy np. w celu kontroli bledow
+
+Jesli w klasie nie ma zdefiniowanego zadnego konstukotra, to kompilator samodzielnie wygeneruje 
+tzw. konstrukotr domniemany(ale nic mu nie przypisze)
+
+Dzieki konstrukotom obiekty sa zainicjowane juz od momentu tworzenia
+
+--Destrukotr--
+Destruktor - specjalna metoda, wywolywana tuz przed usunieciem obiektu, majaca za zadanie wykonac
+czynnosci skladajace sie na jego "Zniszczenie", inne niz zwolnienie pamieci zajmowanej przez sam
+obiekt (dzieje sie to zawsze automatycznie)
+
+Destrukotr ma nazwe identyczna jak nazwa klasy lecz poprzedzona znakiem tylda ~
+
+Destruktor nie moze miec okreslonego typu zwracanego, podobnie jak konstruktor
+
+Destruktor wywolywany jest automatycznie kiedy obiekt klasy jest likiwdowany
+
+Destrukotr nie moze miec zadnych argumentow, stad moze istniej tylko jeden dstruktor wewnatrz klasy
+
+Destruktor moze wywolac inna metode skladowa swojej klasy
+
+jesli w klasie nie ma zdefinowanego przez programiste destrukotra to kompilator sam wygeneruje destruktro
+dla klasy
+
+--
+
+hermetyzacja danych(enkapsulacja danych) - ukrywanie pewnych danych skladowych lub metod obietkow danej klasy tk, aby 
+byly one dostepne tylko metodom skladowym tej klasy lub funkcjom zaprzyjaznionym
+
+main.cpp - zawiera program do tworzenia wydarzen(zrozumienie konstrukotr i destruktora)
 
 -------------------------------------------------------------------------------------------------
 Kurs 4. 
