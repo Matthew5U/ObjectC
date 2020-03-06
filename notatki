@@ -1,0 +1,175 @@
+_________________________________________________________________________________________________
+Obiektowy kurs c++ notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+#include <iostream>
+
+using namespace std;
+
+int main() 
+{   
+    cout << endl;
+
+    cout << " " << endl; 
+	
+    cout << endl;
+    return 0;
+}
+
+-------------------------------------------------------------------------------------------------
+Słownik:
+OOP - Object Oriented Programmin
+**********************************
+-class - zbior inforamcji czym jest obiekt - jak jest tworzony oraz jakie posiada cechy w programie
+(Zbior wszystkich cech obiektu) (KLASA TO WLASNY TYP DANYCH)
+-object - dajacy sie wyodrebnic element rzeczywistosci
+-Metoda - klasa zawierajaca funckje oddzialuje na reszte programu
+**********************************
+Klasa to przepis na to jak utworzyc obiekt
+Obiekt jest reprezentantem klasy, utworzonym wedlug tego przepisu
+
+program komputerowy - zbior obiektow komunikujacyhc sie pomiedzy soba w celu wykonywania zadan, a
+kazdy obiekt stowrzony jest wedlug przepisu podanego w klasie
+
+-------------------------------------------------------------------------------------------------
+Wskazowka:
+Zalety OOP:
+-ponowne uzycie kodow
+-łatwa lokalizacja bledu
+-lepsze odzworowanie rzeczywistosci w aplikacji
+-hermetyzacja danych
+-skalowalnosc kodu
+-latwy podzial prac
+-mechanizmy dziedziczenia i polimorfizmu
+-lepsze wykorzystanie pamieci w programie
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. 
+-------------------------------------------------------------------------------------------------
+Klasa to przepis na to jak utworzyc obiekt
+Obiekt jest reprezentantem klasy, utworzonym wedlug tego przepisu
+Metoda - funkcja w klasie
+
+klasa = cechy(atrybut) + funkcje
+
+funkcja - funkcja poza klasa
+metoda - funkcja wewnatrz klasy
+
+Zmienne tworzy sie w klasie dla kazdego obiektu ale metody juz tylko raz dla zaoszczedzenia pamieci
+
+klasy umownie pisze sie z duzej litery
+
+Dostep do zmiennych:
+-public - dostep do wnetrza klasy wszystkim funkcjom
+
+class Animal <-- Nazwa klasy z duej litery
+{
+
+}; <-- srednik odroznia klase od funkcji
+
+clasa obiekt;
+obiekt.wartoscWKlasie - odwolanie sie do cechy w klasie
+
+pierwszy.cpp - dwie klasy (zrozumienie czy m jest kalsa i obiekt i jak ich sotosowac)
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. 
+-------------------------------------------------------------------------------------------------
+Programowanie wstepujace ( od szczegolu do ogolu):
+>Rozwiazanie problemu polegajace na przygotowanieu modulow potrzebnych do rozwiazania problemu 
+a nastepnie polaczenie ich w jedna palikacj
+
+Programowanie zstepujace ( od ogolu do szczegolu)
+>Rozwanie problemu ogolnego po przez podzielnie go na podproblemy, ktore sa nastepnie dzielone na
+jeszcze mniejsze podproblemy az do rozwiazan oczywistych, latwych do zapisania
+
+KLASY ZAPISUJEMY W OSOBNYCH PLIKACH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+*.h - plik naglowkowy to jakby spis tresci dla klasy zawiera wszystkie metody z klasa. Sluzy to do 
+łatwiejszego znajdowania danej metody w klasie(atrybuty + nagłowki metod)
+
+*.cpp - plik z calymi metodami. Zawieraja one naglowki i ciala metod
+
+----Przyklad----
+car
+
+--PLIK .h z NAGLOWKIEM KLASY--
+car.h - łatwo znajde jakie posiada metody ale nie znajde jak doklanie dzialaja. Komenatarze w takim
+pliku pomagaja zrozumiec za co odpowiedzialne sa metody bez zbednego przeszukiwania caly cial metod
+
+NIE DOZWOLONE INICJALIZACJA ZMIENNEJ W KLASIE(spisie tresci), MOZNA TO ZROBIC DOPIERO W METODZIE --> konstruktor
+
+--PLIK .cpp Z KLASA--
+car.cpp - bedac w pliku car.h znajde iz isniteje metoda np wypisz smaochod a w car.cpp moge zobaczyc
+jak jest skonstruwana ta metoda
+
+#include "question.h" // dodajemy plik z naglowkami do naszego
+                      //pliku cpp. " " oznacza szukaj w naszym folderze
+                      //<> szukaj w instalatorze
+
+void Question::load()
+{
+
+} // chodzi mi o metode bedaca czescia klasy pytanie robimy tak gdyz jezeli bylo by samo load() 
+to jesli by istniala by dziekolwiek taka funkcja to porgram nie wiedzial by czy chodzi o mteode 
+czy funkcje
+
+:: <-- operator zasiegu jesli bylo by w jendym pliku cialo i naglowek to nie potrzebny byl by 
+operator zasiegu
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+// Quiz w konsoli napisany obiektowo
+main.cpp - głowna czesc
+questio.cpp - 
+question.h - 
+-------------------------------------------------------------------------------------------------
+Kurs 3. 
+-------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. 
+-------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------
+Kurs 5. 
+-------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------
+Kurs 6. 
+-------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------
+Kurs 7.
+-------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+Kurs 8. 
+-------------------------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------------------------
+Kurs 9. 
+-------------------------------------------------------------------------------------------------
+
+
+---------------------------------------------------------------------------------------------------
+Kurs 10. 
+-------------------------------------------------------------------------------------------------
+
+
+--------------------------------------------------------------------------------------------------
+Kurs 11. 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
