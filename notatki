@@ -188,7 +188,47 @@ main.cpp - zawiera program do tworzenia wydarzen(zrozumienie konstrukotr i destr
 -------------------------------------------------------------------------------------------------
 Kurs 4. 
 -------------------------------------------------------------------------------------------------
+Funkcje zaprzyjaznione
 
+Funkcja zaprzyjazniona z klasa to funkcja ktora mimo iz nie jest skladnikiem klasy ma dostep do 
+wszystkich  nawet prywatnych skladniwko klasy.
+
+To nie funkcja twierdzi, ze jest zaprzyjanziona tylko klasa deklaruje ze przyjazni sie z funkcja
+
+Deklarowac przyjaz moze klasa a nie funkcja.
+
+Funkcja zaprzyjazniona nie jest skladnikiem klasy dlatego nie posiada tez. wskaznika this(dlatego
+wysylamy do niej obiekty)
+
+Funkcja zaprzyjanziona moze byc przyjacielem wiecej niz jendej klasy, czyli moze miec dostep do 
+prywatych skladnikow kliku klas 
+
+Mechanizm przyjazni uzupelnia hemeyzacje, dajac nam swobode dostpeu do prywatnych atrybutow dla wybranych funckji.
+Oczywiscie im iwecej przyjaciol tym potem trudniej nzlezc ewentualne bledy w spojnosci danych
+
+Jesli funckja ma miec dostep do skladnikow prywatnych dwoch klas, to mamy do wyboru dwie opcje:
+-funckcja jest przyjacielem dwu klas,
+-funckja jest skladnikiem jednej, a przjacielem drugiej.
+
+*Klasy tez moga sie przyjaznic
+
+class Animal
+{
+    friend class B; //(klasa B ma dostep do danych prywatnych klasy A, co nie znaczy ze klasa A ma
+    ...             // dostep do danych kalsy B)
+}
+
+Przyjazn nie jest przechodnia co oznacza ze 
+klasa B jest przyjacielem klasy A
+klasa C jest przyjacielem klasy B
+To klasa C nie jest przyjacielem klasy A
+
+
+Program w kursie 4 pokazuje jak dziala funkcja zaprzyjanziona. Na jej podstawie zostal stworzony 
+program ktorego celem jest sprawdzenie czy w utowrzonym prostokacie znajduje sie utowrzony punkt
+mian.cpp
+friends.cpp
+friends.h
 
 --------------------------------------------------------------------------------------------------
 Kurs 5. 
