@@ -47,7 +47,7 @@ Zalety OOP:
 -lepsze wykorzystanie pamieci w programie
 
 -------------------------------------------------------------------------------------------------
-Kurs 1. 
+Kurs 1. Klasa. Obiekty
 -------------------------------------------------------------------------------------------------
 Klasa to przepis na to jak utworzyc obiekt
 Obiekt jest reprezentantem klasy, utworzonym wedlug tego przepisu
@@ -76,7 +76,7 @@ obiekt.wartoscWKlasie - odwolanie sie do cechy w klasie
 pierwszy.cpp - dwie klasy (zrozumienie czy m jest kalsa i obiekt i jak ich sotosowac)
 
 -------------------------------------------------------------------------------------------------
-Kurs 2. 
+Kurs 2. Projekt obiekotwy
 -------------------------------------------------------------------------------------------------
 Programowanie wstepujace ( od szczegolu do ogolu):
 >Rozwiazanie problemu polegajace na przygotowanieu modulow potrzebnych do rozwiazania problemu 
@@ -127,7 +127,7 @@ main.cpp - głowna czesc
 questio.cpp - zawiera metody 
 question.h - zawiera klase i naglowki metod
 -------------------------------------------------------------------------------------------------
-Kurs 3. 
+Kurs 3. Konstrukotry, destruktory. Dostep: public, private, protected
 -------------------------------------------------------------------------------------------------
 klauzule: (dostep do danych)
 -private - taki skladnik jest dostpepny tylko dla funkcji skladowych klasy
@@ -186,7 +186,7 @@ byly one dostepne tylko metodom skladowym tej klasy lub funkcjom zaprzyjaznionym
 main.cpp - zawiera program do tworzenia wydarzen(zrozumienie konstrukotr i destruktora)
 
 -------------------------------------------------------------------------------------------------
-Kurs 4. 
+Kurs 4. Funkcje zaprzyjaznione
 -------------------------------------------------------------------------------------------------
 Funkcje zaprzyjaznione
 
@@ -231,9 +231,78 @@ friends.cpp
 friends.h
 
 --------------------------------------------------------------------------------------------------
-Kurs 5. 
+Kurs 5. Kurs 5. Dziedziczenie. Klasy pochodne
 -------------------------------------------------------------------------------------------------
+Dziedziczenie(inheritance) jest mechanizmem wspoldzielenia funckjonalosci pomiedzy klasami. Klasa moze dziedziczyc
+po innej klasie, co oznacza ze oprocz swoich wlasnych atrybutow oraz zachowan, uzyskuje takze te 
+pochodzace z klasy z ktorej dziedziczy.
 
+Dziedziczenie to przede wszystkim forma ponownego uzywania kodu, w ktorej nowa klasa tworzona jest na
+podstawie juz isnitejacej klasy, pobietajac jej atrybuty i zachowania, a takze dodajac nowe skladniki
+ktorych nowa klasa wymaga
+
+Poniewaz nowe klasy sa dziedziczone z isnitejacyhc juz klas, to umozliwai to budowanie programow ze 
+zgromadzonych komponentow wielkorotnego uzytku. Oszczedzamy swoj czas
+
+Potomoek - klasa ktora dziedziczy wlasnosci z innej klasy
+
+Klasa podstawowa - klasa ktora jest rodziciem potomka
+
+Kazda klasa pochodna moze stac sie w przyszlosci klasa podstawowa zatem mozliwe jest dziedziczenie
+wielopokoleniowe
+ 
+Jesli klasa tworzona jest na podstawie jednej klasy podstawowej, to nazywamy to dziedziczeniem jendokrotnym
+
+Jesli klasa tworzona jest na podstawie wiecej niz jednej klasy podstawowej, to nazywamy to dziedziczeniem wielokrotnym
+
+Nowe klasy powstaja z juz istniejacych klas zgromadzonych w bilbiotekach. Umozliwia to budowanie programow 
+z komponentow wielkorotnego uzytku.
+
+--
+Jezeli skladnik ma te sama nazwe w klasie podstawoej i pochodnej, to nastapi zasloniecie nazwy,
+tj. skladnik z klasy pochodnej zasloni ten z klasy podstawowej
+
+Skaldniki ktore odziedziczylismy z klasy podstawej domyslnie pozsotaja zasloniete, jezeli w klasie pochodne 
+jest ksladnik o tej smaej nazwie
+
+Przyklas
+zamiast np. x=1; Rodzic::x=1;
+
+>Skaldniki prywatne klasy podstaowej zostana odziedziczone, ale w zakresie klasy pochodnej nie ma do nich 
+bezposredniego dostepu.
+
+>Skladniki chronione i publiczne sa bezposrednio dostepne w zakresie klasy pochodnej. Slowo portected 
+znaczy, iz skladniki dla wszytkich potmokow danej klasy bedze dostep tak, jakby byl public, natomiast 
+dla calej reszty bedzie niedostepny, czyli tak, jakby byl private.
+
+Rodzaje dziedziczenia
+> dziedziczenie publiczne (public) BEZ ZMIAN
+
+> dziedziczenie chronione (protected) - w tej opcji skladniki public oraz protected sa w klasie 
+pochodnej od teraz zabezpieczone jako protected
+
+> dziedziczenie prwatne (private) - skaldniki public oraz protected sa w klasie pochodnej od teraz zabezpieczone
+klauzula private
+
+-- Zapis dziedziczenia --
+
+class Prostokat:public Punkt - klasa Prostokat dziedzczy publicznie po klasie Punkt(:public Punkt - lista pochodzenia)
+
+-- Czego nie dziedziczy klasa pochodna -- 
+Nie mozemy odziedziczyc:
+>konstrukotra
+>destrukotra
+>operatoa przypisania
+
+
+Framework(struktura) - w programowaniu jest szkieletem do budowy aplikacji. Definiuje on strukture 
+aplikacji oraz ogolny mechanizm jej dzialania, a takze dostarcza zestaw komponentow i biliotek ogolnego
+przeznaczenia do wykonywania okreslonych zadan
+
+
+-- Program --
+Tworzymy punkt i tworzymy kola. Sprawdzmy czy punkt znajduje sie w kole na zasadzie dziedziczenia
+wlasnosci rodzica
 
 --------------------------------------------------------------------------------------------------
 Kurs 6. 
