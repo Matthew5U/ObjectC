@@ -305,32 +305,184 @@ Tworzymy punkt i tworzymy kola. Sprawdzmy czy punkt znajduje sie w kole na zasad
 wlasnosci rodzica
 
 --------------------------------------------------------------------------------------------------
-Kurs 6. 
+Kurs 6. Funkcje wirtualne. Polimorfiz
 -------------------------------------------------------------------------------------------------
+Polimorfizm - mechanizm dajacy programiscie mozliwosc wyabstrahowania podejmowanych przez metody 
+dzialan od konkretnych typow danych
+
+Wiaze sie z zastosowaniem polimorficznego wskaznika doa bstrakcyjnej klasy podstawowej
+
+wskaznik -> rysuj(); - funkcja wirtulana uzywa strzalki
+
+>klasa abstrakcyjna to klasa podstawowa. Nie realizujemy tej klasy, on dostarcza nam mozliwosc
+zrobienia polimoricznego wskaznika
+
+>klase konkretne - Sa to klasy na ktorych bedziemy tworzyc obiekty
+
+metoda wirtualna - bedzie zawsze zaslonieta przez metody w klasach konkretnych. Dodawy jest przedrostek
+o nazwie virtual (ta metoda nigdy sie nie wykona)
+
+virtual void rysuj();
+
+*mozna ale nie trzeba dodac slowko virtual w klasach konkretnych
+
+metoda wirtualna sie nie wykona wiec zapisujemy ja tak
+
+virtual void rysuj() = 0; - mowi sie o takiej funkcji ze jest to tak zwana CZYSTA FUNKCJA WIRTUALNA
+
+-- Rodzaje wiazan --
+
+>Wiazanie statyczne:
+Kolo k;
+k.rysuj();
+
+k zawsze zostanie typu Kolo
+
+>Wiazanie dynamiczne
+Ksztalt *wsk;
+wsk = &k; - wsk moze sie zmieniac np na kolo trojkat kwadrat
+wsk -> rysuj();
+
+Polimorfiz pozwala zaprojektowac i wdrazyc program ktory jest latwo rozszerzalny
+
+W czasie kompilacji nie musi byc znany typ obiektu dla wywolan funckji wirtulanych. W trakcie wykonywania 
+pogramu wywolanie funckji wirtualnej jest dopasowywane do odpowiedniej fukcji sklawoej wywolywanego obiektu
+
+Taka sytuacja nazywana jest wiazaniem dynamicznym(poznym wiazaniem)
+
+Oprogramowanie dzialajace z dostarczonymi wczesniej klasami powinno wspolpracowac z nowymi klasami
+pochodnymi poprzez zasepowanie funkcji wirtulanych przez metody z nowych klas(latwa rozszerzalonsc)
+
+Mozemy tworzyc uniwersalne metody z wiazaniem dynamicznym, przetwarzajace obietky wszystkich klas pochodnych
+od abstrakcyjnej klasy podstawowej
+
+
+main.cpp - Program ilustrujacy dzialanie funckji wirtualnych
 
 ---------------------------------------------------------------------------------------------------
-Kurs 7.
+Kurs 7. Instalacja builder. Aplikacja okienkowa
 -------------------------------------------------------------------------------------------------
+Instalacja Builder na windows
 
+hello world
 
 ---------------------------------------------------------------------------------------------------
-Kurs 8. 
+Kurs 8. Budowa wlasnego notatnika
 -------------------------------------------------------------------------------------------------
+Builder c++
+Gorace litery - Skorty do menu  np alt+P zaznaczy nam plik. Wystaczy dodac & przed nazwa 
+- mysnik wstawia separator w menu
+
+--Memo--
+
+lines > ... > usuwamy wartosc wpisana na stalo w "memo"
+
+Align (ulozenie) alClient - uzyje cala przestrzec klient
+
+--Open--
+Filter > ... > (dodajemy tu filtry)
+
+--
+Obsluga wyjatkow 
+try - sprobouj
+
+catch (...) - zlap (...) wszystkie wyjatki
+
+wlasne okienka dialogowe
+(Application->MessageBox("Czy na pewno zakonczyc program?", "Potwierdz", MB_YESNO | MB_ICONQUESTION) == IDYES) 
+- oznacza ze wyswietli przycik yes no i jesli wybor jest yes to ma cos wykonac co zdefiniujemy
+--Save--
+Czy nadapisac plik trzeba:
+Options > ofOverwritePromt - potwierdzenie czy chcemy nadpisac plik
+
+--
+Obsluga skrotow klawiszowych:
+memo > Events > onKeyDown
+
+if (Shift.Contains(ssCtrl)) - sprawdza czy zostal przytrzymany klawisz ctrl
+{}
+
+--
+OBsluga zamkniecia skrotem klawiszowym albo nacisniecie krzyzyka 
+Form1 > Events > OnClose
+
+Action=caNone; - nie podejmuj zadnej akcji
+
+--
+Wycinanie
+tres -> CutToClipboard(); - wytnij do schowka
+tres -> CopyToClipboard(); - kopiuj do schowka
+tres -> PasteFromClipboard(); - wklej z schowka
+
+--
+Zaznaczanie w trybie okienkowym:
+properties > Checked > true - ustawiamy domyslnie ze jest wlaczony
+
+Pasek przeijania:
+memo > proprties > SrcollBars > (ssNone - zaden nie jest aktywy) (ssVertical - pionowy) (ssHorizontal - poziomy) 
+(ssBoth - obydwa)
+
+Zawijanie wierszy:
+memo > properties > WordWrap
+
+Dodawanie obrazka:
+Propertis > Picture > ... > load
+Properties > AutoSize > True - automatyczne dostosowanie obeazka
+-- 
+Aby obsluzyc drugie okno w pierwszym nalezy dolaczyc go #include "Unit2.h"
+
+Pokazanie modalne - nie mozna przejsc do programu poki nie zamkniemy wczesniej wyswietlonego okna
+
+Zapobieganie powiekszenia okna:
+Form2 > Propeties > BorderIcons > biMaximize > false
+
+Zapobieganie zmiany rozmiaru okna:
+Form2 > Properties > BorderStyle > bsToolWin
+
+Przelaczanie na strone interentowa
+        ShellExecute(NULL,"open","http://miroslawzelent.pl", NULL, NULL, SW_SHOWNORMAL); - uruchomienie z powloki, 
+	parametr null, adres, null, null , pokazanie bez udziwnien.
 
 ---------------------------------------------------------------------------------------------------
-Kurs 9. 
+Kurs 9. Gra kolko krzyzyk
 -------------------------------------------------------------------------------------------------
+najechanie myszka na obrazek i zmiana kursora myszki
+img > Properteis > cursor >crHandPoin
 
+Form1 > Events > OnCreate - podczas tworzenia form1 
+
+pole1 -> Enabled = false; - wylacza pole (nie mozna kliknac)
+
+char * wsk; - typ lancuchow z jezyka c
 
 ---------------------------------------------------------------------------------------------------
-Kurs 10. 
+Kurs 10. Timer. Gra Arkanoid
 -------------------------------------------------------------------------------------------------
+Dodanie tła 
+shape > properties > Brush > color
 
+Transparentnosc
+transparet > true - usuwa wszystkie piksele ktore sa dokladnie takie same jak piksel obrazak o wspolrzednych (0,0)
+
+Wcisniete klawisze:
+Form1 > OnKeyDown - Key == VK_LEFT jest to zmienna mowiaca ze jest wcisnieta lewa strzalka
+
+Puszczenie klawisza:
+Tak samo jak wyzej tyle ze OnKeyUp
+
+Znikajace tekstury:
+Form1 > Properties > UseDockMEnager > true | DockSite > true
+
+if kolizja(b, Image1) - z automatu jest tutaj true wiec nie trzeba przyrownywac
 
 --------------------------------------------------------------------------------------------------
-Kurs 11. 
+Kurs 11. Dzwieki w programie. Gra memorki
 -------------------------------------------------------------------------------------------------
+sndPlaySound("snd/dzwiek.wav", SND_ASYNC); - ustawienie odtwarzania asynchronicznego dzwieku
 
+randomize(); - generator liczb pseudolosowych(w strukturalnym c++ srand(time(NULL)); )
+
+liczby[i] = random(5)+1; - bedziemy mieli w tablicy 1000-elementowej liczby z zakresu od 1 do 5 innaczej by bylo od 0 do 4
 
 
 
