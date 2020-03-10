@@ -1,0 +1,618 @@
+_________________________________________________________________________________________________
+Programowanie Webowe - notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Słownik
+-------------------------------------------------------------------------------------------------
+<!DOCTYPE html> - typ dokumentu. W jakim standardzie zakodowana jest strona (HTML5)
+<html lang="pl"> - znacnzik html (strona w jezyku polski)
+<head> - glowa, tu sa zawarte wszystkie informacje o naszej stronie
+<body> - cialo, tu jest zawarta nasza strona, to co jest zapisane to bedzie wyswietlane
+<meta> - okresla cos wiecej. Wykracza poza niezbednoscia do stworzenia strony
+<title> - tytul strony, bedzie sie wyswietlac w wyszukiwarce
+<link> - polaczenie np do zewnetrznego pliku(np css)
+<script> - znacznik skryptu
+
+ROZWINIECIE ZNACZNIKOW KURS 3(patrz nizej)
+
+Słowka klucze:
+description - opis strony
+keywords - slowa klucze
+stylesheet - arkusz ze stylami
+
+CSS:
+Oznaczenia:
+body <- oznacza kolorowanie znacznika
+.body <- oznacza klase
+#body <- oznacza identyfikator 
+
+Nazewnictwo w css:
+selector
+{
+    property: value;
+}
+
+-------------------------------------------------------------------------------------------------
+Kurs 0 - Mapa Mysli
+-------------------------------------------------------------------------------------------------
+>Kurs c++
+>Wybord edytora
+>Git, GitHub
+>6 Bledow w nauce programowania
+>Obecnosc na forach dyskusyjnych
+>Umiejetnosci miekkie
+>Jezyk angielski
+>Informatyka
+>Praca w terminalu
+>Metody skutecznej nauki
+/\
+Umiejetnosci fundamentalne
+/\
+<PROGRAMOWANIE WEBOWE>
+\/
+>Front-end > HTML > HTML5
+|          > Css > CSS3 > RWD > Foundation
+|          |            |     > Bootstrap               
+|          |            |
+|          |            > Prekompilatory > LESS
+|          |                             > SASS
+|          |                             > Stylus
+|          |
+|          |
+|          >JavaScript > Zaawansowany JS > AJAX + JSON
+|          |           |                 > ECMAScript
+|          |           |                 > Build tools
+|          |           |                 > Frameworki JS > React.js
+|          |           |                 |               > Angular.js
+|          |           |                 |               > Ember.js
+|          |           |                 |
+|          |           |                 > Testy > Mocha
+|          |           |                         > Jasmine
+|          |           |                         > Karma
+|          |           > jQuery
+|          |
+|          >CMS(Content Managment System - system zarzadzania trescia) > WordPress
+|                                                                      > Joomia! 
+|                                                                      > PrestaShop
+|                                                                      > Drupal  
+|
+>Back-end > Php > Zaawansowany PHP > Symforany
+          |                        > Laravel
+          |                        > Zend
+          |
+          > Python > Django
+          |
+          > Ruby > RubyOnRails
+          |      > Sinatra
+          |
+          > Node.js (srodowisko uruchomieniowe JS) > Hapi.js
+          |                                        > Socket.io
+          |                                        > Express.js
+          > My SQL > PostgreSQL > MongoDB
+          |                     > Cassandra
+          |                     > Doctrine2.0
+          |
+          > Enterprise > Java > Spring
+                       |      > Grails        
+                       |
+                       > C# > .NET
+                       |
+                       > Haskell
+
+-------------------------------------------------------------------------------------------------
+Kurs 0 - Technologie webowe (teoria)
+-------------------------------------------------------------------------------------------------
+<>Taksonomia celow nauczania blooma:
+1.Wiedza
+2.Zrozumienie
+3.Zastosowanie
+4.Analiza
+5.Synteza
+6.Ocenianie
+
+<>Technologie Webowe
+>Front-end (kod jazwny)
+-Kody zrodlowe uruchamianie lokalnie(po stronie klienta)
+-HTML - jest jezykiem opisowaym(sklada sie ze znaczikow) mowi co gdzie sie znajduje
+-CSS - opisuje styl wygladu znacznikow
+-JavaScript - Pelnoprawny jezyk programowani ktory zapewnia dodatkowe mozliwosci interfejowi
+wityny internetwej. Z uzyciem JS mozna zmienic kod HTML i CSS stron juz po zaladowaniu sie
+witryny do przegladarki, bez potrzeby kontaktu z serwerem
+
+>Back-end (kod niejawny)
+-Kod zrodlowy wykonywany na serwerze
+-PHP - obsluguje mechanike np. logowanie ktore pliki te sa zapisane na serwerze
+-MySQL - Mechanizm skladowania danych
+
+*IDE(edytor)
+*mapa mysli(patrz wyzej)
+
+-------------------------------------------------------------------------------------------------
+Kurs 1 - Templatka Witryny
+-------------------------------------------------------------------------------------------------
+index.html - podstawowa nazwa, jesli strona ma byc wyswietlona to szuka tego pliku
+
+<!DOCTYPE html> - typ dokumentu. W jakim standardzie zakodowana jest strona (HTML5)
+XHTML = HTML 4 + XML
+<html lang = "pl"> - !znacznik! html (rama), zapis lang jezyk
+
+</html>
+
+<head> - kodowanie znakow jezyk (np.polski) tytul i opis w wyszukiwarce. Skrytpty JS, arkusze 
+stylow CSS, czcionka Googla
+
+<body> - wszystko co wyswietla strona. tekst, obrazy, hiperlacza, pola edycyjne, przyciski, 
+listy wyboru, checkboxy
+
+<meta charset ="UTF-8"> - Zestaw uzywanych znakow(polskie znaki)
+
+<title> - tytul strony
+
+<meta name"description" content="opis tutaj zawarty bedzie wyswietlany w wyszukiwarce pod adresem
+strony. Zawiera opis o czym jest nasza strona">
+
+<meta name="keywords" content="umieszczamy tutaj slowa klucze, przy ktorych google ma wypozycjonowac
+nasza strone(np strona ze zdrowym jedzeniem uzyje fit, zdrowie, zdrowie jedzenie). JEDNAK ALGORYTM
+GOOGLA NIE ZWRACA NA TO UWAGI. Wstawia sie to poniewaz mozna wiec czemu nie wpisac kilka slow
+
+<meta name="author" > - Tutaj wpisuje sie autora | Jest to opcjonalne, lepiej podpisac sie 
+hiperlaczem do nasze strony
+
+<meta http-equiv="X-Ua-Compatible" content="IE=edge, chrome=1"> - sotsuje sie ten opis aby 
+uzytkownicy korzystajacy z przegladarki internet explor mogli poprawnie wyswietlac strone, edge 
+oznacza uzyj najnoweszej wersji IE,chrome =1 - oznacza ze jesli kto uzywa dodatku do IE o nazwie 
+chrome 
+
+<link rel="stylesheet" href="main.css"> - podpinanie zewnetrzengo pliku css. Jesli znajduje sie 
+w jakims folderze to trzeba podac sciezke, a jesli wyzej niz nasz index.hmtl to  wtedy piszemy
+../main.css (../ <- ozacza przejscie wyzej)
+
+rel="stylesheet" - oznacza arkusz ze stylami
+
+CSS:
+body <- oznacza kolorowanie znacznika
+.body <- oznacza klase
+#body <- oznacza identyfikator
+
+background <- tlo
+background-color <- uszczegolowienie, czyli chodzi tutaj o kolor tylko
+
+*
+znacznik- (tag) <html>
+atrybut - href <- href to atrybut. Przyklad: <a href="www.facebook.pl">
+Wiekszosc skryptow umieszcz sie na samym koncu </body>, aby wczytanie strony nastepowalo szybciej 
+niz jezeli mialo by czekac na wczytanie skryptu a poznie jstrony
+
+Kodowanie w programie musi byc takie samo jak kodowanie powstajacej strony
+
+-------------------------------------------------------------------------------------------------
+Kurs 2 - Struktura blokowa
+-------------------------------------------------------------------------------------------------
+url() - sciezka do pliku
+background-image: url(img/escheresque_ste.png); - podpinanie obrazu jak tlo
+
+!Obraz tla orientujemy wzgledem polozenia arkusza stylow css a nie wzgledem pliku html 
+(CSS -> PNG ../img/obrazek.png)
+
+!Warto sie pilnowac gdzie zapisujemy nasze pliki aby sciezki sie zgadzaly podczas podpinania 
+naszych arkuszów
+
+>Znaczniki strukturalne:
+Opisuja logiczna strukture witryny, sluza najczesciej do zgrupowania tresci(rozmieszczania ich na 
+plotnie przegladarki)
+
+Podstawowy znacznik strukturalny = div (divide, podzial stony)
+    <div> </div> - elementy blokowe domyslnie ustawiaja sie jeden po drugim
+
+>Tworzenie struktury witryny
+Nie tworzymy strony na tabelach bo:
+1. Niepelne rodzielenie zawartosci witryny od opisu jej wygladu
+2. Komorka tabeli nie jest autonomicznym elementem takim jak blok div
+3. Tag <table> nie zostal pomyslany jako znacznik strukturlany
+4. Powstanie nadmiarowego kodu opisujacego strukture strony internetowej
+5. Wolniejsze ladowanie i renderwoanie zawartosci strony internetowej
+6. Tabele nie sa SEO friendly
+7. Problem z obsługa responsywnosci strony
+
+>Nowe znaczniki HTML5
+<header></header>
+<article></article>
+<footer></footer>
+<nav></nav>
+<section></section>
+<aside></aside>
+
+>Aby <div> ulozyc obok siebie nalezy uzyc dwoch roznych rozwiazan:
+----float: left; - ukladanie blokow do lewej, nalezy zazanczyc iz kazdy bloko ktory ma byc 
+                    wyrownany do lewej powinien zawierac ten zapis (float: left) | Jednoczesnie
+                    powrot do normlanego rozmieszczania blokow odbywa sie po przez dodanie linijki
+                    (clear: both;)
+                    *Jesli nie potrzebujemy np. stopki to tworzymy pusty div i dajemy mu 
+                    clear: both;
+                    *ZAWSZE CZYSCIMY OPLYWANIE (float: left) przez (clear: both)*
+
+
+----display:inline-block; - Zostaja wstawione odstepy przez znaki biale miedzy <div> (spacje, tabluatory)
+                            Mozna rozwiazac to:
+                            -Ustawianie wymiarow tak aby sie zmiescily
+                            -Usuniecie odstepy (<div></div><div></div>)
+                            -Ustawienie minusowego marginesu
+                            -Ustawienie font-size: 0;
+
+<div style="clear:both"></div> <- Tak zwany in line css(styl w srodku lini tworzace plik html)
+Jesli potrzebujemy wiecej takich gumek, to mozemy stworzyc klase o nazwie .eraser i tam zapisac 
+czysczenie. Dzieki temu zabiegu mozemy uzywac tej klasy gdzie tylko chcemy bez ustawiania stylu 
+in line
+
+Roznice:
+Jesli potrzebujemy blokow ktore beda obok siebie i zajma caly kontener to lepiej uzyc float: left
+jesli potrzebujemy np. dwa przyciski na samym sordku to lepiej display uzyc. W display mozna uzyc
+text-align: center; a w float wszystko przyklei sie do lewej.
+
+!Nie mozna nazywac klas w CSS samymi liczbami!
+
+-------------------------------------------------------------------------------------------------
+Kurs 3 - Znaczniki HTML
+-------------------------------------------------------------------------------------------------
+BUDOWA ZNACZNIKOW
+1. Zacznik pojedynczy
+<znacznik atrybut="wartosc">
+2. Znacznik podwojny
+<znacznik>                                  </znacnzik>
+^znacznik otwierajacy moze miec atrybut      ^znacznik zamykajacy nie ma atrybutow
+
+ZNACZNIKI:
+1. <a></a>
+    (ang. anchor - kotwica) Znacznik definiujacy link, chyba ze nie podano atrybutu href(wowczas 
+        trudno mowic o istnieniu hieprlacza bo brakuje adresu URL, pod ktory klikniecie w link ma nas 
+        zaprowadzic)
+
+    Atrybuty:
+    href - Hypertext Reference, czyli odniesienie hipertekstowe(nie wymagany w znaczniku)
+    target - gdzie docelowo ma trafic podlinkowany adres(nie wymagany w naczniku)
+        _self - otworz w tej samej karcie, w ktorej znajduje sie link(automatycznie jest zapisane 
+                wiec nie trzeba uzywac)
+        _blank - otworz w nowej, nieuzywanej karcie przegladarki(uzywamy wtedy kiedy sadziy ze 
+                powinno otworzyc sie w nowej karcie)
+        _parent - zwiazane z ramkami
+        _top - zwiazane z ramkami
+
+
+    Przyklad:
+    <a href="http://pasja-informatyki.pl" target="_self">Pasja infromatyki</a>
+
+2. <img>
+    (ang. image - obrazek) znacznik wstawiajacy na strone plik graficzny
+
+    Atrybuty:
+    src - zrodlo(wymagany)
+    alt - alternative information, alternatywny tekst opisujacy zawartosc obrazu, pokazywany przez
+            przegladarke w sytuacji niemozliwosci zaladowania widoku zrodlowej grafiki(wymagany)
+    width - szerokosc obrazu \
+    height - wysokosc obrazu / Lepiej to zrobic w arkuszu css(nie wymagane)
+
+
+    Przyklad:
+    <img src="logo.jpg" alt="Nike">
+
+3. <p></p>
+    (ang. paragraph - paragraf, akapit) logicznie spojny fragment np. tekstu, ułatwiający 
+        interpretowanie struktury dokumentu. Np. tworzy akapity zamiast zlanego tekstu
+
+
+    Przyklad:
+    <a> Akapit jakiegos tekstu </a>
+
+    *<br> - zlamanie lini
+     <br><br> - alternatywa uzywania paragrafu(slaby zapis)
+
+4. <h1></h1> ... <h6></h6>
+    (ang. heading - naglowek) tekst poprzedzajacy rozpoczecie kolejnej sekcji w dokumencie, zazwyczaj
+        zapisany wieksza czcionka anizeli wlasciwa jej tresc
+
+    <h1></h1> - Najwiekszy naglowek
+    <h2></h2> - Mniejszy niz h1
+    ...
+    <h6></h6> - Najmniejszy naglowek z mozliwych
+
+5. Listy:
+    <ul></ul> - (unordered list) Nie numerowana lista. Np zawiera kropki itp.
+    <ol></ol> - (ordered list) Numerowana lista. Np zawiera 1,2,3,4.
+
+    <li></li> - (list item) Elementy listy. 
+
+
+    Przyklad:
+    <ul>
+        <li> Pierwszy przypadek</li>
+        <li> Drugi przypadek</li>
+    </ul>
+
+
+    Zagniezdzone listy - lista w liscie
+    
+    Przyklad:
+    <ul>
+        <li> Pierwszy przypadek
+            <ol>
+                <li>Pies</li>
+                <li>Kot</li>
+            </ol>
+        </li>
+        <li> Drugi przypadek</li>
+    </ul>
+
+6. <table></table>
+    (ang. table - table) przedstawienie danych w czytelnej, dwuwymiarowej postaci(nie uzywamy do
+        tworzenia calych stron)
+
+    <tr></tr> - (table row) wiersz tabeli
+    <td></td> - (table drawe) komorka tabeli
+
+    Scalanie wierszy:
+    rownspan - scalanie wierszy
+    colspan - scalanie komorek
+
+    Urozmaicenie:
+    <thead> - (table head) tabela glowy \
+    <tbody> - (table body) cialo tabeli  > Ulatwia to przekazanie jakiejs inforamcji w tabeli
+    <th> - komorka naglowkowa           /
+
+    Istnieje mozliwosc pominiecia zamykajacych tagow uzywajac <thead><tbody><th><td>
+
+
+    Przyklad:
+    <table>
+        <tr>
+            <td>1</td><td>2</td>
+        </tr>
+        <tr>
+            <td>3</td><td>4</td>
+        </tr>
+    </table
+    
+    -------
+    |1 | 2|
+    -------
+    |3 | 4|
+    -------
+    
+    Przyklad 2:(scalenie wierszy)
+    <table>
+        <tr>
+            <td colspan="2">1</td>
+        </tr>
+        <tr>
+            <td>3</td><td>4</td>
+        </tr>
+    </table
+    
+    -------
+    |1    |
+    -------
+    |3 | 4|
+    -------
+
+    Przyklad 3:(scalanie komorek)
+    <table>
+        <tr>
+            <td rowspan="2">1</td><td>2</td>
+        </tr>
+        <tr>
+            <td>3</td>
+        </tr>
+    </table>
+    
+    -------
+    |  | 2|
+    |1 |--- (tablea 1 zawiera dwie komorki wiec naturalne ze 3 ustawi sie obok bo juz sie nie miesci)
+    |  | 3|
+    -------
+
+7. <span></span>
+    (ang. span - zasieg) pojemnik, ktory domyslnie nie zachowuje sie blokowo, najczesciej uzywany 
+    do "aplikowania" stylu CSS na swojej wewnetrznej zawartosci
+
+    Pojemnik span mzoe zachowywac sie blokowo, jezeli w CSS dopiszemy (display: block;)
+
+
+    Przyklad:
+    To jest kolor <span class="red">asd</span>i tyle. 
+    (w klasie red nadajemy styl np. kolor czerwony i zmienia to na stronie kolor slowa asd *dawnniej
+    zamiast span bylo font*)
+
+8. <form></form>
+    (ang. form - formularz) obszar na stronie internetowej, zawierajacy roznorodne elementy
+        interfejsu, sluzace do komunikacji/wymiany danych z uzytkownikiem witryny
+
+    Atrybuty:
+    action - jaki plik zajmie sie przetwarzanie danych tych z formularza
+    method - metoda przetwarzania formularza (get lub post) jesli brak to mtoda get
+
+
+    Przyklad:
+    <form action="login.php" method="post">
+    **Tutaj sa kotrolki odpowiadajace za wpisanie do formularza daych**
+    </form>
+
+    Tagi w <form>:
+    <label></label> - etykieta(slowny opis)   
+                    id - identyfikator odwoluje sie do for w label
+                    for - dla idnetyfikator
+
+                    Przyklad:
+                    <label>Podaj login: <input type="text"></label>
+                    lub
+                    <label for="pole">Podaj login:</label>
+                    <input type="text" id="pole">
+
+    <input> - wejscie(dane wejsciowe)
+
+
+        Przyklad:
+         <input type="text" id="pole" placeholder="nick"> 
+            
+            placeholder - wyswietlenie wewnatrz pola(podpowiedz)
+            
+            type - typ wprowadzonego pola
+                
+                >text - wprowadzi tekst
+                
+                >password - bedzie wyswietlac kropki zamiast liter(maskuje)
+                
+                >number - wprowadzanie liczb (nie da sie wprowadzic liter *liera e - zapis naukowy*)
+                
+                >checkbox - kontrolki do zaznaczania(np. Akceptacja regulaminu)
+                    checked="checked" - atrybut oznacza ze automatycznie checkbox jest zaznaczony
+                    Zaznaczenie jednego checkboxa nie odznacza drugiego.
+
+
+                        Przyklad:
+                        <form action="login.php" methon="post">
+
+                            <input type="checkbox" id="yes" checked="checked">
+                            <label for="yes">Akceptuje regulamin</label>
+                        </form>
+
+                >radio - zaznaczenie jednego pola odznacza drugie. Aby wiedzialy pola wzajemnie 
+                o sobie musza posiadac tego samego name.
+                
+
+                    Przyklad:
+                     <label><input tpye="radio" name="plec" value="m">mezczyzna</label>
+                     <label><input tpye="radio" name="plec" value="k">kobieta</label>
+
+                >submit - przycisk. wyslanie formularza
+
+
+                    Przyklad:
+                        <input type="submit" value="kliknij">
+
+                >button - zwykly przycisk
+
+
+                    Przyklad:
+                        <input type="button" value="kliknij">
+    
+
+    <button></button> - Dzieki temu mozemy umiescic obrazk w przysicku(alternatywa dla input="bUtton")
+                
+    <select></select> - Lista wyboru, wybieramy z listy dany element.
+                        *Aby byla juz wybrana ktoras opcja nalezy w danej opcji wpisac (selected)
+                        *Dopisanie do znacznika (multiple) ukazuje nam liste nie rozwijana
+                        (od razu jest cala wyswietlona lista)
+
+
+                        Przyklad:
+                        <label for="imie">Wybierz postac</label>
+                        <select id="imie">
+                            <option value="m">Mario</option>
+                            <option value="l">Luigi</option>
+                        </select>
+
+
+                        > <optgroup></optgropu> - zgrupowanie opcji na liscie
+                    
+
+                        Przyklad:
+                        <label for="imie">Wybierz postac</label>
+                        <select id="imie">
+                            <optgroup label="Hydraulicy">
+                                <option value="m">Mario</option>
+                                <option value="l">Luigi</option>
+                            </optgroup>
+                        </select>
+
+
+
+            
+    <textarea></textarea> - wpisujemy jakis tekst(duzy tekst np komentarz)
+            rows - wiersze 
+            cols  - ilosc znakow(zalezy od czcionki)
+
+
+            Przyklad:
+            <textarea id="comment" rows="5" cols="44"></textarea>
+
+    <output> - wyjscie
+
+9. <strong></strong>
+    (ang. strong - silny) sposob wyroznienia w dokumencie tekstu: waznego, ostrzegawczego,
+        pomagajacego sledzic tok wydarzen w zapisanej wypowedzi. (Wytluszcza czcionke)
+
+        Uzywamy gdy:
+        1. Jest wazny
+        2. Ostrzega 
+        3. Uzytkownik powinien wzrokowo na nie spojrzec
+
+10. <em></em>
+    (ang. emphasis - emfaza, nacisk) znacznik oddajacy zabieg emfazy w tekscie(pochylony tekst).
+        Nacisk na slowo
+
+11. <small></small>
+    (ang. small - maly, drobny) znacznik do przypisow, komentarzy, podpowiedzi, zapisow pobocznych
+        majacych charakter kuluarowy
+
+12. <sup></sup>  <sub></sub>
+    (ang. superscript/subscript) znacznik indeksu gornego/dolnego
+
+13. <blockquote></blockquote>
+    (ang. blockquote - blok z cytatami) znacznik do cytowania wypowiedzi(dodaje wciecia).
+
+
+    Przyklad:
+    <blockquote cite="https://pl.wikipedia.pl">
+        <p>Cytat autora</p>
+        <footer>
+        - <a href="https://pl.wikipedia.pl">
+            Jacek Piekara </a>
+        
+        </footer>
+    </blockquote>
+
+    Dzieki dodanie footera dodajemy odsylacz do cytatu innaczej uzytkownik musial by zbadac tekst
+    aby przejsc do strony z cytatem
+
+14. <q></q>
+    (ang. quote - cytat) znacznik cytowania inline(w ramach wlasnej wypowiedzi " ")
+
+15. <hr>
+    (ang. horizontal - poziomy) znacznik definiujacy linie pozioma (stanowi ewentualny separato
+        w ramach sekcji). Innaczej jest to linia pozioma oddzielajaca paragrafy
+
+16. <b></b> <i></i> <u></u>
+    (ang. bold, italic, underline) wyboldowanie, pochylenie, podkreslenie tekstu
+
+    Roznice miedzy <strong> a <b>(intuicja):
+    -Uzycie b w ramach podkreslenia jakiegos produktu w tekscie nic waznego ale zwracajacego uwage
+
+-------------------------------------------------------------------------------------------------
+Kurs 4
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 5
+-------------------------------------------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 6
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
