@@ -587,31 +587,642 @@ ZNACZNIKI:
     -Uzycie b w ramach podkreslenia jakiegos produktu w tekscie nic waznego ale zwracajacego uwage
 
 -------------------------------------------------------------------------------------------------
-Kurs 4
+Kurs 4 CSS
 -------------------------------------------------------------------------------------------------
+CSS - (cascading style sheets) kaskadowe arkusze stylow. Sluza do opisania wygladu elementow witryn
+    ktore zdefiniowano uprzednio w html.
+
+    Kodem CSS mozemy wplywac na polozenie elementow i wzajmne relacje miedzy nimi.
+
+1. Selektor. 
+    Do "wybierania" (uchwycenia) elementow HTML, ktore podlegajac stylizowaniu uzywamy tzw. 
+    selektorow, zac sam zapis ma taka postac:
+
+    selector
+    {
+        property: value;
+    }
+
+    body
+    {
+        background-color: gray;
+    }
+
+    Znaki biale(spacje, przejscia do nowej lini) sa opcjonalne - mozna je wyciac przygotowujac 
+    tzw. "wersje mini"  arkusza. Wowczas plik zajmuje mnie miejsca(nieco szybciej sie wczytuje 
+    internaucie przez internet) ale oczywscie taki arkusz sila rzeczy jest malo czytelny. 
+    Najczesciej wiec pracujemy na zwyklym arkuszu, a "wersje min" przygotowujem jedynie po 
+    zakonczeniu pracy nad witryna(tzw. "wersja produkcyjna kodu", ktora trafi na serwer).
+
+2. Uchwycenie wybranego przez nas div
+    - Identyfikatora - (zapisc w html: id="nazwa" | zapis w css: #nazwa) 
+                    
+                    Regul unikalnosci identyfikatora. W html nie moga istniec dwa atrybuty ID o 
+                    takiej samej wartosci(nazwie), nawet jezeli bylyby to atrybuty okreslane dla 
+                    roznych znacznikow
+                    <div id="pierwszy"> <p id="pierwszy"> ZLE!
+                    Atrybtu ID musi jednoznacznie identyfikowac jeden konretny element witryny
+
+    - Klasy - (zapis w html: class="nazwa" | zapis w css= .nazwa)
+            
+            Jezeli chcemy "uchwycic" tylko jeden element to mzoemy uzyc zarowno id jak i klasy.
+
+            Jezeli jednak "lapiemy" dwa lub wiecej elementow, to pozostaje nam uzyc tylko klasy 
+            (gdyz nadanie tego samego ID dwom lub wiecej elementon lamie regule unikalnosci 
+            identyfiaktora - blad)
+            
+            Ustawienie identyfikatora w HTML wymusza na przegladarce obsluge mechanizmu unikanosci
+            tegoz elementu(tzw. hierarchia DOM)
+
+            ID powinnismy zastosowwac przede wszystkim w tych elemenatach, ktore zamierzamy pozniej
+            uchwycic w skyptach JS, albo ktore beda sluzyc jako tzw. punkty nawigacyjne witryny
+            (kotwice nawigacyjne).
+
+            Uzycie id tylko do ostylowania elementu jest slaby pomyslem jednak mozna tak tgo uzyc
+
+            .pudelko - wszystko co jest w klasie "pudelko" 
+            .pudelko p - tylko zmienia style dla <p> w klasie pudelko
 
 
+3. Sposby dolaczeni css do html:
+    1. Zewnetrzny arkusz css podpiety do html(w sekcji head)
 
+        <link rel="stylesheet" href"main.css">
 
+    2. Kod css osadzony w pliku html pomiedzy znacznikami <style></style> ktory jest umieszczony 
+        w sekcji <head>
 
+        <head>
+            <style>
+                **tutaj kod css**
+            </style>
+        </head>
 
+    !Jesli sa podpiete jaki arkusz i kod w html to panuje tutaj hierarchia czyli oznacza to ze pozniejsza 
+    definicja stylow bedzie uzyta.!
+
+    3. Stylizowanie inline, czyli wewnatrz atrybutu style wybranego tagu HTML znajdujacego sie w
+    sekcji <body>
+
+    <div id="container" style="color: red;">
+        Hello World!
+    </div>
+
+    !Taki zapis przesloni wszystkie style wczesniej zdefiniowane!
+
+    !Dopisanie slowka !important (!wazny) oznacza iz to wlasnie z tamtad ma byc brany styl css!
+
+4. Znaczenie wartosci:
+    Znak myslnika "-" oddaje hierarchie wlasciwsci:
+
+    [wlasciwos glowna]-[atrybut wlasciowosci glownej]
+
+    Im bardziej cos jest po lewej stronie, tym wyzej znajduje sie w tej kaskadzie. Z ego powodu 
+    zapisy CSS najepiej zawsze czytac od prawej do lewej.
+
+    body
+    {
+    background-color: white; - kolor. czeg? backgorund. sekcji? body
+    }
+
+    1. background:
+         background-color: - definuje color tla.
+
+         backgound-image: url("sciezka pliku") - obrazek tla. url - uniform resource locator(link)
+                                                    Cudzyslowie nie jest potrzebne.
+
+         background-repeat: 
+            repeat; - powtarzaj(domyslnie ustawione)
+            no-repeat; - nie powtarzaj obrazu w tle.
+            repeat-x; - powtarzaj w poziomie.
+            repeat-y; - powtarzaj w pionie;
+
+         background-position: - zmiana polozenia zdefiniowanego obrazu tla
+            [polozenie w poziomie][polozenie w pionie]
+            left, right, center, top, bottom | piksele | procenty
+    
+    2. Tekst
+         font-family: - rodzina trzcionki (warto ustawic czcionke w body) 
+            np. Arial
+        
+         font-size: - rozmiar 
+            Jednostki:
+                
+                Zalecane:
+                em
+                px
+                %
+                ex
+                
+                Niezalecane:
+                pt
+                cm
+                mm
+                in
+                pc
+                
+                Stale tekstowe:
+                xx-small
+                x-small
+                small
+                medium
+                large
+                x-large
+                xx-large
+                
+                Rozmiar relatywny do elementu nadrzednego:
+                smaller
+                larger
+        
+         font-weight:
+            Stale tekstowe:
+            normlanego - waga 400
+            bold - waga 700
+
+            Liczbowe wartosci wag:
+            100
+            200
+            ...
+            900
+
+            Rozmiar relatywny do elementu nadrzednego:
+            lighter
+            bolder
+
+         font-style:
+            normal
+            italic
+            oblique (najbardziej pochylona)
+
+         text-align: - czyli wyrownanie
+            left
+            center
+            right
+            justify (dopasowany do kontenera)
+            justify-all
+            start
+            end
+            match-parent
+
+         text-transform:
+            uppercase
+            lowercase
+            capitalize (Ala Ma Kota)
+            none
+
+         letter-spacing: (odstep pomiedzy znakami)
+            np. 2px(rozstrzelenie)
+
+         line-height: (wysokosc linii tekstu)
+            np. 140%
+
+5. Odstepy:
+    1. padding - odstep nadawany WEWNATRZ elementu
+    2. margin - odstep nadawany NA ZEWNATRZ elementu
+        marginesy PIONOWE nakladaja sie na siebie(np bloki maja marginesy po 10 px to lacznie maja 10),
+        natomiast paddingi sie nie nakladaja(10px jeden padding plus 10 px drugi padding)
+
+        Zapis:
+            margin: 10px; - dodaje odstep z kazdej strony
+
+            margin: 10px 20px; - dodaje odstep (gora i dol po 10 px) (prawo i lewo po 20px)
+
+            margin: 10px 20px 30px 40px; - odstep (10px - gora, 20px - prawo, 30px - dol, 40px - lewo)
+
+            margin: 10px 20px 30px; - odstep (10px - gora, 20px - prawo i lewo, 30px - dol)
+
+            margin-left:
+            margin-right:
+            margin-top:
+            margin-bottom:
+
+6. Border
+    Ustawienie obramowania elementu - grubosc, rodzaj i kolor lini obwiedni. Zmienia rozmiary 
+        kontenera
+
+    border-width: - grubosc linie(w pikselach)
+    border-style: - styl lini
+    border-color: - kolor lini
+
+    border: 2px solid green; - grubosc, rodzaj i kolor.
+
+7. Lista
+    Wyglad listy:
+        list-style-type: - typ listy(markera) | mozna zapisac list-style:
+                        disc
+                        circle
+                        square
+                        decimal (dzieki temu lista nienumerowana jest numerowana)
+                        decimal-leading-zero
+                        lower-greek
+                        lower-roman
+                        lower-latin
+                        upper-roman
+                        upper-latin
+                        lower-alpha
+                        upper-alpha
+                        armenian
+                        georgian
+
+        list-style-image: - obraz jako wlasny marker listy | mozna zapisac list-image:
+        
+        list-style-position: - pozycja markera
+            inside - wewnatrz elementu <li>
+            outside - poza elementem <li> (domyslnie)
+
+        list-style: [type] [image] [position]; - jesli nie da sie poprawnie wczytac obrazka to
+                                                    lista uzyje typu listy
+
+    Odniesienia do listy w css
+        .jakasKlasa ul\
+        ul.jakasKlasa / To samo tyle ze na dolnym zapisie dodajemy klase do znacznika ul
+
+        ul.jakasKlasa li - odnosi sie to tylko do znacnzika li w klasie jakasKlasa dla ul i lapie 
+                            wszystki li
+
+        ul.jakasKlasa > li - lapie tylko bezposredniego potomka
+
+8. Znacnzik <a>
+
+    text-decoration: - sposob wyroznienia tekstu
+        underline, overline, line-through, underline overline, blink, none
+        
+            text-decoration-line:
+            text-decoration-style:
+            text-decoration-color:
+
+    Pseudoklasy:
+        a:link - link nieodwiedzony
+        a:visited - link odwiedzony
+        a:hover - link na ktorym jest kursor
+        a:active - link na ktory wlasnie klikamy
+
+        Z uzyciem klasy wygladalo by to nastepujaco:
+        a.link1:hover
+
+9. Zapis kolorow w css
+    1. Stale nazwy np. blue, red
+
+    2. Zapis szesnastkowy
+        #76CB3D - # + trzy skladowe RGB po 2 znaki
+                Pdzedzial zawiera sie od 00 do FF czyli 16 znakow na jedno miejsce. Dzieki temu 
+                zapisu mamy 16 * 16 mozliwosci czyli lacznie od 0 do 255 zapisanie liczby 
+                zajmujacej dwa miejsca( FF = 255)
+
+        Jesli zapis sklada sie z tych samych 6 cyfr to mozna to zapisac krocej
+        #FFFFFF = #FFF = #fff
+
+    3. Zapis dziesietny
+        rgb(118,203,61);
+
+    Przyklad:
+    #FFFFFF = rgb(255,255,255) - bialy
+    #000000 = rgb(0,0,0) - czarny
+
+    *Lacznie daje nam to 16777216 kolorow
+
+10. Przezroczystość - opacity
+    Przedzial od 0 do 1.
+
+    opacity: 1; - nieprzezroczysty
+    opacity: 0; - przezroczysty
+    
+    0.3 = .3
+
+    Dzieki zapisowi koloru w rgba mozemy uzyc przezroczystsci
+    
+    rgba(R, G, B, A) - czerowny, zielony, niebieski, alpha(nieprzezroczysty)
+
+    rgba(118,203, 61, .3)
+    *fallback w starszych przegladarkach nie odczytanie kanalu alpha
+
+11. Pozycja (position)
+    Zmiana oryginalne pozycji elementu wzgledem wybranego ukladu Odniesienia
+
+    static - domyslnie
+
+    relative - wobec naturalnego polozenia wynikajacego z wygladu witryny(posiada uklad odniesienia) 
+    absolute - nie zaznacza gdzie wczesniej byl a ukladem wspolrzednym jest cala strona a nie kontener
+    fixed - ustalona na stale (przewijajac witryne, caly czas jest z przewijaniem)
+
+        Jesli uzyjemy innej niz static to mozemy uzyc:
+        left
+        right
+        top
+        bottom
+
+12. Tabela
+    *sklejenie ladnie tabeli
+    
+    table
+    {
+	    border-spacing: 0;
+	    border-collapse: collapse; /* sklejenie tabel w srodku */
+    }
+
+13. Laczenie
+
+    th, td
+    {
+        border: 1px;
+    }
 
 
 -------------------------------------------------------------------------------------------------
-Kurs 5
+Kurs 5 JavaScript
 -------------------------------------------------------------------------------------------------
+JavaScript - to pelnoprawny jezyk programowania, w ktorym mozemy zastosowac wiele konstrukcji 
+    jezykowych, podejmowac decyzje, iterowac, deklarowac funkcje, oblsugiwac zdarzenia, tworzyc 
+    obiekty, klasy, metody.
 
+Umieszczanie js na stronie:
+    1. W kodzie HTML(slabsze rozdzielenie warstwy zawartosci storny www od te funkcjonalnosci)
+        <script>
 
+        </script>
 
+    2. Dolaczenie z zewnetrznego pliku z rozszerzeniem .js(dobre rozdzielenie tagow HTML od kodu JS)
+        <script src="nazwapliku.js"></script>
+
+Kod js:
+
+    var - zmienna (moze sie nazywac jak id i nie koliduje)
+
+    Uchwyt sluzy do uchwycenia konkretnego elementu na stronie:
+        [zoabcz dokument].[wez z niego element o takim id].[wartosc pola]
+    
+        docuemnt.getElementByID("tenid").value; - z dokumentu html wybieramy (get) element ktory 
+                                                    jest unikalny czyli id i bierzemy z niego wartosc
+
+		document.getElementById("score").innerHTML = a; - innerHTML - wewnatrz HTML tego poejmnika 
+                                                        "score" = wartosc powstalego "a"
+
+        NOWSZE:
+            <input type="button" value="DODAWANIE" id="przycisk">
+
+            var przyciskNOW = document.getElementById('przycisk');
+            przyciskNOW.addEventListener("click", function() {suma(); }); - mozna przypiac dowolna ilosc 
+            nasluchiwaczy danego zdarzeni
+
+    Funkcja - wydzielony fragment kodu, ktory nie wykona sie automatycznie sam, tylko zostaje 
+                zawolany do pracy w konkretnym miesjcu kodu, ktory nazywamy "wywolanie" funkcji
+
+                Wywolania dokonujemy po nazwie funkcji();
+
+                Kiedy zajdzie zdarzenie click elementu, ktory posiada ustawiony atrybut onclick 
+                to wywolaj funkcje nazwana identycznie, jak zapisano w cudzysowie atrybut onclick
+
+                Poniewaz wywolania funckji przypisujemy do zajscia zdarzen w przegladarce, to kod 
+                JS wewnatrz funckji stal sie mniej wrazliwy na miejsce podpiecia skryptu
+
+                if(d >= 7 && jest_cyfra(haslo) == true) - nie musi byc przyrownania do true automatycznie
+                    sprawdza czy ta funkcja zwroci true
+
+    *Mozna uzywac komentarzy wewnatrz znacznikow <script>
+
+Wyswietlanie kodu html:
+    1. alert(); - komunikat
+        confirm(); - przycisk yes, no
+        prompt(); - wprowadzenie danych
+
+    2. console.log(); - w konsoli przegladarki
+
+	3. document.getElementById("score").innerHTML = a; - wyprowadzenie na stroeni jako tekst
+
+Sklejanie(konkatenacja) napisaow w js nastepuje po przez znak +
+
+	document.getElementById("score").innerHTML = "Wynik działania wynosci: " + sum ;
+
+Przeciazenie operatora
+    Zmiana jego wlasnosci np "+". Zamiast sklejac napisy w js ma on dodc liczby.
+
+    Nalezy wykonac parsowanie wartosci bo innaczej porpostu sklei nam liczby
+
+    	a = parseFloat(a);
+		b = parseFloat(b);
+
+            parseFloat() - dla liczb zmienno przeinkowych
+            parseInt() - dla liczb calkowitych
+
+Jedna funkcja
+
+    <input type="button" value="DODAWANIE" onclick="count(1)">
+    ^funckja count doastaje parametr np. 1 aby bylo mozna odruznik ktory przycisk ma co robic
+
+    document.getElementById("wynik").innerHTML = '<span style="color:red;">HASLO JEST PUSTE</span>';
+    ^Taki zapis jest w apostrofrach poniewaz okreslenie koloru spacn jest w cudzyslowie
+
+    obiekt.atrybut - odczytanie wartosci z obiektu
+
+    Funkcja powinna byc uniwerslana-przeszczepialna. Nie mozna wyjac zmiennej i dac globalnie gdyz 
+    wtedy kod traci swoja przeszczepialnosc
+
+W FOR NIE TRZEBA DEKLROWAC i jak np. int i tylko samo i. var SIE UZYWA JAKO POJEMNIK DO ZMIENNEJ
+
+Dostanie sie do znakow w lancuchu w jezyku JavaScript nie bedzie jak w innych jezykach po przez tablica[i] tylko przez
+    operacjie x.charAt(i)
+
+    lub
+
+    x.charCodeAt(i) - dostanie sie do tablicy codu ASCII
 
 -------------------------------------------------------------------------------------------------
-Kurs 6
+Kurs 6 PHP
 -------------------------------------------------------------------------------------------------
+PHP - interpretowany skryptowy jezyk programowania zaprojektowany do generowania stron internetowych
+    i budowania aplikacji webowych w czasie rzeczywistym
+
+Plik .sql = zrzut(tzw. dump) tabel bazy danych, ktory mozemy zaimportowac do PHPMyAdmin
+
+    <form action="index.php" method="
+
+    action - odwoluje sie do pliku php 
+    methoda - przeslanie danych
+        get - przesyla zmienne wraz z wartoscia w pasku adresu(domyslnie)
+        post - przeslanie zmienny w paczce (nie wyswietla sie w pasku adresu)
 
 
+    <input type="text" name=""> - w php uzywa sie name a nie id jak w js
+
+    <input type="submit" value="Pokaż oceny"> - przycisk zatwierdzajacy
+
+Dane potrzebne do polaczeni sie z baza danych: (dobrze podpiac nowy plik)
+    -host (komputer w sieci przechwoujacy baze) ip komputera
+    -login i haslo uzytkownika MySQL
+    -nazwa bazy danych z ktorej korzystamy
+
+Zmienne:
+    $zmienna <- tworzenie zmiennych
+
+Podlaczenie do bazy:
+
+    <?php
+
+        $host = "127.0.0.1";
+        $user = "root";
+        $pass = "";
+        $db = "szkola";
+
+    ?>
+
+    Umieszczanie informacji dostepowych do bazy danych w zewnetznymm pliku pozwala nam w razie
+        koniecznosci ich zmiany(przeprowadzaka serwera) dokonac poprawki tylko w tym jendym pliku 
+        konfiguracyjnym, zamiast w wielu skryptach php laczacych sie z baza.
+
+    Wiele frameworkow przestrzega tej zasady, umieszczajac kluczowe informacje konfiguracyjne w
+        specjalnym pliku, na przyklad:
+        
+        wp-config.php W WordPressie
+
+Podpinanie php:
+    1. include "nazwapliku"; - podpinanie przez nazwe pliku(wazna jest sciezka do pliku)
+    2. require "nazwapliku"; - wymaganie, skrypt jesli nie znajdzie pliku to przerwie swoje dzialanie
+                                nie bedzie dalej wykonywal kodu
+
+    3. require_once "nazwapliku"; - skorzysta tylko z tego nawet jesli dodamy gdzies inna baze
+    
+Rozszerzenia koumnikacyjne PHP z baza danych:
+    -mysql (najstarsza, nieuzywana)
+
+    -mysqli (wersja "improved" - poprawiona, aktualna)
+
+    -PDO ("PHP Data Objects" - rozszerzenie w pelni obiektowe)
+
+    Podejsci proceduralne - rozdzieleni poszczeglnych dzialan na podprogramy(funkcje) - kazda
+                            funkcja wykonuje uniklane, dajace sie jednoznacznie wyroznic dzialanie zwiazane z baza. 
+                            Parametry przekazujemy do funkcji jako argumenty w nawiasie
+
+    Podejscie obiektowe - zrealizowanie wspolpracy z baza danych z uzyciem obiektow tworzonych 
+                            wg klas. OBiekty posiadaja metody oraz atrybuty(parametry).
+                            Rozpoznawcze zapisy: obiekt->atybut lub obiekt->metoda()
+
+API - (application Programming Interface) - interfejs klas, metod, funkcji, mizennych, parametrow 
+    ktorych aplikacja PHP uzywa w celu zrealizowania zaplanowanych przez programiste zadac(w tym zadaniu
+    chodzi o komunikacje z baza danych)
+
+    Interfejs API moze byc albo proceduralny albo obiektowy. Jezeli jest proceduralny, to oznacza to, ze 
+        operacje bazodanowe realizowane sa przez odpowiedznio przygoowane i wywolane funkcji
+
+        Jesli zas jest obiektowy, to oznacza to iz w aplikacji tworzone sa obiekty a operacje bazodanowe 
+        realizowane sa poprzez metody wywolywane na rzecz tychze stworzonych obiektow
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+Laczenie do bazy danych:
+
+    include "dbconnect.php";
+
+    $conn = mysqli_connect($host, $user, $pass, $db) or die("Blad polaczenia"); <- logowanie do bazy danych
+
+    mysqli_close(); <-zamykanie polaczeni
+
+*************************************************************************************************
+    if(!$conn) // negacja polaczenia, dzieki temu sprawdzamy polaczenie z baza danych
+    {
+        echo "Błąd połaczeni";
+    }
+    else
+    {
+        echo "Git majonez";
+    }
+
+    lub uzycie die - dieki temu wiemy czy sie polaczylismy czy nie
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+Raportowanie bledow wylacza sie w php.ini
+
+    display_errors 
+        off
+    
+    error_reporting
+        E_ALL
+
+    display_startup_errors
+        off
+
+    error_log
+        mozna stowrzyc wlasny pliku z logami bledow
 
 
+    lub 
+    uzycie znaku @ przed mysqli_connect
 
+    Operator @ (operator stfu) - wyciszanie bledow ale slabe podejscie!
+
+Podaj nazwe klasy: <input type="text" name="klasa">
+$klasa = $_POST["klasa"] // wybieramy z inputa
+
+$q = "SELECT Imie, Nazwisko, Srednia_ocen FROM uczen, klasa WHERE nazwa='2a' AND klasa.id = uczen.id_klasy";
+    ^ zapytania w " " a napisy w ''
+
+if(isset($_POST["klasa"])) <- czy istnieje
+
+empty - sprawdza czy istnieje cos w zmiennej
+
+    $result = mysqli_query($conn, $q) or die("Problemy z odczytem danych"); 
+            ^ wykonaj zapytanie(polaczenie, i zpaytanie zmienna) i to co dostaniesz wrzuc do zmiennej
+
+mysqli_fetch_row - wyjmowanie dancyh wierszami
+mysqli_fetch_assoc - wyjmowanie skojarzeniowe czyli np po imieniu
+mysqli_fetch_array - wyjmowanie zarowno numerycznie jak i slownie
+
+    echo $row["Imie"]."<br>"; // tablica row i skojarzenie czyli Imie warto zaznaczyc iz nazwa 
+        kolumny w sql ma byc taka sama w petli czyli np duza litera to uzyjemy dzej litery
+
+    while($row = mysqli_fetch_row($result)) // wyjecie jednego wiersza z tabeli danych otrzymanych
+
+var_dump($zmienna) - zrzucenie zawartosci zmiennej na ekran
+
+mysqli_set_charset($conn, "utf8"); // ustawienie kodowania
+
+$ile = mysqli_num_rows($result); // liczba wierszy w naszym rezultacie
+
+exit(); - wyjscie
+
+
+Wieloliniowe pisanie echo musi byc przy lewej krawedzi
+
+echo<<<END
+
+
+Sklejanie lancochow odbywa sie kropka
+
+END; <- tutaj po ; nie moze byc zadnych znakow
+
+
+Przekierowanie do innego skrytpu PHP:
+    header('Location: skrypt.php');
+
+Wstrzykiwanie SQL(SQL injection) - metoda ataku, polegajca na przemyceniu w formularzu framentu 
+    zapytania SQL
+
+\r\n - koniec lini
+\t - tabulatora
+
+
+OBIEKTOWO:
+$conn = mysqli_connect($host, $user, $pass, $db);
+$conn = new mysqli($host, #user, $pass, $db);
+
+mysqli_set_charset($conn,"utf8");
+$conn->set_charset("utf8");
+
+$result = mysqli_query($conn, $q);
+$result = $conn->query($q);
+
+$ile = mysqli_num_rows($result);
+$ile = $result->num_rows;
+
+mysqli_close($conn);
+$conn->close();
+
+while($row = mysqli_fetch_assoc($result))
+{
+    echo $row['Imie']."<br>";
+}
+while($obj = $result->fetch_object())
+{
+    echo $obj->Imie."<br>";
+}
 
 
 -------------------------------------------------------------------------------------------------
