@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+
+	<title>Zadanie JavaScript</title>
+	<meta charset="utf-8">
+
+	
+	<style>
+		h1{ text-transform: uppercase}
+	</style>
+
+
+
+
+</head>
+
+<body>
+
+	<h1>Proste działania</h1>
+	
+	<label for="a">Podaj pierwsza liczbę:</label> <input type="number" id="a">
+	
+	<br><br>
+
+	<label for="b">Podaj pierwsza liczbę:</label> <input type="number" id="b">
+	
+	<br><br>
+
+	<input type="button" value="DODAWANIE" onclick="count(1)">
+
+	<input type="button" value="ODEJMOWANIE" onclick="count(2)">
+
+	<input type="button" value="MNOZENIE" onclick="count(3)">
+
+	<input type="button" value="DZIELENIE" onclick="count(4)">
+
+	<div id="score" style="margin-top: 20px"></div>
+
+	<script>
+
+		function count(action)
+		{
+			var a = document.getElementById("a").value;
+
+			var b = document.getElementById("b").value;
+			
+			if (a == "" || b == "" )
+			{
+				document.getElementById("score").innerHTML = "Prosze uzupelnic obie liczby";
+			}
+			
+			else
+			{
+				a = parseFloat(a);
+				b = parseFloat(b);
+
+				switch(action)
+				{
+					case 1:
+						document.getElementById("score").innerHTML = "Wynik działania wynosci: " + (a + b);
+					break;
+
+
+					case 2:
+						document.getElementById("score").innerHTML = "Wynik działania wynosci: " + (a - b);
+					break;
+
+
+					case 3:
+						document.getElementById("score").innerHTML = "Wynik działania wynosci: " + (a * b);
+					break;
+
+
+					case 4:
+						if (b == 0)
+						{
+							document.getElementById("score").innerHTML = "Nie wolno dzielic przez 0";
+						}
+						else
+						{
+							document.getElementById("score").innerHTML = "Wynik działania wynosci: " + (a / b) ;
+						}
+					break;
+				}
+			}
+		}
+
+
+	</script>
+
+</body>
+
+</html>
