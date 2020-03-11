@@ -1,0 +1,109 @@
+body
+{
+	background-image: url(img/dark.jpg);
+	background-repeat: repeat;
+	background-position: top right;
+	font-family: Arial;
+}
+
+#container
+{
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 50px;
+	width: 900px;
+	text-align: center;
+}
+
+.kurs
+{
+	display: inline-block;
+	width: 400px;
+	background-color: white;
+	margin: 0 20px;
+	border: 1px solid green;
+	opacity: 1; /* Domyslnie */
+}
+
+.kurs p
+{
+	font-size: 12px;
+	text-align: justify;
+	line-height: 140%;
+	margin: 20px;
+}
+
+h1
+{
+
+	font-size: 22px;
+	font-weight: 700;
+	font-style: italic;
+	text-align: center;
+	text-transform: uppercase; 
+	letter-spacing: 2px;
+}
+
+h2
+{
+	font-size: 18px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+ul.lista /* alternatywa .kurs ul */
+{
+	text-align: left;
+	list-style-image: url("img/hand.jpg");	
+}
+
+/* odnosi sie tylko do li w ul o klasie lista
+ul.lista li
+{
+
+}
+*/
+
+
+ul.lista > li /* lapie tylko bezposrednich potomkow li*/
+{
+	margin-left: 10px;
+}
+
+/* Link nie odwiedzony*/
+a.link1:link
+{
+	color: aqua;
+}
+
+/* Link odwiedzony*/
+a.link1:visited
+{
+	color: violet;
+}
+
+
+/* Link po najechaniu kursorem*/
+a.link1:hover
+{
+	color: green;
+}
+
+/* Link aktywny*/
+a.link1:active
+{
+	color: red;
+}
+
+/* position */
+.test
+{
+	width: 30px;
+	height: 30px;
+	background-color: yellow;
+	left: 80px;
+	top: 50px;
+
+	position: relative;
+}
