@@ -1,0 +1,230 @@
+_________________________________________________________________________________________________
+Kurs HTML notatki by MAteusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 0. - Wstep
+-------------------------------------------------------------------------------------------------
+HTML - zawartosc strony www(jawny)
+CSS - wyglad elementow strony www(jawny)
+JavaScript - dodatkowe funkcjonalnosci na stronie(jawne) > jquery
+PHP - mechanika dzialania witryny(niejawny)
+SQL - (structure Query Language) struktura jazyka zapytan(do bazy danych)(niejawny)
+
+<!-- KOMENTARZ W HTML -->
+
+Frameworki - (struktura) model(szkielet) sposobu budowy witryny oparte na zasadzie MVC
+MVC - (model-View-Controller) wzorzec architektoniczny sluzacy do organizowania struktury witryny
+    w odpowiedni, przemyslany pospob
+CMS - (Content Management System) System zarzadzania trescia - oprogramowanie pozwalajace na latwe
+    utworzenie serwisu www oraz jego pozniejsza aktualizacje bez doglebnej znajomosci jezykow 
+    programowania.
+        Wordpress - blogi
+        Prestashop - sklep
+        Joomla! - strona/portal
+        Drupal - strona/portal
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Pierwsza strona www
+-------------------------------------------------------------------------------------------------
+GUI - graficzny interfejs uzytkownika. Srrodowisko graficzne, okresla sposob prezentowania 
+nformacji przez komputer, wyglad interfejsu(okienek) oraz inter ackji z userem
+
+HTML(HyperText Markup Language) - jezyk opisowy oparty na tzw. znacznikach(tagach) opisujacych zawartosc strony internetowej
+
+XML - uniewersalny jezyk opisowy przeznaczony do reprezentowania roznych danych w strukturalizowany
+    sposob. JEst niezalezyny od platformy, co umozliwaia latwa wymiane dokumentow pomiedzy roznymi 
+    systemami i zanczaco przyczynilo sie do popularnosci tego jezyka w sieci
+
+Znacznik - definuje element na stronie internetowej, jest zapisany z uzyciem nawiaso ostrych 
+    np, <a></a>
+
+Atrybut - cecha(wlasciows) znacznika, zdefiniowana w jego wnetrzu, w postaci: 
+    nazwa_atrybtu = "wartosc"
+
+Znaczniki:
+    Hiperlacze:
+        <a href="http://onet.pl">Kliknij</a>
+
+    Obraz:
+        <img width="500" height="420" src="elo.jpg">
+
+
+Wyglad budowania strony:
+    <!DOCTYPE html> - dokument w najnowszym html5
+    head - cala konfiguracja strony(kodoawnie, tytul strony itp)
+
+    <meta charset="utf-8"> - kodoawnie utf8
+    <title>Najelspze Filmy</title> - tytul
+    <meta name="description" content="Przed Toba spis moich ulubionych filmow. Sprawdz czy znacz 
+    je wszystkie. Uczta dla kinomaniaka"> - opis
+    <meta name="keywords" content="film, kino, najlespze filmy, top filmy" > - slowa klucze
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> - kompatybilne z internet explorer
+    (korzystaj z najnowszej IE)
+
+    body - caly wyglad strony
+
+    PRZEDROSTEK HTTP DODAJEMY JESLI STRONA JEST W INNEJ DOMENIE NIZ NASZA STRONA
+
+    target: -mowi gdzie ma sie strona otworzyc (nowa karta czy ta sama)
+        _blank <- nowa karta
+
+    title - podpowiedz po najechaniu na link
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. Budowanie struktury strony
+-------------------------------------------------------------------------------------------------
+Edytor WYSIWYG (What You See Is What You Get)
+
+Struktura witryny
+-oparta na divach <div>
+-oparta na tabelach <table> !Nie zalecane!
+
+W divach stosujemy float: left; i na koncu clear: both;(nawet pusty pojemnik musimy zrobic)
+
+Standardowe wymiary dla reklamy 160x600px
+
+Typowa stopka
+    &copy; Wszelkie prawa zastrzeżone
+
+Tabele
+    <table> 
+    <tr> - wiersz
+    <td> - komorka
+    colspan - scalenie wierszy
+
+    valign - wyrownanie tekstu w pionie (top do gory)
+
+    W HTML w tabelach uzywajac liczb nie wpisujemy px
+        HTML > bgcolor | CSS > background-color 
+
+    Tabele nie sa SEO friendly - Search Engine Optimization(optymalizacja dla wyszukiwarek internetowcyh)
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. Portfolio
+-------------------------------------------------------------------------------------------------
+Podpiecie arkusza:
+        <link rel="stylesheet" href="main.css" >
+
+Czcionki
+    Podpinamy z google fonts
+
+Web fonty   
+    Podpinamy ikony
+        1. http://fontello.com/
+        2. Wrzucamy calosc do naszego folderu
+        3. Podpinamy css/fontello.css
+        4. Wrzucamy nasza ikone 
+            <i class="icon-youtube"></i>
+        5. W fontello zmieniamy rozmiar ikony 
+            .icon-youtube:before { content: '\f167'; font-size: 76px; margin-top: 35px;} /* '' */
+
+Odstep miedzy liniami w tekscie:
+    line-height: 150%;
+
+Najechanie kursorem:
+    .tile1:hover
+
+Obnizenie koloru:
+    Kazda wartosc obnizamy o jeden
+        #3095d3 > #2084c2
+
+W HTML 4 i mniejszy div nie moe byc traktowany jak link do czegos
+    display: block; /* zachowuj sie jak blok*/
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Strony aby byly przyjazne korzystaja z pliku ".htaccess" ten plik przekierowywuje ze strony majace 
+    pryjazny link do tej samej strony z rozszerzeniem html (*dziala to na serwerze*)
+
+    ### PROTECT FILES ###
+    <FilesMatch "\.(htaccess|htpasswd|ini|fla|psd|log|sh)$">
+    Order Allow,Deny
+    Deny from all
+    </FilesMatch>
+
+    RewriteEngine on
+    RewriteRule zatrudnij-programiste-webowego index.html
+    RewriteRule kim-jestem kimjestem.html
+    RewriteRule oferta-tworzenie-stron-www oferta.html
+    RewriteRule cv-programista-php-javascript cv.html
+    RewriteRule kontakt-programista-php kontakt.html
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Listy
+-------------------------------------------------------------------------------------------------
+Listy
+
+Text-shadow (obramowanie tekstu):
+    text-shadow: 
+        2px 2px 0 #33402a,
+        -2px 2px 0 #33402a,
+        -2px -2px 0 #33402a,
+        2px -2px 0 #33402a;
+
+        Ukladu kartezjanski jest odniesieniem do zapisu powyzszych liczb 
+            2px - x 2px -y 0-blure #kolor (1 cwiartka ukladu kartezjanskiego)
+
+Zapisywanie listy w HTML
+    1. uporządkowana <ol> (order list)
+    2. nieuporzadkowana <ul> (unorder list)
+
+    Zagniezdzone listy
+    Lista w liscie
+
+    Style css:
+        ol > li  (rodzic ol i dziecko li | stylizuj tylko li ktore jest od razu za ol)
+        {
+        }
+        
+        CSS jest kaskadowy wiec dziedziczy
+
+            text-transform: none; - zniwelowanie zamieniania jakichkolwiek znakow uppercase na none
+
+
+45:01 minuta
+
+-------------------------------------------------------------------------------------------------
+Kurs 5. 
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Kurs 6. 
+-------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 7. 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
