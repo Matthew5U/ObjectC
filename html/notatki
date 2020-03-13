@@ -197,6 +197,8 @@ Zapisywanie listy w HTML
 
     Zagniezdzone listy
     Lista w liscie
+        ol > li dotyczy tylko li z rodzica ol
+        ol > li > ul dotyczy tylko ul z rodzica li z dziadka ol 
 
     Style css:
         ol > li  (rodzic ol i dziecko li | stylizuj tylko li ktore jest od razu za ol)
@@ -207,23 +209,293 @@ Zapisywanie listy w HTML
 
             text-transform: none; - zniwelowanie zamieniania jakichkolwiek znakow uppercase na none
 
+        Lista wypunktowana:
+            list-style-type:
+                circle
+                disc
+                square
 
-45:01 minuta
+        Lista numerowana
+                decimal
+                decimal-leading-zero
+                lower-alpha
+                lower-greek
+                lower-latin
+                lower-roman
+                upper-alpha
+                upper-latin
+                upper-roman
+
+        Usuniecie znacznika:
+                none;
+
+        Encja:
+            Specjalne znaki nassze kontentu
+
+        Kolorowanie znacznikow ale nie tekstu:
+            
+            ol > li > ul > li:before <- oznacza koloruj przed
+                {
+                    color: #485b3b;
+                    content: "♠"; <-wlasny znacznik
+                    margin-right: 5px;
+                }
+
+        *padding: 20px 40px;
+                    y    x
+
+        Odwolywanie sie do elelemntow na stronie
+            1. Tam gdzie ma byc link do owolania sie dajemy <a href="#wpiszemyidtutaj>
+            2. Na stronie gdzie ma nas przeniesc wpisujemy id lub name="idgornebez#" w znaczniku
+                np. <h1 id="wlasnieToIdKtoreByloPodaneWczesniej">
+                Najpierw zobacz id pozniej name(HTML5 nie wspiera name)
+
+API - Application Programming Interface
+
+Wczytanie obrazu:
+    -body: background-image
+    -.class: background
+            background: url("img/up.png") no-repaet 0px 0px; <- nie powtarzaj obrazka jesli sie
+                                                                nie zmiesci i roczpocznij od 
+                                                                punktu 0 0 
+
+this - wskaznik(referencja) obiektu na rzecz ktorego dana metoda zostala wywolana. Wniekotrych 
+    jezykach zamiast this uzyjemy self
 
 -------------------------------------------------------------------------------------------------
-Kurs 5. 
+Kurs 5. Nowe znaczniki HTML
 -------------------------------------------------------------------------------------------------
+Nowe znaczniki HTML
+    Znaczniki semantyczne - precyzyjne definiowanie przeznaczenia poszczegolnych czesci kodu 
+        zrodlowego. Nadanie kontentowi znaczenia i latwosc zrozumienia strony przez robota czytajacego
+        nasza strone
+
+        <header>
+            Zawartosc wewnatrz tego znacznika okreslamy jako wstpna wporwoadzajaca tresc do najblizszego
+                semantycznego poprzednika tego tagu(np artykul). Czesto umieszczane sa tam elementy 
+                nawigacyjne
+            
+            Robot patrzy czy <header> jest np w <body> czy np w <article>. Wtedy wiadomo ze jak w body
+                to znaczy ze sa to elementy nawigacyjne.
+
+
+        <na>
+            Zawartosc wewnatrz tego znacznika okreslamy jako podlinkowana tresc prowadzaca do innych 
+                podstron witryny. "wewnetrzny obszar nawigacyjny" wlasciwy dla danej witryny. stosujemy
+                <na> dla glownych elementow nawigacyjnych na stronie a nie dla kazdego linka
+        
+        
+        <article>
+            Zawartosc wewnatrz tego znacznika okreslamy jako kompletna, dajaca sie wyroznic odrebna
+                od innych tresc witrny. Stanowi autonmiaczna calosc, czesto przyjmuje tez powtarzalna forme
+                np. wpis blogowy. Znacnziki mozna te zagniezdzac
+        
+        
+        <section>
+            Zawartosc wewnatrz tego znacznika okreslamy jako tematyczne zgrupowana tresc, a temat kazdej
+                takiej sekcji powinien zostac okrelsony w jej czesci naglowkowej. Sekcje stanwoia w zalozeniu 
+                czesc wiekszej calosci, w przeciwienstwie do artykulu, ktory jest autonomicnza caloscia.
+        
+            Uzycie article i section zalezy od intencji autora strony
+        
+
+        <main>
+            Zawartosc wewnatrz tego znacznika okreslamy jako glowny, najwazniejsza tresc calej podstawy.
+                Znacnzik main to nie jest tzw. section content(nie zmienia zasiegow obowiazywania naglowkow
+                 i stopek tak jak to czyni article, aside, nav i section). Na calej podstronie znacznik main
+                 moze zostac uzyty jeden raz. Musi byc wstawiony w sekcji body tzn moze znajdowac sie np w div 
+                 ale nie moze znajdowac sie w innym semantycznym pojemniku typu article itp.
+
+
+        <aside>
+            Zawartosc wewnatrz tego znacznika okreslamy jako tresc jedynie marginalnie powiazana z 
+                glowna zawartoscia witryny(reklamy, poboczna nawigacja)
+        
+
+        <footer>
+            Zawatosc wewnatrz tego znacznika okreslamy jako tresc koncowa(stopke) najblizszego 
+                semantycznego poprzednika tego tagu. Zatem tak jak naglowkow header, znacnzikow 
+                footer moze byc wiele
+
+
+        <figure>
+            Znacznik ktory doskonale nadaje sie do zalaczenia w glownej tresci ilustracji
+
+        
+        <figcaption>
+            etykieta tekstowa, opisujaca co tez przedstawia nasza zalczona ilustracja
+
+
+        Znacnziki semenatyczne nadaja przeznaczenie wybranym trsciom witryny
+        Divy pozwalaja rozmieszczac ukladac i stylizowac trsc witryny
+
+
+        Wprowadzono je dla pozycjonowanie jak i rowniez latwiejsze czytanie i odroznianie 
+            co sie znajduje w znacznikach
+
+CZESC PRAKTYCZNA:
+    
+    Dla dzialania znacznikow w IE:
+        <!--[if lt IE 9]>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	    <![endif]-->
+
+dashed - przerywana linia
+
+.menu > li:first-child <-- tylko dla pirwszego elementu(dziecka)
+
+.menu a <-- dla elementu a w klasie menu
+
+h1.menu <-- dla elementu h1 o klasie menu
+
 
 -------------------------------------------------------------------------------------------------
-Kurs 6. 
+Kurs 6 & Kurs 7. Formularze
 -------------------------------------------------------------------------------------------------
+Interfejsy sluzace uzytkownikom do wprowadzania danych wejsciowych do witryny, celem innych
+przetworzenia.
+
+<form action="login.php" method="post">**Tutaj wpisywane sa wszystkie kontrolki</form>
+
+Rodzaje atrybutow znacznika form:
+    action = Ktory skrypt PHP ma przetworzyc dane, ktore przyjda z naszego formularza?
+
+    method = jakiej metody HTTP uzyc do przeslania danych z naszego formularza(get czy post)
+
+    enctype = okreslenie idnetyfikatora MIME-type zawartosci przesylanej na serwer metoda post
+        
+        application/x-www-form-urlencoded <-- wartosc domyslna jesli atrybutu nie okreslono w tagu<form>
+            Wszystkie znaki zostana zakodowane metoda urlencode
+
+        multipart/from-data <-- Wartosc stosowana dla plikow(gdy w formularzu znajduje sie input typu file)
+            znaki nie zostaja zakodowane w urlencode
+
+        text/plain <-- Ustawienie tego MIME-type oznacza, iz pzesylane znaki reprezentuja tekst mozliwy
+            do przeczytania przez czlowieka i bezposredniego wyswietlenia przez przegladarke - nie ma
+            potrzeby zakodowania znakow specjalnych w urlencode
+
+Kazda kontrolka formularza (jeli nie jest rpzyciskiem) powinna posiadac etykiete(label)
+    
+    Wszystkie input radio, ktore stanowia wybor jednokrotny, powinny miec ustawiony atrybut name o 
+        takiej samej wartosci
+
+    Domyslnie zaznaczona wartosc uzyskiwana jest po przez slowko "checked"
+
+    Zasada ogolna:
+        We wspolczesncy hforumlarzach, zamiast znacznikow <br>, do rozmieszczania kontrolek Formularza
+            najlepiej uzyc elementow blokowych, w razie potrzeby majacych naday displya: inline-block
+            albo float: left, display: flex lub display:inline-flex
+
+    Za pomoca podwojnego znacznika <fieldset></fieldset> mozemy utowrzyc, zgrupowanie kontrolek
+        formularza otoczone ramka, opatrzone dodatkowa legenda(opisem) utworzona znacnzikiem podwojnym
+        <legen></legend>
+
+    W praktyce z wlasciowsci name korzystamy w PHP do uchwycenia wartosci kontrolki formularza,
+        zas atrybut id kontrolki sluzy do uchwycenia jej w JS albo do poprawnego dzialania etykiety 
+        z atrybutem for
+
+    Za pomoca selected tworzymy liste rozwijana. <option> jest jedna do wyboru z opcji zac wartosc
+        "selected" daj nam mowzliowsc przy zaladowania strony wyswietlic dana wartosc. 
+        
+        Atrybut size okresla jak wiele opcji ma byc widocznych
+
+        Atrybut multiple mowi o tym iz mozna zaznaczac wszystkie
+
+    Wylaczenie kontrolki mozna uzyskac po przez slowko disabled
+
+Klasyczne pole input typu tekstowe przechowuje jedna linie wczytanego tekstu(a nie tak jak to jest w 
+    textarea)
+
+Kontrolki:
+    
+    <form></form> <-- formularz
+    
+    <label></label> <-- etykieta
+    
+    <fieldset></fieldset> <-- opakowanie dla formularza
+    
+    <legend></legend> <-- legenda formularza
+    
+    <inpute type="         " <-- wprowadzanie 
+                  text <-- tekstu
+                  
+                  password <-- hasla 
+                  
+                  number <-- liczby step="1" przeskakuja wartosci co 1
+                  
+                  search <-- szukania (posiada usuwanie)
+                  
+                  checkbox <-- zaznaczenia wielokrotne
+                  
+                  radio <-- wybor jednego (kanal w radiu - tylko jeden moze grac)
+                  
+                  tel <-- numer telefonu(na telefonie automatycznie nam wlaczy klawiature numeryczna)
+                  
+                  email  <-- sprawdza email albo moze zostac pole puste (multiple - mozna wyslac 
+                             kilk emailow)
+                  
+                  date <-- mozna wpisac tylko date | PHP odbiera date jako rok-miesia-dzien
+                    min="2019-03-01" max="2019-03-01"
+                
+                  file <-- przesylanie plikow
+                    enctype="multipart/form-data" <- musimy to dopisac gdy metoda jest post 
+                                                    (aby nie zakodowac pliku)
+                    accept <- jakie pliki beda akceptowane (image/x-png,img/jpg)
+                    multiple <- wiecej niz jeden plik
+
+                  month <-- miesiac
+                  
+                  week <-- 
+
+                  hidden <-- schowany input, np. token bezpieczenstwa
+
+                  url <--link wyposazony w oznaczenie uslugi(protokolu) | sprawdza strone (http://)
+                  
+                  time <-- zapis czasu
+                    step="1" <-- dodaje sekundy
+                    min="09:00" max="10:00"
+
+                  color <-- wybor koloru (domyslnie czarny)
+                    value="#ffffff <- ustawiamy czerwony
+                  
+                  submit <-- zatwierdz formularz i wysyla
+                  
+                  button <-- jest to przycisk ale nie powoduje wyslanie formularza
+    
+                  reset <-- czysci caly formularz
+
+    <select></select> <-- wybor z menu rozwijanego
+    
+    <select multiple></select> <-- wybor wielokrotny z menu rozwijaneg
+    
+    <textarea></textarea> <-- Pole tekstowe
+        rows - ilosc wierszy
+        cols - ilosc kolumn (w praktyce liczba znakow w jednej lini)
+        resize: none; <- nie mozna zmienic rozmiaru
+        maxlength - ile znakow maksymalnie zmiesci pole
+        minlength - minimalna ilosc znakow
+    
+    <button></button> <-- podsumowuj formularz i wysyla(jest on podwojny i mozna wlozyc tam img)
+        type="button" <-- jesli dodamy ten typ wtedy nie powoduje wyslanie formularza
+    
+    <progress></progress> <-- przdstawienie postepu czegos
+        max <-- ile max value <-- ile juz jest 
+
+    <meter></meter> <-- mowi o jakiejs wielkosci w odniesieniu do czegos
+        max <-- max
+        min <-- min 
+        value <-- wartosc
+        title <-- tytul
+        low <-- od jakiej wartosci bedzie oznaczalo ze jest malo
+        high <-- od jakiej wartosci bedzie oznaczalo ze jest duzo
+        optimum <-- od jakiej wartosci bedzie oznaczalo ze jest optymalnie
+
+    placeholder <-- Podpowiedz w polu co ma zrobic uzytkownik np wpisz tutaj maila 
 
 
--------------------------------------------------------------------------------------------------
-Kurs 7. 
--------------------------------------------------------------------------------------------------
-
-
+Zmiana wlasnosci formularza.
+    required - wymaga aby w polu cos bylo
+    readonly - tylko do odczytu. uzytkownik nie moze zmienic wartosci(lub uzycie disabled)
 
 
 -------------------------------------------------------------------------------------------------
