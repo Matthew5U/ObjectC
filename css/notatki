@@ -1,0 +1,104 @@
+_________________________________________________________________________________________________
+Kurs CSS notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. 
+-------------------------------------------------------------------------------------------------
+CSS (Cascading Style Sheets)- jezyk sluzacy do opisu formy prezentacji strony internetowej
+
+Skład:
+    seletor
+    {
+        property: value;
+        property: value;
+    }
+
+Rodzaje hiperlaczy:
+    a:link - nieodwiedzony link
+    a:visited - odwiedzony
+    a:hover - po najechaniu kursorem
+
+Dodawanie lini css
+    4. Wartosci domysle
+    3. Zewnetrzy plik
+    2. W sekcji head w pliku html (<style></style>)
+    1. Bezposrednio w znaczniku (inline)
+        style="color: green;
+
+    Kaskadowosc mozna złamac:
+        !important <-- deklaracja taka mowi przegladarce aby uzyl tego stylu
+
+W CSS dziala hierarchia = Kaskadowosc
+-------------------------------------------------------------------------------------------------
+Kurs 2. Tworzenie strony w css
+-------------------------------------------------------------------------------------------------
+font-size: rozmiar czcionki
+letter-spacing: rozstrzelenie liter
+
+Google fots - czcionki do strony
+    latin extended - (rozszerzone znaki łacińskie)
+    Zaznaczyc trzeba latin extended aby zawieral polskie znaki
+
+    Font-famyli: rodzina czcionki
+    San-serif - Nie posiada urozmaicen czcionki(zakonczenia)
+
+Styl:
+    cursor: pointer (raczka)
+
+    Cechy obramowania:
+        1. grubosc np. 2px
+        2. rodzaj np. dotted(kropkowana)
+        3. kolor
+
+    opacity: <-- nieprzezroczystosc(0.8=80%)
+
+<span> znacnzik sluzacy do zgrupowania elementow(tekstu, obazkow) zazwyczaj w celu przypisania im 
+    okreslonego stylu css(nie zmienia elementow na stronie)(<div> = <span display block>)
+
+<div> element blokowy
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. 
+-------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 4.
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Kurs 5.
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Kurs 6. 
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
