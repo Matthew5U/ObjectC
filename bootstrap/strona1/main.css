@@ -51,3 +51,59 @@ h1
 {
 	background-color: #91a33b !important;
 }
+
+.wpis
+{
+	text-align: justify;
+	font-size: 16px;
+	padding: 30px;
+	margin-bottom: 40px;
+}
+
+.list-group-item-dark
+{
+	background-color: #373a3d;
+	color: white;
+}
+
+.list-group-item-dark:hover
+{
+	background-color: #91a33b !important;
+	color: white;
+}
+
+.list-group .active
+{
+	background-color: #91a33b !important;
+	cursor: default;
+}
+
+.blockquote
+{
+	line-height: 120%;
+}
+
+@media (max-width: 575px)
+{
+	.wpis
+	{
+		margin: 40px 20px;
+		text-align: left;
+		font-size: 15px
+	}
+
+	.float-left, .float-right
+	{
+		max-width: 50%;
+	}
+
+	.blockquote
+	{
+		font-size: 17px;
+	}
+
+	.list-group
+	{
+		text-align: center;
+	}
+}
