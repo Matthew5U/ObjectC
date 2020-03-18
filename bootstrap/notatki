@@ -222,14 +222,89 @@ Forumlarze w navbar towrzymy po przez
 
     
 -------------------------------------------------------------------------------------------------
-Kurs 3. 
+Kurs 3. Klasy bootstrap
 -------------------------------------------------------------------------------------------------
+<aside> -  poboczny fragment strony
 
 
+Popularne formaty dlugich poziomych banerow w ADSense:
+    728x90
+    970x90
 
+KLASY BOOTSTRAP:
+    bg-color <-- klasa ta zmienia kolor pojemnika
+    text-color <-- kolor tekstu
+    p-4 <-- klasa mowiaca o paddingu 4
+    .text-center <-- klasa ta wyrownuje POJEMNIK w bootstrap
+    .text-left itp
+    .d-block mx-auto <-- wyrownanie obrazu (cos jak text-center)
+    .m-* <-- margines klasa w bootstrap
+    .mkierunek-* <-- np my-1 rozmiar marginesu 1(rozmiaru 1)
+    Bootstrap posiada wlasne klasy od h1 do h6
+    .font-wieght-
+                 bold 
+                 normal
+                 light
+    .text-uppercase
+
+    @media - regula ktora m.in. umozliwa nam ostylowanie elementu tylko w konkretnej okreslonej
+        szerokosci okna przegladarki
+
+        Przyklad:
+        @media (max-width: 575px) <-- dla maxymalnej szerokosci zachowuj sie dla klasy wpis tak:
+        {
+            .wpis
+            {
+                margin: 40px 20px;
+                text-align: left;
+                font-size: 15px
+            }
+        }
+
+    .lead - tekst wiodacy, wprowadza do dluzszych artykulow
+    .img-fluid - obraz dopasowuje sie do bloku w ktorm siedzie
+    .img-thumbnail - to samo co fluid plus zaokroglona biala obwodka
+    .float-left - oplywanie obrazu. obraz z lewej strony
+    .list-inline + .list-inline-item <-- przypisanie elementom listy ulozenia horyzontalnego - 
+                                            itemy ukladaja sie obok siebie
+
+                                            Znacznik lsty otrzymuje klase .list-inline, zac 
+                                                kazdy jej <li> klase .list-inline-item
+
+                                            Ukladaja sie obok siebie
+
+                                            ZAMIAST <li> W BOOTSTRAP MOZNA STOSOWAC LINKI <a>
+    
+    .list-group + .list-group-item - lista zmienia sie w zgrupowanie przypominajace kolekcje blokow
+                                        Mozemy wtdy uzyc klas .active oraz .disabled
+
+    .list-unstyled - klasa ktora przypisujemy raz dla calej listy. Usuniety zostaje domyslny styl
+                        listy(marker i margines)
+
+    <blockquote class="blockquote"> - uzywana np do cytowania. Jest inna typograficzne
+
+Uzywanie bootstrapa tak samo jak wlasnych klas
+
+Typograficzne dylematy designerskie
+    1. Narzucenie wybranego kroju czcionki
+    2. NFS - Native Font Stack (stos czcionek natywnych) wypografia wityny uzalezniona jest od 
+        systemu/ przegladarki
+
+    *JESLI NIE SPRECYZUJEMY WLASNEGO FONTA TO BOOTSTRAP UZYJE NFS CZYLI W ZALEZNOSCI OD SYSTEMU 
+        WEZMIE CZCIONKE SYSTMU (na widnowsie inna, na mac os tez inna)
+
+.float-left, .float-right <-- wymienianie klas w css
+
+<footer class="blockquote-footer">Powiedzial Kamil Stoch</footer> <-- Stopka do napisania kto sie 
+                                                                        wypowiadal.
+
+Listy <ul> oraz <ol>
+    W bootstrap 4 listy maja usuniety margin-top, zac margin-bottom ma wartosc 1rem
+        *listy zagniezdzone nie posiadaja rowniez marginesu dolnego*
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
 
 
