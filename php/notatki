@@ -370,8 +370,23 @@ API - interfejs klas, metod, funckji, zmiennych, parametrow, ktorych aplikacja P
 
     Moze byc obiektowy lub proceduralny
 
+W mysqli zamykalismy poczaczenie: $polaczeni->close();
 
-    Kurs zakonczony na 24:14 odcinek 5
+PDO zamyka polaczenie automatycznie , kiedy zginie obiekt klasy PDO(przy koncu wykonania skryptu,
+    lub kiedy zniszczymy go sami przypisujac do niego NULL)
+
+    Polaczenie zostanie automatycznie zerwane ale warto go zniszczyc przy duzych plikach 
+
+Skrocenie zapisu inline:
+
+Mozna uzyc <? zamiast <? ale to musi byc wlaczone w pliku php.ini
+<?= jest to samo co <php echo
+
+warunek ? instrukcja1 : instrukcja2
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
 
 
 -------------------------------------------------------------------------------------------------
