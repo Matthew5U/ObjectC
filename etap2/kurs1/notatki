@@ -1,0 +1,170 @@
+_________________________________________________________________________________________________
+Kurs "Elastyczne Strony WWW" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Rozdzielczosci i photoshop
+-------------------------------------------------------------------------------------------------
+Responsive Web Designe - Skalowalne strony
+
+Rozdzielczosci:                         px
+Telefon -                               320
+Telefon pelen rozmiar(portretowy) -     480
+Tablet -                                768
+Desktop -                               960
+Deskstop Widescreen -                   1200
+Desktop HD 1080p -                      1920
+
+Wnisoki:
+1. Wyjsciowo mozemy uwzglednic 4 typu urzadzen
+2. Wielkosc ekranu nie ma znaczenia
+3. Znaczenie ma rozdzielczosc, czyli ilosc pikseli
+4. Rozdzielczosc na kazdych urzadzeniach rosnie
+5. Poza rozdzielczoscia, kluczowe sa nasycenie pikseli oraz stosunek szerokosci i wysokosci ekranu(ratio)
+6. Statystyki nie sa precyzyjne
+
+ppi(dpi) - ile pikseli na 1 cal ekranu
+
+960 grid system - freamwork do responsywnosci(photoshop)
+    Jest narzedziem dla designerow stron
+
+Photoshop:
+
+    Projektowanie strony dla kazdego urzadzenia. Dla kazdego urzadzenia projektant tworzy 
+    layout
+        - Komputer
+        - Tablet
+        - Telefon
+
+    Resample image: Photoshop powieksza wszystko
+
+    Projektowanie w photoshop na zasadzie gridu czyli siatki. Mozliwosc podzielenia gridu na 
+    12 16, 24 kolumny
+
+    Warstwy. Photoshop działa na zasadzie warstw
+        Add Anchor Point Tool - dodanie punktu wektorowego
+    
+    Tworzenie szkicu dla monitorow o rozdzielczosci 1200px
+
+    Wypelnienie gradientem - cieni
+
+    New group from layres - duplikowanie elementow
+
+    Edit> transform > flip horyzontal - obrocenie
+
+    Grupowanie elementow w photoshopie
+
+    Define patern > ustawienia wlasnego tla patern
+    Eit > fill > wypelnienie z wykorzystaniem patern
+    Tryby mieszania warstwa - laczy dwa obraz
+
+    Zapis tla z photoshop do storny html:
+        Crop tool > zaznaczami zapisujemy > save for web
+
+    Zaznaczenie zdjecia i ctrl+j zapisuje kadr do nowej warstwy
+
+    Nie skalujemy obraz na poczatku gdyz pozniejszy zmiana rozdzielczosci bedzie pikseloza
+    Zmieniamy wysokosc ale nie zatwierdzamy i wtedy zmieniamy rozdzieloczosc
+
+    Umieszczanie prostokatu - Rectangle
+
+    canvas size - powiekszanie dokumentu
+
+    maski - robienie miejsca dla obrazu. Obraz jest widoczny tylko w pewnym obrebie bloku
+        (konwert smart object - np. obiekt moze byc edytowany w innym arkuszu a zmiany zapisywane
+        sa rowniez w glownym arkuszu
+
+        zaznaczamy obraz i z ctrl zaznaczamy w jakim pojemniku ma sie znalez obraz(np blok) i 
+            zazanczamy maska
+
+    stroke - linia
+
+    Grupowanie wyglad storny na czesci 
+
+    Tworzenie osobny wyglad stony dla tabletu 768px
+
+    GUI - graphic user interface
+
+    Przygotowani obrazku np. telefon i w takim obrazku mozna tworzy layout
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja 2. Strona
+-------------------------------------------------------------------------------------------------
+Tworzenie strony:
+    text-shadow: #fff 1px 1px; - cien dla tekstu(kolor i odlegos)
+
+    16px - domysla wartosc wielkosci tekstu w przegladarce
+
+    1em = 100% - wielkosc w teksie w jednostce relatywnej(na podstawie wartosci bazowej tekstu)
+
+    0.625em to 10/16px - 16px domysla wielkosc czcionki dla przegladarki
+
+    @media all and (max-width: 480px) {} reguly css tylko dla ekranuo maxymalnej szerokosci 480px
+
+    mozliwosc tworzenia arkuszy css dla kazdego urzadzenia np. dla monitora, dla tableta lub dla telefonu
+
+    media queries - podzielenie stony na kolumny (cos jak bootstrap)
+
+    symbol * odnosi sie do wszystkich elementow na stronie
+
+        width: 80%; <- zakladamy sobie wartosc wyjsciowa np 960 px i od tego liczymy procenty
+
+
+
+
+
+
+
+
+ZACZAC Wdrozenie naszej strony - ciecie layout w photoshop 7:56
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja 3.
+-------------------------------------------------------------------------------------------------
+
+
+
+    
+-------------------------------------------------------------------------------------------------
+Lekcja 4. 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
