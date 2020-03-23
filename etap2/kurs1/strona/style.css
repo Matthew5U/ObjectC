@@ -1,0 +1,41 @@
+*
+{
+    margin: 0;
+    padding: 0;
+
+}
+
+.container
+{
+    background-color: #FFCC66;
+    margin: 0 auto;
+    width: 80%;
+    min-height: 600px;
+    overflow: hidden;
+    
+}
+div div div
+{
+    background-color: #000;
+    float: left;
+    min-width: 30px;
+    margin: 10px 1%;
+}
+
+.row1 div
+{
+    width: 31.33%;
+
+}
+
+.row2 div
+{
+    width: 48%;
+
+}
+
+.row3 div
+{
+    width: 98%;
+
+}
