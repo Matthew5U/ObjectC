@@ -134,36 +134,182 @@ Tworzenie strony:
 
         width: 80%; <- zakladamy sobie wartosc wyjsciowa np 960 px i od tego liczymy procenty
 
+    Ciecie szablonu photoshopa do mniejszych aby mozna bylo uzyc gotowych elementow 
+
+    Wycinane obiektow w photoshop. Wybieramy selekcje a poznei narzedzie crop tool
+
+    background: url("img/background-pattern.jpg") repeat top left; <- powtarzanie od lewego gornego 
+        boku tla
+
+    text-align: center; <- rowniez dla obrazu zostaje na srodku
+
+    background-color: rgba(255,255,255, .6); <- przezroczystosc koloru
+
+    margin-bottom: -40px; <- ujemny margines nanosi obrazki na siebie
+
+    overflow: hidden; <- to co znajdzie sie po za element bloku o tej wlasnosci bedzi chowane ale
+        dalej istnieje
+
+    @media all and (min-width: 720px) and (max-width: 959px) <- all -dla wszystkich wyswietlaczy 
+    o minimalnej szerokosci 720 i max 959 to uzyj tych stylow ktore podamy w ciele
+
+    class="fluid extra" <- dwie klasy
+
+    display:
+        none <- znikanie elementu
+        block <- pojawenie elementu
+        inline-block <- elemen zachwouj sie jak blok i mozna wycentrowac (text-align: center)
+
+    #logo img 
+    {
+        max-width: 100%; <- skalowanie obrazkow
+    }
+
+    Podmienianie obrazow:
+        -ukwyanie w media i odkrywanie innego
+        -stworzenie div i wpisywanie background: i wruzcanie obrazku
+
+    background-size: cover; <- Skaluje tlo jako obraz po calosci
+
+    markup - czyli nasz text w html
+
+    Testownie:
+        Strona:
+            -Web Developer - wtyczka do firefoxa umozliwajajca testowanie storny
+            -resizemybrowser - strona ktora otiwera okno w danych wymiarach ktore wybierzemy
+            -mattkersley - strona genruje nam w jednym oknie kilka okien z wybranymi rozdzielczosciami
+            -responsinator - to samo co wyzej 
+            -css-triks - rozne @media dla roznych urzadzen typu smartfon
+            -caniuse - sprawdza czy dane metody jest wspierana w danej przegladarce
+
+        Aplikacje:
+            -Adobe shadow - sprawdza strony na urzadzeniach ios lub android
+
+    Poprawienia jakosci stron:
+        -fittextjs - bilbioteka do skalowania duzego tekstu w kontenerze
+        -https://www.colorzilla.com/gradient-editor/ <-- strona do gradientu
+        -css3generator - generuje rozne opcje do css np przyciski
+
+        Funkcja:
+            text-rendering: optimizeLegibility - optymalizuje tekst, bardziej wyrazny tekst
 
 
+    max-device-width: 481px; <- uwzglednienie urzadzen typu telefon(deivce)
 
+    <meta name="viewport" content="width=device-width" > - dzieki temu znacznikowi na urzadzeniach
+        appla beda radzic sobie ze stronami bez uzycia w @media max-device-width tylko samo 
+        max-width
 
+    font-family: Georgia, 'Times New Roman', Times, serif; <- linijka ta mowi o tym ze jesli
+        uzytkownik otworzy nasza strone to wezmie pierwza czcionke czyli Georgia jesli nie ma 
+        to nastepna i tak az do czcionki szeryfowej ktora ma zainstalowana w systemie
 
+    Urzadenia typu iphone powiekszaja storne x2 gdy zageczenie pikseli jest zbyt duze dla starych
+        witryn(uzywamy zdjecia o duzej rozdzielczosci zeby w momencie sklowania z malej storny 
+        mozna bylo powiekszyc obraz bez starty jakosci)
 
+SVG - Scalable Vector Graphics - skalowalny format grafik. XML trzyma wszystkie informacje o 
+    punkcie wketorowym
 
-ZACZAC Wdrozenie naszej strony - ciecie layout w photoshop 7:56
+    <iframe src="twitter.svg" width="62" height="76"></iframe> <-- dodawanie grafiki wektorowej
 
-
-
-
-
-
+W adobe dreamweaver mozna towrzyc widok strony z ilosc kolumn(gridow) jak sobie wybierzemy.
+    tworzy layout
 
 
 
 -------------------------------------------------------------------------------------------------
-Lekcja 3.
+Lekcja 3. Frameworki
 -------------------------------------------------------------------------------------------------
+Natywna aplikacja - jest to aplikacja zainstalowana na przyklad na telefon(Po prostu aplikacja)
+HTML 5 - Aplikacje przegladarkowe (html 5 - jezyk znacznikow)
+
+    HTML 5 moze byc przekonwertowana do natywnej aplikacji 
+
+ Natywne aplikacjie
+    -objective c (mac)
+    -java lub harmony (android)
+    -c# (windows phone)   
+
+Zalety html 5 vs natywne aplikacje
+-latwiejszy do nauki
+-wieksza baza wiedzy
+-dziala na roznych platforamch
+
+Wady html5 vs natywne aplikacje
+-brak natywnych funckji urzadzenia
+-gorsza wydajnosc
+-brak look & feel
+
+Flash nie jest juz wspierany na tablety i telefony
+
+Flash jest rozwiazaniem do plisania aplikacji natywnych w krotkim czasie 
+
+Z appstore instaluja nam sie pliki w rozszerzeniu ipa
 
 
+Frameworki
+    HTML5 boilerplate - wspomaga responsywnosc
+    PhoneGap - mozliwosc uzyskania natywnych funkcji telefonu (zyroskop) w html5
+    jQuery mobile - bardzo łatwa konwersja html do urzadzen mobilnych
+    sencha touch 2 - mobline aplikacje 
+    jquery masonry - responsywa strona plus ciekawe przejscia do innych rozdzielczosci    
+    Responsejs - definiuje brakepoint w rodzielczosci
 
+    Zestaw narzędzi dla programistów niezbędny w tworzeniu aplikacji korzystających z danej biblioteki
+
+jQuery mobile:
+    Tworzenie storny intenetowej zachwoujacej sie jak palikacja na telefonie
+        - reagowanie na dotyk itp
+
+PhoneGap - mozliowsc zastosowania np. geolokalizacji
+    Mozliwosc przekonwertowania strony internetowej na gotowe aplikacje np do androida, ios itp.
+        Site > phone builder > service > new project > continue
+
+Linki do Frameworkow:
+    - Skeleton
+    - Fluid 960 grid system
+    - 1140 grid
+    - inuitcss
+    - flurid
+    - less Framework 4
+    - tiny fluid grid
+    - pxtoem
+    - fluidgrids
+    - debuggins css media queires
     
+    -projekt na github responsive-image 
+
+Dodatki:
+    -initial-scale <-- iphon skaluje obrazy samoistnie wiec zastosowanie tej linijki to zmienia
+
+    -developer mozilla > background-size
+
+    -css-tricks > responsive data tables
+
+    -css with cookies
+
+    -css elastic videos
+
+
+    Border nie przyjmuje wartosci relatywnych.
+    Obejscie:
+        -obnizenie marginesu
+        -dodanie paddingu > background: kolorNaszej obramowki
+
 -------------------------------------------------------------------------------------------------
-Lekcja 4. 
+Wnioski
 -------------------------------------------------------------------------------------------------
 
-
-
+Wnioski:
+    1. Przy width=100% roznice w px miedzy przegladarkami
+    2. Usuwaj zbedne obrazki i upraszaczaj layout mobilny
+    3. Przetestuj stany hover
+    4. Brak scrollbarow na urzadzeniach mobilnych
+    5. Powiekszaj font i ikonki na malym ekranie
+    6. Roznica miedzy myszka a opuszkiem palca
+    7. Dla duzych aplikacji bazodanowych - osobna baza
+    8. Korzystaj z kalkulatorow i innych narzedzi
 
 
 -------------------------------------------------------------------------------------------------
