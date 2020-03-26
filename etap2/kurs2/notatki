@@ -327,29 +327,253 @@ Hammer.js - obsluguje gest np tapniecia itp
 
 
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAWIGACJA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+Strona:
+    bradfrostweb - podejscie do tworzenia menu dla urzadzen mobilnych
+        -menu na gorze. Implmentacja bez zastanwiania sie
+        -menu na spodzie. Przenoszenie sie za pomoca kotwicy
+        -menu jest zmieniae na pole select
+        -menu jest rozwijane dzieki przyciskowi - Najpopularniejsze
+        -menu ktore wyjezdza z lewej strony
+        -menu jest umieszczane na samym dole
+        -zastapienie menu przez ikony 
+        -menu sie przesuwa z prawej do lewej w nowych submenu
+        -jesli elementy sie nie mieszcza to ukrywane sa do jednego przycisku"more"
+        -karuzela z menu
 
+Implementacja off canvas:
+    - Menu z lewej strony przesuwa cala zawartosc w prawo
+    - Menu ustawiamy na stala szerokosc od lewej
+    - Kontent ma margines od lewej tyle ile ma menu
+    
+    -media queries ktory ukryje elementy dla telefony
+        -pokazanie tooglera
+        -menu przeuswamy poza lewa krawedz ekranu
+        -dla kontentu ustawimy margin na 0 
 
+        -rozwijanie menu 
+            -znalezienie element toogler
+            -i usuwanie klasy visble dla offcanvas
+            -nadajemy klase dla rodzica elemenot menu
+                -dla klasy menu lef dajemy 0px
+                -a dla visble content dajemy szerkosc menu
+            -dodanie wrapera ktory nie pozwoli na przesuwanie strony pod menu
 
-ZACZAC LEKCJE "TWOZENIE NAIWGACJI NA STRONIE"
+Strona speckyboy: Pluginy jquery do nawigacji
+    
+    Sider plugin:
+        - Menu resposywne po szeorkosci
+        - gdy osiagnie dana wartosc bedzie sie chowac i wysuwac z lewej strony
+            js:
+                -nakierowywujemy plugin na przycisk przelaczania nawigacji
+                -przekazujemy name menu
+                -wzorcem dla naszej nawgiacji bedzie element nawigacja
 
+    FlexNav:
+        W pluginie tem po zmiejszeniu storny menu nam znika i pojawia sie belka ktora jest 
+        rozwijana
 
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< Grafika Urzadzen >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Ekrany o wiekszej rozdzielczosci softverowo skaluja elementy
+Ludzkie oko widzi do okolo 320 ppi(pikesli na cal)
 
+Graifczne elemnty ston www i aplikacji:
+    -tekst
+    -elemnty interfejsu
+    -ilustracj
+    -zdjecia
 
--------------------------------------------------------------------------------------------------
-Lekcja.
--------------------------------------------------------------------------------------------------
+Aplikacja do grafiki wektorowej jest adobe Ilustraotr
 
+Plik SVG skladnia xml:
+    wezel svg - zawiera pozycje wezlow wektorowych
 
+    Aplikacja Adobe Edge Code:
+        Kopiowanie kodu z ilustratora do tej aplikacji daje mozliwosc podgladu
+    
+    Photoshop nie tworzy grafik svg ale ksztaly sa tworzone wektorowo
 
+W zaleznosci do systemu istnieje sklaowanie
+    ios 100% 200%
+    widnows 8 100% 140 160
+    androif 4 rozne skalowania
 
+Wskazowki:
+    Zawsze pracujemy z pikselami 
+    Nie przejmujemy sie rozdizelczoscia 
 
--------------------------------------------------------------------------------------------------
-Lekcja.
--------------------------------------------------------------------------------------------------
+    Skalowanie:
+        Nie oplaca sie projektowanie w podwojnej rozdzielczosci
+        Wrzucenie obrazu na gotowa pusta strone w photoshop(musi byc to obiekt inteligentny)
 
+        Zapisanie obrazka ktory mamy skalujemy w phostoshop i zapisujemy. Jesli jesto o 200% to
+            mnozymy kazdy wymiar razy 2
 
+        Skalowanie obrazka w dol  
+        Nagrywanie akcji pomaga np resizowac inne obrazki
 
+        Generator a photoshop do powielania obrazow i zmieniania ich rozdzielczosci(ale sposob ten 
+            rozpikseluje obraz - wiec nie warto)
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<< GENERATOR W PHOTOSHOP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+1.Tworzymy nowy plik
+2.Przezucenie obrazka do pliku
+3. crl+0 sklauje kanwas i mozemy sklaowac obraz
+    fill content-aware - wypelnienie pikselami konca obrazka
+
+4. aplikacja creative cloud > fonts > browse fonts from typkit > wybor dowolnego fontu jesli nie 
+    mamy zainstalowany nasz ulubiny font
+
+5. Przezucanie ikon osobnie aby stowrzyc intelgentne obiekty 
+
+Adobe generator:
+    Generuje obrazki z calego pliku photoshopa. (Nalezy pogrupowac obrazki np. logo jako grupa itp)
+    Generator wlaczamy w plugin dla kazdego projektu z osobna
+    File > generate > image assets
+
+    Nazywanie pliku z rozszerzeniem w warstwach tworzy nam obrazy w folderze np dom.png i utworzy nam plik
+
+    Nazewnictwo warst w Photoshop:
+    .png
+    .png8
+    .png24
+    .png32
+    .jpg (domsyle 80%)
+    .jpg1-10
+    .jpg1-100%
+    .gif
+    1-n% Skalowanie np 200% nazwapliku.png
+    Y x Z skalowanie w px np 200x200 nazwapliku.png
+
+    Mozna tworzyc kilka plikow z jednej warstwy uzywajac przecinka 
+
+Adobe Edge Reflow: (Projektowanie aktywnych stron internetowych)
+    Importowanie pliku photoshopa to Reflow
+
+    Tworzenie kit do fontow, dzieki temu bedziemy mogi podpiac pakiet z naszym fontem do strony
+
+    Zanim zimportujemy nalezy fonty zmienic na pola punktowe z pol tekstowych
+
+    Po zaimportowaniu ustalamy pozycje jak elementy maja oddzialywac na responsywanosc
+
+    Float right - daje mozliwosc ze menu przykleja sie do prawej strony
+    Stworzenie grupy lub rodzica(opakowanie do jednego diva) - daje mozliwosc zgrupowania elementow
+        Ustawiamy na 0px calej przegladarki(fixed) na bottom i dzieki temu footer nam sie przykleji
+        na samym dole przegladarki.
+
+    Ustawianie blokow min-width daje nam to iz tekst nie bedzie wyjezdzal poza blok
+
+    Dodanie breakpointa daj nam mozliwosc zmienia layoutu czyli bedzie responsywnosc
+
+    Mozliwosc polaczenia z photoshop i pracowanie jednoczesnie w photoshop i reflow
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< Responsywne Strony W Reflow >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Creativ cloud - aby dostac darmowe aplikacje od Adobe
+
+Edge Animate - tworzenie animacji z uzyciem html css js
+Edge code - Sluzy on do edycji kodu
+Edge inscept - sluzy do podgladania wynikow naszej pracy na urzadzeniach mobilnych
+Edge Reflow - Tworzenie stron internetowych ktore sa responsywne
+Edge web font, typekit - dostarczaja fonty dla uzytkownika
+    Platne, brak mozliwosci instalowania ich na dysku(lub wykupic licencje)
+
+PhoneGap build - sluzy do tworzenia aplikacji mobilnych. Ze strony internetowej na natywna aplikacje 
+    ktora instaluje sie jako aplikacja na telefonie
+
+Edge Reflow:
+    Zawiera
+        Grid(siatke)
+        Lewe menu:
+            4 narzedzie:
+                selekcja 
+                dodawanie boxa(diva)
+                dodawanie tekstu
+                dodawanie obrazka
+
+        Layout
+            Grid:
+                poziom krycia
+                ilos kolumn
+                odstepy miedzy gridami
+
+            General:
+                size 
+
+                padding itp
+        Styling(css)
+            Background(tlo)
+                opacity(krycie)
+                mozliwosc dodania gradientu
+                mozliwosc dodanie obrazku
+
+        Lewy dol okna to nasza sciezka gdzie dany elelemnt sie znajduje
+        
+        Prawy dol pozycjonuje wszystkie elementy
+        
+        Suwak
+
+        Linijka:
+            Ustalanie breakpointow - czyli rozne layouty dla telefonu, tabletu itp w zaleznosci od 
+                rozdzielczosci
+
+*Fonty bezpieczne - fonty ktore posiada kazdy uzytkownik
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< TESTOWANIE MOBILNYCH STRON >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Testy stron:
+    Wyglad:
+        Zlapanie za suwak i przeciaganie 
+        Doinstalowanei dodatkow do przegladarki
+
+        Strony:
+            responsivepx - strona do sprawdzania responsywnosci
+            resposivetest.net - the same 
+            mattkersley.com - ukazuje rozne rozdzieczosci na jednej stronie
+            resizemybrowser - zmienia wymiary naszej przegladarki
+
+    Funkcjonalnym:(trzeba sprawdzac funkcje np dla safari i safari ios bo sa rozne od siebie)
+        Strona:
+            caniuse
+
+            Przegladarki standardowe:
+                wpisujac adres mamy standardowe pobieranie strony pobiera wszystko i binduje
+
+            Przegladarki proxy:
+                Gdy uzytkownik wysle zadanie to nie idzie ono do serwera tylko do serwera proxy ktory
+                to o szybszym laczu wysyla do serwera strony i odbiera wyswietlajac strone, a z tamtad
+                wysyla "zrzut wygladu" do uzytkownika
+
+                Przyklad:
+                opera mini 
+
+            Przegladarki preinstalowane:
+                Przyklad:
+                    IE
+                    Android browser
+
+                    Uztykownicy telefonow raczej nie instaluja innych przegladarek
+
+            mobilehtml5 - strona pod wzgledem urzadzen mobilnych
+            html5test - przeprowadza tsty na twojej stronie i daje Ci wynik
+
+    Testy na fizycznym urzadzeniu
+        Instalujemy Adobe Edge Inspect na desktopie i urzadzeniu mobilnym
+        Reflector - mozliwosc pokazywania naszego urzadzenai na naszym komputerze
+
+    Strony emulujace urzadzenie:
+        Plate:
+            browserstack
+            saucelabs
+
+    Emulator:
+        xcode dla ios
+        sdk dla windows
+        sdk android dla androida
+
+    Safari:
+        Mozna emulowac rozne przegladarki w safari        
 
 
 -------------------------------------------------------------------------------------------------
