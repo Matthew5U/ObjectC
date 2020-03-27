@@ -1,0 +1,744 @@
+_________________________________________________________________________________________________
+Kurs "Kurs HTML i CSS" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 1. Wprowadzenie
+-------------------------------------------------------------------------------------------------
+Historia HTML 
+    1995/7  - html od 2.0 do 4.0
+    2000 - w3c wypuszcza XHTML 1.0
+    2004 - WHATWG pracuje nad rozwojem HTML
+    2007 - w3c wykorzystuje czesc specyfikacji WHAT
+    2009 - Specyfika XHTML 2.0 od w3c
+
+W3c - wypuszcza wersje html
+WHATWG - uwaza iz html jest jeden i go caly czas nalezy rozwijac 
+
+Mozliwosc zapisanie pliku jako html lub htm
+
+HTML = Hyper Text MArkup Language - jezyk znacznikow ktory jest interpretowalny przez przegladarke
+    Hyper text - nasze dokumenty sa interpretowaen w ramach protokolu HTTP w przegladarce
+    Markup - zawiera znaczniki. slowa kluczowe
+    Langage - bo jest to jezyk interpretowany przez maszyne
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 2. Semantyka HTML
+-------------------------------------------------------------------------------------------------
+Budowa HTML
+    <znacznik atrybut="">
+
+    Znacznik:
+        Link: <a href="adres naszej strony">Witaj</a>
+        Obraz: <img src="">
+
+    Komentarz:
+    <!-- Komentarz -->
+
+    Domykanie znacznikow:
+        <br> - nie potrzebuje zamkniecia (break line)
+        <hr> - linie pozioma 
+
+    Zapis:
+        mozna domknac znacznik. Nic to nie zmienia ale porzadkuje
+        <br/>
+
+Edytor HTML
+    Bracket
+
+Skladnia dokumentu
+    Walidacja       !DOCTYPE
+    Debugowanie     HTML
+    Czytelnosc      Head
+                        link - przypisuje linki do innych np stron
+                        meta - (tylko w head) opisuje np kodowanie
+                        style - przypisuje style
+
+    Utrzymanie      Body
+
+    Walidator:
+        walidator.w3.org
+
+Przegladarka czyta kod od gory do dolu
+    Jesli przegladraka ma kodowanie np windows i dojdzie do lini utf-8 to musi wrocic na sam 
+        poczatek i przeczytac linie jeszcze raz, dlatego charset ustawia sie na samej gorze
+
+    <meta charset="utf-8"> <-- kodowanie
+    <title></title> <-- tytul
+    <meta name="description" content=""> <-- opis naszej strony, co zawiera
+
+Elementy blokowe i liniowe:
+    Blokowe:
+        akapity <p>
+        listy <ul> i <ol>
+        naglowki <h1> do <h6>
+        sekcje <section>
+        artykuly <article>
+            Elemnty blokowe zajmuja cala dostepne miejsce czyli szerokosc
+
+    Liniowe:
+        elementy <span>
+        linki <a>
+        wazne tresci <em>
+        pochylone <i>
+        pogrubione <b>
+            Elementy liniowe zajmuja tyle ile zajmuje dany np tekst
+
+    CSS:
+        Display:   
+                block - zachwouje sie jak element blokowy np dla span
+                inline - zachowuje sie jak element liniowy np dla div
+
+    *Nie wolno umiescic elementu bokowego w elemencie liniwoym
+
+    Hierarchia znacznikow:
+    znacznik ktory byl otwarty pierwszy musi byc zamkniety jako ostatni
+
+Najzwazniejsze znaczniki
+    MDN Strona - znajduja sie tam znaczniki z ich definicjami 
+
+    Stuktura
+        header - glowa np artykulu
+        h1 - naglowek arytukulu
+        h2 - naglowek arytkulu
+        div - element blokowy
+        nav - nawigacja
+        footer - stopka naszej strony
+        article - calosc np artykulu. Niezalezna calosc
+        section - czesc artykula. Czesc calosci np wszystki komentary
+
+            Systematyka znacznikow:
+                1. Article
+                2. Aside - pod warunekim ten elelemnt jest powiazany z nasza trescia
+                3. section - grupowanie asidow lub artykulow. Osadzona z nasza strona
+                4. div - ostatnia deska ratunku
+
+    Tresc
+        p - akapit
+        ul - nieuporzadkowana lista elementow
+        ol - uporzadowana lista
+        li - element listy
+        blockquote - blok z cytatem do dluzszych cytatow
+
+    Liniowe
+        a - jest to znacznik linku. Linkujemy inne strony internetowe
+        strong - wyroznienie wizualne (pogrubieni)
+        em - wyroznienie iz jest to wazne dla robota indeksujacego
+        q - male cyaty
+        abbr - definicje czegos
+        span - sluzy aby stylistycznie wyroznic fragment tekstu
+
+
+Znacznik img zawiera:
+
+    src - sciezka
+        sciezki globalne - te ktore istenija na jakism serwerze
+        sciezki relatywne - pliki znajdujace sie w tym samym miejscu co strona np w katalogu
+            jesli strona znajduje sie nizej w hierarchi niz nasz plik, to nalezy sie wtedy cofnac
+            ../naszplik.jpg <-- cofnelismy sie o jeden katalog do gory
+            ../../naszplik.jpeg <-- cofnelismy sie o dwa katlgi do gory
+
+            Wazne jest aby nazywy folderow byly takie same np nie moze byc z duzej litery folder 
+            jesli folder jest z malej litery
+
+    alt - text alternatywny dla obrazu. Mowi robotm ineksjacym co jest na obrazie. (SEO)      
+    
+    width - szerokosc obrazu.
+
+    height - wysokosc obrazu
+
+        JEsli podamy tylko jedna z wartosic to obraz zstanie przeskalowany
+        Jesli podamy % to bedzie to obraz responsywny
+
+        Zdjecia majac znaczenia tresciowe nalezy umieszczac je w html. Jesli jest to mniej znaczace 
+        zjdecie typu tło to nalezy je wstawic w css
+
+        <figure> </figure> - znacznik nadajacy wieksza wartosc semnatyczna obrazka 
+
+Hiperlacza
+    Znacznik hiperlacza zawiera:
+        <a></a> <- zdefiniowanie znacnzika
+
+        target <- mowi jak ma otworzyc okno
+            _blank <- otwiera okno w nowej karcie.
+
+        title <- tytul. podswietla sie podpowiedz po najechaniu na element
+
+        href <- lacze
+        
+            https://www.wikipedia.pl <- przeniesie nas do storny wikipedia
+            
+            naszastrona.html <- dodanie naszej strony ktora znajduje sie w tym samym miejscu co
+                plik w kotrym teraz pracujemy
+            
+            #sekcja3 <- przeniesie nas do sekcji na tej samej stronie gdzie id="sekcja3"
+
+Czeste bledy
+
+    Korzystanie z edytorow tekstu w celu eliminacji popelniania bledow
+
+    Literowki np w linku 
+
+    Tworzenie wciec do czytelnego kodu
+
+    Spacje w kodzie daja mozliwosc czytelnego kodu
+
+    Znaki specjalne(symbole w html)
+        Entity - ciag znakow ktory uzywamy w html 
+            spacja - &nbsp
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 3. CSS
+-------------------------------------------------------------------------------------------------
+CSS - cascading style sheets - odpowiada za wyglad tresci
+    Budowa
+        Pozwalaja rozdzielisc strukture dokumentu od jego wygladu. CSS nie jest ani markupem, ani 
+            jezykiem programowania
+
+        Regula CSS
+            kto {       co:             jak; } <- deklaracja
+            ^selektor   ^wlasciwosc     ^wartosc
+
+            Przyklad:
+            h1 { color: red; }
+
+    Dolaczanie stylow:
+        inline - w lini gdzie znajduje sie znacznik
+            <a style="color: red";>To </a>
+
+        W sekcji head 
+            <style>
+            body
+            {
+                background-color: red;
+            }
+            </style>
+
+            *cudzyslow dla nazw wieloczlonowych
+            *apostrofy dla pojedynczych nazw
+
+        W osobnym pliku
+            <link rel="stylesheet"              type="text/css"     href="style.css">
+                  ^wskazuje na plik ze stylami  ^typ ze stylami     ^link do naczego stylu      
+                                                 W html5 domyslnie
+                                                 jest text/css
+
+-------------------------------------------------------------------------------------------------
+Czesc 4. Selektory
+-------------------------------------------------------------------------------------------------
+Selektory:
+    Rodzaje
+        Tag
+            p
+            {
+                ;
+            }
+
+        Klasa
+            .wazny
+            {
+                ;
+            }
+
+        Identyfikator
+            #superwazny
+            {
+                ;
+            }
+
+            * moze byc taki zapis div#mojeid
+    Typy
+        Proste
+            p {;}
+
+        Zlozony
+            p.wazny{;} <- zaznaczamy kazdy akapit ktory ma klase wazny
+            p wazny <- dla dzieck p czyli dla wazny robimy css
+                        Dzieki spacji wchodzimy do srodka hierarchi 
+
+        Bardzo zlozony
+            #news #lead .lead-con p.wazny {;}
+ 
+        Grupowanie selektorow <- kilka selektorow dostaje takie sam wartosci czyli osobno h1, h2 itp
+            h1, h2, h3 {;}
+
+Kaskadowosc
+    Komentarze w css
+        // <- linia
+        /*  */ <- kilka lini
+
+    Hierarchia <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ZWROC UWAGE
+
+        1. Wazne style uzytkownika
+        2. Wazne style autora - !important
+        3. Style autora
+        4. Style uzytkownika - powiekszenie tekstu
+        5. Style domyslne przegladarki
+
+        1. Style inline
+        2. Style w head
+        3. Style w css
+
+        1.#id
+        2..klasa
+        3.tag
+
+        *Przegladarka czyta kod od gory do dolu wiec jesli sa dwa style takie same to zostanie
+            wczytany ten ktory jest nizej    
+
+Specyficznosc cz1. 
+    Konfilkt miedzy dwoma stylami jest rozstrzygana po przez to ktory jest nizej 
+
+    p
+    {
+        color: yellow;
+    }
+    body
+    {
+        color: red;
+    }
+
+    ^ 1. To zostanie przypisany kolor yellow gdyz p jest nizej w hierarchi niz body ktory jest zbyt
+        ogolny
+
+
+    <p class="wazny">abc</p>
+    .wazny
+    {
+        color: yellow;
+    }
+    p
+    {
+        color: red;
+    }
+
+    ^ 2. zostanie ustawiony kolor yellow gdyz selektor klasy jest bardziej specyficzny niz selektor
+        tagu  
+
+    <p class="wazny" id="superwazny">abc</p>
+    #superwazny
+    {
+        color: yellow;
+    }
+    wazny
+    {
+        color: red;
+    }
+
+    ^ 3. Zostanie ustawiony yellow gdyz id (identyfikatory sa najwazniejsze)
+
+Specyficznosc cz2
+
+    Importowanie stylow css do innych plikow css
+        @import url('nazwapliku.css');
+
+    1.Jest zdefiniownay caly div ale jeden ma dodatkowa klase dla ktoej zmieniamy kolory
+
+    2. Bardziej specyficzny selektor jest wazniejszy
+    div.mojaklasa jest wazniejsza niz .mojaklasa
+
+    3. id(identyfiaktor) jest wazniejszy niz bardzo zlozony selektor
+
+    Dawanie punktow
+
+    0       0       0
+    ^id     ^klasa  ^tag
+
+    1 punkt za jedna tag
+    10 punktow za jedna klase
+    100 punktow za jeden id
+    !important - najwazniejsze
+
+    a {;}
+    001
+
+    a .klasa
+    011
+
+
+Dobre praktyki CSS
+    1. Pisz jak najkrotsze selektor
+    2. Pisanie klas z malych liter lub uzycie "-"
+    3. Nie uzywaj identyfiaktorow. 
+        Sa one zbyt mocne w heirarchi html gdzie w css nie jest wazne czy uzyto klasy czy id 
+    
+    4.uzywaj intuicyjnych nazw klasy
+        Niech klasa nie opisuje cech tylko tresc 
+            .niebieskiakapit zle 
+            .waznytekst dobrze
+
+    5. Osadzaj style wylacznie z pliku .css
+    6. Nigdy nie uzywaj important 
+    7. Uzwyja pliku reset.css 
+        Przegladarka sama resetuje nam naglowki itp
+        Dzieki temu rozne przegladarki nie ustawia nam swoich domsylnych ustawien
+
+-------------------------------------------------------------------------------------------------
+Czesc 5. Model pudelkowy
+-------------------------------------------------------------------------------------------------
+Wlasciowsci modelu pudelkowego
+    padding - odsuwa tresc w kontenerze od krawedzi kontenera
+    border - obramowanie. Dodaje wymiary do bloku
+    margin - odstep kontenera od innych elementow na stronie
+        marginesy dwoch roznych kontenerow obok siebie w pionie nakladaja sie na siebie
+
+    width = border+padding+content
+
+    box-sizing: 
+                content-box - wlasciwosc domyslna
+                border-box - szerkosc i wysokosc zmiania sie w ten spospob ze teraz te wartosci 
+                    dodaja padding i border do caosci
+                    margines sie nie laczy do tej wartosci
+
+    Selekto * - mowi o wszystkich wlasnosciach elementow na stronie
+
+    Mozemy zapisac dokladne wlasnosci:
+        border:
+            border-left
+            border-right
+            border-top
+            border-bottom
+            border-style
+            border-color
+
+            border-bottom: wielkosc typlini kolor;
+            margin:
+                    20px <- dla kazdego bloku
+                    20px 10px <- 20 dla gory i dolu a 10 dla lewego i praweg
+                    20px 10px 5px <- 20px dla gory 10px dla lewego i prawego boku i 5 dla dolnego
+                    20px 10px 5px 1px <- gora prawo dol lewo
+                    auto <- automatyczne ustawienie
+
+Jednostki 
+    Absolutne: (na stale zdefiniowane)
+        in - 1in = 2.54cm
+        cm
+        mm
+        pt - 1/72 z 1in
+        pc - 1pc = 12pt
+        px - 1px =0.75pt
+
+
+        Ekrany HiDPI - ekrany o wysokim zageszczeniu pikseli
+            Producenci radza sobie tym iz sklauja one widok x2
+
+        Referencyjny piksel - roznwe wyswietlanie pikseli w zaleznosci od tego jak blisko uzytkownik 
+            korzysta z ekranu
+
+    Relatwyne:(w zaleznosci do czegos np okna lub zadeklarowanej wielkosci tekstu) 
+        
+        % *domyslnie 100% w font size to 16px, 62,5% = 10px
+        em - 1em =100%
+        rem - to samo co em tyle ze sie odwoluje do elemenut nadrzednego
+        ex(exes) - wielkosci w stosunku do tekstu . malych liter
+        ch(character) - // - . duzych liter
+        vw - szerkosc okna
+        vh - wysokosc okna
+        vmin - min wysokosc
+        vmax - max wysokosc
+
+        Przyklad:
+        em
+            body
+            {
+                font-size: 16px;
+            }
+            p
+            {
+                font-size: 2em ; <- 16*2 = 32px w stosunuku do znacznika wyzej
+                pading: 2em; <- W stosunku do znacnzika w kotrym sie znajduje. 32px *2 = 64px
+            }
+
+        rem
+            body
+            {
+                font-size: 16px;
+            }
+            p
+            {
+                font-size: 2em ; <- 16*2 = 32px
+                pading: 2rem; <- W stosunku do znacnzika wyzej czyli body. 16px *2 = 32px
+            }
+
+-------------------------------------------------------------------------------------------------
+Czesc 6. Kolory i tekst
+-------------------------------------------------------------------------------------------------
+
+Kolory:
+    Wartosc 16-tkowa
+
+        #4dcad7
+
+            R: 4d
+            G: ca
+            C: d7
+
+            R: 77 G:202 B:215
+
+        #ffffff= #fff <- mozna zapisac kolor krocej pod warunkiem ze pary tworzace dana skladowac 
+                        sa takie
+            same
+            #abc = #aabbcc      
+
+    Wartosc RGBA:
+
+        rgba(10, 20, 30, 1);
+
+            r: 10 (0-255 czyli 256 kolorow czyli 2^8 8 bitow kolor)
+            g: 20
+            b: 30
+            a: 1 (przezroczystosc. 0-przezroczysty ,1-nie-przezroczysty)
+
+    Wartosc HSLA
+
+        hsla 
+            h - kolor. 0-360
+            s - nasycenie. 0-100%
+            l - jasnosc. 0-100% 
+            a - przezroczystosc. 0-1
+
+Tekst:
+    Generyczne rodziny:
+       -serif - majace wypustki
+       -sans-serif - bez wypustek
+       -monospace - stala szerkosc znaku
+       -cursive - kursywa pisane
+       -fantasy - udziwnione fonty
+
+    Wlasciwosci:
+        font-family - rodziaj czconki np Arial
+        font-size - wielkosc tekstu
+        font-style - styl tekstu np pochylony
+        font-weight - grubosc tekst
+        line-height - wysokosc lini. Odstepy miedzy zdaniami 
+        text-indent - wciecie tekstu
+        text-kerning - odstepy miedzy znakami
+        text-align - wyrownanie tekstu
+        text-transform - transformacja tekstu. np pisanie z duzych liter
+        text-decoration - dekoruje tekst np przekresla tekst
+        text-shadow - cien pod tekstem
+
+        Jest mozliwosc zapisania czcionki jako samej font i wymieniac  wartosci.
+
+        *gridlover.net - mozliwosc zobaczenia tekstu jak wyglada
+ 
+Fonty
+    Przegladarka bierze fonty z systemu
+
+    Bezpieczne fonty - sa to fonty zainstaloawnie na kazdym systemie
+
+    Wykorzystanie @font-face
+        @font-face
+        {
+            font-family: 'nazwanaszegofonta';
+            src: url('sciezka do naszego fonta.ttf)
+        }
+
+        body
+        {
+            font-family: 'nazwanaszegofonta';
+        }
+
+    Hostowane fonty
+        1. Link ladujacy nam font
+        2. wpisanie fonta w naszym css
+
+-------------------------------------------------------------------------------------------------
+Czesc 7. Tlo
+-------------------------------------------------------------------------------------------------
+Wypelnieniem gradientem
+    background-image: linear-gradient(
+        toright, <- w ktora strone lub 30deg <- pod jakim kontem
+        1kolor, 
+        drugikolor);
+        height: 100vh <- dla okna  
+        ^zrobienie gradientu
+
+        *gradient generator <- strona do generowania gradientu
+
+Wypelnieniem obrazkiem:
+    background-image: url("sciezka/do/naszego/pliku");
+
+    background-repeat: repeat x <- powtarzanie powielania
+                        repeat y
+                        no repeat 
+
+    background-position: <- pozycja obrazka
+        10px 20px
+        center
+
+    background-size: <-skalowanie obrazu
+                    cover <- w calosci okryw kontener i jest przycinane 
+                    contain <- jest skalowany zeby nic nie przyciac, widac tlo kontenera
+
+    * istnieje mozliwosc zapisania samego backgorund i wpisaniu kilku wlasnosci
+
+-------------------------------------------------------------------------------------------------
+Czesc 8. Pozycjonowanie elementow
+-------------------------------------------------------------------------------------------------
+
+Uklad dokumentu
+    1. Przelewanie. <- Kontenery sa dopasowane do tekstu wiec po zmniejszeniu okna przegladarki 
+                        tekst sie bedzie przelewal
+    
+    2. Kolejnosc <- kazdy element ma swoja kolejnosc w wyswietlaniu i w kodzie
+
+    3. Zagniezdzanie <- zagniezdzanie elementow np w sekcji > p > span
+    ___________________________________
+
+    1. Normalny uklad <- wszystko jeden pod drugim
+    2. Float <- oplywanie elementow
+    3. Pozycjonowanie absolute/ Relatywnie
+
+    POZYCJONOWANIE ABSOLUTNE I RELATYWNIE
+        1.absolute - przesuwany jest kontener wyciagajac go z flow elementu. Inne elementy go 
+                        nie widza.
+                        Pozycjonowane sa wgledem rodizca kotry ma pozycjonowanie a jesli nie ma to 
+                        do body 
+
+        2.relative - przesuwanie bloku wgledem jego PIERWSZEGO POLOZENIA kontenery inne ukladaja sie 
+                    tak jak by blok ktory jest wyzej relatywnie tam dalej byl
+        
+        3.fixed - kontener bedzei w tym samym miejscu przegladarki. Nie zmienia swojego polozenia 
+                    scrolujac zawsze nedzie przyklejony do okna nigdy nie zniknie
+
+        z-index - sluzy do definicji ktory kontener ma byc na wierzchu, czyli jako widoczny przed innymi
+
+    FLOAT - oplywanie elementow
+        Wyciaga elelemnt z normalnego jego polozenia 
+
+        float: left <- obrazek wycinany jest. Nie trzeba dawac clear: both; dla tekstu bo tekst
+                        widzi ze jest tam blok. Dla samych blokow juz trzeba uzyc clear
+
+        clear: both; <- Daje znak kontenerowi zeby ukladal sie jak by wyzej byly bloki
+
+
+Oplywanie ukladu
+    Nadajac float elementom trzeba nadac wymiary aby sie pojawily
+
+    Danie elementowi float: left zamienia go w element blokowy
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 9. Dopasownaie do rozdzielczosci i RWD
+-------------------------------------------------------------------------------------------------
+Rozdzielczosc:
+    1. Ekran - Calosc
+        2. Przegladarka - cale okno 
+            3. Viewport - to co widzimy bez elementow przegladarki typu zakladki, pasek adresu
+
+Adresowanie urzadzen:
+    -tablety
+    -drukarki
+    -moniotry
+    media:  
+            all
+            print
+            screen
+            speech
+
+Flow wintryny bazujacych na wartosciach relatywnych
+    nadawanie float
+    marginesy sie na siebie nie nakladaja w przypadku float
+    Wpisywanie dlugich liczb aby bylo jak najdokladniej
+        width: 31.33333333%
+
+Media queries <- reorganizacja strony w zaleznosci od rozdzielczosci
+
+    @media all amd (max-width: 360px) <- dla wszystkich urzadzen o maxumalnej szerokosci 360px
+    {
+        Tutaj wpisujemy klasy i reorganizujemy strone. 
+        Jak ma sie zachowac gdy zmniejszymy strone do 360 px
+    }
+
+    Uzywamy media queries w momencie skalowania strony, gdzie widzimy ze nasza strona zle wyglada 
+        podczas skalowania
+
+    Chrome > zbadaj > device media
+    Aby dzialalo to nalezy dodac znacznik
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        mozliwosc zoaczenia wiekszych rozdzielczosci na rozdzielczosciach wbudowanych
+
+Ukrywanie elementow
+    visible: hidden; <- ukrywa elementy ale bloki nadal mysla ze ten element sie tam znajduje i 
+                            zostawia puste miejscee
+
+    display: none; <- ukrywamy element ale tak jak bysmy go usuneli. Inne bloki go nie widza
+
+    display: block; <- powaraca element
+
+    text-indent: -100px; <- odsuwa nam tekst przez co nie bedzie on widoczny na stronie ale nadal 
+                            on istnieje (slabe podejscie)
+
+Pseudoklasy linkow:
+Musza byc w odpowiedniej kolejnosci Love Hate
+    .klasa:comazrobic
+        1.link <- nieodwiedzone
+        2.visited <- odwiedzony
+        3.hover <- najechany
+        4.active < aktywny, nacisniety
+
+Pseudkolasy np dla listy:
+    li:first-child <- pierwsze li ktore jest pierwszym dzieckiem naszej jakiekolwiek listy
+    li:last-child <- to samo co wyzej tylko ostatnie
+    li:nth-child(3) <- 3 dziecko 
+    li:nth-child(odd) <- Nieparzyste elementy listy
+    li:nth-child(even) <- Parzyste elementy listy
+    li:nth-child(3n) <- co trzeci element listy
+    li:nth-child(3n+1) <- co trzeci ale od pierwszego elementu
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep do projektu
+-------------------------------------------------------------------------------------------------
+
+ZACZAC GRUPOWANIE SEMANTYCZNE I TECHNICZNE
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
