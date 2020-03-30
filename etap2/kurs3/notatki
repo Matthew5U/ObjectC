@@ -729,16 +729,93 @@ Pseudkolasy np dla listy:
 -------------------------------------------------------------------------------------------------
 Czesc Wstep do projektu
 -------------------------------------------------------------------------------------------------
+Tworzymy jak najmniej znacznikow
 
-ZACZAC GRUPOWANIE SEMANTYCZNE I TECHNICZNE
+Obrazek ktory jest zwiazany z nasza strona wstawiamy do html czyli jako img a obrazek ktory nic
+nie wnosi umieszczamy w css jako backgorund
+
+nav - jedna glowna nawigacja na sronie. Powinna byc tyko jedna gdyz jest jako glowna
+
+<hgroup></hgroup> <- grupa naglowkow. Kilka roznych naglowkow
+
+@import url(reset.css); <- dodanie pliku css do pliku css
 
 
+display-inline: block; <- zachowuje wlasciowsci jak elelemnt blokowy a formatuje sie jak element 
+    liniowy
 
+<strong> Wyroznienie stylistyczne
+<em> wyroznienie ze cos jest wazne dla robota indeksujacego
 
+UZYWAMY TYLKO KLASS, ZADNYCH ID. ID SA UZYWANE DO NP DO ZACZEPIANIA LINKOW NA STRONIE
 
+border-top-left-radius: 1rem; < -zaokraglenie 10px
 
+Tworzac klasy nazywamy je przez ich funkcjonalnosc (co robia ) a nie jak zmieniaja wyglad. Zamiast
+    nazwa klase granatowy i dac jej kolor zielony (taki prosty przyklad dla zrozumienia) to damy 
+    nazwe np waznaklasa i wtedy wiemy ze cos co jest wazne ma kolor zielony
+
+PNG24 - wspiera pelna 24 bitowa przezroczystosc
+
+JPEG - jakosc w ktorej mozemy zmienic kompresje. Lepszy formt do zjdec i ich wczytywanie na stronie
+    intenretowej. Ale nie wspiera przezroczystosci
+
+background: #FFC107 url("assets/tlo.jpg") no-repeat; <- zapis tla w jednej lini
+
+background-size: cover <- tlo rozciaga sie na szerokosc i wysokosc kontenera
+
+                 contain <- dopasowale do wysokosci kontenrea i bedzie w dobrych propocjach
+
+height: 100vh; <- cala wysokosc pionowa 
+
+html <- wysokosc przegladarki
+body < - rozszerza sie na wysokosc kontentu
+
+display block; <- zajmuje calosc do konca krawedzi przegladarki od lewej do prawej
+display inline-block <- zajmuje tyle miejca ile zajmuje tekst 
+
+<figure></figure> <- obrazek umieszczony w tym znacnziku daje informacje robotowi indeksujacemu ze
+obrazek sie tam znajdujacy jest zwazany z nasza strona a nie tylko robi jako tlo (czyli nic waznego)
+
+W css wpisujemy 
+    URL
+
+A w html
+    HREF <-linki
+    SRC <- obrazki
+
+Pozycjonowanie absolute <- sluzy do zmienia polozenia treci. Nadaje sie przy obszernym tekscie
+
+Position: fixed; <- fixed nadaje elementowi inline-block
+
+W css 
+    contest:""; <-daje mozliwosc dodanie elementu ktorego mozemy ostylowac
+
+    pseudoklasa :befor daje mozliwosc dodac cos przed elementem jesli uzyjemy content:""
+
+list-style-image <- mozliowsc dodania wlasnego obrazka jako stlizacja elementow listy. Wada jest
+    to ze nie mozna zmieniac polozenia elementow itp w sesie modyfikowac
+
+nav li
+{
+    text-align: right;
+    background: url(assets/strzalka.svg) right no-repeat;
+    padding-right: 4rem;
+    line-height: 1.5rem; <- zmiana wielkosci naszej elementu stylizujacego li
+}
+
+Elementy formularza zawsze umieszczamy w tagu form i przypisujemu mu akcje i metode wyslania danych
+
+    <textarea></textarea> <- ramka tekstowa
+
+.menu:hover + header <-Mowimy ze stylizujemy header po najechaniu na menu. header nie znajduje sie 
+                        w linku a wiec dodajemy plusa
+{
+    display: block;
+}
 
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
