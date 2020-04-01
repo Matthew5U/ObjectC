@@ -1,0 +1,21 @@
+// ----------------
+//     MIXINS
+// ----------------
+
+@mixin selection($color, $bgcolor: invert($color), $elem: "") {
+
+    #{$elem}::-webkit-selection {
+        color: $color;
+        background-color: $bgcolor;
+    }
+
+    #{$elem}::-moz-selection {
+        color: $color;
+        background-color: $bgcolor;
+    }
+
+   #{$elem}::selection {
+        color: $color;
+        background-color: $bgcolor;
+    } 
+}
