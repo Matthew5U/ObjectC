@@ -226,33 +226,184 @@ Czesc inne przydatne funckje
                     dzieki temu podejsciu maozemy przelaczac sie miedzy tymi tak jakby stronami
 
 -------------------------------------------------------------------------------------------------
-Czesc PRaktyczny projekt
+Czesc Praktyczny projekt
 -------------------------------------------------------------------------------------------------
 
+    shift+tab ukrycie bocnzego prawej belki
+    f <- jak fullcsreen
+    file new > akction > grid960 > image > cnavas size > odznaczamy relative
+    ctrl+R > units pixels
+    view > snap to > snap to guides - przyleganie 
+         > lock guides - blokuje linie podzialki girda 
 
-ZACZAC OD USTAWIENIA PLIKU I SIATKI PRAKTYCZNY PROJEKT
+    preferences > guides > girdline every - co ile lini podzialki
+
+    New workspace na gorze po prawej 
+    alt+shift - kopiowanie elementow i przesuwanie w lini
+
+    ctrl+h odznaczenie zaznaczonych warstw
+
+    Szkic - mokaup
+
+    Podlozenie tekstury
+        klikamy prawy na warstwe > duplicate layer > ctrl+T > ctr+0 (skalowanie pliku aby zobaczyc rozmiary)
+
+        alt najezdzamy na laczenie warst (cliping mask) > tryb mieszania na wastwie(normal > multiply)
+
+        Wpisujemy tekst > nastepnie prawy i conver to shape i staje sie napis wektorowy
+
+        txext > i klikamy na canvasie i mozemy pisac bez zalamania lini
+        ctrl+enter - wyjscie z edycji textu
+
+        Type > lorem impsu
+
+        alt+ strzalki - powiekszamy odstpepy lub zmniejszamy
+
+        Window > paragraph style - umozliwa zpaisanie ustawien tekstu 
+
+        paragraph style option - ustawienia stylu
+
+        ctrl+; - pokazanie lini podzialki
 
 
+        Prostokat z zaokraglonymi bokami > dwa razy klikamy na ta warstwe za jej nazwa (layer style)
+            ctrl+h - ukrywa zazanczenie elementu
+            bevel & emobss - taki jakby gradient
+
+            Bierzemy pod uwage nakladanie warstwe gdyz w ps6 warstwy nakladaja sie na siebie
+
+            JEsli nie zrastrujemy naszeg o prostokata to nie mozemy nadac mu szumu
+            ^ mozna uzyc pattern overlay aby nie stracic wlasciwosci wektorowych
+
+        NArzedzie selekcji z sziftem skaluje idealnie ksztalt np kolo
+
+        ctrl +shift+i > delete usuwa reszta pikseli
+
+        ctrl+T -zmiana rozmiaru ksztaltu
 
 
+        Praca z Ribbonem
+            warp - wyginanie ksztaltu
+
+            mozliwosc dodaia punktu wektorowego
+            conver point tool > klikamy na punkcie wektorowym i usuwa nam wygladzenie lini
+            Dodanie drop shadow > ctrl > ikonka rectangel1 >shift+ctrl > kilkam nastepne obrazki male > 
+            ctrl+del wypelnieie kolorem wewnatrz > ctrl+d -odzanaczanie > przesuwam warstwe na spod i dajemy drop
+            shadow
+            
+            --DALSZA CZESC--
+            klawisz alt modyfikuj jednatylko punkt wyginania
+            stroke - obramowanie
+            create layers - wszystkie efkety beda rozdzielone na rozne warstwy
+            ctrl+J - powielenie 
+            zanzaczamy element wybieramy recntangle i wybieramy stroke
+            Zaznaczamy warstwy > new group froma layers i grupujemy do jednej warstwy
+
+            subtruct froma shape - czyli wyciecie z ksztaltu
+
+            pencil > brush >spacing (duza wartosc ) > selekcja
 
 
+        Praca z menu
+            filter >sharpen >smart sharpen - wyostrzanie obrazka
+            ctrl+shift+n - nowa warstwa
+                ctrl - przeniesie sie do narzeda move tool
+                spacja - przeniesie sie do narzedza przesuwania(lapka)
+
+            Keybrd shortcuts and menus <- mozliwosci dostosowania skroty klawiszowe
 
 
+        Auto select - zaznaczanie calych warst
 
+        Rectangle marque tool > zanzaczamy i klikamy maske
+
+        przytrzymanie szift zaznacza dane przemidoty
+
+        Wyrownanie jest na gorze listy. Cliping daj moziwosc kolorowania tylko danego elementu
+
+        Tworzenie ikonek
+
+            Nowy plik (80x80px)> window > new window for untided5 > window > arrange > 2-up vertical
+            Rysujemy ksztaltami np aparat        
 
 
 -------------------------------------------------------------------------------------------------
-Czesc
+Czesc Zapisywanie i optymalizacja grafiki
 -------------------------------------------------------------------------------------------------
+    Grafiki
+        -Wektorowe
+            -.svg
 
+        -Rastrowe
+            -.png - zapis obrazka z przezroczystoscia
+                Lepszy format od gif bo mniej wazy przy tych samych wartosicach
+                Najelpsze formaty do zapisywania z przezroczystoscia
+                Format bezstratny
+                png8 - pliki bez przejsc tonalnych
+                png24 zpais z przezroczystoscia bez staratny
 
+            -.gif - optymalne dla obrazko o malej liczbie szczegolow. gradientow itp
+                mozna zapisac kanal alpha ale ma problem na krawedziach. Widac biale piksele jesli 
+                wrzucamy obrazek do sieci
 
+                colors - ogranicza liczbe kolorow
+                perceptual - przejscia dla graidentu jest najlepszy
+                adaptive - wybiera najwiecej pikseli takich smaych 
+                diter - szum
+                interlace -off
+                web snap - 0%
 
+                trancparency -on
+                matte - dajemy none
+                ^usuwa biale piksele na obwodce obrazka 
 
+            -.jpg - lepiej dla bardzo szczegolowego pliku
+                Najczestsze poniewaz daje mozliwosc kompresji
+                Second compression (ponizej 50%)
+                blur - rozmycie pomaga w zmniejszaniu pliku
+                progresive - off
+                optimalize - on
+                convert to sRGB - on
+                metadata - metadane
 
+        Nie zapisujemy jako save as gdy zapisujemy zdjecia do sieci
+        Korzystamy save for web dla zpaisu zdjec do sieci
+
+        Save for web
+            w: -width
+            h: -height 
+            quaity: Bicubic - skalowanie obrazka zmienia strukture pikseli
+
+        Skalowanie obraz najlepiej zrobic w image > resize image > resample image (on) > bicubic automatic 
+            >zmieanimy  procenty na ile chcemy zmniejszyc i ok
+
+        zaznaczeni warstw i ctrl+E <- splaszczenie warstw
+
+        Trim-przycinanie obrazka do zapisuj png
+
+---------------------------------------------------------------------
+Ciecie szblonu 
+    Selection tool 
+        Auto select - klikajac na elelmtny to zaznaczamy warstw
+        group - zaznaczamy grupy
+        crop tool > 2xenter wyciecie do osobnego pliku
+        copy merge
+        
+        Zawansowana:
+
+        Slice tool
+            narzedzie selection >
+                wylaczamy teksty
+                    zapisuejmy tlo z ktorego beziem przycinac
+                        raz z tlem przezroczysytm a raz bez
+                    *jesli tlo jest powtarzalne to zapisujemy maly skrawek
+                    jesli nie jest powtarzalne to zapisujemy calosc
+
+                    save for web > znaznczamy na wszystkie odciecie ktore zazanczylismy i zapisujemy > 
+                    selected slices
 
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
