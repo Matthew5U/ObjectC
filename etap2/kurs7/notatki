@@ -1,0 +1,126 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Photoshop do html i css" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc teoretyczn i praktyczna photoshop
+-------------------------------------------------------------------------------------------------
+
+    1. Essentials
+    2. Puste swatches
+    3. IStnieje mozliowosc otwarcia plikow css w photoshop
+    4. pixel grid 
+    5.Image interpolation: bicubic
+    6. animated zoom =off
+    7. Snap vector tools and tranforms to pixel gird
+    8. Panele
+        hisotry
+        action 
+        navigator
+        switches
+    9. Doatek
+        guideguide
+        pixeldropr
+    10. Snap - przyleganie do girda
+    11. dafont.com - kroje pisma za darmo
+        wgrac do font squirrel lub z tej samej strony sciagnac gotowy
+        edge web font - darmowe
+        google font - darmowe
+    12. shutterstock - obrazy 
+        istockphoto.com - obrazy
+        fotolia - obrazy 
+
+        Adobe bridge - do zarzadzania zdjeciami
+        mini bridge - do photoshop
+
+    Wordpress
+
+        index.php - storna glowna i jednosczesnie domyslna dla innych
+        header.php - na gorze kazdej strony
+
+        page.php - szablon contentu dla statycznych stron
+        single.php - szablon dla widoku postow
+        search.php - strona wynikow wyszukiwania
+        image.php - widok otwartego obrazku
+        archive.php -  wyswietla wszystkie posty z taksonomii
+        archives.php - lista archiwow z wyszukiwarka, zakrsem dat, kategoriami
+        links.php - jesli korzystasz z blogroll - lista linkow
+        comments.php - widok komentarzy
+
+        sidebar.php - wyglad sidebara
+
+        foote.php - na dole kazdej stony
+
+        404.php - strona wyswietla przy blednym linku
+        screenshot.png - minaturka szablonu 300x255
+
+
+    Range > zaznaczenie tla > restrize i czyscimy przestrzen
+
+    Dzielenie obrazu na okolo 770px aby calosc uzytkownik mogl ogarnac wzrokiem
+
+    custome shape > shape tool
+
+    Nakladanie obrazku
+        uzywamy tryb mieszania
+        pedzelek
+        malowanie elementu ktory ma byc przywrocony
+        czarne tlo przywaraca mieszanie 
+        biale przywaca oryginalny obraz
+
+    Samrt sharpen wyostrza obrazek
+
+    Rastryzacja czyli robienie z obrazu wektorowego bitmape
+
+    pdzel mixer brush tool > mokry > rozmazanie fragmentu plotna
+
+    ctrl+E polaczenie warstw
+
+    spinanie warst z zaznaczeniem warstwy w ktorej ma byc zjdecie. Dzieki temu zdjecia
+    sie chowaja w tej warstwie ktora zazanczylismy
+
+    miniaturki dawac takie same zeby nie obciazac zapytaniami serwera
+
+    paginacja -  linki do strona (poprzednia nastepna)
+
+    swiatlo:
+        punktowe - swieci w punkcie
+        spot light - od boku 
+
+-------------------------------------------------------------------------------------------------
+Czesc STRONA
+-------------------------------------------------------------------------------------------------
+
+ZACZAC TWORZENIE STRONY GLOWNEJ - HTML DLA STRONY GLOWNEJ
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
