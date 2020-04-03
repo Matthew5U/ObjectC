@@ -1,0 +1,197 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Sekrety Photoshop" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z warstwami
+-------------------------------------------------------------------------------------------------
+
+    ctrl+k > interface > wersja kolorstyczna photoshopa > podkladanie tla canvasu
+
+    layers > panel options > zmiana rozmiaru miniaturek
+
+    ----------------------------------------------
+    zaznaczenie warstw
+        auto select > move tool
+
+    ----------------------------------------------
+    sprzatanie nieuzwyanych plikow
+        delete hidden layers - usuwa schowane warstwy
+
+    ----------------------------------------------
+    odchudzic plik .psd
+        nowa warstwa > wypelnienie bialy kolorem > file save as  > zapisujemy plik
+            photoshop generuje minaiturke dlatego dodanie bialej warstyw zmniejsza rozmiar
+
+    ----------------------------------------------
+    Krycie na 200%
+        opacity 50 % pedzelka 
+            ctrl+j i powielenie warstwy z oppacity 
+    
+    -----------------------------------------------
+    Filtrowanie warstw
+        filtrujemy po ptypie text > zazanczajac warstwy > i wybrac ktroj pisam
+
+        Filtrowanie po nazwie -dzieki nazywaniu warstw mozemy je pozniej odnajdowac
+    
+-------------------------------------------------------------------------------------------------
+Czesc Praca z interfejsami
+-------------------------------------------------------------------------------------------------
+    Operowanie grid layoutow
+        view > new guide layout > mozliwosc ustawienia swoich kolumn
+        jesli mamy obiekt wzgledem obiektu view > new guide from shape
+
+        ----------------------------------------------
+        Kompozycje warstw
+            Mozliwosc zapamietania ulozenia warstw(layers comps) - snapshoot
+
+        --------------------------------------------
+        Smart boject
+            window >arrange > dzielenie obrazu na dwa pliki
+            wrzuamy obiekt > conver to smart boject> dwa razy klikniecie w miniaturke smart object
+            i mozemy wtedy dzialac na pliku >np skew czyli taki jakby resize
+
+        ---------------------------------------------
+        Wymiarowanie layoutu
+            ukrywanie warst w i odczytywanie wymiarow
+
+        ---------------------------------------------
+        Eksport stylo CSS
+            zaznczamy warstwe > copy code CSS
+
+        ---------------------------------------------
+        Polecenia Extract w przelgadarce
+            Zapis pliku save as > creativ adobe .com > w chumrze extract > najezdzanie na elementy storny
+            pokazuje nam wymiary plikow
+
+        ---------------------------------------------
+        Wyrownanie elementow
+            Panel aligne > zaznaczyc dwie warstwy > i opcje wyrownnania na goze po prawej
+        
+        ---------------------------------------------
+        Extract w photoshop cc
+            zaznaczenie warstwy > file > extract assets
+
+        ---------------------------------------------
+        Wyznaczenie srodka z liniami podzialki
+            ctr+r <-linie podzialki 
+            wyciagniecie lini pomocniczych ustawia sie same jesli sie zbliza do srokda
+
+            ctr+a pozniej ctr+t i sa obramowania o srodkach
+
+            view>new guid layout > 2 kolumny pionow i poziomo
+
+            new guid > 50% vertical > 50% horizontal
+
+        ---------------------------------------------
+        szybka maskami
+            klawisz q  - zmiana metadanych -tryb szybkiej maski
+            drugi raz klawisz q wychodzi
+
+            gradient + szybka maska > (to co jest czerowne nie aktywne) - selekcja na podstawie gradientu
+            ctrl+j nowa warstwa i mamy zdjecie bez tamtej maski
+
+        ----------------------------------------------
+        MAska na warstiwe typu clipping
+            stowrzenie z warstwy warstwe 0 > alt i polacezenie dwoch stykow warstw tworzy clipping np na tekscie
+
+        ----------------------------------------------
+        Sztuczki z maskami
+            zrobienie maski na warstiwe
+            d -domysle kolory
+            x - odwracanie koloow
+            background - ukrywa
+            foregraund -dokrywa
+            alt+click - podglad maski
+
+            wiecej masek na jedne warstiwe 
+                1 Nowa grupa > obrazek wrzucic > i dac maske na grupie
+                2. Smart object > wewnatrz obiektu jedna maska i na zewnatrz druga maska
+                3. Dwie maski z dolu opcji (1. pikselowa 2. wektorowa)
+
+                obraz z maski 
+                    kliknac na makse z altem i pozniej ctr+v daje nam maske z obrazu
+
+        ------------------------------------------------
+        Narzedzie rotacji i szybka maska
+            quick mask > wcisnac i przytryzmac r i obrocic obraz do latwego malowania w poziomie
+
+        -----------------------------------------------
+        Nawigacja po dokumencie
+            dwa razy na lapke - widescreen
+            dwa razy na lupe - 100%
+            h+lewy przycisk myszy - przeniesie sie w kolejny element na zdjeciu
+            ctl+d - tranformacja warstwy 
+            ctr+0 - zmiana widoku do latwego transformownaia obrazu
+        
+        ------------------------------------------------
+        Podglad w liquify
+            filter>liquify > i przeciaganie reka 
+                >advance mode > show bacdrop > podglad warstw
+                    use > layer 0 - praca na layoucie
+        
+        ------------------------------------------------
+        Skroty i filtry
+            camera raw > dzieki tej aplikacji mozna modyfikowac zdjecia np barwy itp
+            alt+p - zapisane jako default ostantij zminay
+
+            ze zdjecia > conver smatr object > filter camera row > zmiana w camra row nie jest koncowym zapisem zjdecia
+
+        -------------------------------------------------
+        Intuicyjne suwaki
+            W camra row > suwaki w glownej zakladce 
+                whites - najwiecej zmieniaja
+                blacks - najwiecej zmieniaja
+
+                    pomoc - przycicnanie pikseli z alt. JEsli widze ze piksele sie robia niebieskie puszczam
+                    przycisk alt -ukazuje przycis reset
+
+        ---------------------------------------------------
+        otiweranie plikow ps
+            z camra row > done > zapisane do pliku ale nie otwarte w ps
+            opean image > otiwera w ps na warstiwe 
+            alt > open copy - kopia pliku w ps
+            shift > open object - smart object w ps
+
+        ---------------------------------------------------
+        Kopiowanie ustawien zdjec
+            Praca z podobnymi zdjeciami > auto
+                1. presets > wybieramy ustawienia > nasza nazwa > ok
+                    wybor nowego zdjecia > preset> naszanazwa > wybor takich samych wartosci
+                
+                2. wybor dwoch zdjc > zaznaczeni dowch zdjec i synchronize > ok
+                
+                3. preset na jednym zjdeciu 
+                    zaznaczenie dwoch zdjec i develope setting > paste setting
+                
+
+
+
+
+ZACZAC KOREKTA FOTOGRAFII - MOJ ULUBIONY TRYB MIESZANIA
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
