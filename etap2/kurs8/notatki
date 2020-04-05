@@ -171,12 +171,248 @@ Czesc Praca z interfejsami
                 
                 3. preset na jednym zjdeciu 
                     zaznaczenie dwoch zdjec i develope setting > paste setting
-                
+               
+        ----------------------------------------------------
+        Tryb mieszania
+            1. patter >high pass - specyficzny klimat zdjec 
+            2. blur > motion blur - rozmycie
+
+        ------------------------------------------------
+        Image
+            > adjustment > match color > soucre nasz dokument i layer warstwa
+
+        ------------------------------------------------
+        PErspektywa
+            edit > perspective warp > zanzaczamy obraz > tryb warp > przesuwanie obrazu
+
+        ------------------------------------------------------
+        Prostowanie inaczej
+            edit > puppet warp > siatka > show mesh > ferwer point > 4 krawedzei obrazka > wbijanie pinezki tam gdzie
+            bedziemy modyfikowac
+
+        ------------------------------------------------------
+        Wybiorczy kontrast z krzywymi
+            do zdjecia > adjustmn layer > krzywa > funkcja na gorze na lapke i na obrazie sciagmy w gore albo dol
+          
+        ------------------------------------------------------
+        korekta cieni i rozblyskow
+            warstwa > aadjustments > properties > bightness 
+            włąsciwosci nad warstwa nie sa takie same jake Adjustment sekcji image na gorze listy
+
+            image > adjustment >shaodws - cienie
+        
+        --------------------------------------------------------
+        HDR Toning
+            image > adustmens  >hdr toning >poprawiamy 
+
+        --------------------------------------------------------
+        ustawienia content aware move
+              z pomoca narzedzia content awere move to i przesuwamy fragment obrazka
+
+        -------------------------------------------------------------
+        Sprzatanie z invertem
+            ctrl+i > spothilig brushtool
+
+        -------------------------------------------------------
+        Filtr rozymcia 
+            lasoo tool > zaznaczamy > edit >fill >content aware
+            select >domyfi >expand > 7px >shift+backspace
+            filter > blur galeryy > path blur
+
+        ----------------------------------------------------
+        filtr intelignety
+            filter > filter galery> i zatwierdzenie zmian >powstanei filtru intelginetego
+            mala ikonka > miesza filtry
+
+        -------------------------------------------------------------
+        Dodge & burn na skroty
+            doge - rozjasnia 
+            burn - przyciemnia piskele
+
+            utworzenie nowego layoutu i praca na nim
+
+        ---------------------------------------------------------------
+        wskazowki do pracy z pedzlem
+            f5 >spacing > odleglos miedzy wartosciami pedzla
+            klikniecie pedzelkiem a pozniej klikniecie znwou z shift i zrobi rowna linie pod punktu do punktu
+            alt+ prawy przycism myszy zmienia rozmiary pedzla
+
+        ----------------------------------------------------------------
+        presety narzedzi
+            rone narzedzia posiadaja rozne ustawinai narzedzi 
+            f5 stworzenie noweg presetu to zmienien ustawien np olowka i zapisanie i pozniej ustawic jako jeden z presetow
+
+        -----------------------------------------------------------
+        Zmiana ielkosci pedzla
+            alt+prawy pycisk myszy > porsuszanie w gore w dol - twardosc pedzla
+                                    > w prawo lewo - wielkosc pedzla
+            edit >preferenc >genreal > vary round brush hardness - wartosc opacity
+
+        ----------------------------------------------------
+        obramowania w photshop
+            obramowanie zostaje w pamieci 
+            1. resetowanie ustawien
+            2. presety ustawien dla narzedzi - dzieki temu kazde narzedzie bedzie mialo swoje watosci
+
+        ----------------------------------------------------------
+        Kopiowanie i wklejanie 
+            ctrl+t - skalowanie +alt i skaluje od srodka + shift - ze skalowaniem
+            Przenoszenie metoda move tool
+            ctrl+c > ctrl +shift +v
+
+        -----------------------------------------------------------
+        Polecenie Copy Merged
+            ctrl+alt+0 - widok 100%
+            skopoiwonaie tego co widzimy - ctrl+shift +c (copy merged)
+            ctr+shift+alt+e - zrobienie screena
+
+        -------------------------------------------------------------
+        Praca z plikami
+            ctrl+n - nowy plik
+            preferences > file handing > recetn file list conatins: 40 files
+            klikniecie w puste pole canvas dwukroteni > otworzeni pliku
+
+        --------------------------------------------------------------
+        Panel historii
+            1. Robienie snapshootow-ulatawia przywaracania plikow z przed modyfikacji (wartos ustawic skrot klaiwsozwy)
+            nieliniowa historia daje mozliwosc usuniecie np ktoku 50 i nie usunie to krokow po 50  tylko usunie tej jeden krok 
+            history brush tool dziala jak gumka
+        
+        ---------------------------------------------------------------
+        Powtarzanie ostatni operacji
+            shift+ctrl+alt+t - powtorzenie operacji ktora byla przed chwila wykonana
+
+            Do fitrow
+            ctrl+f - powielenie Filtrowani
+            ctrl+alt+f - odtwarza ostatnie polecenie ze zmiana parametrow
+
+        ---------------------------------------------------------------
+        Presety i preferencje
+            Przy tworzeniu nowego pliku mozemyustawic watosci i zapisac jako preset
+            edit > presets >mgrate presets > export
+            mozna zalogowac sie do ps i synchronizowac ustawienia z konta
+
+        -----------------------------------------------------------------
+        Sprzatanie z purge
+            Effciency <95%
+                > przydzielenie wiecej ramu
+                > wybranie lepszego dysku do cash
+                >ilosc krokow w historii
+            
+            cash size - ile pamieci pobiera ps
+            edit> purge >all - wyczeszzenie pamieci podrecznej
+
+        ------------------------------------------------------------
+        Skroty klawiaturowe w ps
+            f - tryb fulscreen
+            tab- znikanie pani edycji
+            sihft+tab - ukrycie prawego panelu 
+            alt - omijanie glupich pytan ps
+            alt - daje mozliwosc powrcenia do defaultowych opcji
+            ctrl+shift+alt+k - skorty klawiaturowe 
+
+        ---------------------------------------------------------------
+        Wartosci w oknie dialogowym
+            informuje nas jakie wartosci mozna wpisac
+
+        ---------------------------------------------------------------
+        Opcje wspolpracy
+            Rejestrator krokow -nagrywa nasza prace na komputerze
+            dodaj komentarz - dodanei komentarzy w momencie nagrywania
+
+            Wspodzielenie photoshopa z inna osoba - edit > remote connection > podajemy adres ip i nazwe hosta
+                dzieki temu bedzie mozna razem pracowac na jednym photoshopie
+
+        ---------------------------------------------------------------
+        Podlinkowane obiekty inteligentne
+            file > place linked > podlinkowanie jakiegos obrazu
+            file > package - zpaisuje wszystkie pliki zwiazane z nasza strona np sa podlinkowane do naszej storny 
+            linki to tez zapisze
+
+        ---------------------------------------------------------------
+        Paca z Vanishing point
+            Wypisanie textu i zazanczenie literki t na gorze daj nam mozliwosc zmiany polozenia tekstu np vertykalnie
+            filter > vanishing poin - punkty wyznaczajace perspektywy
+
+        ---------------------------------------------------------------
+        Samplowanie z eyedroppere
+            mozliwosc probkowania z poza ps 
+            alt+prawyprzcisk myszy - daje nam mozliwosc wyboru koloru bedac np w pedzlu
+    
+        ----------------------------------------------------------------
+        Notatki i lorem ipsum
+            text tool> pole tekstow > menu > type > lorem impsum
+            note tool(shift+i) > i towrzymy notatki
+
+        -----------------------------------------------------------------
+        Sztuczki z tekstem i punctution
+            zaznaczymy warstwe tekstu > wybieramy narzedzie type tool > i zmieniamy wartosci tekstu
+            
+            dwa razy klikniecie w tekst zazanczy caly tekst > mozna edytowac tekst
+
+            ctrl+h - ukrywa zaznaczenie np tekstu. To co przeszkadza podczas podgladu
+
+            Przy aktywnej ramce tekstowej > ctrl+t > trsofrumuje tekst
+
+            pisanie tkstu > ctrl+ t > otiweraja sie ustawienia do edycji tekstu
+
+            zaznaczyc tekst > paragrpah > menu podreczne > roman hanging punctuation - cudzyslow wszedl poza ramke
+
+        ------------------------------------------------------------
+        Font z typkit
+            ustawienie kursora miedzy literami  > nacisniecie alt daje mozliwosc przesuwania tekstu
+
+            Wybor czcionki > typkit > mozliowsc wyboru czcionki > desktop > synchronizacja z komputerem > dziekit temu w ps mozemy wybrac czcionke ktora nas interesuje
+
+        ---------------------------------------------------------------
+        Oblewanie tektstu
+            pen tool > zazanczamy obramowanie tekstu
+
+        -------------------------------------------------------------
+        Aliasing w Windows
+            Aliasing - wygladzanie tekstu > zaznaczenie tekstu > sharp -ostry
+                                                                 strong - mocny 
+                                                                 windows -wyrenderowany przez windowsa
+                                                                 windows LCD  - najlepszy jest z lcd
+
+        ---------------------------------------------------------------------
+        Wykorzystanie Icon Fontow
+            Font awesome - bibliotek ikon ktora mozemy wykorzystac w photoshopie
+                fontawesome cheatsheet > wybieramy ikonke > wrzucamy ja do ps  > wybieramy font na font awesome
 
 
 
 
-ZACZAC KOREKTA FOTOGRAFII - MOJ ULUBIONY TRYB MIESZANIA
+
+
+
+
+
+ZACZAC TECHNIKI SELEKCJI - NOWA FUNKCJA FOCUS AREA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
