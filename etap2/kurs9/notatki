@@ -1,0 +1,322 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress od podstaw" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep do Wordpressa
+-------------------------------------------------------------------------------------------------
+
+    Na maca i wondows:
+        Instalacja mamp
+        Uruchomienie serwer lokalnie
+        Podpiecie folderu do programu
+        wrzucenie projektu 
+        uruchomienie serwera
+
+        monitor zasobo > siec  > porty nasluchujace
+
+    wordpress.org - wersja do pobrania i hostowanie bloga
+    wordpress.com - platforma przeznaczona dla poczatkujacych. Mozna zalozyc bloga nie posiadajac 
+                    serwera itp
+    
+    1. Pobranie wordpressa
+    2. Instalacja:
+        W phpmyadmin tworzymy baze danych
+        W privilages dodajemy add user acount
+            mateusz
+            jakieshaslo
+            uprawinienia
+            GO
+            ^stworzenie uzytkownika
+        Przejscie na serwerze do folderu wordpress
+        Podanie danych aby polaczyc z baza danych
+            Prefiks tabel - zostaje
+        Reszta danych
+            Nazwa uzytkownika itp do logowania sie na wordpress
+
+    Struktura katalogow
+    index.php - glowny plik
+        w pliku tym edytujemy linie aby zmienic sciezke
+            wordpress/wp-blog-header.php 
+    
+    wpconfig.php - glowny plik z danymi calej stony np. dostep do bazy danych
+    
+    W panelu admina:
+        W ustawieniach zmieniamy adres witryny 
+
+        Uzytkownicy - Stworzenie uzytkownika jako admin i nadanie mu minimalnych uprawnien uchroni 
+            nas przed atakami 
+
+    Aktualizacje:
+        Narzedzia > Eksport > pobierz plik transportu - dump
+        Kokpit > aktualizacji
+
+    *Dodanie kodu do ukrycia aktualizacji w wordpress
+        wp-content > themes > twentyninteen> template parts > functions.php
+
+    _______________________________________________________________________________________________________
+    function remove_core_updates(){
+        global $wp_version;return(object) array('last_checked'=> time(),'version_checked'=> $wp_version,);
+        }
+        add_filter('pre_site_transient_update_core','remove_core_updates');
+        add_filter('pre_site_transient_update_plugins','remove_core_updates');
+        add_filter('pre_site_transient_update_themes','remove_core_updates');
+    ________________________________________________________________________________________________________
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Konfigruacja Wordpressa
+-------------------------------------------------------------------------------------------------
+
+    Konfiguracja maila
+        Kokpit > wtyczki > dodaj nowa > Easy WP SMTP - wtyczka do wysylania maily
+        Easy WP STMPInstaluj > aktywuj > setting > w skcji dokumentacji wchodzmy w link dzieki 
+            ktoremu dowiemy sie jak przypisac nasza skrzynke mail do wordpresssa
+
+
+    Kokpit i Bloki
+        Kokpit - glowna sekcja
+            Mozliowsc reorganizacji widgetow(bloki)
+
+            Dodawanie wlasnych widgetow do kokpitu 
+                W config.php wklejamy kodu
+                    ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                    add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
+  
+                    function my_custom_dashboard_widgets() {
+                    global $wp_meta_boxes;
+                    
+                    wp_add_dashboard_widget('custom_help_widget', 'Theme Support', 'custom_dashboard_help');
+                    }
+                    
+                    function custom_dashboard_help() {
+                    echo '<p>Welcome to Custom Blog Theme! Need help? Contact the developer <a href="mailto:yourusername@gmail.com">here</a>. For WordPress Tutorials visit: <a href="https://www.wpbeginner.com" target="_blank">WPBeginner</a></p>';
+                    }  
+                    ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+        Wtyczki - mozliwosc dodawania wyczek
+            Dashboard widgets suite
+                Ustawienia
+                    Control panel - wylaczenie nie bedzie dawalo podpowiedzi na kokpicie
+
+
+    Konto i Gravatar
+        Uzytkownicy > twoj profil > pokazuj pasek narzedzi podczas przegldania witryny         
+                                  > kolory 
+                                  > Informacje uzytkownika
+                                        Zmiana zdjecia profilovego przez serwis Gravatar
+                                            Gravatar.com > Rejestracja > Upload image
+
+        Gorna belka
+            Logo wordpressa > dokumentacja - Dokumentacja wordpressa
+        
+            Link do witryny
+
+            Wpisy
+
+
+    Ustawienia i Permalinki
+        Ustawienia > ogolne > Tutaj mozemy zmieniac dane naszej witryny tak jak tytul itp
+                                Tytul strony
+                                Opis naszej witryny do 150 slow
+                   
+                   > bezposrednie odnosniki - istnieje mozliwosc zmiany adresu dla odnosnikow
+                                                Serwer musi zawierac htacces i mod migrate
+
+                                                Jesli wordpress bedzie mial problemy z htacces 
+                                                    to wklejamy link nazywam plik .htaccess i 
+                                                    wrzucamy go w glownym katalogu obok index.php
+                                                        _______________________________________
+                                                        # BEGIN WordPress
+                                                        <IfModule mod_rewrite.c>
+                                                        RewriteEngine On
+                                                        RewriteBase /
+                                                        RewriteRule ^index\.php$ - [L]
+                                                        RewriteCond %{REQUEST_FILENAME} !-f
+                                                        RewriteCond %{REQUEST_FILENAME} !-d
+                                                        RewriteRule . /index.php [L]
+                                                        </IfModule>
+                                                        # END WordPress
+                                                        _______________________________________
+
+        Wpisy > edycja - mozliwosc dodania wlasnych postow
+                        Edycja naglowka po prawej stornie
+
+-------------------------------------------------------------------------------------------------
+Czesc Tresci w Wordpress
+-------------------------------------------------------------------------------------------------
+
+    Wpisy a Strony
+        Roznica miedzy wpisami a stornami
+            Strony - statyczne elementy np strona kontaktowa
+                Mozna miec jedna strone ktora bedzie rodzicem innych stron
+
+            Wpisy - czesc blogowa np artykul
+                Mozliwosc grupowania po tagach (czego nie ma w stronie)
+
+
+    Praca ze stronami
+        Strona > szkice - nie opublikowane tresic
+               > wszystkie - nasze strony
+                    Szybk edycja - Mozliwosc modyfiacji lub usunie storny
+                    *mozliwosc dostania sie do strony po zalogowaniu
+
+                    Edycja - mozlwiowsc edytowania storny (Zawartosci)
+               
+               > Dodaj nowa - dodaje nowa strone
+                >podejrzyj
+                >szkic
+                >opublikuj (np w konkretnym terminie)
+
+                    Powiazanie stron 
+                        Rodzic: i tutaj nasza nowa strona 
+
+        Wyglad > menu > pokazuje nasze menu
+               > dostostuj > Mozliowosc modyfikacji stron
+
+
+    Kategorie i Tagi
+        Wpisy > kategorie  > kategoria o nazwie  "bez kategori" - tutaj wszyste wpisy trafiaja
+                           > twonierzenie nowej kategorii
+
+              > tagi - pojedyncze slowka 
+
+            
+    Wlasciwosci Wpisow i Pingbacki
+        Wpis > wszystkie wpisy > 
+                                Wpisujac tagi daje nam mozliwosc podpoweidzi lub dodania nowego tagu
+
+                                Pingbacki - wpsominanie o twoich wpisac
+             > Kategorie > zmiana nazw prowdzi do odlinkowania innych stron
+
+        Ustawienia > dyskusja > mozliwosc odznaczania znaczania pingbackow i ich ustawien
+                   > pisanie > Uslugi aktualizacji - pingabcki o naszych wpisach
+                   > bezposrednie odnosniki > aliasy kategorii - uzywanie aliasow do tagow 
+                   ( np pordukty/ mleko)
+
+
+    Wlasne Typy Postow z Pods i ACF
+        Wtyczka:
+            Advanced Custom Fields
+                Z panelu wlasne pola - nie dodaja tylko klucz wartosc tylko maja zawansowane wartosci 
+                    np. mapa googla
+
+            Pods - tworzenie calych nowych typow postow (inny rodzaj storny np z przepisow na rodzaje filmow)
+                Add Field 
+                    Przyklad
+                        Czas przygtoowywyania posilku  inne info > save pods
+                    
+                    Daje to mozliwosc przy dodoawnaia wpisu pole ktore odpowiada za np pokazanie 
+                    czasu wykonania przepisu
+
+
+    Rozszerzanie wpisow - Typy Postow i Wlasne pola                    
+        Wpis > dodaj nowy
+                            Zajawka - jesli ma zaostoswanie z motywu ktorego krozystasz
+                            obrazek - tak samo jak zajawka tyle ze dla obrazu
+                            format wpisu - mozna go ustawic w 
+                                UStawienia > pisanie > domyslny format wpisu
+
+                                klikniecie 3 kropek > dodanie wlasne pola
+                                                        Wyglad > edytor - mozliwosc edytownia kodow zrudlowych motywu
+        wyglad> motywu 
+
+-------------------------------------------------------------------------------------------------
+Czesc Edytor i Formatowanie Tresci 
+-------------------------------------------------------------------------------------------------
+    
+    Podstawy edytora
+        Wpis > nowy wpis > po prawej stronie zakladka dokument
+            zmien rodzaj bloku
+                Mozliwosc modyfikowania tekstu na liste albo naglowek i inne
+                *cmond+k - dodanie lnku we wpisie
+                blok - rozmiar tekstu
+                     - kolor tla
+
+                Dodanie nwoego bloku na tym samym wpisie 
+                    -plus na gorze 
+                    -lub trzy kropki nad blokiem insteniejacym
+
+                Mozliwosc zmiany kolenosci bloku
+                    - Wpisanie listy daje mozliwosc iz mozna wyzej dodac do nich naglowki
+
+
+    
+    Praca z obrazami
+        Strona pexels.com- glownie darmowe ale lepiej sprawdzc licence
+
+        Media > 
+                przezucenie pliku na storne media po przez przeciagniecie towrzy nam biblioteke mediow
+            we wpisie 
+                -wyslanie na serwer
+                -wklejenie linku adresu gdzie sie obraz znajduje
+                -przezucenie obrazu bezposrenio na wpis (automatycznie doda to zdjecie do panelu media)
+
+        Mozna edytowac obraz. NA dole jest przycis edytuj obraz
+
+        Ustawienia > media - ustawianie domsylnych ustawien
+
+        *Trzeba zwracac uwage na rozmiar pliku - monza je kompresowac przez np kompresor jpeg
+
+
+
+    Praca z Blokami
+        Mozliwosc resizowac obrazek we wpisie
+
+        Mozliosc dodania okladki i modyfikowania zdjecia
+
+        Blok > galeria > zaznaczenie obrazkow.
+        Przycinanie obrazkow
+        Odnosniki - np otwieranie na nowej karcie
+
+        Mozliwosc dodnia blokow dynamicznych np fil z youtube 
+
+
+    Wydajna praca w Edytorze
+        We wpisie ikonka na gorze "i" zwraca informacje ile np znajudje sie wpisow na blogu itp
+        trzy kropki po prawej na gorze daje mozliwosci lepszego wygladu podczas pracy z wpisem
+
+    Zaznaczenie bloku > 3 kropki na gorze po lewej > daje mozliwosc zapis bloku i uzywania go pozniej
+
+    Skroty kalwiszowe w 3 kropkach po prawej
+
+
+    Historia wersji i publikowanie
+        Wtyczka > dodaj nowa > public post preview - publikowanie tymczowysch linkow
+            We wpisise po prawej Enable post preview
+                Dodaje to "Oczekujacy na przeglad" 
+
+            Dostepnosc wpisu:
+                Publiczny
+                Prywatne - dla tych ktorzy sa zalogowani w wp
+                Zabezpieczone haslem 
+
+        Historia wersji
+            Wpsiy > po prawej zakladka historia  > historie naszego pliku > przywroc ta wercje
+            -oznacza napisanie najnowszej wercji
+            W opcjach weryfikacja przed publikacja jest wazna aby zweryfikowac przed opublikowaniem strony
+
+-------------------------------------------------------------------------------------------------
+Czesc Role, Uzytkownicy i Komentarze
+-------------------------------------------------------------------------------------------------
+
+ZACZAC ZARZADZANIE UZYTKOWNIKAMI
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
