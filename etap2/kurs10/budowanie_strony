@@ -1,0 +1,2201 @@
+----------------------------------------------------------------------------------------------------------------------------------------------
+INSTRUKCJA BUDOWY STRONY 
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+__________________________________________WYGLAD STRONY______________________________________________________________________________________
+
+
+|-------------------------------------------------------------------------------------------------|
+|                                        header.php (get_header())                                |
+|-------------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------------|
+|wp_nav_menu(); - glowne menu nawigacji                              | get_search_form();         |
+|-------------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------------|
+|                                                                    |                            |
+|                                                                    |                            |                            
+|    PETLA (THE LOOP)                                                |                            |
+|                                                                    |                            |
+|                                                                    |                            |
+|    Przykaldowe pliki:                                              |                            |
+|                                                                    |                            |
+|    index.php                                                       |                            |
+|    home.php                                                        | sidebar.php                |                          
+|    archive.php                                                     |                            |
+|                                                                    | getsidebar();              |
+|                                                                    |                            |
+|    page.php                                                        |                            |
+|                comments_template();                                |                            |
+|    single.php                                                      |                            |
+|                                                                    |W sidebarze na ogol znajduja|
+|                                                                    |sie Widgety, ktore mozna    |
+|    search.php                                                      |definiowac w Kokpicie       |
+|    author.php                                                      |                            |
+|    404.php                                                         |                            |
+|                                                                    |                            |
+|-------------------------------------------------------------------------------------------------|
+|-------------------------------------------------------------------------------------------------|
+|                                        footer.php get footer();                                 |
+|-------------------------------------------------------------------------------------------------|
+
+
+__________________________________________OPIS STRONY________________________________________________________________________________________
+
+
+    index.php           Strona glowna i jednoczesnie domyslna dla innych
+    header.php          Na gorzej kazdej strony
+
+    page.php            Szablon contentu dla statycznych stron
+    single.php          Szablon dla widoku postow
+    search.php          Strona wynikow wyszukiwania
+    image.php           Widok otwartego obrazka 
+    archive.php         Wyswietla wszystkie posty z taksonomii
+    archives.php        Lista archiwow z wyszukiwarka, zakresem dat, kategoriami
+    links.php           Jesli korzystasz z blogroll - lista linkow
+    comments.php        Widok komentarzy
+
+    sidebar.php         Wyglad sidebara
+
+    footer.php          Na odle kazdej strony
+
+    404.php             Strona wyswietlana przy blednym linku
+    screenshot.png      Miniaturka szablonu 300x255
+
+
+__________________________________________STRUKTURA STRONY___________________________________________________________________________________
+
+
+    is_home()----------------------------------------------------------------------------------|home.php      |----------------\
+    is_front_page()----------------------------------------------------------------------------|front-page.php|---------------\ \
+    is_404()-----------------------------------------------------------------------------------|404.php       |--------------\ \ \
+    is_search()--------------------------------------------------------------------------------|search.php    |-------------\ \ \ \
+    is_date()----------------------------------------------------------------------------------|date.php      |--\           \ \ \ \
+    is_author()---------------------------|author-nicename.php       |-|author-id.php        |-|author.php    |-\ \           \ \ \ \
+    is_category()-------------------------|category-slug.php         |-|category-id.php      |-|category.php  |-|archive.php|-|index.php|
+    is_tag()------------------------------|tag-slug.php              |-|tag-id.php           |-|tag.php       |-/ / /         / /
+    is_tax()------------------------------|taxonomy-taxonomy-team.php|-|taxonomy-taxonomy.php|-|taxonomy.php  |--/ /         / /
+    is_archive()-------------------------------------------------------|archive-posttype.php |--------------------/         / /
+    is_single()--------------------------------------------------------|single-posttype.php  |\                            / /
+                                                                                               >-|single.php  |-----------/ /     
+    is_content()--------------------------|MIME_type.php             |-|attachment.php       |/                            /  
+    is_page()-------|custom_template.php|-|page-slug.php             |-|page-id.php          |-|page.php      |-----------/
+
+
+
+__________________________________________BUDOWA STRONY_______________________________________________________________________________________
+
+
+    Deklaracja wlasnego Motywu (Budowanie strony w oparciu o istniejaca strone)
+        1. Przechodzimy do wordpressa > wp-content > themes 
+        2. Tworzymy folder ktory bedzie trzymal nasz motyw
+        3. Towrzymy plik style.css
+            ______________________________KOD_________________________________________________________________________________________________
+            
+            /*
+
+            Theme Name: LoveToEat
+            Theme URI: http://lovetoeat.pl
+            Description: Motym dla strony z przepisami kulinarnymi
+            Author: Eduweb.pl
+            Author URI: http://eduweb.pl
+            Version: 0.5
+
+            */
+            __________________________________________________________________________________________________________________________________
+        
+        4. Tworzymy miniaturke szablonu wyswietlanego w wordpress
+        5. Towrzymy plik index.php i przezucamy zawratosc pliku index.html z gotowej strony
+            ______________________________KOD_________________________________________________________________________________________________
+            <!DOCTYPE html>
+            <html lang="pl-PL">
+                <head>
+                    <meta charset="UTF-8" />
+
+                    <title>LoveToEat Home Page</title>
+
+                    <link rel="stylesheet" href="css/reset.css">
+                    <link rel="stylesheet" href="css/common.css">
+                    <link rel="stylesheet" href="css/screen.css">
+                    <link rel="stylesheet" href="css/jqtransform.css">
+
+                    <!--[if lt IE 9]>
+                    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                    <![endif]-->
+
+                    <script src="js/jquery-1.9.1.min.js"></script>
+                    <script src="js/jquery.carouFredSel-6.2.0.js"></script>
+                    <script src="js/jquery.jqtransform.js"></script>
+                    <script src="js/slides.jquery.js"></script>
+                    <script src="js/scripts.js"></script>
+                </head>
+
+                <body>
+
+                    <header>
+                        <div class="pos-center">
+                            <h1><a href="#">lovetoeat.pl</a></h1>
+
+                            <nav id="main-nav">
+                                <div>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">Przepisy</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="#" title="lunch">Obiad i kolacja</a></li>
+                                                <li><a href="#" title="breakfast">Śniadanie</a></li>
+                                                <li><a href="#" title="snacks">Przekąski</a></li>
+                                                <li><a href="#" title="desserts">Desery</a></li>
+                                                <li><a href="#" title="drinks">Drinki i Napoje</a></li>
+                                                <li><a href="#" title="all">Wszystkie</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Restauracje</a></li>
+                                        <li><a href="#">Food Fight</a></li>
+                                        <li class="current-menu-item"><a href="#">Blog</a></li>
+                                        <li><a href="#">Kontakt</a></li>
+                                    </ul>
+                                </div>                    
+                            </nav>
+                        </div>
+                    </header>
+                    
+                    <section id="header" class="home-slider">
+
+                        <div class="wooden">
+                            <div class="pos-center">
+                                
+                                <div class="slides">
+
+                                    <div class="item pepers">
+                                        <div class="caption">
+                                            <h3>Czerwone papryczki!</h3>
+                                            <p>
+                                                Papryka ostra – ogólna nazwa, jaką określa się owoce niektórych odmian, kultywarów i mieszańców papryki (Capsicum) o bardzo ostrym smaku
+                                                <a href="#">Czytaj artykuł</a>
+                                            </p>
+                                        </div>
+                                        <img src="content/header-big-peppers1.png" alt="" />
+                                    </div>
+
+                                    <div class="item pepers">
+                                        <div class="caption">
+                                            <h3>Czerwone papryczki!</h3>
+                                            <p>
+                                                Papryka ostra – ogólna nazwa, jaką określa się owoce niektórych odmian, kultywarów i mieszańców papryki (Capsicum) o bardzo ostrym smaku
+                                                <a href="#">Czytaj artykuł</a>
+                                            </p>
+                                        </div>
+                                        <img src="content/header-big-peppers2.png" alt="" />
+                                    </div>
+
+                                    <div class="item pepers">
+                                        <div class="caption">
+                                            <h3>Czerwone papryczki!</h3>
+                                            <p>
+                                                Papryka ostra – ogólna nazwa, jaką określa się owoce niektórych odmian, kultywarów i mieszańców papryki (Capsicum) o bardzo ostrym smaku
+                                                <a href="#">Czytaj artykuł</a>
+                                            </p>
+                                        </div>
+                                        <img src="content/header-big-peppers3.png" alt="" />
+                                    </div>
+
+                                    <div class="item pepers">
+                                        <div class="caption">
+                                            <h3>Czerwone papryczki!</h3>
+                                            <p>
+                                                Papryka ostra – ogólna nazwa, jaką określa się owoce niektórych odmian, kultywarów i mieszańców papryki (Capsicum) o bardzo ostrym smaku
+                                                <a href="#">Czytaj artykuł</a>
+                                            </p>
+                                        </div>
+                                        <img src="content/header-big-peppers4.png" alt="" />
+                                    </div>
+                                </div>
+
+                                <div class="pagination">
+                                    <ul>
+                                        <li><a href="#">1</a></li>
+                                        <li><a href="#">2</a></li>
+                                        <li class="active"><a href="#">3</a></li>
+                                        <li><a href="#">4</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <section class="caption quote">
+                            <div class="pos-center">
+                                <blockquote>
+                                    <p>“W gospodarce opartej na wiedzy możemy mieć ciastko, zjeść ciastko i upiec jeszcze trzecie.”</p>
+                                </blockquote>
+                            </div>
+                        </section>
+
+                        <div class="gradient">
+                            <div class="pos-center">&nbsp;</div>
+                        </div>
+                    </section>
+
+                    <section id="home" class="content">
+                        <section class="boxes">
+                            <div class="pos-center">
+
+                                <section class="box first">
+                                    <div class="step1">
+                                        <h2>Witaj w lovetoeat!</h2>
+                                        <p>Witaj w świecie prawdziwych kulinarnych inspiracji! Jesteśmy pasjonatami dobrego jedzenia i chcemy w pięknej formie podzielić się z Tobą naszymi zainteresowaniami.</p>
+                                    </div>
+                                </section>
+
+                                <section class="box second">
+                                    <div class="step1">
+                                        <h2>Przepisy i Dieta</h2>
+                                        <p>Na lovetoeat.pl znajdziesz między innymi dziesiątki zdrowych przepisów, które przygotowali dla Ciebie nasi dietetycy. Najlepsze przepisy wyślij znajomym!</p>
+                                    </div>
+                                    <div class="step2 hidden">
+                                        <h2>Ostatnio dodane:</h2>
+
+                                        <ul class="icons-list">
+                                            <li class="chicken"><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                                            <li class="chicken"><a href="#">Bagietka francuska</a></li>
+                                            <li class="chicken"><a href="#">Zapiekanka krakowska</a></li>
+                                            <li class="chicken"><a href="#">Sałatka z chrupiącym kurczakiem</a></li>
+                                            <li class="chicken"><a href="#">Schab po węgiersku</a></li>
+                                        </ul>
+                                        <a href="#">Wszystkie przepisy</a>
+                                    </div>
+                                </section>
+
+                                <section class="box third">
+                                    <div class="step1">
+                                        <h2>Dobre Restauracje</h2>
+                                        <p>Odkryj ciekawe miejsca i dowiedz się, które potrawy warto zjeść w restauracjach, które dla Ciebie recenzujemy. Sprawdź restauracje w których bywają Twoi znajomi.</p>
+                                    </div>
+                                    <div class="step2 hidden">
+                                        <h2>Ostatnio dodane:</h2>
+
+                                        <ul class="icons-list">
+                                            <li class="waiter"><a href="#">Restauracja Da Pietro</a></li>
+                                            <li class="waiter"><a href="#">Miód Malina</a></li>
+                                            <li class="waiter"><a href="#">Trattoria Mamma Mia</a></li>
+                                            <li class="waiter"><a href="#">Pod Wawelem</a></li>
+                                            <li class="waiter"><a href="#">Pomodorino</a></li>
+                                        </ul>
+                                        <a href="#">Wszystkie</a>
+                                    </div>
+                                </section>
+
+                            </div>
+                        </section>
+
+                        <section class="food-fight">
+                            <div class="pos-center">
+                                <header>
+                                    <h2>Food Fight</h2>
+                                    <h4>Wszystkie pojedynki</h4>
+                                </header>
+
+                                <div class="opponent good">
+                                    <div class="header">
+                                        <small>Jedz</small>
+                                        to!
+                                    </div>
+                                    <div class="details">
+                                        1.4
+                                        <small>tłuszcz</small>
+                                    </div>
+                                    <div class="image">
+                                        <img src="content/food-fight-mcchicken.jpg" alt="" />
+                                    </div>
+                                    <p>Potrawa 1</p>
+                                </div>
+
+                                <div class="opponent bad">
+                                    <div class="header">
+                                        <small>nie</small>
+                                        to!
+                                    </div>
+                                    <div class="details">
+                                        2.1
+                                        <small>tłuszcz</small>
+                                    </div>
+                                    <div class="image">
+                                        <img src="content/food-fight-spremium.jpg" alt="" />
+                                    </div>
+                                    <p>Potrawa 2</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="inspirations">
+                            <div class="pos-center">
+                                <header>
+                                    <h2>Kulinarne inspiracje</h2>
+                                    <h4>Zobacz wszystkie artykuły</h4>
+                                </header>
+
+                                <div class="slider">
+                                    <a class="prev" href="#">&LeftArrow;</a>
+                                    <div class="slides-container">
+                                        <div class="items">
+
+
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-1.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym kurczakiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+
+
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-2.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym indykiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-3.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym indykiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+                                            
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-1.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym kurczakiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+
+
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-2.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym indykiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+
+                                            <div>
+                                                <a href="#"><img src="content/home-slider-3.jpg" alt="" /></a>
+                                                <h2><a href="#">Sałatka z chrupiącym indykiem</a></h2>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est. Nam auctor venenatis arcu, eget [...]</p>
+                                                <a class="more" href="#">...</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <a class="next" href="#">&RightArrow;</a>
+                                </div>
+
+                            </div>
+                        </section>
+
+                        <section class="comments">
+                            <div class="pos-center">
+                                <header>
+                                    <h2>Poznaj opinie innych</h2>
+                                    <h4><a href="#">Zobacz wszystkie komentarze</a></h4>
+                                </header>
+
+                                <section class="container">
+                                    <span class="flyer">&uArr;</span>
+
+                                    <section class="first">
+                                        <header>
+                                            <small>Janusz w dniu 09.04.2013</small>
+                                            Sałatka z chrupiącym [...]
+                                        </header>
+                                        <img alt='' src='content/avatar-janusz.png' />                        
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                                    </section>
+
+
+                                    <section>
+                                        <header>
+                                            <small>Kasia w dniu 23.03.2013</small>
+                                            Bagietka francuska
+                                        </header>
+                                        <img alt='' src='content/avatar-kasia.png' />
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                                    </section>
+
+
+                                    <section class="last">
+                                        <header>
+                                            <small>Roman w dniu 23.03.2013</small>
+                                            Schab po węgiersku
+                                        </header>
+                                        <img alt='' src='content/avatar-roman.png' />
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                                    </section>
+
+                                    <div class="clear"></div>
+                                </section>
+                            </div>
+                        </section>
+                    </section>
+
+                    <footer>
+                        <div class="pos-center">
+                            <section class="menu">
+                                <ul>
+                                    <li><a href="#">Pomidor</a></li>
+                                    <li><a href="#">Pietruszka</a></li>
+                                    <li><a href="#">Makaron</a></li>
+                                    <li><a href="#">Warzywa</a></li>
+                                    <li><a href="#">Kurczak</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Kuchnia japońska</a></li>
+                                    <li><a href="#">Włoskie smaki</a></li>
+                                    <li><a href="#">Hiszpańskie tapas</a></li>
+                                    <li><a href="#">Kuchnia tajska</a></li>
+                                    <li><a href="#">Kuchnia francuska</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Lunch</a></li>
+                                    <li><a href="#">Przystawka</a></li>
+                                    <li><a href="#">śniadanie</a></li>
+                                    <li><a href="#">Obiad</a></li>
+                                    <li><a href="#">Deser</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="tag-cloud">
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>pomidor</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>sałata</a>
+                                <a href='#' title='1 temat' style='font-size: 10px;'>warzywa</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>pomidor</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                            </section>
+                        </div>
+                    </footer>
+
+
+                </body>
+            </html>
+            __________________________________________________________________________________________________________________________________
+
+        6. Z gotowej strony html wyjmujemy foldery i wrzucamy do naszego folderu z motywem
+            - Wyjmujemy asset ktore zawiera fonty
+            - Content - Modeluje tresci dla elementow dynamicznych
+            - CSS - pliki css ktore tworzylismy
+            - Img - folder z obrazkami
+            - Js - folder z javascript
+        7. Przechodimy do glownego folderu naszego motywu
+            - Tworzymy header.php 
+            - Tworzymy footer.php
+        8. Wyciamy kod z index.php i wrzucamy do header.php
+            ______________________________KOD_________________________________________________________________________________________________
+            <!DOCTYPE html>
+            <html lang="pl-PL">
+                <head>
+                    <meta charset="UTF-8" />
+
+                    <title>LoveToEat Home Page</title>
+
+                    <link rel="stylesheet" href="css/reset.css">
+                    <link rel="stylesheet" href="css/common.css">
+                    <link rel="stylesheet" href="css/screen.css">
+                    <link rel="stylesheet" href="css/jqtransform.css">
+
+                    <!--[if lt IE 9]>
+                    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                    <![endif]-->
+
+                    <script src="js/jquery-1.9.1.min.js"></script>
+                    <script src="js/jquery.carouFredSel-6.2.0.js"></script>
+                    <script src="js/jquery.jqtransform.js"></script>
+                    <script src="js/slides.jquery.js"></script>
+                    <script src="js/scripts.js"></script>
+                </head>
+
+                <body>
+
+                    <header>
+                        <div class="pos-center">
+                            <h1><a href="#">lovetoeat.pl</a></h1>
+
+                            <nav id="main-nav">
+                                <div>
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">Przepisy</a>
+                                            <ul class="sub-menu">
+                                                <li><a href="#" title="lunch">Obiad i kolacja</a></li>
+                                                <li><a href="#" title="breakfast">Śniadanie</a></li>
+                                                <li><a href="#" title="snacks">Przekąski</a></li>
+                                                <li><a href="#" title="desserts">Desery</a></li>
+                                                <li><a href="#" title="drinks">Drinki i Napoje</a></li>
+                                                <li><a href="#" title="all">Wszystkie</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="#">Restauracje</a></li>
+                                        <li><a href="#">Food Fight</a></li>
+                                        <li class="current-menu-item"><a href="#">Blog</a></li>
+                                        <li><a href="#">Kontakt</a></li>
+                                    </ul>
+                                </div>                    
+                            </nav>
+                        </div>
+                    </header>
+            __________________________________________________________________________________________________________________________________
+
+        9. Do index.php na samej gorze wpisujemy
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php get_header(); ?>
+            __________________________________________________________________________________________________________________________________
+        
+        10. Pzechodzimy do headera.php i zamieniamy podlinkowanie linkow na linki dynamiczne dzieki templet tags
+            ______________________________KOD_________________________________________________________________________________________________
+            <meta charset="<?php bloginfo('charset') ?>" />     <!-- <meta charset="UTF-8" /> -->
+            
+            <link rel="stylesheet" href="<?php echo get_stylesheet_uri(); ?>"> <!-- Wypisz link do glownego pliku z css -->
+		    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/reset.css"> <!-- <link rel="stylesheet" href="css/reset.css"> -->
+		    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/common.css"> <!-- <link rel="stylesheet" href="css/common.css"> -->
+		    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/screen.css"> <!-- <link rel="stylesheet" href="css/screen.css"> -->
+		    <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/jqtransform.css"> <!-- <link rel="stylesheet" href="css/jqtransform.css"> -->
+
+            __________________________________________________________________________________________________________________________________
+        
+        11. Tworzymy plik functions.php w glownym folderze i zapisujemy kod
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php
+            
+            if(!defined('LOVETOEAT_THEME_DIR')) { // Jesli taka stala nie zostal wczesniej zdefiniowana
+	        //define('LOVETOEAT_THEME_DIR', ABSPATH.'wp-content/themes/'.get_template().'/'); // Wykorzystanie absolutepath
+	        define('LOVETOEAT_THEME_DIR', get_theme_root().'/'.get_template().'/'); // definiujemy stala ktora bedzie pobierac sciezke do katalogu z wszystkimi moywami.
+            }	
+
+            if(!defined('LOVETOEAT_THEME_URL')) { // Jesli nie zostala wczesniej zdefiniowana
+	        define('LOVETOEAT_THEME_URL', WP_CONTENT_URL.'/themes/'.get_template().'/'); // stala zwroci nam adres katalogu wp content
+            }
+
+            ?>
+            __________________________________________________________________________________________________________________________________
+        
+        12. W style.css wpisujemy style dla info (stale w function)
+            ______________________________KOD_________________________________________________________________________________________________
+            .wpinfo {
+	        display: block;
+	        min-height: 200px;
+	        background: red;
+	        color: white;
+	        font-size: 1.5em;
+            }
+            __________________________________________________________________________________________________________________________________
+        
+        13. W header.php za zancznikiem <body> wpisujemy dany kod ktory bedzie nam wyswietlal info o stalych
+            ______________________________KOD_________________________________________________________________________________________________
+            <!-- <span class="wpinfo"><?php echo LOVETOEAT_THEME_DIR ?></span> -->
+            <!-- <span class="wpinfo"><?php echo LOVETOEAT_THEME_URL ?></span> -->
+            __________________________________________________________________________________________________________________________________
+       
+        14. W header.php modyfikujemy kod
+            ______________________________KOD_________________________________________________________________________________________________
+            <script src="<?php echo LOVETOEAT_THEME_URL ?>js/jquery-1.9.1.min.js"></script> <!-- <script src="js/jquery-1.9.1.min.js"></script> -->
+            <script src="<?php echo LOVETOEAT_THEME_URL ?>js/jquery.carouFredSel-6.2.0.js"></script> <!-- <script src="js/jquery.carouFredSel-6.2.0.js"></script> -->
+            <script src="<?php echo LOVETOEAT_THEME_URL ?>js/jquery.jqtransform.js"></script> <!-- <script src="js/jquery.jqtransform.js"></script> -->
+            <script src="<?php echo LOVETOEAT_THEME_URL ?>js/slides.jquery.js"></script><!-- <script src="js/slides.jquery.js"></script> -->
+            <script src="<?php echo LOVETOEAT_THEME_URL ?>js/scripts.js"></script> <!-- <script src="js/scripts.js"></script> -->
+            __________________________________________________________________________________________________________________________________
+        
+        15. W header.php zamienimy jezyk dynamicznie
+            ______________________________KOD_________________________________________________________________________________________________
+            <html <?php language_attributes(); ?>> <!- <html lang="pl-PL"> -->
+            __________________________________________________________________________________________________________________________________
+       
+        16. W header.php dodajemy kod ktory sprawdzimy czy na stronie na ktorej znajduje sie uzytkownik jest strona wyszukiwania 
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php if(is_search()):?>
+			    <meta name="robots" content="noindex, nofollw" /> // zabraniamy robotom indexowania tresci
+		    <?php endif; ?> 
+            __________________________________________________________________________________________________________________________________
+
+        17. W header.php dodajemy  mechanizm do pinbackow
+            ______________________________KOD_________________________________________________________________________________________________
+		    <link rel="pingback" href="<?php bloginfo('pingback_url'); ?>" >
+            __________________________________________________________________________________________________________________________________
+
+        18. W header.php zwracamy wszystkie tagi ktore maja isc do heada 
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php wp_head() ?>
+            __________________________________________________________________________________________________________________________________
+
+        19. W header.php w eskcji body dodajemy funkcje. Dopisze do body w zaleznosci od tego na jakiej stronie jest
+            ______________________________KOD_________________________________________________________________________________________________
+            <body <?php body_class()?>> <!-- <body> -->
+            __________________________________________________________________________________________________________________________________
+
+        20. W header.php linkujemy logo
+            ______________________________KOD_________________________________________________________________________________________________
+            <h1><a href="<?php echo esc_url(home_url('/')); ?>">lovetoeat.pl</a></h1> // Link do strony glownej
+            __________________________________________________________________________________________________________________________________
+
+        21. Z pliku index.php wycinamy footer i wkeljamy do pliku footer.php
+            ______________________________KOD_________________________________________________________________________________________________
+                    <footer>
+                        <div class="pos-center">
+                            <section class="menu">
+                                <ul>
+                                    <li><a href="#">Pomidor</a></li>
+                                    <li><a href="#">Pietruszka</a></li>
+                                    <li><a href="#">Makaron</a></li>
+                                    <li><a href="#">Warzywa</a></li>
+                                    <li><a href="#">Kurczak</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Kuchnia japońska</a></li>
+                                    <li><a href="#">Włoskie smaki</a></li>
+                                    <li><a href="#">Hiszpańskie tapas</a></li>
+                                    <li><a href="#">Kuchnia tajska</a></li>
+                                    <li><a href="#">Kuchnia francuska</a></li>
+                                </ul>
+                                <ul>
+                                    <li><a href="#">Lunch</a></li>
+                                    <li><a href="#">Przystawka</a></li>
+                                    <li><a href="#">śniadanie</a></li>
+                                    <li><a href="#">Obiad</a></li>
+                                    <li><a href="#">Deser</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="tag-cloud">
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>pomidor</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>sałata</a>
+                                <a href='#' title='1 temat' style='font-size: 10px;'>warzywa</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>pomidor</a>
+                                <a href='#' title='2 tematy' style='font-size: 16.5px;'>kurczak</a>
+                                <a href='#' title='1 temat' style='font-size: 11px;'>makaron</a>
+                                <a href='#' title='1 temat' style='font-size: 13px;'>pietruszka</a>
+                            </section>
+                        </div>
+                    </footer>
+
+
+                </body>
+            </html>
+            __________________________________________________________________________________________________________________________________
+        
+        22. A w pliku inex.php wyciety footer zastepujemy podlinkowaniem
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php get_footer(); ?>
+            __________________________________________________________________________________________________________________________________
+
+        23. Tworzymy folder libs
+        24. W folderze libs tworzymy plik ktore pozniej mozna przezuci do innego motywu
+        25. Tworzymy pliki utils.php
+        26. Tworzymy plik posttypes.php - zawiera deklaracje costomowych typow postow oraz taksonomi
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php // zamykamy go w punkcie 29
+
+            add_action('init', 'lovetoeat_init_posttypes'); // Funkcja
+
+            function lovetoeat_init_posttypes(){
+            
+                /*
+                * Register Recipes Post Type
+                // Tworzymy panel do dodawania przepisow
+                */
+                $recipes_args = array( // zmiena przepisy o strukturze tablicy
+                    'labels' => array( // tablica
+                        'name' => 'Przepisy', // nazwa na przepisy
+                        'singular_name' => 'Przpisy', // uproszczona nazwa
+                        'all_items' => 'Wszystkie przepisy', 
+                        'add_new' => 'Dodaj nowy przepis', 
+                        'add_new_item' => 'Dodaj nowy przepis',
+                        'edit_item' => 'Edytuj przepis',
+                        'new_item' => 'Nowy przepis',
+                        'view_item' => 'Zobacz przepis',
+                        'search_items' => 'Szukaj w przepisach',
+                        'not_found' =>  'Nie znaleziono żadnych przepisów',
+                        'not_found_in_trash' => 'Nie znaleziono żadnych przepisów w koszu', 
+                        'parent_item_colon' => ''
+                    ),
+                    // wazenisjze wlasciwosic | strona wordpress.org/Function_Reference/register_post_type
+                    'public' => true, // typ posta bedzie publicczny
+                    'publicly_queryable' => true, // czy mozna wysylac zapytanie
+                    'show_ui' => true,  // pokazywanie elemenow ui (przyciski)
+                    'query_var' => true,
+                    'rewrite' => true, // przepisywanie adresow
+                    'capability_type' => 'post', 
+                    'hierarchical' => false, // hierarichcznosc typow tworzonych danych np. page - strony
+                    'menu_position' => 5, // umiejscowienie w menu | 5-below posts  
+                    'supports' => array( // tablica z wartosciami symbolizujacymi jakie funkconalnosci wspiera typ posta
+                        'title','editor','author','thumbnail','excerpt','comments','custom-fields'
+                    ),
+                    'has_archive' => true // czy bedzie mial swoje archiwum
+
+                );
+
+                register_post_type('recipes', $recipes_args); // rejestrujemy typ postow przez funkcje wordpressa
+    
+                /*
+                * Register Restaurant Post Type
+                */
+                $restaurants_args = array(
+                    'labels' => array(
+                        'name' => 'Restauracje',
+                        'singular_name' => 'Restauracje',
+                        'all_items' => 'Wszystkie restauracje',
+                        'add_new' => 'Dodaj nową restaurację',
+                        'add_new_item' => 'Dodaj nową restaurację',
+                        'edit_item' => 'Edytuj restaurację',
+                        'new_item' => 'Nowa restauracja',
+                        'view_item' => 'Zobacz restaurację',
+                        'search_items' => 'Szukaj restauracji',
+                        'not_found' =>  'Nie znaleziono żadnych restauracji',
+                        'not_found_in_trash' => 'Nie znaleziono żadnych restauracji w koszu', 
+                        'parent_item_colon' => ''
+                    ),
+                    'public' => true,
+                    'publicly_queryable' => true,
+                    'show_ui' => true, 
+                    'query_var' => true,
+                    'rewrite' => true,
+                    'capability_type' => 'post',
+                    'hierarchical' => false,
+                    'menu_position' => 5,
+                    'supports' => array(
+                        'title','editor','author','thumbnail','excerpt','comments','custom-fields', 'post-formats'
+                    ),
+                    'has_archive' => true
+                    
+                );
+                
+                register_post_type('restaurants', $restaurants_args); 
+                
+                /*
+                * Register Food Fight Post Type
+                */
+                $food_fights_args = array(
+                    'labels' => array(
+                        'name' => 'Food Fight',
+                        'singular_name' => 'Food Fight',
+                        'all_items' => 'Wszystkie pojedynki',
+                        'add_new' => 'Dodaj nowy pojedynek',
+                        'add_new_item' => 'Dodaj nowy pojedynek',
+                        'edit_item' => 'Edytuj pojedynek',
+                        'new_item' => 'Nowy pojedynek',
+                        'view_item' => 'Zobacz pojedynek',
+                        'search_items' => 'Szukaj pojedynku',
+                        'not_found' => 'Nie znaleziono żadnych pojedynków',
+                        'not_found_in_trash' => 'Nie znaleziono żadnych pojedynków w koszu', 
+                        'parent_item_colon' => ''
+                    ),
+                    'public' => true,
+                    'publicly_queryable' => true,
+                    'show_ui' => true, 
+                    'query_var' => true,
+                    'rewrite' => true,
+                    'capability_type' => 'post',
+                    'hierarchical' => false,
+                    'menu_position' => 5,
+                    'supports' => array(
+                        'title','editor','author','thumbnail','custom-fields'
+                    ),
+                    'has_archive' => true
+                    
+                );
+                
+                register_post_type('foodfight', $food_fights_args);
+            } 
+            __________________________________________________________________________________________________________________________________
+
+        27. Przechodzimy do pliku functions.php i wywolujemy plik posttypes.php
+            ______________________________KOD_________________________________________________________________________________________________
+            require_once LOVETOEAT_THEME_DIR.'libs/posttypes.php';
+            __________________________________________________________________________________________________________________________________
+
+        28. W posttypes.php - deklarujemy taksonomie
+            ______________________________KOD_________________________________________________________________________________________________
+            add_action('init', 'lovetoeat_init_taxonomies');
+    
+            /* rejestruje taksonomie */
+            
+            function lovetoeat_init_taxonomies(){
+                
+                // Ingredients
+                register_taxonomy(
+                    'ingredients', // pierwsz taksonomia skladnikow w naszej potrawie
+                    array('recipes'),
+                    array(
+                        /* robimy jednak hieraerchiczne ponieważ wykorzystujemy w lodówce*/
+                        'hierarchical' => true,
+                        'labels' => array(
+                            'name' => 'Składniki',
+                            'singular_name' => 'Składniki',
+                            'search_items' =>  'Wyszukaj składniki',
+                            'popular_items' => 'Najpopularniejsze składniki',
+                            'all_items' => 'Wszystkie składniki',
+                            'most_used_items' => null,
+                            'parent_item' => null,
+                            'parent_item_colon' => null,
+                            'edit_item' => 'Edytuj składnik', 
+                            'update_item' => 'Aktualizuj składnik',
+                            'add_new_item' => 'Dodaj nowy składnik',
+                            'new_item_name' => 'Nazwa nowego skadnika',
+                            'separate_items_with_commas' => 'Oddziel składniki przecinkiem',
+                            'add_or_remove_items' => 'Dodaj lub usuń składniki',
+                            'choose_from_most_used' => 'Wybierz spośród najczęścież używanych składników',
+                            'menu_name' => 'Składniki',
+                        ),
+                        'show_ui' => true, // ukazuje interfejs graficzny
+                        'update_count_callback' => '_update_post_term_count', // automatczny callback. Hook ktory mozna wykorzystaac
+                        'query_var' => true,
+                        'rewrite' => array('slug' => 'ingredient' ) // ladne przepisywanie
+                )); // aksonomia same powinny sie odpalic
+
+                // Meal Types
+                register_taxonomy(
+                    'meal-type',
+                    array('recipes', 'restaurants'), // Rejestrujemy dla dwoch typow 
+                    array(
+                        'hierarchical' => true,
+                        'labels' => array(
+                            'name' => 'Typ Dania', 'taxonomy general name',
+                            'singular_name' => 'Typ Dania', 'taxonomy singular name',
+                            'search_items' =>  'Wyszukaj typ dania',
+                            'popular_items' => 'Najpopularniejsze typy dań',
+                            'all_items' => 'Wszystkie typy dań',
+                            'most_used_items' => null,
+                            'parent_item' => null,
+                            'parent_item_colon' => null,
+                            'edit_item' => 'Edytuj typ dania', 
+                            'update_item' => 'Aktualizuj',
+                            'add_new_item' => 'Dodaj nowy typ dania',
+                            'new_item_name' => 'Nazwa nowego typu dania',
+                            'separate_items_with_commas' => 'Oddziel typy dań przecinkiem',
+                            'add_or_remove_items' => 'Dodaj lub usuń typ dania',
+                            'choose_from_most_used' => 'Wybierz spośród najczęścież używanych typów dań',
+                            'menu_name' => 'Typ Dania',
+                        ),
+                        'show_ui' => true,
+                        'update_count_callback' => '_update_post_term_count',
+                        'query_var' => true,
+                        'rewrite' => array('slug' => 'meal-type' )
+                ));
+                
+                
+                
+                // Cousine Types
+                register_taxonomy(
+                    'cousine-type',
+                    array('recipes', 'restaurants'),
+                    array(
+                        'hierarchical' => true,
+                        'labels' => array(
+                            'name' => 'Rodzaj kuchni',
+                            'singular_name' => 'Rodzaj kuchni',
+                            'search_items' =>  'Wyszukaj rodzaj kuchni',
+                            'popular_items' => 'Najpopularniejsze rodzaje kuchni',
+                            'all_items' => 'Wszystkie rodzaje kuchni',
+                            'most_used_items' => null,
+                            'parent_item' => null,
+                            'parent_item_colon' => null,
+                            'edit_item' => 'Edytuj rodzaj kuchni', 
+                            'update_item' => 'Aktualizuj',
+                            'add_new_item' => 'Dodaj nowy rodzaj kuchni',
+                            'new_item_name' => 'Nazwa nowego rodzaju kuchni',
+                            'separate_items_with_commas' => 'Oddziel rodzaje kuchni przecinkiem',
+                            'add_or_remove_items' => 'Dodaj lub usuń rodzaj kuchni',
+                            'choose_from_most_used' => 'Wybierz spośród najczęściej używanych rodzajów kuchni',
+                            'menu_name' => 'Rodzaj kuchni',
+                        ),
+                        'show_ui' => true,
+                        'update_count_callback' => '_update_post_term_count',
+                        'query_var' => true,
+                        'rewrite' => array('slug' => 'cousine-type' )
+                ));
+                
+                
+                // Cities
+                register_taxonomy(
+                    'city',
+                    array('restaurants'),
+                    array(
+                        'hierarchical' => FALSE, // nie hieraerchiczne
+                        'labels' => array(
+                            'name' => 'Miasto',
+                            'singular_name' => 'Miasto',
+                            'search_items' =>  'Wyszukaj miasto',
+                            'popular_items' => 'Najpopularniejsze miasto',
+                            'all_items' => 'Wszystkie miasta',
+                            'most_used_items' => null,
+                            'parent_item' => null,
+                            'parent_item_colon' => null,
+                            'edit_item' => 'Edytuj miasto', 
+                            'update_item' => 'Aktualizuj',
+                            'add_new_item' => 'Dodaj nowe miasto',
+                            'new_item_name' => 'Nazwa nowego miasta',
+                            'separate_items_with_commas' => 'Oddziel miasta przecinkiem',
+                            'add_or_remove_items' => 'Dodaj lub usuń miasto',
+                            'choose_from_most_used' => 'Wybierz spośród najczęściej używanych miast',
+                            'menu_name' => 'Miasto',
+                        ),
+                        'show_ui' => true,
+                        'update_count_callback' => '_update_post_term_count',
+                        'query_var' => true,
+                        'rewrite' => array('slug' => 'city' )
+                ));
+                
+            }
+            __________________________________________________________________________________________________________________________________
+
+        29. W posttype.php dodajemy ikony
+            ______________________________KOD_________________________________________________________________________________________________
+            add_action('admin_head', 'lte_admin_icons');
+            function lte_admin_icons(){
+            $ICON_URL = LOVETOEAT_THEME_URL.'img/admin/';
+            ?> // Tutaj sie konczy kod w php
+            __________________________________________________________________________________________________________________________________
+
+        30. W posttype.php za znacznikiem <?php ?> dodajemy style - ikony w panelu admina do dodoawnai restauracji food fights itp
+            ______________________________KOD_________________________________________________________________________________________________
+                <style>
+                /* po to żeby w panelu admina zmienić domyślne ikonki custom post types*//* dla menu */
+                
+                #menu-posts-recipes .wp-menu-image,
+                #menu-posts-restaurants .wp-menu-image,
+                #menu-posts-foodfight .wp-menu-image{
+                    background-repeat: no-repeat;
+                    background-position: center -17px!important;
+                }
+                
+                #menu-posts-recipes:hover .wp-menu-image,
+                #menu-posts-restaurants:hover .wp-menu-image,
+                #menu-posts-foodfight:hover .wp-menu-image,
+                #menu-posts-recipes.wp-has-current-submenu .wp-menu-image,
+                #menu-posts-restaurants.wp-has-current-submenu .wp-menu-image,
+                #menu-posts-foodfight.wp-has-current-submenu .wp-menu-image{
+                    background-repeat: no-repeat;
+                    background-position: center 6px!important;
+                }
+                
+                #menu-posts-recipes .wp-menu-image{
+                    background-image: url('<?php echo $ICON_URL.'icon-recipes-menu.png' ?>');
+                }
+                
+                #menu-posts-restaurants .wp-menu-image{
+                    background-image: url('<?php echo $ICON_URL.'icon-restaurants-menu.png' ?>');
+                }
+                
+                #menu-posts-foodfight .wp-menu-image{
+                    background-image: url('<?php echo $ICON_URL.'icon-foodfight-menu.png' ?>');
+                }
+                
+                
+                .icon32-posts-recipes,
+                .icon32-posts-restaurants,
+                .icon32-posts-foodfight{
+                    background-position: center center!important;
+                }
+                /* dla posdtronyu*/
+                .icon32-posts-recipes{
+                    background-image: url('<?php echo $ICON_URL.'icon-recipes-header.png' ?>')!important;
+                }
+                
+                .icon32-posts-restaurants{
+                    background-image: url('<?php echo $ICON_URL.'icon-restaurants-header.png' ?>')!important;
+                }
+                
+                .icon32-posts-foodfight{
+                    background-image: url('<?php echo $ICON_URL.'icon-foodfight-header.png' ?>')!important;
+                }
+                
+            </style>
+            <?php } ?>
+            __________________________________________________________________________________________________________________________________
+
+        31. Wypelniamy taksonomie w panelu administratora wordpress
+            Rodzaje kuchni
+                kuchnia szpinska
+                kuchnia francuska
+                kuchnia japonska
+                kuchnia polska
+                kuchnia tajska
+                kuchnia wloska
+
+            Typ dania
+                Drinki i napoje
+                    Alkoholowe
+                    Bez-alkoholowe
+                Obiad
+                    Danie glowne
+                    Deser
+                    Zupa
+                Przekaski
+                Przystawka
+                Sniadanie
+                Kolacja
+
+            Skladniki
+                Mieso
+                    Drob > Edycja > Opis (Dodajemy opis)
+                    Wieprzowina
+                    Wolowina
+                Owoce
+                    Banan
+                    Czeresnie
+                    Jablko
+                ...
+
+        32. Dodajemy nowy przepis
+            Wpisujemy nazwe
+            Wpisujemy przepis
+            Wpisujemy wypis
+            Zaznaczamy skladniki
+            Ustalamy typ dania
+            Ustalamy rodzaj kuchni
+            Mozemy dodac komentarz
+
+        33. Dodanie nowych restuaracji
+
+        34. Tworzymy strony w wordpress
+            Kontakt
+            Blog
+
+        35. W index.php tworzymy komentarze. Do pliku pod sekcja o klasie container dodajemy kod php
+            ______________________________KOD_________________________________________________________________________________________________
+            <!-- <section class="container"> -->
+                <!-- <span class="flyer">&uArr;</span> -->
+                <!-- Ponizej wpisujemy nasz kod php -->
+                <?php 
+                    $recent_comms = fetchRecentComments(3) // zmienna zawierajaca wynik funkcji, 3 komentarze
+                
+                    foreach ($recent_comms as $comment);
+                        $date = new \DateTime($comment->comment_date_gmt);
+                ?>
+            __________________________________________________________________________________________________________________________________
+
+        36. W pliku functions.php dodajemy plik utils.php
+            ______________________________KOD_________________________________________________________________________________________________
+            require_once LOVETOEAT_THEME_DIR.'libs/utils.php';
+            __________________________________________________________________________________________________________________________________
+
+        37. W utils.php dodajemy funkcje ktore moga byc uzyte w kazdym projekcie
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php
+            function fetchRecentComments($limit = 3) {
+
+                global $wpdb;
+                    //dla bezpieczeństwa
+                    $limit = (int)$limit;
+                    
+                    $res = $wpdb->get_results(" // zmienna res - zawiera rezultat wyciagniecia z bazy komentarzy
+                        SELECT C.*, P.post_title
+                            FROM {$wpdb->comments} C // tabela comments
+                                LEFT JOIN {$wpdb->posts} P ON C.comment_post_ID = P.ID
+                            WHERE comment_approved = 1
+                            ORDER BY comment_date_gmt DESC
+                            LIMIT {$limit}
+                    ");
+                            
+                    return $res;
+
+            }
+            ?>
+            __________________________________________________________________________________________________________________________________
+
+        38. W pliku index.php odnajdujemy komentarze. 
+                Usuwamy dwa ostatnie komentarze a komentarz janusza edytujemy
+            ______________________________KOD_________________________________________________________________________________________________
+            <section>
+                <header>
+                    <small><?php echo $comment->comment_author; ?>w dniu <?php echo $date->format('d.m.Y'); ?></small>
+                    <?php echo $comment->post_title ?>
+                </header>
+                <img alt='' src='content/avatar-janusz.png' />                        
+                <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+            </section>
+            __________________________________________________________________________________________________________________________________
+
+        39. Przechodzimy do pliku utils.php i wklejamy na gorze funkcje do przycinania tekstu
+            ______________________________KOD_________________________________________________________________________________________________
+            function cutText($text, $maxLength){
+        
+                $maxLength++;
+
+                $return = '';
+                if (mb_strlen($text) > $maxLength) {
+                    $subex = mb_substr($text, 0, $maxLength - 5);
+                    $exwords = explode(' ', $subex);
+                    $excut = - ( mb_strlen($exwords[count($exwords) - 1]) );
+                    if ($excut < 0) {
+                        $return = mb_substr($subex, 0, $excut);
+                    } else {
+                        $return = $subex;
+                    }
+                    $return .= '[...]';
+                } else {
+                    $return = $text;
+                }
+                
+                return $return;
+            }
+            __________________________________________________________________________________________________________________________________
+        
+        40. Wracamy do pliku index.php i wpisujemy funkcje do przycinania tekstu z etapu 38
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php echo cutText($comment->post_title, 27) ?>
+            __________________________________________________________________________________________________________________________________
+
+        41. W dalszej czesci komentarza zmieniamy obrazek na dynamiczny z etapu 38
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php echo get_avatar($comment->user_id, 69); ?>    <!-- <img alt='' src='content/avatar-janusz.png' /> -->                        
+            <!-- <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote> -->
+            <blockquote>
+            <?php echo $comment->comment_content; ?>
+            </blockquote>
+            __________________________________________________________________________________________________________________________________
+
+        42. W dalszej czesci za znaczkiem </section> z komentarzami dodajemy zamkniecie petli forach w php
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php endforeach; ?>
+            __________________________________________________________________________________________________________________________________
+
+        43. W glownym folderze naszego motywu tworzymy pliki
+                archive-restaurants.php
+                footer-home.php(zawiera to co plik footer.php), ktory bedzie odpiwadal za stopke na innych stronach
+                sidebar-restaurants-archive.php
+
+        44. Z pliku restauracje-archive.html przezucamy kod do pliku archive-restaurants.php
+            ______________________________KOD_________________________________________________________________________________________________
+            <!DOCTYPE html>
+            <html lang="pl-PL">
+                <head>
+                    <meta charset="UTF-8" />
+
+                    <title>Restauracje - LoveToEat</title>
+
+                    <link rel="stylesheet" href="css/reset.css">
+                    <link rel="stylesheet" href="css/common.css">
+                    <link rel="stylesheet" href="css/screen.css">
+                    <link rel="stylesheet" href="css/jqtransform.css">
+
+                    <!--[if lt IE 9]>
+                    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                    <![endif]-->
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=PODAJ_SWOJ_KLUCZ;sensor=true"></script>
+                    <script src="js/jquery-1.9.1.min.js"></script>
+                    <script src="js/jquery.carouFredSel-6.2.0.js"></script>
+                    <script src="js/jquery.jqtransform.js"></script>
+                    <script src="js/slides.jquery.js"></script>
+                    <script src="js/scripts.js"></script>
+                </head>
+
+                <body>
+
+                    <header>
+                        <div class="pos-center">
+                            <h1><a href="#">lovetoeat.pl</a></h1>
+
+                            <nav id="main-nav">
+                                <div>
+                                    <ul class="menu">
+                                        <li><a href="#">Przepisy</a></li>
+                                        <li><a href="#">Restauracje</a></li>
+                                        <li><a href="#">Food Fight</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Kontakt</a></li>
+                                    </ul>
+                                </div>                    
+                            </nav>
+                        </div>
+                    </header>
+                    
+                    <section id="header">
+
+                        <div class="map"></div>
+
+                        <section class="caption restaurant">
+                            <div class="pos-center">
+                                <form class="search" method="get" action="">
+                                    <label for="search">Znajdź restaurację:</label>
+                                    <fieldset>
+                                        <input type="text" name="search" id="search" value="" />
+                                        <input type="submit" value="" />
+                                    </fieldset>
+                                </form>
+                            </div>
+                        </section>
+                        
+                        <div class="gradient">
+                            <div class="pos-center">&nbsp;</div>
+                        </div>
+                    </section>
+
+                    <section id="restaurants" class="content">
+                        <div class="pos-center">
+                            <div class="left">
+                                <h4 class="search-results">Wynik wyszukiwania:</h4>
+                                
+                                <div class="wrapper">
+                                    <section class="entry">
+                                        <a href="#"><img src="content/restaurant-thumbnail1.jpg" alt="restaurant-thumbnail3" /></a>
+                                        <div class="description">
+                                            <h2><a href="#">Restauracja Da Pietro</a></h2>
+                                            <div>
+                                                <a href="#">kuchnia polska</a>
+                                                <a href="#">Wrocław</a>
+                                                <ul class="difficulty dark">
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li>&Bumpeq;</li>
+                                                </ul>
+                                            </div>
+                                            <p>W restauracji byłem jakiś czas temu, udało mi się wstąpić dość późno ok. 23, ale obsługa powitała mnie bardzo miło. Zamówiłem sałatka z wędzonym pstrągiem i gnocchi z [...]</p>
+                                            <a class="more" href="#">...</a>
+                                        </div>
+                                    </section>
+
+                                    <section class="entry">
+                                        <div class="description width">
+                                            <h2><a href="#">Miód Malina</a></h2>
+                                            <div>
+                                                <a href="#">Kuchnia tajska</a>
+                                                <a href="#">Warszawa</a>
+                                                <ul class="difficulty dark">
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li>&Bumpeq;</li>
+                                                    <li>&Bumpeq;</li>
+                                                </ul>
+                                            </div>
+                                            <p>Już od dawien dawna miałam ochotę wybrać się do Miodu Maliny i nareszcie udało mi się tam zjeść obiad. W walentynkowy wieczór w lokalu nie było przesadnie tłoczno, więc bez problemu udało się znaleźć stolik dla dwóch osób. Zamówiliśmy precla z dziczyzną (38 zł) i żeberka w glazurze miodowej z sosem śliwkowym (34 zł), oba dania [...]</p>
+                                            <a class="more" href="#">...</a>
+                                        </div>
+                                    </section>
+
+                                    <section class="entry">
+                                        <a href="#"><img src="content/restaurant-thumbnail2.jpg" alt="restaurant-thumbnail" /></a>
+                                        <div class="description">
+                                            <h2><a href="#">Trattoria Mamma Mia</a></h2>
+                                            <div>
+                                                <a href="#">Kraków</a>
+                                                <a href="#">kuchnia francuska</a>
+                                                <ul class="difficulty dark">
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li> 
+                                                </ul>
+                                            </div>
+                                            <p>Byłam już nie raz i nie dwa w Trattorii Mamma Mia i stwierdzam, że jedzenie jest tam po prostu wyśmienite. Obsługa jest bardzo miła, nie muszę czekać, aż ktoś łaskawie [...]</p>
+                                            <a class="more" href="#">...</a>
+                                        </div>
+                                    </section>
+                                    
+                                    <section class="entry">
+                                        <a href="#"><img src="content/restaurant-thumbnail2.jpg" alt="restaurant-thumbnail" /></a>
+                                        <div class="description">
+                                            <h2><a href="#">Trattoria Mamma Mia</a></h2>
+                                            <div>
+                                                <a href="#">Kraków</a>
+                                                <a href="#">kuchnia francuska</a>
+                                                <ul class="difficulty dark">
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li>
+                                                    <li class="active">&Bumpeq;</li> 
+                                                </ul>
+                                            </div>
+                                            <p>Byłam już nie raz i nie dwa w Trattorii Mamma Mia i stwierdzam, że jedzenie jest tam po prostu wyśmienite. Obsługa jest bardzo miła, nie muszę czekać, aż ktoś łaskawie [...]</p>
+                                            <a class="more" href="#">...</a>
+                                        </div>
+                                    </section>
+                                </div>
+
+                                <div class="pagination">
+                                    <ul>
+                                        <li><a href="#" class="prev page-numbers">«</a></li>
+                                        <li><span class="current">1</span></li>
+                                        <li><a href="#" class="page-numbers">2</a></li>
+                                        <li><a href="#" class="next page-numbers">»</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="right">
+                                <section class="widget">
+                                    <h2>Kuchnia</h2>
+                                    <h4>Najbardziej popularne</h4>
+                                    <ul class="icons-list cuisines">
+                                        <li class="chicken"><a href="#">Kuchnia japońska</a></li>
+                                        <li class="soup"><a href="#">Włoskie smaki</a></li>
+                                        <li class="fish"><a href="#">Hiszpańskie tapas</a></li>
+                                        <li class="soup"><a href="#">Kuchnia tajska</a></li>
+                                        <li class="cake"><a href="#">Kuchnia francuska</a></li>
+                                    </ul>
+                                </section>
+                                <section class="widget">
+                                    <h2>Ostatnio dodane</h2>
+                                    <h4>Najnowsze restauracje</h4>
+                                    <ul>
+                                        <li><a href="#">Restauracja Da Pietro</a></li>
+                                        <li><a href="#">Miód Malina</a></li>
+                                        <li><a href="#">Trattoria Mamma Mia</a></li>
+                                        <li><a href="#">Pod Wawelem</a></li>
+                                    </ul>
+                                </section>
+                                <section class="widget comments">
+                                    <h2>Nowe komentarze</h2>
+                                    <h4>Co myślą inni?</h4>
+
+                                    <section>
+                                        <header>
+                                            <small>Janusz w dniu 09.04.2013</small>
+                                            Sałatka z chrupiącym kurczakiem 
+                                        </header>
+                                        <img alt='' src='content/avatar-janusz.png' />
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                                    </section>
+                                    <section>
+                                        <header>
+                                            <small>Romek w dniu 23.03.2013</small>
+                                            Schab po węgiersku   
+                                        </header>
+                                        <img alt='' src='content/avatar-roman.png' />
+                                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                                    </section>
+                                </section>
+                            </div>        
+                        </div>
+                    </section>
+
+                    <footer class="boxes">
+                        <div class="pos-center">
+                            <div class="flyer">&nbsp;</div>
+                            <section class="spaghetti">
+                                <h2>Przepisy i Dieta</h2>
+                                <ul>
+                                    <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                                    <li><a href="#">Schab po węgiersku</a></li>
+                                    <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                                    <li><a href="#">Bagietka francuska</a></li>
+                                    <li><a href="#">Zapiekanka krakowska</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="bread">
+                                <h2>Food Fight</h2>
+                                <ul>
+                                    <li><a href="#">Cheeseburger vs Hambuger</a></li>
+                                    <li><a href="#">Subway Panini vs Zapiekanka</a></li>
+                                    <li><a href="#">McChicken vs Tortilla Deluxe</a></li>
+                                    <li><a href="#">Cheeseburger vs Hambuger</a></li>
+                                    <li><a href="#">Subway Panini vs Zapiekanka</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="dinner last">
+                                <h2>Restauracje</h2>
+                                <ul>
+                                    <li><a href="#">Restauracja Da Pietro</a></li>
+                                    <li><a href="#">Miód Malina</a></li>
+                                    <li><a href="#">Trattoria Mamma Mia</a></li>
+                                    <li><a href="#">Pod Wawelem</a></li>
+                                    <li><a href="#">Trattoria Mamma Mia</a></li>
+                                </ul>
+                            </section>
+                        </div>
+                    </footer>
+                    
+                </body>
+            </html>
+            __________________________________________________________________________________________________________________________________
+        45. Z pliku archive-restaurants.php usuwamy dany kod 
+            ______________________________KOD_________________________________________________________________________________________________
+            <!DOCTYPE html>
+            <html lang="pl-PL">
+                <head>
+                    <meta charset="UTF-8" />
+
+                    <title>Restauracje - LoveToEat</title>
+
+                    <link rel="stylesheet" href="css/reset.css">
+                    <link rel="stylesheet" href="css/common.css">
+                    <link rel="stylesheet" href="css/screen.css">
+                    <link rel="stylesheet" href="css/jqtransform.css">
+
+                    <!--[if lt IE 9]>
+                    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+                    <![endif]-->
+
+                    <script src="https://maps.googleapis.com/maps/api/js?key=PODAJ_SWOJ_KLUCZ;sensor=true"></script>
+                    <script src="js/jquery-1.9.1.min.js"></script>
+                    <script src="js/jquery.carouFredSel-6.2.0.js"></script>
+                    <script src="js/jquery.jqtransform.js"></script>
+                    <script src="js/slides.jquery.js"></script>
+                    <script src="js/scripts.js"></script>
+                </head>
+
+                <body>
+
+                    <header>
+                        <div class="pos-center">
+                            <h1><a href="#">lovetoeat.pl</a></h1>
+
+                            <nav id="main-nav">
+                                <div>
+                                    <ul class="menu">
+                                        <li><a href="#">Przepisy</a></li>
+                                        <li><a href="#">Restauracje</a></li>
+                                        <li><a href="#">Food Fight</a></li>
+                                        <li><a href="#">Blog</a></li>
+                                        <li><a href="#">Kontakt</a></li>
+                                    </ul>
+                                </div>                    
+                            </nav>
+                        </div>
+                    </header>
+            __________________________________________________________________________________________________________________________________
+        46. Wpisujemy kod zamist kodu ktory usunelismy
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php get_header(); ?>
+            __________________________________________________________________________________________________________________________________
+
+        47. W tym samym pliku wycinamy diva z klasa right i wklejamy do pliku sidebar-restaurants-archive.php
+            ______________________________KOD_________________________________________________________________________________________________
+            <div class="right">
+                <section class="widget">
+                    <h2>Kuchnia</h2>
+                    <h4>Najbardziej popularne</h4>
+                    <ul class="icons-list cuisines">
+                        <li class="chicken"><a href="#">Kuchnia japońska</a></li>
+                        <li class="soup"><a href="#">Włoskie smaki</a></li>
+                        <li class="fish"><a href="#">Hiszpańskie tapas</a></li>
+                        <li class="soup"><a href="#">Kuchnia tajska</a></li>
+                        <li class="cake"><a href="#">Kuchnia francuska</a></li>
+                    </ul>
+                </section>
+                <section class="widget">
+                    <h2>Ostatnio dodane</h2>
+                    <h4>Najnowsze restauracje</h4>
+                    <ul>
+                        <li><a href="#">Restauracja Da Pietro</a></li>
+                        <li><a href="#">Miód Malina</a></li>
+                        <li><a href="#">Trattoria Mamma Mia</a></li>
+                        <li><a href="#">Pod Wawelem</a></li>
+                    </ul>
+                </section>
+                <section class="widget comments">
+                    <h2>Nowe komentarze</h2>
+                    <h4>Co myślą inni?</h4>
+
+                    <section>
+                        <header>
+                            <small>Janusz w dniu 09.04.2013</small>
+                            Sałatka z chrupiącym kurczakiem 
+                        </header>
+                        <img alt='' src='content/avatar-janusz.png' />
+                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                    </section>
+                    <section>
+                        <header>
+                            <small>Romek w dniu 23.03.2013</small>
+                            Schab po węgiersku   
+                        </header>
+                        <img alt='' src='content/avatar-roman.png' />
+                        <blockquote>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed magna orci, eget egestas tellus. Mauris id lectus lorem, et condimentum est.</blockquote>
+                    </section>
+                </section>
+            </div>
+            __________________________________________________________________________________________________________________________________
+
+        48. W pliku archive-restaurants.php po wycietym dive o klasie right ladujemy go po przez kod
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php get_sidebar('restaurants-archive); ?>
+            __________________________________________________________________________________________________________________________________
+
+        49. Footer znajdujacy sie w archive-restuarnt.php wycinamy i wklejamy do footer.php lacznie z zamknieciem html
+            ______________________________KOD_________________________________________________________________________________________________
+                    <footer class="boxes">
+                        <div class="pos-center">
+                            <div class="flyer">&nbsp;</div>
+                            <section class="spaghetti">
+                                <h2>Przepisy i Dieta</h2>
+                                <ul>
+                                    <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                                    <li><a href="#">Schab po węgiersku</a></li>
+                                    <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                                    <li><a href="#">Bagietka francuska</a></li>
+                                    <li><a href="#">Zapiekanka krakowska</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="bread">
+                                <h2>Food Fight</h2>
+                                <ul>
+                                    <li><a href="#">Cheeseburger vs Hambuger</a></li>
+                                    <li><a href="#">Subway Panini vs Zapiekanka</a></li>
+                                    <li><a href="#">McChicken vs Tortilla Deluxe</a></li>
+                                    <li><a href="#">Cheeseburger vs Hambuger</a></li>
+                                    <li><a href="#">Subway Panini vs Zapiekanka</a></li>
+                                </ul>
+                            </section>
+
+                            <section class="dinner last">
+                                <h2>Restauracje</h2>
+                                <ul>
+                                    <li><a href="#">Restauracja Da Pietro</a></li>
+                                    <li><a href="#">Miód Malina</a></li>
+                                    <li><a href="#">Trattoria Mamma Mia</a></li>
+                                    <li><a href="#">Pod Wawelem</a></li>
+                                    <li><a href="#">Trattoria Mamma Mia</a></li>
+                                </ul>
+                            </section>
+                        </div>
+                    </footer>
+                    
+                </body>
+            </html>
+            __________________________________________________________________________________________________________________________________
+
+        50. A w pliku archive-restuarnt.php po wycietym footerze wpisujemy odnosnik do tego footera
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php get_footer(); ?>
+            __________________________________________________________________________________________________________________________________
+
+        51. W pliku archive-restuarnt.php
+            Usuwamy wszystkie sekcje z klass="entry"(Lista restauracji) zostawiajac jedna ktora bedziemy dynamizowac 
+            ______________________________KOD_________________________________________________________________________________________________
+            <section class="entry">
+                <a href="#"><img src="content/restaurant-thumbnail1.jpg" alt="restaurant-thumbnail3" /></a>
+                <div class="description">
+                    <h2><a href="#">Restauracja Da Pietro</a></h2>
+                    <div>
+                        <a href="#">kuchnia polska</a>
+                        <a href="#">Wrocław</a>
+                        <ul class="difficulty dark">
+                            <li class="active">&Bumpeq;</li>
+                            <li class="active">&Bumpeq;</li>
+                            <li class="active">&Bumpeq;</li>
+                            <li>&Bumpeq;</li>
+                        </ul>
+                    </div>
+                    <p>W restauracji byłem jakiś czas temu, udało mi się wstąpić dość późno ok. 23, ale obsługa powitała mnie bardzo miło. Zamówiłem sałatka z wędzonym pstrągiem i gnocchi z [...]</p>
+                    <a class="more" href="#">...</a>
+                </div>
+            </section>
+            __________________________________________________________________________________________________________________________________
+
+        52. Przerabiamy kod ktory jest wyzej
+            ______________________________KOD_________________________________________________________________________________________________
+            <?php if(have_posts()) :?> <!-- Jesli sa jakies posty -->
+
+            <?php while (have_posts()) : the_post(); ?> <!-- Jesli sa to wtedy wyswietlamy je -->
+            
+                <section id="restaurants-<?php the_ID();?>" <?php post_class('entry'); ?>>
+                    <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
+                    <div class="description">
+                        <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                        <div>
+                            <?php printRestaurantCategories($post->ID) ?> <!-- Funkcja z pliku functions.php -->
+                            <ul class="difficulty dark">
+                                <?php printRanking($post->ID); ?>
+
+                            </ul>
+                        </div>
+                        <p><?php echo the_excerpt_max_charlength(173); ?></p> <!-- przycina nam znaki do 173 z funkcji ktora zadeklarowalismy w punkci poniezej -->
+                        <a class="more" href="#">...</a>
+                    </div>
+                </section>
+
+            <?php endwhile ?> <!-- Domykamy while -->
+            <?php else:  ?> <!-- Else dla if -->
+                <h4> Nie ma zadnych postow </h4>
+            <?php endif; ?>
+            __________________________________________________________________________________________________________________________________
+
+        52a. Do pliku utils.php dodajemy kod do opcinania opisu restuaracji
+            ______________________________KOD_________________________________________________________________________________________________
+            function the_excerpt_max_charlength($charlength) {
+		        echo cutText(get_the_excerpt(), $charlength);
+	        }
+            __________________________________________________________________________________________________________________________________
+
+        52b. Przechodzimy do pliku utils.php i wpisujemy funkcje do wyseitlania naszych taksonomi
+            ______________________________KOD_________________________________________________________________________________________________
+            function printPostCategories($post_id, array $categories = array()){
+                $terms_list = array();
+                foreach($categories as $cname){
+                    $tmp = get_the_terms($post_id, $cname);
+                    if(is_array($tmp)){
+                        $terms_list = array_merge($terms_list, $tmp);
+                    }
+                }
+                
+                if($terms_list){
+                    foreach($terms_list as $term){
+                        echo '<a href="'.get_term_link($term->slug, $term->taxonomy).'">'.$term->name.'</a>';
+                    }
+                }
+            }
+            __________________________________________________________________________________________________________________________________
+
+        52c. W pliku functions.php wpisujemy kod odwolywnia sie do pliku utils.php i kod do wyseitlania "czapek szefa (oceny)"
+            ______________________________KOD_________________________________________________________________________________________________
+            function printRestaurantCategories($post_id) {
+		        printPostCategories($post_id, array('cousine-type', 'city'));
+	        }
+
+            function printRanking($post_id) {
+		        $rate = (int)get_post_meta($post_id, 'ranking', true);
+											
+		        for($i=1; $i<5; $i++) {
+			        if($i <= $rate) {
+			        	echo '<li class="active"></li>';
+			        } else {
+			        	echo '<li></li>';
+			        }
+		        }
+	        }
+            __________________________________________________________________________________________________________________________________
+
+        53. W pliku functions.php dodajemy funkcjonalnosc wlasnych postow i miniaturek postow
+            ______________________________KOD_________________________________________________________________________________________________
+            add_theme_support('post-formats', array('gallery'));
+            add_theme_support('post-thumbnails', array('post', 'recipes', 'restaurants', 'foodfight'));
+            __________________________________________________________________________________________________________________________________
+
+        54. Edytujemy jakas restuaracje i dodajemy jej ikonke wpisu
+
+        55. Edytujemy kod odnosnie restauracji w pliku archive-restaurants.php
+                Sprawdzmy czy post format to jest galeria
+            ______________________________KOD_________________________________________________________________________________________________           
+            <section id="restaurants-<?php the_ID();?>" <?php post_class('entry'); ?>>
+					
+                <?php if(get_post_format($post->ID) == 'gallery'): ?>
+                
+                        <a href="<?php the_permalink(); ?>"><?php the_post_thumbnail(); ?></a>
+                        <div class="description">
+                            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                            <div>
+                                <?php printRestaurantCategories($post->ID) ?>
+                                <ul class="difficulty dark">
+
+                                    <?php printRanking($post->ID); ?>
+                                </ul>
+                            </div>
+                            <p><?php the_excerpt_max_charlength(173); ?></p>
+                            <a class="more" href="<?php the_permalink(); ?>">...</a>
+                        </div>
+                        
+                <?php else: ?> 
+                
+                        <div class="description width">
+                            <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                            <div>
+                                <?php printRestaurantCategories($post->ID) ?>
+                                <ul class="difficulty dark">
+
+                                    <?php printRanking($post->ID); ?>
+                                </ul>
+                            </div>
+                            <p><?php the_excerpt_max_charlength(173); ?></p>
+                            <a class="more" href="#">...</a>
+                        </div>
+
+                <?php endif; ?>
+			</section>
+            __________________________________________________________________________________________________________________________________
+
+        56. W pliku archive-restaurants.php modyfikujemy przegladarke
+            ______________________________KOD_________________________________________________________________________________________________
+            Dawny kod:
+            <div class="map"></div>
+
+            <section class="caption restaurant">
+                <div class="pos-center">
+                    <form class="search" method="get" action="">
+                        <label for="search">Znajdź restaurację:</label>
+                        <fieldset>
+                            <input type="text" name="search" id="search" value="" />
+                            <input type="submit" value="" />
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+
+            Nowy kod--------------------------------------------------------------------------------------------------------------------------
+            <div class="map"></div>
+
+            <section class="caption restaurant">
+                <div class="pos-center">
+
+                <?php $search = getQuerySingleParam('search'); ?>
+
+                    <form class="search" method="get" action="<?php getCurrentPageUrl(); ?>">
+                        <label for="search">Znajdź restaurację:</label>
+                        <fieldset>
+                            <input type="text" name="search" id="search" value="<?php echo $search ?>" />
+                            <input type="submit" value="" />
+                        </fieldset>
+                    </form>
+                </div>
+            </section>
+            __________________________________________________________________________________________________________________________________
+
+        56a. W pliku utils.php dodajemy nowe funkcje
+            ______________________________KOD_________________________________________________________________________________________________
+            function getQueryParams(){ // pobiera wszystkie parametry znajdujace sie w pasku adresu
+                global $query_string;
+                $parts = explode('&', $query_string);
+                
+                $return = array();
+                foreach($parts as $part){
+                    $tmp = explode('=', $part);
+                    $return[$tmp[0]] = trim(urldecode($tmp[1]));
+                }
+                
+                return $return;
+            }  
+
+            function getQuerySingleParam($name){ // Wyciaga pojedynczy parametr i przekazujemy 
+                $qparams = getQueryParams();
+                
+                if(isset($qparams[$name])){
+                    return $qparams[$name];
+                }
+                
+                return NULL;
+            }
+
+            function getCurrentPageUrl(){ // Pozwala pobrac url storny na ktorej sie znajdujemy
+                $pageURL = 'http';
+                
+            if(isset($_SERVER["HTTPS"])){
+                    if($_SERVER["HTTPS"] == "on") {
+                        $pageURL .= "s";
+                    }
+            }
+                
+            $pageURL .= "://";
+                
+            if($_SERVER["SERVER_PORT"] != "80"){
+                    $pageURL .= $_SERVER["SERVER_NAME"].":".$_SERVER["SERVER_PORT"].$_SERVER["REQUEST_URI"];
+            }else{
+                    $pageURL .= $_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"];
+            }
+                
+            return $pageURL;
+            }
+            __________________________________________________________________________________________________________________________________
+
+        57. Edytujemy w archive-restaurant.php linijki odpowiedzialne za wysuzkiwanie
+            ______________________________KOD_________________________________________________________________________________________________
+            Dawny kod:
+            <section id="restaurants" class="content">
+            <div class="pos-center">
+                <div class="left">
+                    <h4 class="search-results">Wynik wyszukiwania:</h4>
+                    
+                    <div class="wrapper">
+
+            Nowy kod-------------------------------------------------------------------------------------------------------------------------
+            <section id="restaurants" class="content">
+            <div class="pos-center">
+                <div class="left">
+                    <?php if(isset($search)): ?>
+                    <h4 class="search-results">Wynik wyszukiwania:</h4>
+                    <?php endif; ?>
+
+                    <?php
+						$query_params = getQueryParams();
+							if(isset($query_params['search'])) { // jesli jest ustawiony parametr search
+								$query_params['post_title_like'] = $query_params['search']; // Podobne wyszukiwania
+								unset($query_params['search']); // resetujemy param[search]
+							}
+
+						$loop = new WP_Query($query_params); //  parametry tego zawezenia
+					?>
+
+                    <div class="wrapper">
+            __________________________________________________________________________________________________________________________________
+
+        57a. Do pliku utils.php dodajemy funkcje filtr ktora pozwoli odzialywac na zapytanie do bazy danych. Podobne wyniki przy wyszukiwarce
+            ______________________________KOD_________________________________________________________________________________________________
+            add_filter('posts_where', 'title_like_posts_where', 10, 2);
+            function title_like_posts_where( $where, &$wp_query ) {
+                global $wpdb;
+                
+                if ($post_title_like = $wp_query->get('post_title_like')){
+                    $where .= ' AND '.$wpdb->posts.'.post_title LIKE \'%'.esc_sql(like_escape($post_title_like)).'%\'';
+                }
+                
+                return $where;
+            __________________________________________________________________________________________________________________________________
+
+        58. Modyfikujemy kod z wynikem wyszukiwania w archive-restaurants.php
+            ______________________________KOD_________________________________________________________________________________________________
+            
+            <div class="wrapper">
+					
+				<?php if($loop->have_posts()) :?> <!--  <?php if(have_posts()) :?>
+					
+				<?php while ($loop->have_posts()) : $loop->the_post(); ?> <!-- <?php while (have_posts()) : the_post(); ?> -->					
+            __________________________________________________________________________________________________________________________________
+
+        59. Zmieniam ilos wysietlanych wpisow w ustawienia> czytanie> Strony blogu wysietlaja maksymalnie (3 wpisy)
+        60. Edytujemy paginacje w archive-restaurants.php
+            ______________________________KOD_________________________________________________________________________________________________
+            Dawny kod:
+            <div class="pagination">
+                <ul>
+                    <li><a href="#" class="prev page-numbers">«</a></li>
+                    <li><span class="current">1</span></li>
+                    <li><a href="#" class="page-numbers">2</a></li>
+                    <li><a href="#" class="next page-numbers">»</a></li>
+                </ul>
+            </div>
+            Nowy kod:-------------------------------------------------------------------------------------------------------------------------
+            <div class="pagination">
+                <?php generatePagination(get_query_var('paged'), $loop); ?>
+            </div>
+            __________________________________________________________________________________________________________________________________
+            
+        60a. W pliku utils wpisujemy funkcje do paginacji
+            ______________________________KOD_________________________________________________________________________________________________
+            function generatePagination($paged, $loop) {
+    
+                $big = 999999999; // need an unlikely integer
+
+                    echo paginate_links( array(
+                        'base' => str_replace( $big, '%#%', esc_url( get_pagenum_link( $big ) ) ),
+                        'format' => '?paged=%#%',
+                        'current' => max( 1, $paged ),
+                        'total' => $loop->max_num_pages,
+                        'prev_text' => '«',
+                        'next_text' => '»',
+                        'type' => 'list'
+                    ) );
+            }
+
+            __________________________________________________________________________________________________________________________________
+            
+        61. Dynamizujemy plik footer.php
+            ______________________________KOD_________________________________________________________________________________________________
+            Dawny kod:
+            <footer class="boxes">
+            <div class="pos-center">
+                <div class="flyer">&nbsp;</div>
+                <section class="spaghetti">
+                    <h2>Przepisy i Dieta</h2>
+                    <ul>
+                        <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                        <li><a href="#">Schab po węgiersku</a></li>
+                        <li><a href="#">Sałatka z chrupiącym indykiem</a></li>
+                        <li><a href="#">Bagietka francuska</a></li>
+                        <li><a href="#">Zapiekanka krakowska</a></li>
+                    </ul>
+                </section>
+
+            Nowy kod--------------------------------------------------------------------------------------------------------------------------
+
+                <footer class="boxes">
+                    <div class="pos-center">
+                        <div class="flyer">&nbsp;</div>
+                        <section class="spaghetti">
+                            <h2>Przepisy i Dieta</h2>
+                            <ul>
+                                <?php
+                                    $przepisy = new WP_Query(array(
+                                        'post_type' => 'recipes', // posty customowe
+                                        'posts_per_page' => 5 // 
+                                    ));
+                                    
+                                    while($przepisy->have_posts()): $przepisy->the_post();	// wysietlamy posty					
+                                ?>
+                                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li> // posty beda podlinkowane i wyswietla tytul naszego posta
+                                <?php endwhile; ?>
+                            </ul>
+                        </section>
+
+                        <section class="bread">
+                            <h2>Food Fight</h2>
+                            <ul>
+                                <?php
+                                    $foodfight = new WP_Query(array(
+                                        'post_type' => 'foodfight',
+                                        'posts_per_page' => 5
+                                    ));
+                                    
+                                    while($foodfight->have_posts()): $foodfight->the_post();						
+                                ?>
+                                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </section>
+
+                        <section class="dinner last">
+                            <h2>Restauracje</h2>
+                            <ul>
+                                <?php
+                                    $restauracje = new WP_Query(array(
+                                        'post_type' => 'restaurants',
+                                        'posts_per_page' => 5
+                                    ));
+                                    
+                                    while($restauracje->have_posts()): $restauracje->the_post();						
+                                ?>
+                                <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
+                                <?php endwhile; ?>
+                            </ul>
+                        </section>
+                    </div>
+                </footer>
+                    
+                </body>
+            </html>
+            __________________________________________________________________________________________________________________________________
+            
+        64. W pliku functions.php deklarujemy sidebar i w ktorym bedziemy mogli dodawac widgety
+            ______________________________KOD_________________________________________________________________________________________________
+            /* Usprawniamy ten kod 
+            register_sidebar(array(
+                'name' => 'Restauracje (listing)',
+                'id' => 'restants-archive-widget',
+                'description' => 'Widgety w sidebarze w archiwum restauracji',
+                'before_widget' => '<div id="%1$s" class="box widget %2$s">',
+                'after_widget' => '</div>',
+                'before_title' => '<h2>',
+                'after_title' => '</h2>'
+            ));
+            */
+
+            if(function_exists(register_sidebar)) { // Jesli funkcja register sidebar jest dostepna dla nas to rejestrujemy
+	
+                $sidebar_list = array( // Tworzymy liste
+                    array( // kolejna tablica ze zmiennymi dla kazdego sidebara
+                        'name' => 'Restauracje (listing)',
+                        'id' => 'restants-archive-widget',
+                        'description' => 'Widgety w sidebarze w archiwum restauracji'
+                    ),
+                    array(
+                        'name' => 'Restauracja (szczegóły)',
+                        'id' => 'restaurant-details-widgets',
+                        'description' => 'Widgety w sidebarze w pojedynczej restauracji'
+                    ),
+                    array(
+                        'name' => 'Przepisy (listing)',
+                        'id' => 'recipes-archive-widgets',
+                        'description' => 'Widgety w pasku bocznym na liście przepisów'
+                    ),
+                    array(
+                        'name' => 'Przepisy (szczegóły)',
+                        'id' => 'recipe-details-widgets',
+                        'description' => 'Widgety w pasu bocznym na stronie przepisu'
+                    ),
+                    array(
+                        'name' => 'Domyślny',
+                        'id' => 'default-widgets',
+                        'description' => 'Domyślny pasek z Widgetami'
+                    ),
+                );
+                
+                $sidebar_opts = array( // opcje
+                    'before_widget' => '<div id="%1$s" class="box widget %2$s">',
+                    'after_widget' => '</div>',
+                    'before_title' => '<h2>',
+                    'after_title' => '</h2>'
+                );
+                
+                foreach($sidebar_list as $sidebar) { // dla kazdego sidebara rejestrujemy sidebar
+                    register_sidebar(array_merge($sidebar, $sidebar_opts));
+                }
+            }
+            __________________________________________________________________________________________________________________________________
+            
+        63. Dynamizujemy sidebar-restaurants-archive.php
+            ______________________________KOD_________________________________________________________________________________________________
+            <div class="right">
+                <?php dynamic_sidebar('restants-archive-widget') ?>             
+            </div> 
+            __________________________________________________________________________________________________________________________________
+            
+        64. Podpinami plugin ktore beda wytlumaczone w nowym kursie i je wlaczamy
+        65. W header.php musimy podpiac plik scriptu z google map z wlasnym kluczem api
+            ______________________________KOD_________________________________________________________________________________________________
+		    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo esc_attr(get_option('lte_gmap_api_key')); ?>&amp;sensor=true"></script>
+            __________________________________________________________________________________________________________________________________
+
+        66. W pliku functions.php tworzymy funkcje do mapy google
+            ______________________________KOD_________________________________________________________________________________________________
+            // dane do mapy
+            function getRestaurantsCountByCities() { // Zostana zwrocone restauracje ilosc po miescie
+                $cities_list = get_terms('city'); // wyciagamy taksonomie miasta
+                $arr_ret = array(); // tworzymy tablice
+                
+                foreach($cities_list as $city) { // dla kazdego miasta z listy 
+                    $arr_ret[] = array(
+                        'city' => $city->name, // pierwszy klucz city i wyciagamy nazwe miasta
+                        'restaurantsCount' => $city->count // drugi klucz czyli ilosc zrecenzowanych restauracji
+                    );
+                }
+                
+                return $arr_ret; // zwracanie tablicy
+            }
+            __________________________________________________________________________________________________________________________________
+            
+        67. W pliku archive-restaurants.php wywolujemy script do przepisania tablicy z php w function do google map w js na naszej stronie
+            ______________________________KOD_________________________________________________________________________________________________
+			<script>var restaurantsList = JSON.parse('<?php echo json_encode(getRestaurantsCountByCities()); ?>')</script>
+            __________________________________________________________________________________________________________________________________
+
+        Instrukacja. Rejestrowanie strony panelu
+                        1. Rejestracja ustawien strony - register_settings
+                        2. Action Hook - add_action
+                        3. Formularz linkujacy do options.php
+                        4. Rejestracja pol w formularzu ustawien - settings_fields
+                        5. Przekazanie opcji z formularza z pomoca get_option
+                        6. Powiazanie opcji ze strona .php
+
+        68. W pliku functions.php rejestrujemy strone
+            ______________________________KOD_________________________________________________________________________________________________
+            function lte_admin_init() { // deklaracja funkcji 
+		        register_setting('lte_theme_options', 'lte_gmap_api_key'); // rejestrujemy grupe ustawien a pozniej nazwe tego ustawienia
+	        }
+
+            add_action('admin_init', 'lte_admin_init'); // wywolujemy add_action i jako parametr admin_init i nazwe wprowadzonej wczesniej funkcji
+
+            function lte_settings_page() { // wlasciwa strona z ustawieniami administratora
+                ?> // zamykamy plik php
+                
+                    <div class="wrap"> <!-- Klasa wrap -->
+                        <?php screen_icon(); ?> <!-- Pozwala wyswietlic mala ikonke na gorze pola ustawien -->
+                        <h2>Ustawienia Szablonu LoveToEat</h2> <!-- Naglowek  -->
+                        
+                        <form action="options.php" method="post" id="lte-options-form"> <!-- Musi linkowac do options.php -->
+                            <?php settings_fields('lte_theme_options'); ?> <!-- Ta funkcja przjmuje nazwe grupe ustawien -->
+                            <h3>
+                                <label for="lte_gmap_api_key">Klucz Google Maps</label> <!-- Klucz googla -->
+                                <input name="lte_gmap_api_key" id="lte_gmap_api_key" type="text" style="width:500px;" value="<?php echo esc_attr(get_option('lte_gmap_api_key')); ?>" <!-- Sluzy do wpisania klucza z enkoodowaniem znakow. I przekazujemy nazwe-->
+                            </h3>
+                            <input class="button button-primary" type="submit" value="Zapisz" /> <!-- PRzycisk wysylania -->
+                        </form>
+                    </div>
+                <?php
+            }
+
+            function lte_settings_menu() { //Sluzy za zarejestrowanie odpowiedniego linku w kokpicie
+		        add_theme_page('LoveToEat - Ustawienia', 'Szablon LoveToEat', 'manage_options', 'lte-theme-options', 'lte_settings_page'); // pozwala dodac kolejna strone jako sub menuw nasyzm menu z lewej strony. Zawiera nazwe strony, Tytul, capability, manu_slug, funkcja-->
+	        }
+	
+	        add_action('admin_menu', 'lte_settings_menu'); // wywolanie hook 
+            __________________________________________________________________________________________________________________________________
+
+        68a. Dynamizujem link od googla map w header.php
+            ______________________________KOD_________________________________________________________________________________________________
+            <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo esc_attr(get_option('lte_gmap_api_key')); ?>&amp;sensor=true"></script>
+            __________________________________________________________________________________________________________________________________
+
+        68b. Otiweramy plik functions.php i przypisujemy adminow aby dodal klucz do googla map
+            ______________________________KOD_________________________________________________________________________________________________
+            function show_admin_panel_message() { // funkcja do wyswietlenia wiadomosci o braku klucza
+                $key = esc_attr(get_option('lte_gmap_api_key')); // ustawiamy zmienna key dla klucza
+                
+                if(empty($key)) { // jesli klucz jest pusty
+                    echo '<div id="message" class="error"><p><strong>Szablon LoveToEat wymaga podania klucza Google Maps API</strong></p></div>'; // wysietlamy ze szablon wymaga klucza api
+                }
+            }
+            add_action('admin_notices', 'show_admin_panel_message'); // Dodajemy action
+            __________________________________________________________________________________________________________________________________
+
+
+
+
+            ______________________________KOD_________________________________________________________________________________________________
+            __________________________________________________________________________________________________________________________________
+
+
+            ______________________________KOD_________________________________________________________________________________________________
+            __________________________________________________________________________________________________________________________________
+
+
+            ______________________________KOD_________________________________________________________________________________________________
+            __________________________________________________________________________________________________________________________________
+
+
+            ______________________________KOD_________________________________________________________________________________________________
+            __________________________________________________________________________________________________________________________________
+
+
+
+
+            ______________________________KOD_________________________________________________________________________________________________
+            __________________________________________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
