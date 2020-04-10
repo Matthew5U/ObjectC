@@ -1,0 +1,128 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress - Wlasne pluginy" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep
+-------------------------------------------------------------------------------------------------
+
+    1. Instalacja XAMPP
+
+         W config ustawimy haslo na root i dzieki temu bedziemy automatycznie zalogowani - tylko
+            na serwerze deweloperskim 
+
+    2. PHP
+
+        Wyswietlanie bledow
+            error_reporting = E_ALL
+
+        Wyswietlanie wszyski bledow
+            display_errors = On - dla dewelopera
+                             Off - dla uzytkonikow
+
+        Umiejscowienie logow z bledow
+            error_log
+
+        Wlaczyl logowanie do pliku
+            log_errors = on
+
+        Maksymalna dlugosc logow w pliku
+            log_errors_max_len = 0 <- nie ogarniczanie plikow logow
+
+    Instalacja Wordpress
+        1. Wypakowywujemy pliki
+        2. Edytujemy plik config.php
+            Ustawiamy baze danych
+            UStawiamy klucze w define ze strony ktora jest podpowiedzia w pliku
+        3. Instalujemy Wordpressa na serwerze
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Tworzenie pluginow
+-------------------------------------------------------------------------------------------------
+
+    Musimy zapisac podstawowe dane aby plugin mogl sie wyswietlic
+
+    Dajemy tekst odpowiadajacy za licencje pluginu
+
+    Funkcje w pluginie nazywamy podobnie jak pliki pluginu
+
+    Wazne jest zabezpieczenie szblonu jesli dodamy wtyczke statycznie do szablonu to wazne jest 
+        aby zabezpieczyc strone w razie wylaczeni wtyczki
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Debugownaie Wordpressa
+-------------------------------------------------------------------------------------------------
+
+    Wlaczenie debugownaie wordpressa odbywa sie w pliku wp-config.php edytujemy kod zamieniajac 
+        stalal na true
+        define('WP_DEBUG', true);
+
+    Aby bledy trafialy do pliku musimy dopisac do wp-config.php kod
+        define('WP_DEBUG_LOG', true);
+
+    Wtyczki:
+        -BlacBox
+            Daje nam mozliwosc podgladania sekcji blogabl
+            Wczytuje czas
+            W sql - pokazuje zapytania do bazy danych
+            Errors - bledy php
+            toggle - wylacz blackboxa
+
+            Zle napisany 
+            Gdy ustawimy savequeries na false wyrzuca bledy
+            Nie wysitla wszystki sekcji zapytan do sql
+
+        -DebugThis
+            Przycis debug this:
+                Dostep do 44 funckji debugowania 
+
+            Minus:
+                W backendzie nie pojawia sie debugthis
+        
+
+        -Debug Bar
+            Przycisk debug po prawej gornej stronie
+                Posiada wiele dodatkow
+                Instalujemy to co potrzebujemy z dodatkowo
+
+            Minus:
+                Kilka informacji - sam wtyczka
+                Doinstalowywanie pluginow do wtyczki
+
+            Warto zainstalowac
+                Debug Bar Actions and Filters Addon
+                -//- Super Globals
+                -//- Constants
+                -//- Cron
+                -//- Console
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Tworzenie rozszerzen dla wordpressa
+-------------------------------------------------------------------------------------------------
+    Kotiwce:
+        Akcje - Uruchamiane w trakcie cyklu zycia w przypadku wystapienia konkretnego zdarzenia
+
+        Filtry - Modyfikuja tekst wyswietlany na ekran zapiswyany do bazy danych
+
+    Priorytet nawiekszy jest 10
+
+
+
+ZACZAC KOMUNIKACJA Z BAZA DANYCH OBIEKT WDPB CZ1
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
