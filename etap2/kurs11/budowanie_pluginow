@@ -1,0 +1,1496 @@
+----------------------------------------------------------------------------------------------------------------------------------------------
+INSTRUKCJA BUDOWY PLUGINOW 
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Plugin z cytatami
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    1. Wchdozimy do folderu wordpress > wp-content > plugins 
+    2. Tworzymy plugin z cytatami
+        edu-cytaty.php
+        
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /*
+        * Plugin Name: Eduweb Cytaty
+        * Plugin URI: http://www.eduweb.pl
+        * Description: Plugin utworzony w kursie WP Dev. Świetne cytaty dla świetnych ludzi.
+        * Version: 1.0
+        * Author: Eduweb
+        * Author URI: htpp://www.eduweb.pl
+        * License: GPL2
+        */
+
+        /*  Copyright YEAR  Eduweb  (email : support@eduweb.pl)
+
+        This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License, version 2, as 
+        published by the Free Software Foundation.
+
+        This program is distributed in the hope that it will be useful,
+        but WITHOUT ANY WARRANTY; without even the implied warranty of
+        MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+        GNU General Public License for more details.
+
+        You should have received a copy of the GNU General Public License
+        along with this program; if not, write to the Free Software
+        Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+        */
+
+        function edu_cytaty_get_random_quote(){
+        
+            $quotes = array( // tablica cytatow
+                '10x10 --- 100',
+                'Eduweb (tm)',
+                'Czy rzeczywiście potrzebujemy więcej czasu? Czy też potrzebujemy więcej dyscypliny, by lepiej wykorzystać czas, który mamy?',
+                'Jeśli nie ustalasz celów dla siebie, jesteś skazany na pracowanie przy osiąganiu celów kogoś innego.',
+                'Kreatywność to wymyślanie, eksperymentowanie, wzrastanie, ryzykowanie, łamanie zasad, popełnianie błędów i dobra zabawa.',
+                'Sukces to maksymalne wykorzystanie możliwości jakie masz.',
+                'Prawdziwa decyzja jest mierzona poprzez fakt podjęcia nowego działania. Jeśli nie ma działania - tak naprawdę nie podjąłeś decyzji.',
+                'Sposobem na zaczęcie jest skończenie mówienia i podjęcie działania.',
+                'Prawdziwą miarą bogactwa jest to, ile byłbyś wart, gdybyś stracił wszystkie swoje pieniądze.',
+                'Nie mogłem się doczekać na sukces, więc ruszyłem naprzód bez niego.',
+                'Wybierz pracę, którą kochasz, a nie będziesz musiał pracować nawet przez jeden dzień w swoim życiu.',
+                'Nie mów światu, co możesz zrobić. Pokaż to.',
+                'Wielkie umysły mają cele, inni mają życzenia.',
+                'Moj jakiś tam cytat',
+                'Weź życie we własne ręce. I co się wtedy stanie? Coś strasznego: nie będzie kogo obwiniać.',
+                'Nie jeden przedsiębiorca dziękuje niebu za biedę, która mu wykazała, że najlepszy kapitał ma w swojej głowie, a nie w pożyczkach bankowych.'
+                'Kreatywność to wymyślanie, eksperymentowanie, wzrastanie, ryzykowanie, łamanie zasad, popełnianie błędów i dobra zabawa.',
+                'Sukces to maksymalne wykorzystanie możliwości jakie masz. //Zig Ziglar',
+        );
+        
+        return $quotes[mt_rand(0, (count($quotes) -1))];
+        }
+
+        function edu_cytaty_random_qoute(){
+        $quote = '"'.edu_cytaty_get_random_quote().'"'; // pobieramy cytat
+        echo '<p>'.wptexturize($quote).'</p>'; // wyswietlamy cytat w tagu p, wptexturize - ulepsza formatowanie textu 
+
+        
+        echo '<p>'.$quote.'</p>';
+        }
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    2a. Przechdozimy do pliku home-page.php i dodajmy nasz cytat
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <section class="caption quote">
+            <div class="pos-center">
+                <blockquote>
+                    <?php 
+                        if(function_exists('edu_cytaty_random_qoute')){ // jesli funckja instnieje
+                            edu_cytaty_random_qoute(); // to ja utuchomimy
+                        }else{ // jesli nie to wyseitli cytat ponizej
+                            echo '<p>“W gospodarcze opartej na wiedzy możemy mieć ciastko, zjeść ciastko i upiec jeszcze trzecie”</p>';
+                        } 
+                    ?>
+                </blockquote>
+            </div>
+        </section>  
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Debugowanie pluginow
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    1. Wlaczenie debugownaie wordpressa odbywa sie w pliku wp-config.php edytujemy kod zamieniajac 
+        stalal na true
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG', true);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+        
+
+    2. Aby bledy trafialy do pliku musimy dopisac do wp-config.php kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG_LOG', true);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    3. Aby wyswietlac bledy do pliku a nie na ekrnaie nalezy dodac kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG', true);    
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    4. Ustawienia dla developera
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG', true);    
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', true);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    5. Ustawienia dla uzytkownikow do testow
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG', true);    
+        define('WP_DEBUG_LOG', true);
+        define('WP_DEBUG_DISPLAY', false);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    6. Ustawienia dla wersji produkcjnej
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('WP_DEBUG', false);    
+        define('WP_DEBUG_LOG', false);
+        define('WP_DEBUG_DISPLAY', false);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    7. Aby dostac nie skompresowane pliki nalezy w wp-config.php ustawic stalal
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        deine('SCRIPT_DEBUG', true);            
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    8. Dostanie sie dostepu zapytan sql gdyby wystepowaly problemy. Tworzymy test-plugin.php  
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /*
+        * Plugin Name: Test plugin
+        * Plugin URI: http://www.eduweb.pl
+        * Description: Plugin powodujacy problemy
+        * Version: 1.0
+        * Author: Eduweb
+        * Author URI: htpp://www.eduweb.pl
+        * License: GPL2
+        */
+          
+            // Obiekt do komunikowania sie  z baza danych:       
+            //global $wpdb;
+            //var dump($wpdb);
+
+            // Wypisanie danych $wpdb do pliku
+            function _log($message = '')
+            {
+                // nadpisujemy message
+                global $wpdb;
+                $message = $wpdb;
+                $file_path = __DIR__.DIRECTORY_SEPARATOR.'app_dev.log';
+
+                // Dopisywanie czasu w momencie dodania do pliku
+                $time = date('Y-m-d H:i:s');
+
+                // Sprawdzamy czy jest tablica lub obiektem
+                if(is_array($massage) || is_object($message)){
+                    $message = print_r($message, TRUE); // nadpisanie zmiennej message
+                }
+            
+                $log_line = "$time\t{message}\n; // Linijka dla windowsa. Linia logow
+
+                if(!file_put_contents($file_path, $time, $log_line, FILE_APPEND)) { // zapisywanie do pliku bez nadpisywania plikow
+                    throw new Exception("Plik dziennika '{$file_path}' nie moze zostac otawrty ani utworzyc. Sprawdz uprawnienia.") // Jesli sie nie uda to zapiszemy informacje
+                }
+            
+            
+            }
+
+            // Obiekt do komunikowania sie  z baza danych:       
+            //global $wpdb;
+            //_log($wpdb);
+            
+            // Zaktowiczamy powyzsze funckje przed zakonczeniem wordpressa
+
+            add_action('shutdown', '_log');
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    8a. Tworzymy plik do logow app_dev_log.php
+    9. Problemy
+        [num_queries] - ilosc zapytan wykonanych na baze danych
+        [queries] - tablica wszystkich zapytan na baze dancyh
+    9a. Aby wyswietlic zapytania nalezy w pliku wp-config.php zadeklaorwac kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('SAVEQUERIES', true); 
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    9b. Aby wszystkie byly wyswietlone zapytania nalezy dobrze zakotwiczyc funckje log.
+        Funkcje ta nalezy zakotwiczyc przed samym zakonczeniem pracy wordpressa
+
+    10. W plku test-plugin.php tworzymy funckje do wypisywania zawartosci zapytan do bazy w pliku
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        function my_query_logger()
+        {
+            if(defined('SAVEQUERIES) && SAVEQUERIES){
+                global $wpdb;
+
+                $dump = array();
+
+                if(!empty($wpdb-> queries))
+                {
+                    foreach($wpdb->queries as $i=>$qrow)
+                    {
+                        $query = qrow[0];
+                        $time = number_format(sprintf('%0.2f',$qrow[1] * 1000), 2, '.', ',');
+                        $path = $qrow[2];
+
+                        $dump[] = "[{$i}]\t- Query: {$query}\n\t- Time: {$time}ms\n\t- Path: {$path}";
+                    }
+                }
+                else
+                {
+                    $dump[] = 'No queries...';
+                }
+
+                $label = '-- SQL Dump at '.date('Y-m-d H:i:s').' --';
+                $footer = '-- DUMP END --';
+
+                $file_name = 'sql_dump.log';
+                $file_path = __DIR__.DIRECTROY_SEPARATOR.$fil_name;
+
+                $content = $label."\n\n".implode("\n\n", $dump)."\n\n".$footer."\n\n";
+
+                if(!file_put_contents($file_path, $content, FILE_APPEND))
+                {
+                    throw new Exception("Plik dziennika '{$file_path}' nie moze zostac otawrty ani utworzyc. Sprawdz uprawnienia.") 
+                }
+            }
+        }    
+
+        add_action('shutdown'.'my_query_logger');
+
+        ?>    
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    10a. Tworzymy plik sql_dumpl.log
+    10b. W wp-config.php ustawiamy
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        define('SAVEQUERIES', false); // gdy niechemy debagowania w wp. Kod dla wersji produkcyjnej lub testowej
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    11. Plik z podstawowymi narzedzami developera wordpress. 
+    
+        Plik dev_utils.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        function _log($message)
+            {
+                if(definde('WP_DEBUG') && WP_DEBUG)// jesli jest ustawiona to zapisujemy do pliku
+                {
+
+                    $file_path = __DIR__.DIRECTORY_SEPARATOR.'app_dev.log';
+
+                    // Dopisywanie czasu w momencie dodania do pliku
+                    $time = date('Y-m-d H:i:s');
+
+                    // Sprawdzamy czy jest tablica lub obiektem
+                    if(is_array($massage) || is_object($message)){
+                        $message = print_r($message, TRUE); // nadpisanie zmiennej message
+                    }
+                
+                    $log_line = "$time\t{message}\n; // Linijka dla windowsa. Linia logow
+
+                    if(!file_put_contents($file_path, $time, $log_line, FILE_APPEND)) { // zapisywanie do pliku bez nadpisywania plikow
+                        throw new Exception("Plik dziennika '{$file_path}' nie moze zostac otawrty ani utworzyc. Sprawdz uprawnienia.") // Jesli sie nie uda to zapiszemy informacje
+                    }
+                }
+            
+            }
+
+        function my_query_logger()
+        {
+            if((definde('WP_DEBUG') && WP_DEBUG)) && (defined('SAVEQUERIES) && SAVEQUERIES)){
+                global $wpdb;
+
+                $dump = array();
+
+                if(!empty($wpdb-> queries))
+                {
+                    foreach($wpdb->queries as $i=>$qrow)
+                    {
+                        $query = qrow[0];
+                        $time = number_format(sprintf('%0.2f',$qrow[1] * 1000), 2, '.', ',');
+                        $path = $qrow[2];
+
+                        $dump[] = "[{$i}]\t- Query: {$query}\n\t- Time: {$time}ms\n\t- Path: {$path}";
+                    }
+                }
+                else
+                {
+                    $dump[] = 'No queries...';
+                }
+
+                $label = '-- SQL Dump at '.date('Y-m-d H:i:s').' --';
+                $footer = '-- DUMP END --';
+
+                $file_name = 'sql_dump.log';
+                $file_path = __DIR__.DIRECTROY_SEPARATOR.$fil_name;
+
+                $content = $label."\n\n".implode("\n\n", $dump)."\n\n".$footer."\n\n";
+
+                if(!file_put_contents($file_path, $content, FILE_APPEND))
+                {
+                    throw new Exception("Plik dziennika '{$file_path}' nie moze zostac otawrty ani utworzyc. Sprawdz uprawnienia.") 
+                }
+            }
+        }    
+
+        add_action('shutdown'.'my_query_logger');
+
+        ?>    
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    11a. W pliku edu-cytaty.php dopisujemy zestaw funckji
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        require_once 'dev_utils.php';
+
+        // tutaj jest funkcj z cytatami
+
+        function edu_cytaty_random_qoute(){
+        $quote = '"'.edu_cytaty_get_random_quote().'"';
+        echo '<p>'.wptexturize($quote).'</p>';
+        
+
+        }
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    12. Tworzymy nowy katalog - edu-comment-notification i tworzymy taki sam plik w srodku edu-comment-notification.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Comment Notification
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Plugin notyfikujący na email o nowych komentarzach.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // dodajemy do tego samego folderu plik dev_utils.php i podpinamy
+            require_once 'dev_utils.php';
+
+            // funkcja notyfikujaca, wordpress do wszystki commen_post przekazuje comment id
+            function edu_cn_notify($comm_id){
+                
+                // funkcja wp pobiera komenatrz
+                $comment = get_comment($comm_id);
+                //_log($comment);
+                
+
+                // pobiera 
+                $post = get_post($comment->comment_post_ID);
+                //_log($post);
+                
+
+                // email do jakie ma byc wyslay email
+                $to = 'support@eduweb.pl';
+
+                //tytul maila
+                $subject = "Komentarz na LoveToEat: '{$post->post_title}'";
+                //dodajemy tresc wiadomosci email
+                $message = "Komentarz od {$comment->comment_author}, email: {$comment->comment_author_email} \n\n {$comment->comment_content}";
+                
+                //_log($subject);
+                _log($message);
+                
+                // funkcja wordrpessa do wysylania waidomosci email. Sprawdzamy czy wiadomosc zostala wyslana
+                if(wp_mail($to, $subject, $message)){
+                    // w pliku logow wiadomsoc zostala wyslana
+                    //_log('Wiadomość o komentarz została wysłana');
+                }else{
+                    //_log('Wiadomość o komentarz NIE została wysłana');
+                }
+                
+            }
+            
+            // podpinamy do commen_post nasza funkcje przy ladowaniu
+            add_action('comment_post', 'edu_cn_notify');
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    13. Tworzymy nowy katalog - edu-copyrights i tworzymy taki sam plik w srodku edu-copyrights.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Copyrights
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Plugin dodający notkę o prawach autorskich.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // dodajemy nasze copyrights
+            function edu_cr_copyrights($content){
+                
+                $content .= wptexturize('<p class="copyrights">LoveToEat Copyrights '.date('Y').' Eduweb (tm)</p>');
+                
+                /* // stylowanie dla tego paragrafu
+                echo "<style>
+                    p.copyrights{
+                        background: #F55B0C;
+                        padding: 10px 20px;
+                        color: #fff;
+                    }
+                    </style>";
+                */
+                
+                return $content;
+            }
+
+            // podpinamy do wp_head przy ladowaniu nasza funkcje
+            add_filter('the_content', 'edu_cr_copyrights');
+            
+            // funkcja do dodawania stylu w momencie dodawania naglowka strony
+            function edu_cr_add_styles(){
+                echo "<style>
+                    p.copyrights{
+                        background: #F55B0C;
+                        padding: 10px 20px;
+                        color: #fff;
+                    }
+                    </style>";
+            }
+
+            // podpinamy do wp_head przy ladowaniu nasze style
+            add_action('wp_head', 'edu_cr_add_styles');
+
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    AKCJA
+    14. Tworzymy nowy katalog - edu-actions i tworzymy taki sam plik w srodku edu-actions.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Eduweb Akcje
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Eduweb Akcje
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+
+            function edu_actions_print_footer(){
+                ?>
+            <div id="footer-bar">
+                <h3>To jest footer bar</h3>
+                <div class="container">
+                    //podajemy nasza funkcje i ja tu uruchamiamy
+                    <?php do_action('edu_footer_bar'); ?>
+                    <!--
+                    <div style="background: red">1</div>
+                    <div style="background: blue">2</div>
+                    <div style="background: yellow">3</div>
+                    -->
+                </div>
+            </div>
+                <?php
+            }
+
+            //podpinamy do wp_footer nasz funkcje podczas generowania strony
+            add_action('wp_footer', 'edu_actions_print_footer');
+            
+            //dodanie naszego pliku ze stylami
+            function edu_actions_add_stylesheet(){
+                //rejestrujemy style gdyz wordpress wymaga
+                wp_register_style('edu-actions-styles', plugins_url('styles/styles.css', __FILE__));
+
+                // podpinamy pod strone
+                wp_enqueue_style('edu-actions-styles');
+            }
+            add_action('wp_enqueue_scripts', 'edu_actions_add_stylesheet');
+            
+            // utworzy nam jeden z divow dzieki temu mozey udostepniam api dla innych developerow
+            function edu_actions_add_def_box(){
+                ?><div style="background: red">1</div><?php
+            }
+            add_action('edu_footer_bar', 'edu_actions_add_def_box', 9); // 9 mowi o priorytecie 
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    14a. Tworzymy folder z arkuszem stylow i pliki css do naszej funckji
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        body{
+            position: relative;
+        }
+
+        #footer-bar{
+            position: absolute;
+            width: 999px;
+            left: 50%;
+            margin-left: -520px;
+            bottom: 0px;
+            background: rgba(100, 100, 100, 0.8);
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+
+        #footer-bar h3{
+            color: #fff;
+        }
+
+        #footer-bar .container{
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+
+        #footer-bar .container div{
+            float: left;
+            margin-left: 20px;
+            padding: 10px 13px;
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    14b. Tworzymy rozszerzenie dla naszego plaginu
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Eduweb Akcje - Rozszerzenie
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Eduweb Akcje - Rozszerzenie
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+            
+            
+            function edu_actions_ext_add_box2(){
+                ?><div style="background: green">2</div><?php
+            }
+            add_action('edu_footer_bar', 'edu_actions_ext_add_box2', 15);
+            
+            function edu_actions_ext_add_box3(){
+                ?><div style="background: gold">3</div><?php
+            }
+            add_action('edu_footer_bar', 'edu_actions_ext_add_box3', 12);
+            
+            function edu_actions_ext_add_box4(){
+                ?><div style="background: greenyellow">4</div><?php
+            }
+            add_action('edu_footer_bar', 'edu_actions_ext_add_box4', 5);
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    FILTR
+    15. W edu-cytaty.php edytujemy aby przechodzil przez nasz filtrs
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        function edu_cytaty_random_qoute(){
+            //$quote = '"'.edu_cytaty_get_random_quote().'"';
+            //echo '<p>'.wptexturize($quote).'</p>';
+        
+            // wylosujemy do tej zmiennej cytat
+            $quote = edu_cytaty_get_random_quote();
+
+            // stosujemy na tym cytacie nasz filtr
+            $quote = apply_filters('edu_cytaty_filter', $quote);
+        
+            // wyswietlamy nasz cytat
+            echo '<p>'.$quote.'</p>';
+                }
+                
+            // Nasz domyslny filtr
+            function edu_cytaty_def_filter($quote){
+                $quote = '"'.$quote.'"'; // przekzujemy tekst zapisany w ""
+                return wptexturize($quote); // i wruzcamy do wptexturize
+            }
+            // podpinamy nasz filtr
+            add_filter('edu_cytaty_filter', 'edu_cytaty_def_filter');
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    15a. Tworzymy plik edu-cytaty-autorzy.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Eduweb Cytaty + Autorzy
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Plugin utworzony w kursie WP Dev. Świetne cytaty dla świetnych ludzi.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // formatuje z autorem
+            function edu_cytaty_formatowanie_z_autorem($quote){
+                
+                // czy posiada dwa sleshe
+                if(strpos($quote, '//') !== FALSE){
+                    
+                    // czy jest uuruchomiony filtr. Filtr i parametr
+                    if(has_filter('edu_cytaty_filter', 'edu_cytaty_def_filter')){
+                        
+                        // jesli jest ustawiony filtr to go usuwamy
+                        remove_filter('edu_cytaty_filter', 'edu_cytaty_def_filter');
+                    }
+                    
+                    //rodzielamy przez dwa //
+                    $parts = explode('//', $quote);
+ 
+                    // usuwamy biale znaki
+                    $parts = array_map('trim', $parts);
+                    
+                    // do pierwszego elementu dodajemy pierwszy filtr
+                    $parts[0] = edu_cytaty_def_filter($parts[0]);
+
+                    // zmieniamy rozmiar fontu dla autora
+                    $parts[1] = '<i style="font-size: 0.8em">'.$parts[1].'</i>';
+                    
+                    // zwracamy nowy ciag przez sklejenie
+                    return implode(' ', $parts);
+                }
+                
+                // jesli nie ma autora to zwracamy quote
+                return $quote;
+            }
+            
+            // podpinamy nowy filtr
+            add_filter('edu_cytaty_filter', 'edu_cytaty_formatowanie_z_autorem', 9);
+            
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    PLUGGABLE fUNCTIONS
+    16. Tworzymy katalog o nazwie edu-email-cheat i nazwe pliku o takiej samej nazwie
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Email Cheat
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Emaile do pliku!
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            
+        if ( !function_exists( 'wp_mail' ) ) :
+
+        // tworzymy mechanizm zapisywania mail do pliku
+        function wp_mail( $to, $subject, $message, $headers = '', $attachments = array() ) {
+            
+            // aktualna data
+            $date = date('Y-m-d H:i:s');
+            
+            // jak ma wygladac mail
+            $email_log = "## Email ({$date}) ##\nTo: {$to}\nSubject: {$subject}\nMessage: {$message}\n## ## ## ## ## ##\n";
+            
+            // tam gdzie zapiszemy wszystkie logi
+            $filename = __DIR__.DIRECTORY_SEPARATOR.'emails.log';
+            
+            // zapiszemy do tego pliku nasza zmienne 
+            file_put_contents($filename, $email_log, FILE_APPEND);
+            
+        }  
+
+        endif;
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    SHORTCODES
+    17. Tworzymy katalog o nazwie edu-img-resize i nazwe pliku o takiej samej nazwie
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Image Resize
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Zmiana wielkości obrazka w locie.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // fnckja przyjmuje argumenty i tresc
+            function edu_ir_resize($args, $content){
+                
+                // do zmiennej args przypisujemy domyslne parametry jesli uzytkownik nie poda wymiarow
+                $args = shortcode_atts(array('width' => 150, 'height' => 100), $args);
+                
+                // sciezka
+                $script_url = plugins_url('/image.php', __FILE__);
+                
+                //konkatenujemy skrytpt
+                //$script_url .= '?s='.$content.'&w='.$w.'&h='.$h;
+                
+                // alternatywna metoda, 
+                // 1. argumenty do url
+                // 2. podajemy url dla ktorego maja byc wymiary podane
+                $script_url = add_query_arg(array(
+                    's' => $content,
+                    'w' => $args['width'],
+                    'h' => $args['height']
+                ), $script_url);
+                
+                // przypisujemy do srpit utl
+                return '<img src="'.$script_url.'" alt="" />';
+            }
+            
+            add_shortcode('img-res', 'edu_ir_resize');
+
+
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    17a. Tworzymy plik image.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        require_once 'SimpleImage.php';
+
+        $src = $_GET['s'];
+        $width = $_GET['w'];
+        $height = $_GET['h'];
+
+        // jesli ktorys ma parametr 0 to wysiwetlamy bledny parametr
+        if(empty($src) || ($width*$height) == 0){
+            die('błędne parametry');
+        }
+
+        // tworzymy instacje obiektu
+        $Image = new SimpleImage();
+
+        // ladujemy obrazek ktory chcemy zmnejszyc
+        $Image->load($src);
+
+        // zmieniamy rozmiar obrazku
+        $Image->resize($width, $height);
+
+        // wysylamy odpowiedni naglowek
+        header('Content-type: '.$Image->mime);
+        
+        // wyswietlamy obrazek
+        $Image->output();
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    17c. Podpinamy bilbioteke simple-image.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        /*
+        * File: SimpleImage.php
+        * Author: Simon Jarvis
+        * Copyright: 2006 Simon Jarvis
+        * Date: 08/11/06
+        * Link: http://www.white-hat-web-design.co.uk/articles/php-image-resizing.php
+        *
+        * This program is free software; you can redistribute it and/or
+        * modify it under the terms of the GNU General Public License
+        * as published by the Free Software Foundation; either version 2
+        * of the License, or (at your option) any later version.
+        *
+        * This program is distributed in the hope that it will be useful,
+        * but WITHOUT ANY WARRANTY; without even the implied warranty of
+        * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+        * GNU General Public License for more details:
+        * http://www.gnu.org/licenses/gpl.html
+        *
+        */
+
+        class SimpleImage {
+
+            var $image;
+            var $image_type;
+            var $mime;
+
+            function load($filename) {
+
+                $image_info = getimagesize($filename);
+                $this->image_type = $image_info[2];
+                if ($this->image_type == IMAGETYPE_JPEG) {
+                    $this->image = imagecreatefromjpeg($filename);
+                    $this->mime = 'image/jpg';
+                    
+                } elseif ($this->image_type == IMAGETYPE_GIF) {
+                    $this->image = imagecreatefromgif($filename);
+                    $this->mime = 'image/gif';
+                    
+                } elseif ($this->image_type == IMAGETYPE_PNG) {
+                    $this->image = imagecreatefrompng($filename);
+                    $this->mime = 'image/png';
+                }
+            }
+
+            function save($filename, $image_type = IMAGETYPE_JPEG, $compression = 75, $permissions = null) {
+
+                if ($image_type == IMAGETYPE_JPEG) {
+                    imagejpeg($this->image, $filename, $compression);
+                } elseif ($image_type == IMAGETYPE_GIF) {
+
+                    imagegif($this->image, $filename);
+                } elseif ($image_type == IMAGETYPE_PNG) {
+
+                    imagepng($this->image, $filename);
+                }
+                if ($permissions != null) {
+
+                    chmod($filename, $permissions);
+                }
+            }
+
+            function output($image_type = IMAGETYPE_JPEG) {
+
+                if ($image_type == IMAGETYPE_JPEG) {
+                    imagejpeg($this->image);
+                } elseif ($image_type == IMAGETYPE_GIF) {
+
+                    imagegif($this->image);
+                } elseif ($image_type == IMAGETYPE_PNG) {
+
+                    imagepng($this->image);
+                }
+            }
+
+            function getWidth() {
+
+                return imagesx($this->image);
+            }
+
+            function getHeight() {
+
+                return imagesy($this->image);
+            }
+
+            function resizeToHeight($height) {
+
+                $ratio = $height / $this->getHeight();
+                $width = $this->getWidth() * $ratio;
+                $this->resize($width, $height);
+            }
+
+            function resizeToWidth($width) {
+                $ratio = $width / $this->getWidth();
+                $height = $this->getheight() * $ratio;
+                $this->resize($width, $height);
+            }
+
+            function scale($scale) {
+                $width = $this->getWidth() * $scale / 100;
+                $height = $this->getheight() * $scale / 100;
+                $this->resize($width, $height);
+            }
+
+            function resize($width, $height) {
+                $new_image = imagecreatetruecolor($width, $height);
+                imagecopyresampled($new_image, $this->image, 0, 0, 0, 0, $width, $height, $this->getWidth(), $this->getHeight());
+                $this->image = $new_image;
+            }
+
+        }
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    INTERFEJS PANELU ADMINISTRATORA
+    18. Tworzymy folder edu-menu a wnim plik o takiej samej nazwie
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Menu
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Elementy interfejsu PA.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // tworzymy strone
+            function edu_menu_option_page(){
+                ?>
+        <div class="wrap">
+            <?php screen_icon(); ?>
+            <h2>Edu Opcje</h2>
+            <p>Witaj w Panelu Edu Opcji</p>
+        </div>
+                <?php
+            }
+            
+            // funkcja do tworzenia strony glownej naszego menu
+            function edu_menu_home_page(){
+                ?>
+        <div class="wrap">
+            <?php screen_icon(); ?>
+            <h2>Edu Home Panel</h2>
+            <p>Witaj na stronie głównej Panelu Edu Opcji.</p>
+        </div>
+                <?php
+            }
+            
+            // dodajemy menu
+            function edu_menu_create_menu(){
+                
+                // podajemy sciezke do ikonki
+                $icon_url = plugins_url('/icons/icon-foodfight-menu.png', __FILE__);
+                
+                // dodanie do menu
+                add_menu_page('Edu Home Panel', 'Edu Home', 'manage_options', 'edu-menu-home', 'edu_menu_home_page', $icon_url, 61); // nadajemy pozycje 61 
+                
+                // tytul strony, tytul w menu, uprawnienia, wygenerwoanie strony
+                //add_options_page('Edu Opcje', 'edu-opcje', 'manage_options', 'edu-menu-opts', 'edu_menu_option_page');
+                
+                // pojawienie w sub menu wyglad
+                //add_theme_page('Edu Opcje', 'edu-opcje', 'manage_options', 'edu-menu-opts', 'edu_menu_option_page');
+                
+                // moj przycisk submenu dodajemy do nwoeg przycisku nadrzednego
+                add_submenu_page('edu-menu-home', 'Edu Opcje', 'edu-opcje', 'manage_options', 'edu-menu-opts', 'edu_menu_option_page');
+                
+            }
+            
+            // przypisujemy nasza funkcje w momencie generowania menu admina
+            add_action('admin_menu', 'edu_menu_create_menu');
+
+            // funkcja do rejestrowania naszych stylow i dodawania naszego stylu
+            function edu_menu_add_stylesheet(){
+                wp_register_style('edu-menu-styles', plugins_url('/styles/styles.css', __FILE__));
+                wp_enqueue_style('edu-menu-styles');
+            }
+            
+            // uruchamiamy funkcje stylow
+            add_action('admin_head', 'edu_menu_add_stylesheet');
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    18a. Tworzymy style do ikon. W folderze style tworzymy plik style.css w kotrych podpinamy nasze ikony
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        #icon-edu-menu-home{
+            background: url('../icons/icon-foodfight-header.png') no-repeat;
+        }
+
+        /* //style dla ikonki w bocznym menu po lewej
+        #adminmenu #toplevel_page_edu-menu-home .wp-menu-image{
+            background: url('../icons/icon-foodfight-menu.png') center 5px no-repeat;
+        }
+        */
+
+        // style dla ikonki w bocznym menu po lewej i dzialamy na powielenie ikony
+        #toplevel_page_edu-menu-home .wp-menu-image{
+            overflow: hidden;
+        }
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    ROLE I UPRAWNIENIA
+    19. Dodanie 
+        menage_options - edytownie menu
+        edit_pages - edytowanie w sub menu
+
+    INTEGRACJA Z KOKPITEM PANELU ADMINISTRATORA
+    20. Tworzymy folder edu-mauth-guard a wnim plik o takiej samej nazwie
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Menu
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Elementy interfejsu PA.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+            // informacja o probei logowania
+            function edu_ag_authenticate(){
+
+                $action_details = array(
+                    'date' => date('Y-m-d H:i:s'),
+                    'client_ip => $_SERVER['REMOTE_ADDR']
+                );
+
+                if(wp_check_password($password, $user->data->user_pass))
+                {
+                    //add_user_meta($user->ID, 'edu_ag_valid_login', $action_details);
+                    update_user_meta($user->ID, 'edu_ag_valid_login', $action_details);   
+                }
+                else
+                {
+                    update_user_meta($user->ID, 'edu_ag_invalid_login', $action_details);
+                }
+
+                return $user;
+            }
+            
+            add_filter('wp__authenticate_user', 'edu_ag_authenticate', 10, 2); // priorytet, ilosc dostpenych argumentow
+
+
+            function edu_ag_dashboard_layout(){
+                
+                global $current_user;
+
+                $last_invalid_login = get_user_meta($current_user->ID, 'edu_ag_invalid_login');
+                $last_valid_login = get_user_meta($current_user->ID, 'edu_ag_valid_login');
+                ?>
+                <h2>Informa na panelu admina : niezalogowany</h2>
+                <?php if(!empty($last_invalid_login))
+                {
+                    echo $last_invalid_login[0]['date'].' (IP: '.$last_invalid_login[0]['client_ip'].')');
+                
+                }
+                echo 'Brak danych';
+            }
+            ?>
+
+                <h2>Informa na panelu admina : zalogowany</h2>
+                <?php if(!empty($last_valid_login))
+                {
+                    echo $last_valid_login[0]['date'].' (IP: '.$last_valid_login[0]['client_ip'].')');
+                
+                }
+                echo 'Brak danych';
+            }
+            ?>
+                <?php
+            
+            }
+
+            function edu_ag_register_dashboard(){
+                wp_add_ashboard_widget('edu-ag-dashboard-wgt', 'EduAuth Guard - Informacje', 'edu_ag_dashboard_layout')
+            }
+
+            add_action('wp_dashboard_setup', 'edu_ag_register_dashboard');
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    ZAPISYWANIE INFORMACJI O UZYTKOWNIKU W BAZIE DANYCH
+    21. Zapisywanie danych pluginow
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+        /*
+        * Plugin Name: Edu Comment Notification
+        * Plugin URI: http://www.eduweb.pl
+        * Description: Plugin notyfikujący na email o nowych komentarzach.
+        * Version: 1.0
+        * Author: Eduweb
+        * Author URI: htpp://www.eduweb.pl
+        * License: GPL2
+        */
+
+        function edu_cn_option_page()
+        {
+        //if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['192837465']) && $_POST['192837465'] == 1){
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST' && check_admin_referer('edu_cn_email_token'){
+
+
+            $email = sanitize_text_field($_POST['edu-cn-email']);
+
+            //add_option('edu_cn_email', $email);
+            // towrzymy i aktualizujemy dana wlasciwosc
+            update_option('edu_cn_email', $email);
+        }
+
+
+
+
+        ?>
+        <div class="wrap">
+            <?php screen_icon(); ?>
+            <h2> Edu comment notyfications</h2>
+            <p>Zmien email na ktory zostana wsylane powiadomineia</p>
+
+            <form action="" method="post">
+
+            <!--    <input type="hidden" value="1" name="192837465" > -->
+
+            <?php wp_nonce_field('edu_cn_email_token'); ?>
+
+                <label for="edu-cn-email"> Podaj email</label>
+                <input type="text" id="edu-cn-email" name="edu-cn-email" value="<?php echo esc_attr(get_option('edu_cn_email')); ?>" >
+
+                <input class="button-primary" type="submit" value="zapisz" >
+            </form>
+        </div>
+
+
+        }
+
+        function edu_cn_create_menu(){
+            add_plugins_page('Edu Comment Notification', 'edu notyfikacje', 'menage_options', 'edu-cn-options', 'edu_cn_option_page')
+        }
+
+        add_action('admin_menu', 'edu_cn_create_menu');
+
+
+        function edu_cn_notify($comm_id){
+            
+            $comment = get_comment($comm_id);
+            //_log($comment);
+            
+            $post = get_post($comment->comment_post_ID);
+            //_log($post);
+            
+            //$to = 'support@eduweb.pl';
+            $to = esc_attr(get_option('edu_cn_email'));
+            $subject = "Komentarz na LoveToEat: '{$post->post_title}'";
+            $message = "Komentarz od {$comment->comment_author}, email: {$comment->comment_author_email} \n\n {$comment->comment_content}";
+            
+            //_log($subject);
+            _log($message);
+            
+            if(wp_mail($to, $subject, $message)){
+                //_log('Wiadomość o komentarz została wysłana');
+            }else{
+                //_log('Wiadomość o komentarz NIE została wysłana');
+            }
+            
+        }
+        
+        add_action('comment_post', 'edu_cn_notify');
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    WORDPRESS SETTINGS API
+    22. Tworzymy folder edu-settings-api a w nim plik o takiej samej nazwie 
+        W home.php dodajemy  <?php $show_recent_recipies = get_option('edu_sap1_show_recent_recipies', 1);
+                                if($show_recent_recipies): ?> dodajmy poniezej znacnzikow <?php endif; ?>
+        
+                            <?php $box1_text = get_option('edu_sapi_box1_text', '');
+
+                                if(empty($box_text))
+                                {
+                                    echo ' Witaj w swicie jedzenia';
+                                }
+                                else
+                                {
+                                    echo $box1_text;
+                                }
+                                // dla pozostalych boxow czyli 2 i 3 robimy to samo
+                                ?> 
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+            /*
+            * Plugin Name: Edu Settings API
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Przykład zastosowania mechanizmu Settings API.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+
+            //funkcja generujaca podstrone
+            function edu_sapi_settings_page(){
+
+                $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'general_settings'; 
+
+                ?>
+
+        <div class="wrap">
+            <h2>Edu Settings API</h2>
+            <p>Zmień parametry za pomocą Settings API</p>
+            
+            // zakldaki w panelu admina
+            <h2 class="nav-tab-wrapper">
+                <a href="?nasa zkaldka" class="nav-tab <?php echo (active_tab == ' general_settings') ? 'nav-tab-asctive' : ''; ?> ">UStawienia glowne</a>
+                <a href="?nasa zkaldka" class="nav-tab <?php echo (active_tab == ' secondary_settings') ? 'nav-tab-asctive' : ''; ?> ">UStawienia pozostale</a>
+        
+            </h2
+
+
+            // tutaj wysietla na errory
+            <?php settings_errors(); ?>
+            
+            <form action="options.php" method="post">
+                <?php
+                    if($active_tab == 'general_settings'){ 
+                    // zabezpiecza i do jakiej strony przekeirowac po zmianie ustawien
+                    settings_fields('edu_sapi_general_settings');// nasz wymyslony parametr
+
+                    //wygenerowanie pol formularza
+                    do_settings_sections('edu_sapi_general_settings');
+                    }
+                    else
+                    {
+                        if($active_tab == 'secondary_settings'){ 
+
+                    settings_fields('edu_sapi_secondary_settings');
+                    do_settings_sections('edu_sapi_secondary_settings');
+                        }
+                    submit_button();
+                ?>
+            </form>
+            
+        </div>     
+                <?php
+            }
+
+
+            //dodanie do menu przycisk kierujacy na podstorone
+            function edu_sapi_create_menu(){
+                add_submenu_page(
+                    'edu-menu-home', 
+                    'Edu Settings API', 
+                    'edu settings api', 
+                    'manage_options', 
+                    'edu-sapi-opts', 
+                    'edu_sapi_settings_page'
+            );
+            }
+
+            //podpiecie
+            add_action('admin_menu', 'edu_sapi_create_menu');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // inicjalizujemy pola z opcjami
+            function edu_sapi_init_opts(){
+                
+                /* pages:
+                Ogólne - general
+                Pisanie - writing
+                Czytanie - reading
+                Dyskusja - discussion
+                Media - media
+                Bezpośrednie odnośniki - permalink
+                */
+                
+            // dodajmy nowa sekcje    
+            add_settings_section(
+                    'edu_sapi_general_section', 
+                    'Edu Ustawienia - Ogólne', 
+                    'edu_sapi_render_general_section', 
+                    'edu_sapi_general_settings'
+                );
+                
+                //dodanie ostatnich przepisow
+                add_settings_field(
+                    'edu_sapi_show_recent_recipies', 
+                    'Pokaż ostatnie przepisy', 
+                    'edu_sapi_render_show_checkbox', 
+                    'edu_sapi_general_settings', 
+                    'edu_sapi_general_section', 
+                    array(
+                        'edu_sapi_show_recent_recipies', 
+                        'Aktywuj tą opcję aby wyświetlić ostatnie przepisy'
+                    )
+                );
+                register_setting('edu_sapi_general_settings', 'edu_sapi_show_recent_recipies');
+                
+                //dodanie ostatnich restauracji
+                add_settings_field(
+                    'edu_sapi_show_recent_restaurants', 
+                    'Pokaż ostatnie restauracje', 
+                    'edu_sapi_render_show_checkbox', 
+                    'edu_sapi_general_settings', 
+                    'edu_sapi_general_section', 
+                    array(
+                        'edu_sapi_show_recent_restaurants', 
+                        'Aktywuj tą opcję aby wyświetlić ostatnie restauracje'
+                    )
+                );
+                register_setting('edu_sapi_general_settings', 'edu_sapi_show_recent_restaurants');
+                
+                
+                // dodaje nam druga sekcje
+                add_settings_section(
+                    'edu_sapi_secondary_section', 
+                    'Ustawienia Pozostałe', 
+                    'edu_sapi_render_secondary_section', 
+                    'edu_sapi_secondary_settings'
+                );
+                
+                // box 1
+                add_settings_field(
+                    'edu_sapi_box1_text', 
+                    'Edytuj treść "Witaj w lovetoeat!"', 
+                    'edu_sapi_render_box_textarea', 
+                    'edu_sapi_secondary_settings', 
+                    'edu_sapi_secondary_section', 
+                    array(
+                        'edu_sapi_box1_text'
+                    )
+                );
+                register_setting('edu_sapi_secondary_settings', 'edu_sapi_box1_text', 'edu_sapi_sanitize_textarea');
+                
+                // box2
+                add_settings_field(
+                    'edu_sapi_box2_text', 
+                    'Edytuj treść "Przepisy i Dieta"', 
+                    'edu_sapi_render_box_textarea', 
+                    'edu_sapi_secondary_settings', 
+                    'edu_sapi_secondary_section', 
+                    array(
+                        'edu_sapi_box2_text'
+                    )
+                );
+                register_setting('edu_sapi_secondary_settings', 'edu_sapi_box2_text', 'edu_sapi_sanitize_textarea');
+                
+                //box3
+                add_settings_field(
+                    'edu_sapi_box3_text', 
+                    'Edytuj treść "Dobre Restauracje"', 
+                    'edu_sapi_render_box_textarea', 
+                    'edu_sapi_secondary_settings', 
+                    'edu_sapi_secondary_section', 
+                    array(
+                        'edu_sapi_box3_text'
+                    )
+                );
+                register_setting('edu_sapi_secondary_settings', 'edu_sapi_box3_text', 'edu_sapi_sanitize_textarea');
+                
+            }
+            //dodajemy akcje
+            add_action('admin_init', 'edu_sapi_init_opts');
+            
+            
+            // wyswietla jeen paragraf
+            function edu_sapi_render_general_section(){
+                ?>Ustaw ogólne parametry Edu Ustawień.<?php
+            }
+            
+            // pozsotale parametry
+            function edu_sapi_render_secondary_section(){
+                ?>Ustaw pozostałe parametry.<?php
+            }
+            
+            
+            // funkcja generujaca checkbox
+            function edu_sapi_render_show_checkbox($args){
+                ?>
+        <label for="<?php echo $args[0]; ?>">
+            <input type="checkbox" id="<?php echo $args[0]; ?>" name="<?php echo $args[0]; ?>" value="1" <?php checked(1, get_option($args[0])) ?> /> // jesli pole ustawione
+            <?php echo $args[1]; ?> // inforomacja z drugiego argumentu
+        </label>
+                <?php
+            }
+            
+            
+            // wyrenderowanie polu textarea
+            function edu_sapi_render_box_textarea($args){
+                ?>
+                <textarea id="<?php echo $args[0]; ?>" name="<?php echo $args[0]; ?>"><?php echo esc_attr(get_option($args[0])); ?></textarea>
+                <?php
+            }
+            
+            // funckja do sanityzacji kodu html 
+            function edu_sapi_sanitize_textarea($input){
+                return strip_tags(stripslashes($input));
+            }
+
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+
+
+
+
+
+
