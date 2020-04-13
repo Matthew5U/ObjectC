@@ -1407,90 +1407,2257 @@ Debugowanie pluginow
         ?>
         ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
     
+    OBIEKT WPDB CZ. 1
+    23. Tworzymy folder edu-wpdb i taki sam plik w tym folderze
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+            /*
+            * Plugin Name: Edu Obiekt WPDB
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Praca z obiektem bazy danych wpdb.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            function edu_wpdb_option_page(){
+                global $wpdb;
+                
+                $wpdb->hide_errors(); // howanie bledow
+                $wpdb->show_errors(); // pokazanai bledow
+                
+                //$sql = 'SELECT * FROM l1te_postmeta'; //zwraca ilosc wpisow w bazie danych
+                //$sql = 'SELECT * FROM '.$wpdb->postmeta;  // wpdb posiada informacje na temat domyslnych tabel
+                $sql = 'SELECT * FROM '.$wpdb->prefix.'postmeta LIMIT 10'; // nazwa tabeli
+                
+                //$sql = 'INSERT INTO lte_postmeta (meta_id, post_id, meta_key, meta_value) VALUE (NULL, 21, "moj_klucz", "nowa_wartosc")'; // zapisujemy do bazy danych
+                //$sql = 'DELETE FROM lte_postmeta WHERE meta_id = 688'; //usuwanie wpisu
+                
+                //$result = $wpdb->query($sql);
+                
+                //$result = $wpdb->get_results($sql, 'ARRAY_N'); // zdaje rezultat z tablicami numerycznymi
+                
+                //$result = $wpdb->get_row($sql); // pierwszy rekord zapytania
+                
+                //$result = $wpdb->get_col($sql, 2); // zwraca kolumne wszystki rekorodow ktore zostana zwrocone, 2- 3 kolumna w bazie danych
+                
+                //$result = $wpdb->get_var($sql, 2, 3); // mozemy pobrac jeden konkretny rekord
+                
+                /*
+                $result = $wpdb->insert( // sprawddzi typy wartosic i zmapuje je
+                        $wpdb->postmeta, // przyjmuje tabele
+                        array( // podaje kolumny ktore chchemy ustawic
+                            'post_id' => 21, //klucz kolumny
+                            'meta_key' => 'moj_nowy_klucz', 
+                            //'meta_value' => 'nowa wartosc'
+                            'meta_value' => 4.123
+                        ),
+                        //'%s' // metoda insert potraktuje wszystkie wartosic jako lancuch znakow
+                        array( 
+                            '%d', '%s', '%f' //tablica skladajaca sie z typow danych (int, string, float)
+                        )
+                    );
+                * 
+                */
+                
+                /*
+                $result = $wpdb->update( 
+                        $wpdb->postmeta, // przyjmuje tablice
+                        array( // kolumny ktore aktualziujemy
+                            'post_id' => 25,  
+                            'meta_key' => 'nowy_klucz2',
+                            'meta_value' => 1.111
+                        ),
+                        array( // warunki ktore maja byc spelnione aby zakutalizowac zapytanie
+                            'post_id' => 21,
+                            'meta_key' => 'moj_nowy_klucz'
+                        ),
+                        array(
+                            '%d', '%s', '%f' // ustawiamy typ danych aby nie bylo atakow (sql injection)
+                        ),
+                        array(
+                            '%d', '%s' // typy wartosci dla klauzuli where
+                        )
+                    );
+                */
+                
+                $insert_sql = '
+                    INSERT INTO '.$wpdb->postmeta.'
+                        (meta_id, post_id, meta_key, meta_value) VALUES // kolumny ktore maja byc uwzglednione podczas zapytania
+                        (NULL, %d, %s, %f)'; // parametry ktore maja zostac dodane
+                
+                $prep_stmt = $wpdb->prepare($insert_sql, 21, 'nowa_wartosc', 4.123); // skonstruowane zapytanie
+                
+                $result = $wpdb->query($prep_stmt); // uruchamiamy zaptnie
+                
+                
+                ?>
+        <div class="wrap">
+            <?php screen_icon(); ?>
+            <h2>Edu Obiekt WPDB</h2>
+            
+            <div><?php //$wpdb->print_error(); ?></div> // wysietlenie bledu
+            
+            <div>Id nowo dodanego rekordu: <?php echo $wpdb->insert_id; ?></div> // nowo dodany rekrod
+            
+            <pre><?php //var_dump($wpdb); ?></pre>
+            
+            <pre><?php var_dump($result); ?></pre>
+            
+        </div>     
+                <?php
+            }
+
+            function edu_wpdb_create_menu(){
+                add_options_page('Edu Obiekt WPDB', 'obiekt wpdb', 'manage_options', 'edu-wpdb-tests', 'edu_wpdb_option_page');
+            }
+            add_action('admin_menu', 'edu_wpdb_create_menu');
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    PLUGIN - LOVETOEAT HOME SLIDER
+    
+    LOVETOEAT HOME SLIDER - INSTALACJA
+    24. Tworzymy folder a w nim plik o nazwie lte-home-slider.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        /*
+        * Plugin Name: LoveToEat Home Slider
+        * Plugin URI: http://www.eduweb.pl/
+        * Description: Zarządzanie elementami slidera na stronie głównej szablonu LoveToEat.
+        * Author: Eduweb
+        * Version: 1.0
+        * Author URI: http://www.eduweb.pl/
+        */
+
+            require_once 'libs/LTEHomeSlider_Model.php';// podpinamy plik z punktu 24a.
 
 
+            require_once 'libs/LTEHomeSlider_SlideEntry.php';
+            require_once 'libs/functions.php';
+            require_once 'libs/Pagination.php';
+            require_once 'libs/Request.php';
 
 
+        class LTEHomeSlider{
+         
+        private static $plugin_id = 'lte-home-slider'; // wlasciowsc prywatna statyczna plugin id. Dzieki niej stowrzymy unikalna podstone wtyczki
+        private $plugin_version = '1.0.0'; // wersja plaginu
+
+                 
+         private $user_capability = 'manage_options'; // ustalamy dostepnosc
+         
+         private $model;
+         
+         private $action_token = 'lte-hs-action'; // wartosc do wygenerowania losowych pol
+         
+         private $pagination_limit = 3; // ustawimy limit 
+         
+        function __construct() {
+            $this->model = new LTEHomeSlider_Model(); // nowa instacja modelu
+            
+                    //uruchamianie podczas aktywacji
+                    register_activation_hook(__FILE__, array($this, 'onActivate'));
+                    
+                    //uruchamianie podczas deinstalacji
+                    register_uninstall_hook(__FILE__, array('LTEHomeSlider', 'onUninstall')); // rejestrowanie odinstalowania
+                    
+                    //rejestracja przycisku w menu
+                    add_action('admin_menu', array($this, 'createAdminMenu'));
+                    
+                    
+                    //rejestracja skryptów panelu admina
+                    add_action('admin_enqueue_scripts', array($this, 'addAdminPageScripts'));
+                    
+                    
+                    //rejestracja akcji AJAX
+                    add_action('wp_ajax_checkValidPosition', array($this, 'checkValidPosition'));
+                    add_action('wp_ajax_getLastFreePosition', array($this, 'getLastFreePosition'));
+                }
+                
+                
+                function addAdminPageScripts(){ // dodaj skrypty dla stonry administratora
+                    
+                    wp_register_script( //rejestrujemy plik ze skrytpami
+                            'lte-hs-script',  // id dla skrytpu
+                            plugins_url('/js/scripts.js', __FILE__), // url do pliku 
+                            array('jquery', 'media-upload', 'thickbox') //zaleznosci dla skryptu ktorego rejestrujemy. Zostanie zaladowany za tymi scriptami
+                        );
+                    
+                    //zaladujemy tylko na strnie naszej wtyczki
+                    if(get_current_screen()->id == 'toplevel_page_'.static::$plugin_id){ //zwroci obiekt. Pobieramy id i jesli id sie zgadzaja
+                        
+                        wp_enqueue_script('jquery'); // podpinamy jquery
+                        
+                        wp_enqueue_script('thickbox'); // -//-
+                        wp_enqueue_style('thickbox');
+                        
+                        wp_enqueue_script('media-upload');
+                        
+                        wp_enqueue_script('lte-hs-script');
+                        
+                    }
+                    
+                }
+                
+                // funkca walidujaca
+                function checkValidPosition(){
+                    
+                    $position = isset($_POST['position']) ? (int)$_POST['position']: 0; // jezeli jest ustawiony position to przypisujemy ten position i zrzucamy do int
+                    
+                    $message = ''; 
+                    
+                    if($position < 1){ // jesli position jest mniejsze od 1 to znaczy uzytkownik podal 0 albo jakas litere
+                        $message = 'Podana wartość jest niepoprawna. Pozycja musi być liczbą większą od 0.'; // komunikat
+                        
+                    }else // sprawdzam czy dana pozycja jest zarezerowana na podstawie modelu
+                    if(!$this->model->isEmptyPosition($position)){ // zwracamy sie do wlasciwosci model i przekazujemy positon
+                        $message = 'Dana pozycja jest już zajęta';
+                        
+                    }else{
+                        $message = 'Ta pozycja jest wolna';
+                        
+                    }
+                    
+                    echo $message;
+                    die; // zadne skrypt za ta isntrukcja sie nie wykona
+                }
+                
+                function getLastFreePosition(){ // zostanie zworcone przez model
+                    echo $this->model->getLastFreePosition(); // zwracamy
+                    die;
+                }
+                
+                // odinastalowanie pluginu// musi byc statycnza gdyz podczas deinstalacji wyskoczyl by blad
+                static function onUninstall(){
+                    $model = new LTEHomeSlider_Model();
+                    $model->dropTable(); 
+                     
+                    $ver_opt = static::$plugin_id.'-version'; // usuwanie informacj io zainstalowanej wersji
+                    delete_option($ver_opt);
+                }
+                
+                
+                function onActivate(){ // podczas aktywazji pluginu
+                    $ver_opt = static::$plugin_id.'-version'; // sprawdzamy czy w table options czy aktualny plugin jest zainstalowany
+                    $installed_version = get_option($ver_opt, NULL); // zmienna o zainstalowanym pluginie
+                    
+                    if($installed_version == NULL){ // jesli nie jest zainalowany
+                        
+                        $this->model->createDbTable(); // instalujemy go
+                        update_option($ver_opt, $this->plugin_version); // do tabeli options zapiszemy aktualna wesje
+                        
+                    }else{ // jesli juz byla zaintalowana jakas wersja
+                        
+                        switch (version_compare($installed_version, $this->plugin_version)) { // sprawdzamy zainstalowana wersje switchem
+                            case 0:
+                                //zainstalowana wersja jest identyczna z tą
+                                break;
+                            
+                            case 1:
+                                //zainstalowana wersja jest nowsza niż ta
+                                break;
+                            
+                            case -1:
+                                //zainstalowana wersja jest starsza niż ta
+                                break;
+                        }
+                        
+                    }
+                }
+                
+                // W tej funckji uruchamiamy wordpressowa admin menu
+                function createAdminMenu(){
+                    
+                    add_menu_page(
+                        'LoveToEat Home Slider', 
+                        'LTE Home Slider', //tytul
+                        $this->user_capability, // menage option
+                        static::$plugin_id, // id pluginu
+                        array($this, 'printAdminPage') // funkcja generujaca strone
+                );
+                    
+                }
+                
+                //
+                function printAdminPage(){
+                    
+                    $request = Request::instance(); // do zmiennej pobieramy instacje klasy request i pobieramy view
+                    
+                    $view = $request->getQuerySingleParam('view', 'index'); // jesli nie bedzie parametru to zostanie zwtocony indeks
+                    $action = $request->getQuerySingleParam('action'); // pobieramy nwoy paratmetr z adresu url
+                    $slideid = (int)$request->getQuerySingleParam('slideid');// pobieramy dodatkowy prametr
+                    
+                    
+                    switch($view){ //uruchmiamy konkretny widok
+                        
+                        case 'index': // jesli to jest index
+                            
+                            if($action == 'delete'){ // jesli akcja jest tustawiona na usuwanie
+
+                                // generujemy nazwe tokenu 
+                                $token_name = $this->action_token.$slideid;
+                                
+                                //paramter wpnonce
+                                $wpnonce = $request->getQuerySingleParam('_wpnonce', NULL);
+                                
+                                if(wp_verify_nonce($wpnonce, $token_name)){ // token url, nazwa tokenu
+                                    
+                                    if($this->model->deleteRow($slideid) !== FALSE){ // mozna usunac
+                                        $this->setFlashMsg('Poprawnie usunięto slajd!'); // 
+                                    }else{
+                                        $this->setFlashMsg('Nie udało się usunąć slajdu', 'error');
+                                    }
+                                    
+                                }else{
+                                    $this->setFlashMsg('Nie poprawny token akcji', 'error');
+                                }
+                                
+                                $this->redirect($this->getAdminPageUrl()); // po usuniecie przkierowanie do strony glownej
+                                
+                            }else
+                            if($action == 'bulk'){ //sprawdzy czy action jest bulk
+                                
+                                // sprawdzamy czy rzadanie jest typu post lub bulk
+                                if($request->isMethod('POST') && check_admin_referer($this->action_token.'bulk')){
+                                    
+                                    // bulk action jestli jest ustawiony to przypiszemy null
+                                    $bulk_action = (isset($_POST['bulkaction'])) ? $_POST['bulkaction'] : NULL;
+                                    
+                                    // tablica szystkich elementow na ktorych ma byc zastoosawny
+                                    $bulk_check = (isset($_POST['bulkcheck'])) ? $_POST['bulkcheck'] : array();
+                                    
+                                    //sprawdzamy czy slajdy zostaly zaznaczone
+                                    if(count($bulk_check) < 1){
+                                        $this->setFlashMsg('Brak slajdów do zmiany', 'error');
+                                    }else{
+                                        
+                                        if($bulk_action == 'delete'){ // czy bulk action jest ustawiony na delete. JEsli tak to wykonamy masowe usuwanie
+                                            
+
+                                            //usuwaniem zajmuje sie metoda modelu
+                                            if($this->model->bulkDelete($bulk_check) !== FALSE){
+                                                $this->setFlashMsg('Poprawnie usunięto zaznaczone wpisy!');
+                                            }else{
+                                                $this->setFlashMsg('Nie udało się usunąć zaznaczonych wpisów', 'error');
+                                            }
+                                            
+                                        }else
+                                        if($bulk_action == 'public' || $bulk_action == 'private'){
+                                            
+                                            if($this->model->bulkChangePublic($bulk_check, $bulk_action) !== FALSE){ // lista id , action
+                                                $this->setFlashMsg('Poprawnie zmieniono status wpisów');
+                                            }else{
+                                                $this->setFlashMsg('Nie udało się zmienić statusu wpisów', 'error');
+                                            }
+                                            
+                                        }
+                                        
+                                    }
+                                    
+                                }
+                                // to co nam zwroci metoda getadminpageurl
+                                $this->redirect($this->getAdminPageUrl());
+                            }
+                            
+
+                            // pobieramy wszystkie wymagane ane z uzyciem request
+                            $curr_page = (int)$request->getQuerySingleParam('paged', 1);
+                            $order_by = $request->getQuerySingleParam('orderby', 'id');
+                            $order_dir = $request->getQuerySingleParam('orderdir', 'asc');
+                            
+                            // do zmiennej pagination pobieramy model paginacji
+                            $pagination = $this->model->getPagination($curr_page, $this->pagination_limit, $order_by, $order_dir);
+                            
+                            $this->render('index', array( // przekazanie do widoku
+                                'Pagination' => $pagination
+                            )); // wyrenederwa zawartosc pliku php
+                            break;
+                        
+                        case 'form':
+                            
+                            if($slideid > 0){ // jesli jest wiekszy od 0 to nalezy pobrac dane
+                                
+                                $SlideEntry = new LTEHomeSlider_SlideEntry($slideid); // instacja klasy slide entry. | Zaldowanie danych w momencie gdy podaje w konstrukotrze id
+                                
+                                if(!$SlideEntry->exists()){ // sprawdzamy czy istnieje
+                                    $this->setFlashMsg('Brak takiego wpisu w bazie danych', 'error');
+                                    $this->redirect($this->getAdminPageUrl());
+                                }
+                                
+                                
+                            }else{
+                                
+                                $SlideEntry = new LTEHomeSlider_SlideEntry(); // uworzenie pustej instacji klasy entry
+                                
+                            }
+                            
+                            
+                            
+                            if($action == 'save' && $request->isMethod('POST') && isset($_POST['entry'])){ //sprawdzamy czy akcja jest ustawiona na save i request jest post i sprawdzamy czy w tablic post znajduje sie podtablica entry
+                                
+                                if(check_admin_referer($this->action_token)){ // podajemy token akcji wykorzystany do wygenerowania pol losowych
+                                
+                                    $SlideEntry->setFields($_POST['entry']); // do tego obiektu mozemy wstawic dane 
+                                    if($SlideEntry->validate()){ // uruchamimay validate jesli sie powiedzie
+                                        
+                                        // id wpisu zmodyfikowanego lub dodanego
+                                        $entry_id = $this->model->saveEntry($SlideEntry);// zpodjaemy slide entry
+                                        
+                                        if($entry_id !== FALSE){
+                                            
+                                            if($SlideEntry->hasId()){ // czy ma id 
+                                                $this->setFlashMsg('Poprawnie zmodyfikowano wpis.'); // jesli ma to modyfikujemy wpis
+                                            }else{
+                                                $this->setFlashMsg('Poprawnie dodano nowy wpis.'); // innaczej dodajemy wpis
+                                            }
+                                            
+
+                                            // mozemy ustawic wiadomosci i ustawic redirect
+                                            $this->redirect($this->getAdminPageUrl(array('view' => 'form', 'slideid' => $entry_id)));
+                                            
+                                            
+                                        }else{
+                                            $this->setFlashMsg('Wystąpiły błędy z zapisem do bazy danych', 'error');
+                                        }
+                                    }else{
+                                        $this->setFlashMsg('Popraw błędy formularza', 'error');
+                                    }
+                                
+                                }else{
+                                    $this->setFlashMsg('Błędny token formularza!', 'error'); // jesli bedzie zle to error
+                                    
+                                }
+                                
+                            }
+                            
+                            $this->render('form', array(
+                                'Slide' => $SlideEntry
+                            ));
+                            break;
+                        
+                        default:
+                            $this->render('404');
+                            break;
+                        
+                    }
+                }
+                
+                // metoda z ktorej korzysta wewnetrza metoda klasy. PRzekazywany jest widok view
+                private function render($view, array $args = array()){
+                    
+                    extract($args);
+                    
+                    
+                    $tmpl_dir = plugin_dir_path(__FILE__).'templates/'; // aktualnykatalogu wtyczki, doklejamy katalog szablonow
+                    
+                    $view = $tmpl_dir.$view.'.php'; // do zmiennej view dolaczaym
+                    
+                    require_once $tmpl_dir.'layout.php'; //dolaczamy plik layout php a on automatycznie dolaczy to co jest pod zmienna view
+                    
+                }
+                
+                // metoda zwracajaca url do strony admina tego plaginu
+                public function getAdminPageUrl(array $params = array()){ // dodawanie nowych paramtetor do url po przez tablice
+                    $admin_url = admin_url('admin.php?page='.static::$plugin_id); // dodajemy adres do admina
+                    $admin_url = add_query_arg($params, $admin_url); // dodanie parametro na koniec tgo urla - funckja wordpressa
+                    
+                    return $admin_url; // zwracamy
+                }
+                
+                // ustaw wiaodosc flesh
+                public function setFlashMsg($message, $status = 'updated'){ // status odpowiada za tlo na ktorym wyswitli sie wiadmosc
+                    $_SESSION[__CLASS__]['message'] = $message; //
+                    $_SESSION[__CLASS__]['status'] = $status;
+                }
+                
+                //pobranie z sesji parametry
+                public function getFlashMsg(){
+                    if(isset($_SESSION[__CLASS__]['message'])){ // zwoci paramtery
+                        $msg = $_SESSION[__CLASS__]['message'];
+                        unset($_SESSION[__CLASS__]);
+                        return $msg;
+                    }
+                    
+                    return NULL;
+                }
+                
+                // pobieramy status
+                public function getFlashMsgStatus(){
+                    if(isset($_SESSION[__CLASS__]['status'])){
+                        return $_SESSION[__CLASS__]['status'];
+                    }
+                    
+                    return NULL;
+                }
+                
+                // czy waidomosc zostal ustawiona
+                public function hasFlashMsg(){
+                    return isset($_SESSION[__CLASS__]['message']);
+                }
+                
+                // lokacje w ktora chchemy sie przeniesc
+                public function redirect($location){
+                    wp_safe_redirect($location); // funkcja wordpressa ktora przekeiruje na inna strone
+                    exit; // zadan linijka sie dalej nie uruchomi
+                }
+                
+                
+            }
+            
+            
+            $LTEHomeSlider = new LTEHomeSlider(); //uruhcamiamy instacje
+        ob_flush();
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24a. Tworzymy folder lib a w nim klase LTEHomeSlider_Model.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+                <?php
 
 
+        class LTEHomeSlider_Model {
+            
+            private $table_name = 'lte_home_slider'; // nazwa tabeli w bazie danych
+            private $wpdb; // prywatne $wpdb
+            
+            
+            function __construct() { // tworzymy konstruktor
+                global $wpdb; //pobieramy z zakresu globalnego @wpdb
+                $this->wpdb = $wpdb; // i przypisujemy nasz $wpdb
+            }
+            
+            
+            function getTableName(){ // tworzymy metode ktoa zwraca nazwe tabeli z prefiksem
+                return $this->wpdb->prefix.$this->table_name; // odwolanie do wpdb > prefiks konkatnacja i nazwa tabeli
+            }
+
+            
+            function createDbTable(){ // towrzymy tabele bazy danych
+                
+                $table_name = $this->getTableName(); // nazwa tabeli
+                
+                $sql = ' // zmiena sql i wniej jest definicja calej tabeli bazy danych
+                    CREATE TABLE IF NOT EXISTS '.$table_name.'( // towrzyy tabele jesli nie isteniej
+                        id INT NOT NULL AUTO_INCREMENT,  // nie null i auto inkremnet
+                        slide_url VARCHAR(255) NOT NULL,
+                        title VARCHAR(255) NOT NULL,
+                        caption VARCHAR(255) DEFAULT NULL,
+                        read_more_url VARCHAR(255) DEFAULT NULL,
+                        position INT NOT NULL, // pozycja danego slajdu w kolejce
+                        published enum("yes", "no") NOT NULL DEFAULT "yes", 
+                        PRIMARY KEY(id)
+                    )ENGINE=InnoDB DEFAULT CHARSET=utf8'; // silnik tabeli i defoltowy kodowanie znakow
+                
+                require_once ABSPATH.'wp-admin/includes/upgrade.php'; // podpinamy dbDelta
+                
+                dbDelta($sql); // sprawdza roznice miedzy tabela w bazie danych a ta tablea i aby sprawdzala wymagania tych wartosci
+            }
+            
+            
+            function isEmptyPosition($position){ //sprawdzamy 
+                $position = (int)$position; // do int 
+                $table_name = $this->getTableName(); // pobieramy nazwe tabeli
+                
+                $sql = "SELECT COUNT(*) FROM {$table_name} WHERE position = %d"; // robimy zapytanie
+                $prep = $this->wpdb->prepare($sql, $position); // przygotowywujemy
+                
+                $count = (int)$this->wpdb->get_var($prep); // wysylamy i zapisujemy do zmiennej count
+                
+                return ($count < 1); // wtedy zworcimy true - dane pole puste
+            }
+            
+            // pobieramy ostatnio wolna pozycje
+            function getLastFreePosition(){
+                $table_name = $this->getTableName(); // nazwa tabeli do zmiennej
+                $sql = "SELECT MAX(position) FROM {$table_name}"; // wybiermamy max wartosc z pola position z tabeli
+                $pos = (int)$this->wpdb->get_var($sql); // wysylamy za pomoca metody get-var
+                
+                return ($pos+1); // zwracmy o jednej wieksza czyli ostatnia wolna 
+            }
+            
+            // dodanie nowego wpisu do bazy danych
+            function saveEntry(LTEHomeSlider_SlideEntry $entry){ // nosni danych do zapisania. Dzieki paramtru entry bedzie instacja klasy lthehomeslider
+                
+                $toSave = array( // tablica do zapisania
+                    'slide_url' => $entry->getField('slide_url'), 
+                    'title' => $entry->getField('title'),
+                    'caption' => $entry->getField('caption'),
+                    'read_more_url' => $entry->getField('read_more_url'),
+                    'position' => $entry->getField('position'),
+                    'published' => $entry->getField('published'),
+                );
+                
+                $maps = array('%s', '%s', '%s', '%s', '%d', '%s'); // tabica mapowania 
+                
+                $table_name = $this->getTableName(); // pobieramy nazwe tabeli
+                
+                if($entry->hasId()){ // jesli entry posiada id to aktualizujemy wpis
+                    
+                    if($this->wpdb->update($table_name, $toSave, array('id' => $entry->getField('id')), $maps, '%d')){ // nazwa tabeli, dane do zapisania, warunek jaki rekord zostanie zmodyfikowany, parametr mapowania danych do zapisania, parametr mapujacy ten id
+                        return $entry->getField('id'); // zwracmy id aktualizwoanego elementu
+                    }else{
+                        return FALSE;
+                    }
+                    
+                }else{ // w przeciwmy wypadku towryzmy nowy wpis
+                
+                    if($this->wpdb->insert($table_name, $toSave, $maps)){ // podajemy tabele, dane do zapisania, tablica mapowanie
+                        return $this->wpdb->insert_id; // zwracmy id nowego elementu
+                    }else{
+                        return FALSE;
+                    }
+                
+                }
+                
+            }
+            
+            // funkcja wyjmujaca dane z bazy danych
+            function fetchRow($id){
+                $table_name = $this->getTableName();
+                $sql = "SELECT * FROM {$table_name} WHERE id = %d";
+                $prep = $this->wpdb->prepare($sql, $id);
+                return $this->wpdb->get_row($prep);
+            }
+            
+            // metoda do stroniccowania daych
+            function getPagination($curr_page, $limit = 10, $order_by = 'id', $order_dir = 'asc'){
+                
+                $curr_page = (int)$curr_page; // rzutujemy strone do int
+                if($curr_page < 1){ // jesli jest mniejsza od 1
+                    $curr_page = 1; // to ustawiamy na pierwsza strone
+                }
+                
+                $limit = (int)$limit; // limit rzutujemy na int
+                
+                $order_by_opts = static::getOrderByOpts(); // pobieramy wszystkie opcje
+                $order_by = (!in_array($order_by, $order_by_opts)) ? 'id' : $order_by; // jesli akualny orde by nie znajduje sie w tablicy to ustawiamy domsylnie na id inaczej bedzie to orderby
+                
+                
+                $order_dir = in_array($order_dir, array('asc', 'desc')) ? $order_dir : 'asc'; // moze ryjac albo asc badz desc
+                
+                $offset = ($curr_page-1)*$limit; // offset do zapyania sql
+                
+                $table_name = $this->getTableName();
+                
+                // ilos wszystkich rekordow w bazie danych
+                $count_sql = "SELECT COUNT(*) FROM {$table_name}";
+                // resultat zapytania ktore zrobilismy wyzej
+                $total_count = $this->wpdb->get_var($count_sql);
+                
+                // ostatnia strona zaokragla do gory
+                $last_page = ceil($total_count/$limit);
+                
+                
+                //zapytanie
+                $sql = "SELECT * FROM {$table_name} ORDER BY {$order_by} {$order_dir} LIMIT {$offset}, {$limit}";
+                
+                // wyslanie zapytanie i zwroceni rekordow
+                $slides_list = $this->wpdb->get_results($sql);
+                
+                // nowa isntacja pagination
+                $Pagination = new Pagination($slides_list, $order_by, $order_dir, $limit, $total_count, $curr_page, $last_page);
+                
+                // zwracamy obiekt
+                return $Pagination;
+            }
+            
+            
+            function deleteRow($id){
+                $id = (int)$id; // zrzut do int
+                
+                $table_name = $this->getTableName(); // nazwa tabeli
+                $sql = "DELETE FROM {$table_name} WHERE id = %d"; // zapytanie usuwajace
+                $prep = $this->wpdb->prepare($sql, $id); // preparujemy te zapytanie
+                
+                return $this->wpdb->query($prep); // zwracamy wynik zapytania
+            }
+            
+            // funkcja do usuwania masowego
+            function bulkDelete(array $ids_list){
+                $ids_list = array_map('intval', $ids_list); // zrzutuj kazdy element do int
+                
+                $table_name = $this->getTableName(); // pobira mynzwe tabeli
+                
+                $ids_str = implode(',', $ids_list); // sklejamy tablice wsyzsystkie elementy
+                $sql = "DELETE FROM {$table_name} WHERE id IN ({$ids_str})";// zapytanie ususwajace
+                return $this->wpdb->query($sql); // i uruchamiamy zapytanie
+            }
+            
+            // zmiana statusu 
+            function bulkChangePublic(array $ids_list, $change_to){
+                $ids_list = array_map('intval', $ids_list); // zrzutowanie wartosci tablici do int
+                
+                $status = '';
+                switch($change_to){
+                    default:
+                    case 'public': $status = 'yes'; break;
+                    case 'private': $status = 'no'; break;
+                }
+                
+                $table_name = $this->getTableName();
+                $ids_str = implode(',', $ids_list);
+                
+                $sql = "UPDATE {$table_name} SET published = '{$status}' WHERE id IN ({$ids_str})"; // update statusu  
+                return $this->wpdb->query($sql); // uruchumienie zapytania
+            }
+            
+
+            function getPublishedSlides(){
+                $table_name = $this->getTableName();
+                
+                $sql = "SELECT * FROM {$table_name} WHERE published = 'yes' ORDER BY position";
+                return $this->wpdb->get_results($sql);
+            }
+            
+            // funckja do usuwania tabeli
+            function dropTable(){
+                $table_name = $this->getTableName();
+                $sql = "DROP TABLE {$table_name}";
+                return $this->wpdb->query($sql);
+            }
+            
+
+            // mozliwosc sortowania
+            static function getOrderByOpts(){
+                return array( // zwroci tablice liczby kolumn kotrych mozem sortowc
+                    'ID' => 'id',
+                    'Pozycja' => 'position',
+                    'Widoczność' => 'published'
+                );
+            }
+            
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24b. Tworzymy folder templates a w nim plik layout.php - glowny plik szablonu
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <div class="wrap">
+    
+            <h2>
+                // przycisk nowy slajd
+                <a href="<?php echo $this->getAdminPageUrl(); ?>">LoveToEat Home Slider</a> //
+                <a class="add-new-h2" href="<?php echo $this->getAdminPageUrl(array('view' => 'form')); ?>">Dodaj nowy slajd</a>
+            </h2>
+            
+            
+            <?php if($this->hasFlashMsg()): ?>
+            <!--<div id="message" class="updated">--> // wyswietlenie wiadomosci na zolto z racji upddate
+            <div id="message" class="<?php echo $this->getFlashMsgStatus(); ?>">
+                <p><?php echo $this->getFlashMsg(); ?></p>
+            </div>
+            <?php endif; ?>
+            
+            
+            <?php require_once $view; ?> // dolaczamy aktualny widok
+            
+            
+            
+            <br style="clear: both;"> // style css
+            
+        </div>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24c. Tworzymy folder templates a w nim plik index.php - glowny strona
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+                <form method="get" action="<?php echo $this->getAdminPageUrl(); ?>" id="lte-hs-form-1"> // formularz sorowania wszystkich wpisow
+            
+            <input type="hidden" name="page" value="<?php echo static::$plugin_id; ?>" />
+            <input type="hidden" name="paged" value="<?php echo $Pagination->getCurrPage(); ?>" />
+            
+            Sortuj według
+            <select name="orderby">
+                <?php foreach(LTEHomeSlider_Model::getOrderByOpts() as $key=>$val): ?> // petla foreach odwolanie do klasy modelu > metoda statyczna
+                    <option 
+                        <?php echo($val == $Pagination->getOrderBy()) ? 'selected="selected"' : ''; ?> 
+                        value="<?php echo $val; ?>">
+                            <?php echo $key; ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            
+
+            <select name="orderdir">
+                <?php if($Pagination->getOrderDir() == 'asc') :?> // kierunek sortowania. asc = rosnaco 
+                    <option selected="selected" value="asc">Rosnąco</option>
+                    <option value="desc">Majeląco</option>
+                <?php else: ?>
+                //malejaco
+                    <option value="asc">Rosnąco</option>
+                    <option selected="selected" value="desc">Majeląco</option>
+                <?php endif; ?>
+            </select>
+            
+            <input type="submit" class="button-secondary" value="Sortuj" />
+            
+        </form> 
+
+        // renderujemy calal tableke w ktorej wyswietlimy wpisy
+        <form action="<?php echo $this->getAdminPageUrl(array('view' => 'index', 'action' => 'bulk')); ?>" method="post" id="lte-hs-form-2" onsubmit="return confirm('Czy na pewno chcesz zastosować zmiany masowe?')">
+            
+            <?php wp_nonce_field($this->action_token.'bulk'); ?> // zabezpieczenie przeciwko atakom
+            
+            <div class="tablenav"> // masowe dzialania z elementami paginacji
+                
+                <div class="alignleft actions"> // floatowanie do lewej
+                    
+                    <select name="bulkaction">
+                        <option value="0">Masowe działania</option>
+                        <option value="delete">Usuń</option>
+                        <option value="public">Publiczny</option>
+                        <option value="private">Prywatny</option>
+                    </select>
+                    
+                    <input type="submit" class="button-secondary" value="Zastosuj" />
+                    
+                </div>
+                
+                <div class="tablenav-pages"> // paginacja
+                    <span class="displaying-num"><?php echo $Pagination->getTotalCount(); ?> slajdy</span> // wyswietlamy liczbe rekordow z bazy danych
+                    
+                    <?php
+                        $curr_page = $Pagination->getCurrPage(); // aktualna storna
+                        $last_page = $Pagination->getLastPage(); // ostatnia strona
+                        
+                        $first_disabled = ''; // wylaczeni pierwszej strony
+                        $last_disabled = ''; // wylaczanie ostatniej strony
+                    
+                        $url_params = array( // domysle parametry 
+                            'orderby' => $Pagination->getOrderBy(),
+                            'orderdir' => $Pagination->getOrderDir()
+                        );
+                        
+                        // odpowiednie url dla podstron
+                        $url_params['paged'] = 1; // klucz 1 aby przekriowac na strone 1
+                        $first_page_url = $this->getAdminPageUrl($url_params);
+                        
+                        // poprzednia strona
+                        $url_params['paged'] = $curr_page-1;
+                        $prev_page_url = $this->getAdminPageUrl($url_params);
+                        
+                        // ostatni strona
+                        $url_params['paged'] = $last_page;
+                        $last_page_url = $this->getAdminPageUrl($url_params);
+                        
+                        // nastepna strona
+                        $url_params['paged'] = $curr_page+1;
+                        $next_page_url = $this->getAdminPageUrl($url_params);
+                        
+                        // jesli jest na pierwszej stronej to wylaca pierwsza strone
+                        if($curr_page == 1){
+                            $first_page_url = '#';
+                            $prev_page_url = '#';
+                            
+                            $first_disabled = 'disabled';
+                        }else
+                        
+                        // tak samo dla ostatniej
+                        if($curr_page == $last_page){
+                            $last_page_url = '#';
+                            $next_page_url = '#';
+                            
+                            $last_disabled = 'disabled';
+                        }
+                    ?>
+                     
+                    <span class="pagination-links"> // podaje w atrybutach
+                        <a href="<?php echo $first_page_url; ?>" title="Idź do pierwszej strony" class="first-page <?php echo $first_disabled; ?>">«</a>&nbsp;&nbsp;
+                        <a href="<?php echo $prev_page_url; ?>" title="Idź do poprzedniej strony" class="prev-page <?php echo $first_disabled; ?>">‹</a>&nbsp;&nbsp;
+                        
+                        <span class="paging-input"><?php echo $curr_page ?> z <span class="total-pages"><?php echo $last_page ?></span></span>
+                        
+                        &nbsp;&nbsp;<a href="<?php echo $next_page_url; ?>" title="Idź do następnej strony" class="next-page <?php echo $last_disabled; ?>">›</a>
+                        &nbsp;&nbsp;<a href="<?php echo $last_page_url; ?>" title="Idź do ostatniej strony" class="last-page <?php echo $last_disabled; ?>">»</a>
+                        
+                    </span>
+                </div>
+                
+                <div class="clear"></div>
+                
+            </div>
+            
+            
+            <table class="widefat">
+                <thead>
+                    <tr>
+                        <th class="check-column"><input type="checkbox" /></th>
+                        <th>ID</th>
+                        <th>Miniaturka</th>
+                        <th>Tytuł</th>
+                        <th>Opis</th>
+                        <th>Czytaj więcej</th>
+                        <th>Pozycja</th>
+                        <th>Widoczny</th>
+                    </tr>
+                </thead>
+                <tbody id="the-list">
+                    
+                    <?php if($Pagination->hasItems()): ?> // jesli paginacaj ma itemy 
+                    
+                        <?php foreach($Pagination->getItems() as $i=>$item): ?> / iterujemy po paginacji| iterator i
+                    
+                            <tr <?php echo ($i%2) ? 'class="alternate"' : ''; ?>> // jesli zwroci 1 to wyswietlamy klase aternate
+                                <th class="check-column"> // pierwsza kolumna
+                                    <input type="checkbox" value="<?php echo $item->id; ?>" name="bulkcheck[]" />
+                                </th>
+                                <td><?php echo $item->id; ?></td>
+                                <td>
+                                    <img src="<?php echo $item->slide_url; ?>" alt="" height="100" />  // podglada slajdu zmieniamy na img             
+                                    <div class="row-actions">
+                                        <span class="edit">
+                                            <a class="edit" href="<?php echo $this->getAdminPageUrl(array('view' => 'form', 'slideid' => $item->id)); ?>">Edytuj</a> // okno edycji slidera
+                                        </span> |
+                                        <span class="trash">
+                                            <?php
+                                                //generowanie tokena
+                                                $token_name = $this->action_token.$item->id; // przetrzumjaca nazwe tokenu
+
+                                                // url akcji usuwania
+                                                $del_url = $this->getAdminPageUrl(array('action' => 'delete', 'slideid' => $item->id));
+                                            ?>
+
+                                            // akcja w rodpressa . wp nounce z wygenreowana waroscia dla kazdego wiersza jest inna wartosc . Chroni to przez crosite request forgery
+                                            <a class="delete" href="<?php echo wp_nonce_url($del_url, $token_name) ?>" onclick="return confirm('Czy na pewno chcesz usunąć ten wpis?')">Usuń</a> // usuniecie slidera
+                                        </span>
+                                    </div>
+                                </td>
+                                <td><?php echo $item->title; ?></td> // tytul
+                                <td><?php echo $item->caption; ?></td> // opis
+                                <td><?php echo $item->read_more_url; ?></td> // czytaj wiecej
+                                <td><?php echo $item->position; ?></td> // pozycja
+                                <td><?php echo ($item->published=='yes') ? 'Tak' : 'Nie'; ?></td> // czy widoczny sjald czy nie
+                            </tr>
+                    
+                        <?php endforeach; ?>
+                    
+                    
+                    <?php else: ?> // jesli nie ma 
+                    <tr>
+                        <td colspan="8">Brak slajdów w bazie danych</td>
+                    </tr>
+                    <?php endif; ?>
+                </tbody>
+                
+            </table>
+            
+            
+            <div class="tablenav"> // przyciski paginacji
+                <div class="tablenav-pages">
+                    
+                    <span class="pagination-links">
+                        Przejdź do strony
+                        
+                        <?php 
+                            // domyslnie parmaetry 
+                            $url_params = array(
+                                'orderby' => $Pagination->getOrderBy(),
+                                'orderdir' => $Pagination->getOrderDir()
+                            );
+                            
+                            // iterujemy od pierwszej do ostatniej strony 
+                            for($i=1; $i<=$Pagination->getLastPage(); $i++){
+                                
+                                // ustawamiy na i
+                                $url_params['paged'] = $i;
+                                $url = $this->getAdminPageUrl($url_params);
+                                
+                                //aktulan strona
+                                if($i == $Pagination->getCurrPage()){
+                                    echo "&nbsp;<strong>{$i}</strong>"; // wysietalmy lelemnt strong
+                                }else{
+                                    //strona i
+                                    echo '&nbsp;<a href="'.$url.'">'.$i.'</a>';
+                                }
+                                
+                            }
+                        ?>
+                    </span>
+                    
+                </div>
+                
+                <div class="clear"></div> // czyscimy styl
+            </div>
+            
+        </form>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24d. Dolaczamy do katalogu lib biliotek request - autor ja dolaczyl
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        // mozna pobierac parametry z url
+        class Request{
+            private $query_params;
+            
+            private static $instance;
+            
+            private function __construct(){
+                
+            }
+            
+            /**
+            * @return Request
+            */
+            static public function instance(){
+                if(!isset(static::$instance)){
+                    static::$instance = new self();
+                }
+                
+                return static::$instance;
+            }
+                    
+            function getQueryParams(){
+                if(!isset($this->query_params)){
+                    $parts = explode('&', $_SERVER['QUERY_STRING']);
+
+                    $this->query_params = array();
+                    foreach($parts as $part){
+                        $tmp = explode('=', $part);
+                        $this->query_params[$tmp[0]] = trim(urldecode($tmp[1]));
+                    }
+                }
+                
+                return $this->query_params;
+            }    
+            
+            function getQuerySingleParam($name, $default = NULL){
+                $qparams = $this->getQueryParams();
+                
+                if(isset($qparams[$name])){
+                    return $qparams[$name];
+                }
+                
+                return $default;
+            }
+            
+            
+            function isMethod($method){
+                return ($_SERVER['REQUEST_METHOD'] == $method);
+            }
+            
+        }
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24e. Dodajemy strone 404.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <p>404 - strona nie została znaleziona</p>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    24f. Dodajemy plik form.php w template
 
         ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+            $action_params = array('view' => 'form', 'action' => 'save'); // nowa zmienna z tablica
+            if($Slide->hasId()){ // slide czy ma ustawiony id
+                $action_params['slideid'] = $Slide->getField('id'); // jesli ma to ustawimy 
+            }
+
+            ?>
+            // action paramt wstawimy jako getAdmin pageURl
+            <form action="<?php echo $this->getAdminPageUrl($action_params); ?>" method="post" id="lte-hs-slide-form"> // wysylamy fromularza na podstorne form przy dodaniu paramttru action = save kod wie ze oprocz wyrenderowania formularza to jeszcze zpaisywanie danych 
+                
+                <?php wp_nonce_field($this->action_token); ?> // przekazujemy action token, dzieki temu wygenreujmy pola typu hidden wymagajce pola
+                
+                <table class="form-table">
+                    
+                    <tbody>
+                        
+                        <tr class="form-field">
+                            <th>
+                                <label for="lte-hs-slide-url">Slajd:</label>
+                            </th>
+                            <td>
+                                <a class="button-secondary" id="select-slide-btn">Wybierz slajd z biblioteki mediów</a> // uruchomimy pop-up z bilbioteka mediow wordpressa
+                                <input type="hidden" name="entry[slide_url]" id="lte-hs-slide-url" value="<?php echo $Slide->getField('slide_url'); ?>" /> // zapiszemy url w tym wlasnie polu po wyborze z linijki wyzej
+                                
+                                <?php if($Slide->hasError('slide_url')): ?> // jesli posiada blad
+                                <p class="description error"><?php echo $Slide->getError('slide_url'); ?></p> // jesli powstana bledy, dodajemy klase error i wyseitlamy informacje bledzie
+                                <?php else: ?>
+                                <p class="description">To pole jest wymagane</p>
+                                <?php endif; ?>
+                                
+                                <p id="slide-preview"> // uruchamimamy podglad
+                                    <?php if($Slide->getField('slide_url') != NULL): ?> // sprawdzymy czy pole jest ustawione
+                                    <img src="<?php echo $Slide->getField('slide_url'); ?>" alt="" /> // to wyrenderuj img
+                                    <?php endif; ?>
+                                </p>
+                            </td>
+                        </tr>
+                        
+                        //tytul
+                        <tr class="form-field"> 
+                            <th>
+                                <label for="lte-hs-title">Tytuł:</label>
+                            </th>
+                            <td>
+                                <input type="text" name="entry[title]" id="lte-hs-title" value="<?php echo $Slide->getField('title'); ?>" />
+                                
+                                <?php if($Slide->hasError('title')): ?>
+                                <p class="description error"><?php echo $Slide->getError('title'); ?></p>
+                                <?php else: ?>
+                                <p class="description">To pole jest wymagane</p>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        
+                        // podpis
+                        <tr class="form-field">
+                            <th>
+                                <label for="lte-hs-caption">Podpis:</label>
+                            </th>
+                            <td>
+                                <input type="text" name="entry[caption]" id="lte-hs-caption" value="<?php echo $Slide->getField('caption'); ?>" />
+                                
+                                <?php if($Slide->hasError('caption')): ?>
+                                <p class="description error"><?php echo $Slide->getError('caption'); ?></p>
+                                <?php else: ?>
+                                <p class="description">To pole jest opcjonalne</p>
+                                <?php endif; ?>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr class="form-field">
+                            <th>
+                                <label for="lte-hs-read-more-url">Link "Czytaj więcej":</label>
+                            </th>
+                            <td>
+                                <input type="text" name="entry[read_more_url]" id="lte-hs-read-more-url" value="<?php echo $Slide->getField('read_more_url'); ?>" />
+                                
+                                <?php if($Slide->hasError('read_more_url')): ?>
+                                <p class="description error"><?php echo $Slide->getError('read_more_url'); ?></p>
+                                <?php else: ?>
+                                <p class="description">To pole jest opcjonalne</p>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th>
+                                <label for="lte-hs-position">Pozycja:</label>
+                            </th>
+                            <td>
+                                <input type="text" name="entry[position]" id="lte-hs-position" value="<?php echo $Slide->getField('position'); ?>" />
+                                <a class="button-secondary" id="get-last-pos">Pobierz ostatnią wolną pozycję</a>
+                                
+                                <?php if($Slide->hasError('position')): ?>
+                                <p id="pos-info" class="description error"><?php echo $Slide->getError('position'); ?></p>
+                                <?php else: ?>
+                                <p id="pos-info" class="description">To pole jest wymagane</p>
+                                <?php endif; ?>
+                                
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <th>
+                                <label for="lte-hs-published">Opublikowany:</label>
+                            </th>
+                            <td>
+                                <input type="checkbox" name="entry[published]" id="lte-hs-published" value="yes" <?php echo ($Slide->isPublished()) ? 'checked="checked"' : ''; ?> />
+                            </td>
+                        </tr>
+                        
+                    </tbody>
+                    
+                </table>
+                
+                <p class="submit">
+                    <a href="#" class="button-secondary">Wstecz</a>
+                    &nbsp;
+                    <input type="submit" class="button-primary" value="Zapisz zmiany" />
+                </p>
+                
+            </form>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    25. W folderze lte-home-slider towrzymy folder js i zapisujemy w nim plik scipts.js
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        (function($){
+    
+            $(document).ready(function(){ // w momemncie zaladowania drzewa DOM
+                
+                
+                
+                $('#lte-hs-position').keyup(function(){ // po opuszczenie przycisku klawiatury uruchamiamy funcke zwrotna
+                    var $this = $(this);// pole ktore uruchomilo akcje
+                    
+                    $('#pos-info').text('Trwa sprawdzanie pozycji...');// do tego pola dodajemy informacje
+                    
+                    // zmienne wyslane za pomoca metody post
+                    var post_data = { 
+                        position: $this.val(), // pobieramy z value tego pola var this
+                        action: 'checkValidPosition' // 
+                    };
+                    
+                    $.post(ajaxurl, post_data, function(result){ // zmienna ktora dostarcza wordpress i pod ten url zawsze wysylymay zapytania ajax, wysylamy wszystkie paramtery
+                        $('#pos-info').text(result); // result zapiszemy do post-info
+                    });
+                    
+                });
+                
+                
+                $('#get-last-pos').click(function(){ // pobieramy po kliknieciu ostantiej pozycji
+                    
+                    $('#pos-info').text('Trwa pobieranie pozycji...');
+                    
+                    var get_data = { // wysylyamy zadanie metoda get
+                        action: 'getLastFreePosition' // akcja
+                    };
+                    
+                    $.get(ajaxurl, get_data, function(result){ // wysylamy zapytaeni metoda get
+                        $('#lte-hs-position').val(result); / wyswietlamy co zwrocil serwer
+                        $('#pos-info').text('Pozycja została pobrana');
+                    });
+                    
+                });
+                
+                // definujemy metode dla obiektu window
+                window.send_to_editor = function(html){ // przyjuje on kod html
+                    
+                    var img_url = $('img', html).attr('src'); // pobieramy adres src ego brazka z elementu html
+                    
+                    $('#lte-hs-slide-url').val(img_url); // wporawdzy url obrazka
+                    tb_remove(); // zamykamy pop up
+                    
+                    
+                    var $prevImg = $('<img>').attr('src', img_url); // nowy element img
+                    $('#slide-preview').empty().append($prevImg); // pobieramy element za pomoca jq, czyscimy zawartosc elemetnu, i dolaczamy prev img
+                    
+                }
+                
+                
+                $('#select-slide-btn').click(function(){ // pobieram z DOM przycisk
+                    
+                    // uruchamiamy iframe czyli pop up
+                    var url = 'media-upload.php?TB_iframe=true&type=image'; // poieramu url tego okienka. uruchomienie okienka i wiaodmosc ze pracujemy z obrazamy
+                    
+                    tb_show('Wybierz slajd', url, false); // uruchamiay ten url
+                    
+                    return false;
+                });
+                
+            });
+            
+        })(jQuery); 
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    26. W folderze libs torzymy plik LTEHomeSlider_SlideEntry.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
         
+        <?php
+
+
+        class LTEHomeSlider_SlideEntry {
+            
+            // pola w bazie danych
+            private $id = NULL;
+            private $slide_url = NULL;
+            private $title = NULL;
+            private $caption = NULL;
+            private $read_more_url = NULL;
+            private $position = NULL;
+            private $published = 'yes';
+            
+            private $errors = array(); // bledy walidacji pol
+            
+            private $exists = FALSE;
+            
+            //towrzymy konstruktor
+            function __construct($id = NULL) { // domyslnie null
+                $this->id = $id; // uwzgledniamy id
+                $this->load();
+            }
+            
+            // zaldowanie danych z bazy dnaych
+            private function load(){
+                if(isset($this->id)){ // czy paramer id jest ustawiony
+                    $Model = new LTEHomeSlider_Model(); // klse modelu prosil o zworcenie rokord o tym id
+                    $row = $Model->fetchRow($this->id); // przypiszmy to co zworci fetchrow
+                    
+                    if(isset($row)){ // czy dany rekord jest poprawny -znalezony    
+                        $this->setFields($row); // ustawimy wszystkie pola
+                        $this->exists = TRUE; // ustawimy na true
+                    }
+                }
+            }
+            
+            // zworci zawartosc pola exist
+            public function exists(){
+                return $this->exists;
+            }
+                        
+            
+            function getField($field){ // metoda pobierajaca get field. wpisujemy pole
+                if(isset($this->{$field})){ // sprawdzamy czy pole istnieje
+                    return $this->{$field}; // kopiujemy pole
+                }
+                
+                return NULL; // jesli nie ma to null
+            }
+            
+            // czy posiad id
+            function hasId(){
+                return isset($this->id);
+            }
+            
+            // zworic czy dany wpis jest publiczny czy nie
+            function isPublished(){
+                return ($this->published == 'yes');
+            }
+            
+            
+            function setFields($fields){ // ustawienai tego pola
+                foreach($fields as $key => $val){ // dodanie masowo pola ktore byly zadkelarowane na poczatku
+                    $this->{$key} = $val;
+                }
+            }
+            
+            //obsluga error
+            function setError($field, $error){ // nazwa pola i blad 
+                $this->errors[$field] = $error; // blad dla danego pola
+            }
+            
+            function getError($field){ //czy pole ma jakiekolwiek blad
+                if(isset($this->errors[$field])){
+                    return $this->errors[$field]; // jesli tak t ozwroci blad
+                }
+                
+                return NULL; // jesli nie to null
+            }
+            
+            function hasError($field){ // sprawdzajaca czy dane pole ma blad
+                return isset($this->errors[$field]);  
+            }
+            
+            function hasErrors(){ // czy ten obiekt posiada jakiekolwiek bledy
+                return (count($this->errors) > 0); // jesli ma wiecej niz 0 wpisow to posiada bledy
+            }
+            
+            
+            function validate(){ // sprawdzenie wszystkich pol formularza
+                
+                /*
+                * slide_url:
+                * - nie może być puste
+                * - musi być poprawnym URL'em
+                * - po oczyszczeniu url nie może być dłuższy niż 255 znaków
+                */
+                if(empty($this->slide_url)){
+                    $this->setError('slide_url', 'To pole nie może być puste');
+                }else
+                if(!filter_var($this->slide_url, FILTER_VALIDATE_URL)){
+                    $this->setError('slide_url', 'To pole musi być poprawnym adresem URL');
+                }else
+                if(strlen($this->slide_url) > 255){
+                    $this->setError('slide_url', 'To pole nie może być dłuższe niż 255 znaków.');
+                }
+                
+                
+                /*
+                * pole title:
+                * - nie może być puste
+                * - maksymalna długość 255 znaków
+                */
+                if(empty($this->title)){
+                    $this->setError('title', 'To pole nie może być puste');
+                }else
+                if(strlen($this->title) > 255){
+                    $this->setError('title', 'To pole nie może być dłuższe niż 255 znaków.');
+                }
+                
+                
+                
+                /*
+                * pole caption:
+                * - może być puste
+                * - jeżeli nie puste:
+                *      - usuń niebezpieczny html (zostaw tylko strong i b)
+                *      - maksymalna długość to 255 znaków
+                * 
+                */
+                if(!empty($this->caption)){
+                    $allowed_tags = array(
+                        'strong' => array(), // jesli chcialbym podac atrybuty musial bym je dodac a storn nie wymaga
+                        'b' => array()
+                    );
+                    
+                    $this->caption = wp_kses($this->caption, $allowed_tags); // przyjmuje lancoch ktory czyscimy, drugi paramtr dozwolone tagi
+                    
+                    if(strlen($this->caption) > 255){
+                        $this->setError('caption', 'To pole nie może być dłuższe niż 255 znaków.');
+                    }
+                }
+                
+                
+                
+                /*
+                * pole read_more_url:
+                * - może być puste
+                * - jeżeli nie puste:
+                *      - po wyczyszczeniu url nie może być dłuższy niż 255 znaków
+                */
+                if(!empty($this->read_more_url)){
+                    
+                    $this->read_more_url = esc_url($this->read_more_url); // funkcja oczyszcza dany url z niebeizpeicznych snakow
+                    
+                    if(strlen($this->read_more_url) > 255){
+                        $this->setError('read_more_url', 'To pole nie może być dłuższe niż 255 znaków.');
+                    }
+                    
+                }
+                
+                
+                
+                /*
+                * pole position:
+                * - pole wymagane, nie moze być puste
+                * - rzutowanie wartości do integera
+                * - musi być to liczba większa od 0
+                */
+                if(empty($this->position)){ // czy jest puste
+                    $this->setError('position', 'To pole nie może być puste.');
+                }else{
+                    $this->position = (int)$this->position; // zrzucenie do int
+                    if($this->position < 1){ // jesli mniejsze od 1
+                        $this->setError('position', 'To pole musi być liczbą większą od 0.');
+                    }
+                }
+                
+                
+                
+                /*
+                * pole published:
+                * - musi zostać ustawione na 'yes' lub 'no'
+                */
+                if(isset($this->published) && $this->published == 'yes'){ // jesli jest ustawiony this published i na yes
+                    $this->published = 'yes'; //przypisujemy yes
+                }else{
+                    $this->published = 'no';
+                }
+                
+                
+                return (!$this->hasErrors()); // jesli nei ustawila bledow to dajemy has true
+            }
+            
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    27. Tworzymy nowy plik Pagination.php w folderze libs
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+
+        class Pagination {
+            
+            // wymagane wlasciwosci czyli elementy paginowane
+            private $items;
+            
+            private $order_by;
+            private $order_dir;
+            
+            private $limit;
+            private $total_count;
+            
+            private $curr_page;
+            private $last_page;
+            
+            // konstruktor 
+            function __construct($items, $order_by, $order_dir, $limit, $total_count, $curr_page, $last_page) {
+                $this->items = $items;
+                $this->order_by = $order_by;
+                $this->order_dir = $order_dir;
+                $this->limit = $limit;
+                $this->total_count = $total_count;
+                $this->curr_page = $curr_page;
+                $this->last_page = $last_page;
+            }
+            
+            // zwraca info czy iteams nie jest puste
+            public function hasItems(){
+                return (!empty($this->items));
+            }
+
+            // metody dostpowe do tch wlasciwosci
+            public function getItems() {
+                return $this->items;
+            }
+
+            public function getOrderBy() {
+                return $this->order_by;
+            }
+
+            public function getOrderDir() {
+                return $this->order_dir;
+            }
+
+            public function getLimit() {
+                return $this->limit;
+            }
+
+            public function getTotalCount() {
+                return $this->total_count;
+            }
+
+            public function getCurrPage() {
+                return $this->curr_page;
+            }
+
+            public function getLastPage() {
+                return $this->last_page;
+            }
+            
+        }
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    28. Tworzymy nowy plik w lib o naziwe funcitons.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+        function edu_home_slider_print_slides(){
+            
+            $model = new LTEHomeSlider_Model();
+            
+            $slides_list = $model->getPublishedSlides(); // pobieramy model i to co zworci getpublishdslides
+            
+            if(!empty($slides_list)){
+                foreach($slides_list as $entry){
+        ?>
+        <div class="item pepers">
+            <div class="caption">
+                <h3><?php echo $entry->title ?></h3>
+                <p>
+                    <?php echo $entry->caption; ?>
+                    <?php if(!empty($entry->read_more_url)): ?>
+                    <a href="<?php echo $entry->read_more_url; ?>">Czytaj artykuł</a>
+                    <?php endif; ?>
+                </p>
+            </div>
+            <img src="<?php echo $entry->slide_url; ?>" alt="" /> // wyseitlamy slajd
+        </div>    
+        <?php
+                }
+            }
+        }
+
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    WIDGETY
+    LOVETOEAT OSTATNIE KOMENTARZE
+    29. Tworzymy folder a wnim pilk o nazwie lte-recent-comments.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: LoveToEat Recent Comments Widget
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Ostatnio dodane komentarze na LoveToEat!
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            // klasa rozszerza domyslna klase wbudowana w wordpressa
+            class LTE_RecentComments extends WP_Widget{
+                
+                // wlasciwosc klasy widgetu jako domyslne parametry
+                private $defaults = array(
+                    'title1' => 'Nowe komentarze',
+                    'title2' => 'Co myślą inni?',
+                    'comments_count' => 2
+                );
+                
+                // tworzymy konstruktor
+                function __construct() {
+                    parent::__construct('lte-recent-comments-wgt', 'LoveToEat Najnowsze Komentarze', array( // id pluginu, nazwa ktora ma sie nazwa pojawic jako tytul kafelka,
+                        'description' => 'Ostatnio dodane komentarze na LoveToEat!', // opis ktory bedzie sie aktualizaowal zmaiast tytulu
+                        'classname' => 'comments' // taka klasa zostanie ustawiona jako klasa widgetu
+                    ));
+                    
+                    add_action('wp_head', array($this, 'addStyles')); // dodanie styli
+                }
+                
+                // funkcja widget
+                function widget($args, $instance) {
+                    
+                    // we frontencie zostana domyslne wartosci
+                    $instance = wp_parse_args($instance, $this->defaults);    
+
+                    // uruchamianie widgetu 
+                    echo $args['before_widget'];
+                    
+                    //wysiwetlenie naglowkow // esc_attr zapewnia nam ze niebezpieczne znaki zostana zmienione na encje
+                    echo $args['before_title'].esc_attr($instance['title1']).$args['after_title'];
+                    echo $args['before_title2'].esc_attr($instance['title2']).$args['after_title2'];
+                    
+                    // do tej zmiennej pobieramy to co zwroci nam ta metoda recent
+                    $recent_comments = $this->getRecentComments($instance['comments_count']);
+                    
+                    // przechodzimy po zworconej tablicy
+                    foreach($recent_comments as $comment){
+                        $date = new \DateTime($comment->comment_date_gmt); // instacja obiektu date time. data w gormacie gmt
+                        ?>
+                            // szablon html
+                            <section>
+                                <header>
+                                // autor komentarza                                         // data dodania komentarza d m Y
+                                    <small><?php echo $comment->comment_author; ?> w dniu <?php echo $date->format('d.m.Y'); ?></small>
+                                    
+                                    //tytul postu i odnnosnik do niego
+                                    <a href="<?php echo get_permalink($comment->comment_post_ID); ?>"><?php echo $comment->post_title; ?></a>
+                                </header>
+
+                                //wyswietlenei avatara uzytkownika
+                                <?php echo get_avatar($comment->user_id, 69); ?> // id uzytkownika, wielkosc miniaturki
+                                
+                                // komentarz uzytkownika
+                                <blockquote><?php echo $this->cutText($comment->comment_content, 150); ?></blockquote>
+                            </section>
+                        <?php
+                    }
+                    
+                    echo $args['after_widget'];
+                }
+                
+                // metoda 
+                function form($instance) {
+                    
+                    // zawartosc co zwroci wartosc wordpresa wp_parse
+                    $instance = wp_parse_args($instance, $this->defaults);
+                    
+                    ?>
+
+        // kod html ktory bedzie wyswietlony po dadniuwidgeta
+
+        <label for="<?php echo $this->get_field_id('title1'); ?>">Nagłówek 1:</label>
+        <input 
+            type="text" 
+            id="<?php echo $this->get_field_id('title1'); ?>" 
+            name="<?php echo $this->get_field_name('title1'); ?>"
+            value="<?php echo $instance['title1']; ?>"/>
+
+        <br/>
+
+        <label for="<?php echo $this->get_field_id('title2'); ?>">Nagłówek 2:</label>
+        <input 
+            type="text" 
+            id="<?php echo $this->get_field_id('title2'); ?>" 
+            name="<?php echo $this->get_field_name('title2'); ?>"
+            value="<?php echo $instance['title2']; ?>" />
+
+        <br/>
+
+        <label for="<?php echo $this->get_field_id('comments_count'); ?>">Ilość komentarzy:</label>
+        <select 
+            id="<?php echo $this->get_field_id('comments_count'); ?>" 
+            name="<?php echo $this->get_field_name('comments_count'); ?>"
+            >
+            <?php
+            
+                $opts = array(2, 3, 5); // ile mozna wywsietlac komentarzy
+                $curr_val = $instance['comments_count'];
+                
+                foreach($opts as $val){
+                    if($curr_val == $val){ // jesli tak to zanzaczmy opcje
+                        echo '<option selected="selected" value="'.$val.'">'.$val.'</option>';
+                    }else{
+                        echo '<option value="'.$val.'">'.$val.'</option>';
+                    }
+                }
+            ?>
+            
+        </select>
+                    <?php
+                }
+                
+                // nw_instance - tablica wszystkich nowych wartosci ktorych uzytkwonik podal wartosci i wyslal
+                function update($new_instance, $old_instance) {
+                    $instance = array();
+                    $instance['title1'] = strip_tags($new_instance['title1']); // dane z formularza title 1
+                    $instance['title2'] = strip_tags($new_instance['title2']);
+                    $instance['comments_count'] = (int)$new_instance['comments_count']; // zrzutowanie na int 
+                    
+                    return $instance;
+                }
+                
+                // dodanie stylow
+                function addStyles(){
+                    echo "<style>
+                            .widget.comments section{
+                                    position: relative;
+                                    margin-bottom: 45px;
+                            }
+
+                            .widget.comments section.last{
+                                    margin-bottom: 0px;
+                            }
+
+                            .widget.comments section header{
+                                    margin-bottom: 20px;
+                                    font-family: 'MuseoSlab500Regular';
+                                    font-size: 16px;
+                                    color: #170901;
+                            }
+
+                            .widget.comments section header small{
+                                    display: block;
+                                    color: #858585;
+                                    font-size: 14px;
+                            }
+
+                            .widget.comments section img{
+                                    -webkit-border-radius: 50%;
+                                    border-radius: 50%;
+                                    position: absolute;
+                                    left: -80px;
+                                    top: -10px
+                            }
+
+                            .widget.comments section blockquote{
+                                    font-style: italic;
+                            }
+                        </style>";
+                }
+                
+                function cutText($text, $maxLength){
+                
+                    $maxLength++;
+
+                    $return = '';
+                    if (mb_strlen($text) > $maxLength) {
+                        $subex = mb_substr($text, 0, $maxLength - 5);
+                        $exwords = explode(' ', $subex);
+                        $excut = - ( mb_strlen($exwords[count($exwords) - 1]) );
+                        if ($excut < 0) {
+                            $return = mb_substr($subex, 0, $excut);
+                        } else {
+                            $return = $subex;
+                        }
+                        $return .= '[...]';
+                    } else {
+                        $return = $text;
+                    }
+
+                    return $return;
+                }
+                
+                // stowrzenie metody do ostantich komentarzy
+                private function getRecentComments($limit = 2){
+                    global $wpdb; // pobieramy obiekt bazy danych
+                    
+                    // zapytanie
+                    $sql = "
+                        SELECT C.*, P.post_title // z tabeli post pobrac tytul posta
+                            FROM {$wpdb->comments} C // odpowednia nazwa tabeli z rpefiksem
+                                LEFT JOIN {$wpdb->posts} P ON C.comment_post_ID = P.ID // zlaczenie dwoch tabel
+                            WHERE comment_approved = 1 // zakcpetowane przed admina komntaarze
+                            ORDER BY comment_date_gmt DESC // sortownanie po przez ostatnie komentarze nagorze
+                            LIMIT %d // ustalamy klauzule limit
+                        ";
+                    
+                    // przygotowanie prepare statment
+                    $prep = $wpdb->prepare($sql, $limit);
+                    
+                    return $wpdb->get_results($prep);
+                }
+                
+            }
+            
+            //rejestrujemy wlasna klase widgetu jako widget
+            function lte_recent_comments_init(){
+                register_widget('LTE_RecentComments');
+            }
+            add_action('widgets_init', 'lte_recent_comments_init'); // uruchamimy w odpowiednim momencie
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    NEWSLETTER
+    30. Tworzymy folder a w nim plik edu-newsletter.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu Newsletter Widget
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Widget umożliwia zapis do newslettera.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            class Edu_Newsletter extends WP_Widget{
+                
+                function __construct() {
+                    parent::__construct('edu-newsletter-widget', 'Edu Newsletter', array( //id pluginu, tytul , tablica 
+                        'description' => 'Widget umożliwia zapis do newslettera.' // mozliwosc zapisu do newslettera
+                    ));
+                    
+                    // podpinamy style. Dedykowana kotwica do podpinania stylow css
+                    add_action('wp_print_styles', array($this, 'registerStyles'));
+                    
+                    //podpinanie scriptow
+                    add_action('wp_print_scripts', array($this, 'registerScripts'));
+                    
+                    // jesli jest zalgowany to ajax save a jesli nei to noprivilage
+                    // rejstrujemy akcje zapisania emaila
+                    add_action('wp_ajax_saveEmail', array($this, 'saveEmail'));
+                    
+                    // rejestrowanie noprivilage save email. dzieki temu obslugujemy rzadanie ajax dla nie zalogowanych uzytkownikow
+                    add_action('wp_ajax_nopriv_saveEmail', array($this, 'saveEmail'));
+                }
+                
+                // metoda widget
+                function widget($args, $instance) {
+                    
+                    
+                    echo $args['before_widget'];
+                    
+                    // wyswietlenie naglowkow
+                    echo $args['before_title'].'Newsletter'.$args['after_title'];
+                    echo $args['before_title2'].'Zapisz się'.$args['after_title2'];
+                    
+                    ?>
+        // interfejs pluginu
+        <div id="edu-nl-wgt">
+            <input type="text" name="edu_nl_email" id="edu-nl-email" />
+            <button>Zapisz</button>
+        </div>
+                    <?php
+                    
+                    echo $args['after_widget'];
+                }
+                
+                // rejestrowanie stylow. Podpinaie pliku ze stylami
+                function registerStyles(){
+                    wp_enqueue_style(
+                            'edu-nl-styles', 
+                            plugins_url('/styles/styles.css', __FILE__)
+                            );
+                }
+                
+                // rejestowanie scriptow
+                function registerScripts(){
+                    
+                    // kod odpowiadajacy za zworcnei url do panelu admina
+                    ?>
+        <script>var ajaxurl = '<?php echo admin_url('admin-ajax.php'); ?>';</script>
+                    <?php
+                    
+                    wp_enqueue_script(
+                            'edu-nl-script', 
+                            plugins_url('/js/scripts.js', __FILE__), // podpiety za tablica jquery
+                            array('jquery')
+                            );
+                    
+                }
+                
+                // zapis do pliku
+                function saveEmail(){
+                    $email = isset($_POST['email']) ? $_POST['email'] : ''; // jesli emaila nie bedzie to zapisze pusty ciag znakow a jesli ustawiony jest post email to zapiszemy post email 
+                    
+                    if(!filter_var($email, FILTER_VALIDATE_EMAIL)){ // przeprowadzamy walidacje emaila
+                        
+                        $response = array(
+                            'status' => 'error',
+                            'message' => 'Podałeś niepoprawny adres e-mail'
+                        );
+                        
+                    }else{
+                        
+                        $filepath = __DIR__.DIRECTORY_SEPARATOR.'email.txt'; // sciezka do pliku
+                        
+                        $entry = $email."\n"; // zmienna email + nowa linia
+                        
+                        //sprawdzamy czy email byl zapisany do pliku
+                        if(file_put_contents($filepath, $entry, FILE_APPEND)){
+                            
+                            // towrzymy tablice z wiadomoscia
+                            $response = array(
+                                'status' => 'ok',
+                                'message' => 'Twój email został zapisany'
+                            );
+                            
+                        }else{
+                            
+                            // komunikat o bledzie
+                            $response = array(
+                                'status' => 'error',
+                                'message' => 'Nie udało się dodać Twojego adresu e-mail. Spróbuj ponownie.'
+                            );
+                            
+                        }
+                        
+                    }
+                    
+                    echo json_encode($response); // przekonwertujemy tablice do json 
+                    die; // aby nic po za echo nic sie nie uruchomilo
+                }
+                
+            }
+            
+            // rejstrujemy klase widgetu
+            function edu_nl_widget_init(){
+                register_widget('Edu_Newsletter');
+            }
+
+            // uruchamiamy w trakcie akcji
+            add_action('widgets_init', 'edu_nl_widget_init');
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    30a. Dodajemy style
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        #edu-nl-wgt{
+            overflow: hidden;
+            margin-top: -15px;
+            margin-left: -2px;
+        }
+
+        #edu-nl-wgt input,
+        #edu-nl-wgt button{
+            float: left;
+        }
+
+
+        #edu-nl-wgt input{
+            font-size:15px;
+            padding:7px 10px;
+            border:solid 1px #CECECE;
+            border-right: 0;
+            width:170px;
+        }
+
+        #edu-nl-wgt button{
+            background: #FF803F;
+            border: 0;
+            color: #fff;
+            font-family: 'SansationRegular';
+            cursor: pointer;
+            padding: 8px 10px;
+        }
+
+        #edu-nl-wgt button:hover{
+            opacity: 0.9;
+        }
+
+        #edu-nl-wgt p{
+            clear: both;
+        }
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    30b. Tworzymy plik scrpit.js
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        (function($){
+            
+            // po zaldowaniu drzewa
+            $(document).ready(function(){
+                
+                var $eduNlWgt = $('#edu-nl-wgt'); // pobieramy caly w rpaer calego newslettera
+                
+                $eduNlWgt.find('button').click(function(){ // wewnatrz znajduje przycisk i przypisuej akcje po kliknieciu 
+                    
+                    var value = $eduNlWgt.find('input').val(); // pobieramy value z pola input
+                    
+                    if(value.length < 1){ // jesli value wartosc to znaczy ze uzytkownik klikna w przycisk ale nie podal emaila
+                        return;
+                    }
+                    
+
+
+                    $eduNlWgt.append($('<p>Trwa zapisywanie</p>')); // dodjamey informacje ze wysylamy zapytanie do serwera
+                    
+                    // w tej zmienne przechowamy wszystkie dane wyslne metoda post
+                    var post_data = { 
+                        email: value,
+                        action: 'saveEmail'
+                    };
+                    
+                    $.post(ajaxurl, post_data, function(json){ // wysylamy zapytanie . Zmienna ajaxurl, dane do wyslania, funckja zwrotna
+                        
+                        if('ok' === json.status){ // status mowi cz zapisywanie powidlo sie 
+                            $eduNlWgt.empty().append($('<p>').text(json.message)); // czysciimy zawartosc wezla i dolaczmy nowy wezel i dodajemy text
+                        }else{
+                            $eduNlWgt.find('p').remove(); // znajdujemy i usuamy wiadomosc ze trwa zapisywanie juz po zapisie
+                            alert(json.message); // message wiadmosc od serwera
+                            
+                        }
+                        
+                    }, 'json'); // spodzienwy format odpowiedzi to json
+                    
+                    return false; // zablokowanie domyslnie dzialeni przycisku
+                });
+                
+            });
+            
+        })(jQuery);
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    WP_CRON
+    31. Tworzymy folder a wnim plik edu_wpcron.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php 
+
+            /*
+            * Plugin Name: Edu WP_Cron Test
+            * Plugin URI: http://www.eduweb.pl
+            * Description: Przykład użycia mechanizmu WP_CRON.
+            * Version: 1.0
+            * Author: Eduweb
+            * Author URI: htpp://www.eduweb.pl
+            * License: GPL2
+            */
+
+            //http://codex.wordpress.org/Category:WP-Cron_Functions
+            //http://wp.tutsplus.com/tutorials/theme-development/do-it-yourself-wordpress-scheduling-mastering-wp-cron/
+            //http://www.slideshare.net/dcannon1/automating-your-plugin-with-wpcron
+
+            // dizeki ktorej do ktorej zapiszemy do pliku ze dane zdarzenie zostalo uruchomione
+            function edu_wpcron_log(){
+                $entry = date('Y-m-d H:i:s')." edu_cron  _job\n";
+                $filepath = __DIR__.DIRECTORY_SEPARATOR.'cron_log.txt';
+                file_put_contents($filepath, $entry, FILE_APPEND);
+            }
+            //dodjamey do kotwicy funckje
+            add_action('edu_cron_job', 'edu_wpcron_log');
+
+            // dodajemy do tkotwicy
+            add_action('edu_cron_job_e1m', 'edu_wpcron_log');
+            
+            
+            // usuwanie zaplanowanych zadan
+        //     if(FALSE !== ($time = wp_next_scheduled('edu_cron_job'))){
+        //         wp_unschedule_event($time, 'edu_cron_job');
+        //     }
+            
+            // usuwamy wszystkie zaplanowane zdania dla tej kotwicy
+            //wp_clear_scheduled_hook('edu_cron_job');
+            
+            
+            //wp_schedule_event(time(), 'hourly', 'edu_cron_job'); // uruchominie danej akcji o danym czasie. Czas, co ile, ktowica ktora ma zostac uruchamiana dla cyklicznego zadania
+            
+            
+            // funckcja co minute
+            function edu_wpcron_every1minut($schedules){
+                
+                // tablica wszystkich dostenych opcji w tablicy
+                $schedules['every1minut'] = array(
+                    'interval' => 60, // wlasny interval| 60s
+                    'display' => 'Raz na minutę' // tekst czytelny dla uzytkonika
+                );
+                
+                return $schedules; // zwracamy tablice
+                
+            }
+
+            // podpiecie pod kotwice
+            add_filter('cron_schedules', 'edu_wpcron_every1minut');
+            
+            
+            // zaplanowac tylko raz dane zadanie
+            // jesli nie bedzie zaplanowanego zadania to uruchamiay ta linijke
+            if(!wp_next_scheduled('edu_cron_job')){
+                wp_schedule_event(time(), 'hourly', 'edu_cron_job');
+            }
+            
+
+            // zaplanowane zadanie e1m
+            if(!wp_next_scheduled('edu_cron_job_e1m')){
+                wp_schedule_event(time(), 'every1minut', 'edu_cron_job_e1m'); // co minute dane zadanie 
+            }
+                    
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    BONUS _ THEME CUSTOMIZEATION API
+    32. Szablon . Wyglad > motyw > wlaczamy szablon
+    32a. Tworzymy folder ThemeCustomAPI a w nim plik index.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <!DOCTYPE html>
+        <html>
+            <head>
+                <title>Theme Custom API</title>
+                <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+                
+                <link href="http://localhost/wordpress/wp-content/themes/ThemeCustomAPI/style.css" rel="stylesheet">
+                <link href="http://localhost/wordpress/wp-content/themes/ThemeCustomAPI/css/bootstrap.min.css" rel="stylesheet">
+                
+                <?php wp_head(); ?>
+                
+            </head>
+            <body>
+                
+                <div id="mypage">
+                    
+                    <h1>Lorem ipsum dolor sit amet</h1>
+                    
+                    <h2>consectetur adipisicing elit, sed do eiusmod tempor</h2>
+                    
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    
+                    <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>
+
+                    <h3>Nulla gravida orci</h3>
+                    
+                    <p>Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>
+                    
+                    <h3>bibendum elit</h3>
+                    
+                    <p>Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris. Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula eu tempor congue, eros est euismod turpis, id tincidunt sapien risus a quam. Maecenas fermentum consequat mi. Donec fermentum. Pellentesque malesuada nulla a mi. Duis sapien sem, aliquet nec, commodo eget, consequat quis, neque. Aliquam faucibus, elit ut dictum aliquet, felis nisl adipiscing sapien, sed malesuada diam lacus eget erat. Cras mollis scelerisque nunc. Nullam arcu. Aliquam consequat. Curabitur augue lorem, dapibus quis, laoreet et, pretium ac, nisi. Aenean magna nisl, mollis quis, molestie eu, feugiat in, orci. In hac habitasse platea dictumst.</p>
+                    
+                    
+                </div>
+                
+            </body>
+        </html>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    32b. Tworzymy folder ThemeCustomAPI a w nim plik function.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+            //https://codex.wordpress.org/Theme_Customization_API
+            //http://wp.tutsplus.com/tutorials/theme-development/digging-into-the-theme-customizer-overview/
+
+            // them custom Api
+            class Edu_TCA {
+
+
+                function __construct() {
+                    
+                    // rejestrujemy metode do kotwicy customize_register
+                    add_action('customize_register', array($this, 'register'));
+                    
+                    // rejestrujemy generowanie kolroow
+                    add_action('wp_head', array($this, 'generate_output'));
+                }
+                
+                // metoda register
+                function register($wp_customize) { // jeden parametr
+                    
+                    // towrzymy sekcje o nazwie moja sekcja
+                    $wp_customize->add_section('tcapi_moja_sekcja', array(
+                        'title' => 'Moja Nowa Sekcja' // nazwa sekcji ktora widzimy
+                    ));
+
+                    // pola z ustawieniami
+                    //zmiana koloru nagłówków
+                    $wp_customize->add_setting('tcapi_header_textcolor', array(
+                        'default' => '#000'
+                    ));
+                    
+                    // wybieraie kolorow
+                    $wp_ccc = new WP_Customize_Color_Control($wp_customize, 'tcapi_hcolor', array( // obiekt wp_customize, id kontrolki,
+                        // wartosci dodatkowe
+                        'label' => 'Ustaw kolor nagłówków',
+                        // sekcje do jakiej kontrolka ma byc dodana
+                        'section' => 'tcapi_moja_sekcja',
+                        // dopiszemy do ustawienia
+                        'settings' => 'tcapi_header_textcolor'
+                    ));
+                    
+                    // do obiektu dodajmy zmienna wp_ccc
+                    $wp_customize->add_control($wp_ccc);
+                    
+                    
+                    //zmiana koloru tła
+                    $wp_customize->add_setting('tcapi_bg_color', array(
+                        'default' => '#ccc'
+                    ));
+                    
+                    $wp_ccc = new WP_Customize_Color_Control($wp_customize, 'tcapi_bgcolor', array(
+                        'label' => 'Ustaw kolor tła',
+                        'section' => 'tcapi_moja_sekcja',
+                        'settings' => 'tcapi_bg_color'
+                    ));
+                    
+                    $wp_customize->add_control($wp_ccc);
+                }
+                
+                
+                // wyswietlenie stylow
+                function generate_output(){
+                    ?>
+                    <style>
+                        <?php $this->generate_css('h1, h2, h3', 'color', 'tcapi_header_textcolor'); ?>
+                        <?php $this->generate_css('body', 'background-color', 'tcapi_bg_color'); ?>
+                    </style>
+                    <?php
+                }
+                
+                // snipet od wordpressa
+                private function generate_css($selector, $style, $mod_name, $prefix = '', $postfix = '', $echo = true) {
+                    $return = '';
+                    $mod = get_theme_mod($mod_name);
+                    if (!empty($mod)) {
+                        $return = sprintf('%s { %s:%s; }', $selector, $style, $prefix . $mod . $postfix
+                        );
+
+                        if ($echo) {
+                            echo $return;
+                        }
+                    }
+                    return $return;
+                }
+
+            }
+
+            // instacja klasy
+            $Edu_TCA = new Edu_TCA();
+            
+            
+        ?>
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+    
+    32c. Tworzymy folder ThemeCustomAPI a w nim plik style.css
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        /*   
+        Theme Name: ThemeCustomAPI
+        Theme URI: http://eduweb.pl
+        Description: Przykład zastosowania Theme Custom API
+        Author: Eduweb
+        Author URI: http://eduweb.pl
+        Version: 2
+        License: MIT
+        License URI: http://opensource.org/licenses/MIT
+        Tags: black, blue, white, two-columns, fixed-width, custom-header, custom-background, threaded-comments, sticky-post, translation-ready, microformats, rtl-language-support, editor-style
+        */
+
+        #mypage{
+            width: 800px;
+            margin: 50px auto;
+            background: #F9F9F9;
+            padding: 50px;
+            -webkit-box-shadow:  0px 0px 3px 3px rgba(0, 0, 0, 0.2);
+            box-shadow:  0px 0px 3px 3px rgba(0, 0, 0, 0.2);
+        }
 
         ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
     
 
 
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
-        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
-        
-
-        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
-    
-
-
-
-
-
-
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
