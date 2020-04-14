@@ -1,0 +1,1242 @@
+----------------------------------------------------------------------------------------------------------------------------------------------
+INSTRUKCJA BUDOWY SZABLONU
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+Szablon do WooCommerce
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+    1. Do pliku functions.php wpisujemy kod ( Wspieranie WooCommerce )  
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+
+        /*--------------------------------
+                THEME CONFIGURATION
+        --------------------------------*/
+
+        define('THEME_PATH', get_template_directory_uri());
+
+        // REGISTER MAIN MENU
+        register_nav_menus(array(
+            'main_menu' => 'Main menu'
+        ));
+
+        // LOAD JQUERY
+        function load_jquery() {
+            if (!is_admin()) {
+                wp_deregister_script('jquery');
+                wp_register_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js', false, '1.11.1', false);
+                wp_enqueue_script('jquery');
+            }
+        }
+
+        add_action("after_setup_theme", "load_jquery");
+
+        // ADD WOOCOMMERCE THEME SUPPORT
+        add_theme_support('woocommerce'); // wspieranie suportu woocomers
+
+        // REMOVE DEFAULT WOOCOMMERCE CSS
+        add_filter('woocommerce_enqueue_styles', '__return_false'); // zwraca wartosc fals i usuwa style woocomerse 
+        
+        // REMOVE WOOCOMMERCE PAGE TITLE
+        add_filter('woocommerce_show_page_title', '__return_false'); // Zniknie tytul na stronie glownej
+        
+        // REMOVE WOOCOMMERCE PRODUCT RESULT COUNT
+        remove_action('woocommerce_before_shop_loop', 'woocommerce_result_count', 20); // usuwanie tej akcji 
+        
+        ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    2. Tworzymy strone woocommerce.php i do niej dodajemy kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php get_header(); ?>
+
+        <section class="mainContent">
+
+            <div class="centerContent">
+
+                <?php woocommerce_breadcrumb(); ?>
+
+                <?php if(!is_product()) : ?>
+                <h2 class="pageTitle"><?php woocommerce_page_title(); ?></h2>
+                <?php endif; ?>
+
+                <div class="woocommerce"> // bylo odwolywanie bezposrednio do woocommerce
+                    <?php woocommerce_content(); ?>
+                </div>
+
+            </div><!-- /.centerContent -->
+
+        </section><!-- /.mainContent -->
+
+        <?php get_footer(); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    Nadpisywanie plikow
+    3. Tworzymy katalog woocommerce a w nim folder loop a wnim plik rating.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+  
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    4. Tworzymy plik page.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php get_header(); the_post(); ?>
+
+        <section class="mainContent">
+
+            <div class="centerContent">
+
+                <?php woocommerce_breadcrumb(); ?>
+
+                <h2 class="pageTitle"><?php the_title(); ?></h2>
+
+                <?php if(is_cart() || is_checkout()) : ?>
+
+                    <?php the_content(); ?>
+
+                <?php else : ?>
+
+                <div class="textContent">
+                    <?php the_content(); ?>
+                </div>
+
+                <?php endif; ?>
+
+            </div><!-- /.centerContent -->
+
+        </section><!-- /.mainContent -->
+
+        <?php get_footer(); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    5. W folderze woocommerce tworzymy plik content-product.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * The template for displaying product content within loops.
+        *
+        * Override this template by copying it to yourtheme/woocommerce/content-product.php
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     1.6.4
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+        global $product, $woocommerce_loop;
+
+        // Store loop count we're currently on
+        if ( empty( $woocommerce_loop['loop'] ) )
+            $woocommerce_loop['loop'] = 0;
+
+        // Store column count for displaying the grid
+        if ( empty( $woocommerce_loop['columns'] ) )
+            $woocommerce_loop['columns'] = apply_filters( 'loop_shop_columns', 4 );
+
+        // Ensure visibility
+        if ( ! $product || ! $product->is_visible() )
+            return;
+
+        // Increase loop count
+        $woocommerce_loop['loop']++;
+
+        // Extra post classes
+        $classes = array();
+        if ( 0 == ( $woocommerce_loop['loop'] - 1 ) % $woocommerce_loop['columns'] || 1 == $woocommerce_loop['columns'] )
+            $classes[] = 'first';
+        if ( 0 == $woocommerce_loop['loop'] % $woocommerce_loop['columns'] )
+            $classes[] = 'last';
+        ?>
+        <li <?php post_class( $classes ); ?>>
+
+            <?php do_action( 'woocommerce_before_shop_loop_item' ); ?>
+
+                <a class="thumb" href="<?php the_permalink(); ?>">
+
+                <?php
+                    /**
+                    * woocommerce_before_shop_loop_item_title hook
+                    *
+                    * @hooked woocommerce_show_product_loop_sale_flash - 10
+                    * @hooked woocommerce_template_loop_product_thumbnail - 10
+                    */
+                    do_action( 'woocommerce_before_shop_loop_item_title' );
+                ?>
+                </a> // domykamy a
+
+                <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+
+                <?php
+                    /**
+                    * woocommerce_after_shop_loop_item_title hook
+                    *
+                    * @hooked woocommerce_template_loop_rating - 5
+                    * @hooked woocommerce_template_loop_price - 10
+                    */
+                    do_action( 'woocommerce_after_shop_loop_item_title' );
+                ?>
+
+            <?php do_action( 'woocommerce_after_shop_loop_item' ); ?>
+
+        </li>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    6. Tworzymy folder sass > components > _products.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- PRODUCTS LIST ---------*
+        .woocommerce .products {
+            clear: both;
+
+            @extend %clearfix;
+
+            li {
+                width: 160px;
+                margin: 0 30px 30px 0;
+                float: left;
+
+                font-size: 14px;
+                text-align: center;
+
+                &:nth-child(5n) {
+                    margin-right: 0;
+                }
+            }
+
+                .thumb {
+                    display: block;
+                    width: 100%;
+                    height: 250px;
+                    margin-bottom: 10px;
+                    border: 1px #e5e8e6 solid;
+                    background-color: #fff;
+                    will-change: transform;
+
+                    @extend %transitionAll;
+
+                    &:hover {
+                        @include scale(1.2);
+                    }
+
+                    img {
+                        width: auto !important;
+                        height: auto !important;
+                        max-width: 90%;
+
+                        @include vertical-center();
+                    }
+                }
+
+                h3 {
+                    margin-bottom: 6px;
+
+                    font-size: 14px;
+                    font-weight: 300;
+
+                    a {
+                        white-space: nowrap;
+                        color: #4e7b7f;
+                    }
+                }
+
+                .price {
+                    display: block;
+                    margin-bottom: 8px;
+
+                    font-weight: 700;
+
+                    em {
+                        font-weight: 300;
+                    }
+                }
+
+                .button {
+                    display: block;
+
+                    @extend %addToCartButton;
+
+                    &.product_type_variable {
+                        background-image: url(../images/variable_product_icon.png);
+                    }
+                }
+
+                .added_to_cart {
+                    display: block;
+
+                    visibility: hidden;
+                    opacity: 0;
+
+                    text-align: center;
+
+                    @include transition($props: opacity, $speed: 1s);
+                    @extend %button;
+
+                    &.visible {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                }
+        }
+
+        // *--------- RELATED PRODUCTS ---------*
+        .woocommerce .related,
+        .woocommerce .upsells {
+            padding-top: 100px;
+            clear: both;
+
+            h2 {
+                margin-bottom: 30px;
+
+                font-size: 30px;
+                font-weight: 300;
+            }
+        }
+
+        // *--------- SORTING ---------*
+        .woocommerce-ordering {
+            margin-bottom: 50px;
+            float: right;
+        }
+
+        // *--------- PAGINATION ---------*
+        .woocommerce-pagination {
+            margin-top: 30px;
+
+            ul {
+                width: 100%;
+
+                text-align: center;
+
+                li {
+                    display: inline-block;
+                    margin-right: 5px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    a, span {
+                        display: inline-block;
+                        width: 25px;
+                        height: 25px;
+                        border: 1px #e5e8e6 solid;
+
+                        font-size: 14px;
+                        line-height: 25px;
+                    }
+
+                    a {
+                        color: #4e7b7f;
+
+                        @extend %transitionAll;
+
+                        &:hover {
+                            background-color: #f9f9f9;
+                        }
+
+                        &.next, &.prev {
+                            position: relative;
+                            top: -2px;
+
+                            line-height: 22px;
+                        }
+                    }
+
+                    span {
+                        color: #9da29f;
+
+                        &.current {
+                            background-color: #f9f9f9;
+                        }
+                    }
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    7. Dokladnie to samo robimy dla pliku _buttons.scss
+        
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- PLACEHOLDERS ---------*
+        %button {
+            display: inline-block;
+            height: 43px;
+            padding: 0 20px;
+            margin: 0;
+            border: none;
+            background-color: #000;
+
+            cursor: pointer;
+
+            font: 300 14px/43px $dosis;
+            text-align: left;
+            color: #fff !important;
+
+            @include transition($props: opacity);
+
+            &:hover {
+                opacity: 0.85;
+            }
+        }
+
+        %addToCartButton {
+            padding-right: 50px;
+            background: #4e7c7f url(../images/add_to_cart_icon.png) right center no-repeat;
+
+            @extend %button;
+        }
+
+        // *--------- STYLES ---------*
+        .button { // wszystkie lelemny a ktore beda mialy klasse button beda mialy ten styl
+            @extend %button;
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    8. Instalujemy wtyczke Regenerate Thumnails do wygenreowania wszystkich miniaturek
+    9. Naredzia > Rregenerate thu. > Regenrate all thumbnails
+    10. Instalujemy bilbiotek js Uniform
+    11. Do katalogu js wrzucamy plik plik uniform-min.js
+    12. Podpinamy bliblioteke w footer.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <script src="<?php echo THEME_PATH; ?>/js/jquery.uniform.min.js"></script>
+        <script src="<?php echo THEME_PATH; ?>/js/jquery.bxslider.min.js"></script>
+        <script src="<?php echo THEME_PATH; ?>/js/jquery.scrollTo.min.js"></script>
+        <script src="<?php echo THEME_PATH; ?>/js/scripts.js"></script>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+ 
+    13. Przechodzimy do pliku js > scripts.js i dodajemy kod w document ready
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // UNIFORM ELEMENTS
+        $("select, input:radio, input:checkbox").uniform();
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    14. PRzechodzimy do sass > components > _uniform.scss i wpisujemy style
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        div.selector,
+        div.checker,
+        div.radio {
+            display: -moz-inline-box;
+            display: inline-block;
+
+            vertical-align: middle;
+        }
+
+        div.selector:focus,
+        div.checker:focus,
+        div.radio:focus {
+            outline: 0;
+        }
+
+        div.selector, div.selector *,
+        div.checker, div.checker *,
+        div.radio, div.radio * {
+            padding: 0;
+            margin: 0;
+        }
+
+        div.checker input {
+            -moz-appearance: none;
+            -webkit-appearance: none;
+        }
+
+        div.selector {
+            height: 32px;
+            padding: 0 25px 0 10px;
+            overflow: hidden;
+            border: 1px #e8e8e8 solid;
+
+            position: relative;
+
+            line-height: 32px;
+
+            &:after {
+                content: "";
+                display: block;
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: 5px 3.5px 0 3.5px;
+                border-color: #000000 transparent transparent transparent;
+
+                position: absolute;
+                top: 13px;
+                right: 9px;
+            }
+
+            span {
+                display: block;
+                width: 100%;
+                height: 30px;
+                overflow: hidden;
+                background-position: right 0;
+
+                cursor: pointer;
+
+                font-size: 12px;
+                font-weight: 300;
+                line-height: 32px;
+                text-transform: uppercase;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                color: #000;
+            }
+
+            select {
+                width: 100%;
+                height: 30px;
+                border: none;
+                background: none;
+
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -moz-opacity: 0;
+
+                cursor: pointer;
+
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        div.checker {
+            width: 17px;
+            height: 17px;
+            margin-right: 5px;
+            border: 1px #e5e5e5 solid;
+
+            position: relative;
+            top: -2px;
+
+            span {
+                display: -moz-inline-box;
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+
+                text-align: center;
+
+                &.checked {
+                    width: 15px;
+                    height: 15px;
+                    border: 3px #fff solid;
+                    background-color: #e5e5e5;
+                }
+            }
+
+            input {
+                display: -moz-inline-box;
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                border: none;
+                background: none;
+
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -moz-opacity: 0;
+
+                cursor: pointer;
+            }
+        }
+
+        div.radio {
+            width: 17px;
+            height: 17px;
+            margin-right: 5px;
+            position: relative;
+            top: -2px;
+
+            span {
+                display: -moz-inline-box;
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                border-radius: 50%;
+                border: 1px #e5e5e5 solid;
+
+                text-align: center;
+
+                &.checked {
+                    background-color: #e5e5e5;
+                }
+            }
+
+            input {
+                display: -moz-inline-box;
+                display: inline-block;
+                width: 17px;
+                height: 17px;
+                border: none;
+                background: none;
+
+                opacity: 0;
+                filter: alpha(opacity=0);
+                -moz-opacity: 0;
+
+                text-align: center;
+                cursor: pointer;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    15. Ustalamy rozmiary dla miniaturek
+    16  Regenreujemy obrazki
+    17. Przechodzimy do pliku sass > pages > _single-product-pages.scss i wklejamy kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- SINGLE PRODUCT PAGE ---------*
+        .woocommerce .product {
+
+            .images {
+                width: 350px;
+                float: left;
+
+                img {
+                    display: block;
+                    max-width: 100%;
+                }
+            }
+
+                .thumbnails {
+                    margin-top: 20px;
+                    overflow: hidden;
+
+                    .zoom {
+                        display: block;
+                        width: 100px;
+                        height: 130px;
+                        margin-right: 25px;
+                        float: left;
+                        border: 1px #e5e8e6 solid;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        img {
+                            @include vertical-center;
+                        }
+                    }
+                }
+
+            .summary {
+                width: 550px;
+                clear: right;
+                float: right;
+            }
+
+            .product_title {
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+                border-bottom: 1px $mainBorderColor solid;
+
+                font-size: 30px;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+
+            .product_meta {
+                margin-right: 40px;
+                float: left;
+
+                font-size: 13px;
+                color: $mainLinkColor;
+
+                a {
+                    color: inherit;
+                }
+
+                .sku {
+                    display: block;
+                    margin-top: 10px;
+                    margin-bottom: 15px;
+
+                    font-size: 18px;
+                    color: #000;
+                }
+            }
+
+            .product-price {
+                margin-right: 40px;
+                float: left;
+
+                font-size: 13px;
+                color: $mainLinkColor;
+
+                .price {
+                    margin-bottom: 0;
+                }
+
+                .priceLabel {
+                    display: block;
+                }
+
+                .amount {
+                    display: inline-block;
+                    margin-top: 10px;
+
+                    font-size: 30px;
+                    font-weight: 700;
+                    color: #000;
+
+                    &:not(:last-child) {
+                        padding-right: 10px;
+                    }
+
+                    & + .amount {
+                        padding-left: 10px;
+                    }
+
+                    em {
+                        font-size: 13px;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            p.stock {
+                display: none;
+            }
+
+            .woocommerce-product-rating {
+                float: left;
+
+                .star-rating {
+                    width: 100px;
+                    height: 15px;
+                    margin-bottom: 15px;
+                    background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                    position: relative;
+
+                    span {
+                        display: block;
+                        height: 15px;
+                        background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+
+                        @extend %no-text;
+                    }
+                }
+
+                .woocommerce-review-link {
+                    padding-left: 4px;
+
+                    font-size: 13px;
+                    color: $mainLinkColor;
+                }
+            }
+
+            .cart {
+                padding-top: 40px;
+                margin-bottom: 13px;
+                overflow: hidden;
+                clear: both;
+
+                .variations.multi {
+
+                    tr:not(:first-child) {
+
+                        td {
+                            padding-top: 13px;
+                        }
+                    }
+                }
+
+                .label {
+                    padding-right: 10px;
+                }
+
+                label,
+                .reset_variations {
+                    font-size: 13px;
+                    color: $mainLinkColor;
+                }
+
+                .reset_variations {
+                    padding-left: 10px;
+                }
+
+                .variations_button {
+                    margin-top: 20px;
+                    overflow: hidden;
+                }
+
+                .quantity {
+                    width: 60px;
+                    height: 43px;
+                    padding-right: 19px;
+                    float: left;
+                    border: 1px $mainBorderColor solid;
+                    border-right: none;
+
+                    position: relative;
+                }
+
+                input[type='number'] {
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    border: none;
+                    border-right: 1px $mainBorderColor solid;
+
+                    -moz-appearance: textfield;
+
+                    font: 300 18px/1 $dosis;
+                    text-align: center;
+                    color: #000;
+
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        margin: 0;
+                        -webkit-appearance: none;
+                    }
+                }
+
+                .plus,
+                .minus {
+                    width: 19px;
+                    height: 20px;
+                    border: none;
+                    background: none;
+
+                    cursor: pointer;
+
+                    position: absolute;
+                    right: 0;
+
+                    font: 300 18px/16px $dosis;
+                    text-align: center;
+                    color: #000;
+                }
+
+                .plus {
+                    height: 21px;
+                    border-bottom: 1px $mainBorderColor solid;
+
+                    top: 0;
+                }
+
+                .minus {
+                    bottom: 0;
+                }
+
+                .single_add_to_cart_button {
+                    padding-right: 50px;
+                    float: left;
+                    background: #4e7c7f url(../images/add_to_cart_icon.png) right center no-repeat;
+
+                    @extend %button;
+                }
+
+                // GROUP PRODUCT
+                .group_table {
+                    border-collapse: separate;
+                    border-spacing: 0 13px;
+
+                    td {
+                        vertical-align: middle;
+
+                        &.label,
+                        &.price {
+                            padding: 0 15px;
+                            border: 1px $mainBorderColor solid;
+
+                        }
+
+                        &.label {
+                            border-right: none;
+                        }
+
+                        &.price {
+                            border-left: none;
+                        }
+                    }
+                }
+            }
+
+            .productDetails {
+                padding-top: 5px;
+                clear: both;
+                border-top: 1px $mainBorderColor solid;
+            }
+
+            .description {
+
+                h2 {
+                    display: none;
+                }
+
+                p {
+                    font-size: 14px;
+                    line-height: 30px;
+                }
+            }
+
+            .additional_information {
+                margin-top: 20px;
+
+                h2 {
+                    margin-bottom: 20px;
+
+                    font-size: 18px;
+                }
+
+                table {
+                    width: 100%;
+
+                    text-align: left;
+
+                    th, td {
+                        padding-bottom: 15px;
+                    }
+
+                    th {
+                        color: $mainLinkColor;
+                    }
+                }
+            }
+
+            // *--------- REVIEWS ---------*
+            .reviews {
+                padding-top: 20px;
+                margin-top: 10px;
+                border-top: 1px $mainBorderColor solid;
+
+                h2 {
+                    margin-bottom: 20px;
+
+                    font-size: 18px;
+                }
+
+                .woocommerce-noreviews {
+                    margin-bottom: 20px;
+
+                    color: $mainLinkColor;
+                }
+
+                .comment {
+                    margin-bottom: 15px;
+                    overflow: hidden;
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 21px;
+                        float: left;
+                        border-radius: 50%;
+                    }
+
+                    .comment-text {
+                        width: 479px;
+                        padding: 20px;
+                        border: 1px #e5e5e5 solid;
+                        float: left;
+
+                        position: relative;
+
+                        &:before {
+                            content: "";
+                            width: 13px;
+                            height: 15px;
+                            background: url(../images/comment_arrow.png) no-repeat;
+
+                            position: absolute;
+                            top: 17px;
+                            left: -12px;
+                        }
+
+                        .meta {
+
+                            em {
+                                font-weight: 700;
+                                color: $mainLinkColor;
+                            }
+                        }
+                    }
+
+                    .meta {
+                        margin-bottom: 20px;
+
+                        font-size: 13px;
+
+                        strong {
+                            font-weight: 300;
+                            color: $mainLinkColor;
+                        }
+                    }
+
+                    .description {
+
+                        p {
+                            font-size: 14px;
+                            line-height: 24px;
+                        }
+                    }
+                }
+            }
+
+            .comment-respond {
+
+                .comment-form-author,
+                .comment-form-email {
+                    margin-bottom: 15px;
+
+                    input[type='text'] {
+                        padding: 0 20px;
+                        margin: 0;
+                        border: 1px #e5e5e5 solid;
+                        background: none;
+
+                        font: 300 14px/30px $dosis;
+                        color: #000;
+                    }
+                }
+
+                .comment-form-author {
+                    padding-left: 70px;
+                    float: left;
+                }
+
+                .comment-form-email {
+                    float: right;
+                }
+
+                .comment-form-comment {
+                    clear: both;
+                    overflow: hidden;
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 21px;
+                        float: left;
+                        border-radius: 50%;
+                    }
+
+                    .message {
+                        width: 479px;
+                        height: 100px;
+                        border: 1px #e5e5e5 solid;
+                        float: left;
+
+                        position: relative;
+
+                        &:before {
+                            content: "";
+                            width: 13px;
+                            height: 15px;
+                            background: url(../images/comment_arrow.png) no-repeat;
+
+                            position: absolute;
+                            top: 17px;
+                            left: -12px;
+                        }
+
+                        textarea {
+                            width: 100%;
+                            height: 100%;
+                            padding: 10px 20px;
+                            overflow: hidden;
+                            border: none;
+                            background: none;
+
+                            resize: none;
+
+                            font: 300 14px/30px $dosis;
+                            color: #000;
+                        }
+                    }
+                }
+
+                .comment-form-rating {
+                    margin: 30px 0 0 70px;
+                    float: left;
+
+                    .stars > span {
+                        display: block;
+                        width: 100px;
+                        height: 15px;
+                        background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                        a {
+                            display: block;
+                            width: 20px;
+                            height: 15px;
+                            float: left;
+                            background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                            opacity: 0;
+
+                            @extend %no-text;
+
+                            &:hover,
+                            &.hovered,
+                            &.highlighted,
+                            &.active {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .star-rating {
+                        width: 100px;
+                        height: 15px;
+                        margin-bottom: 15px;
+                        background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                        position: relative;
+
+                        span {
+                            display: block;
+                            height: 15px;
+                            background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+
+                            @extend %no-text;
+                        }
+                    }
+                }
+
+                .form-submit {
+                    margin-top: 15px;
+                    float: right;
+
+                    input[type='submit'] {
+                        @extend %button;
+                    }
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    18. W pliku functions.php dodajem 
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // CHANGE PRODUCT ADD TO CART POSITION
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 30);
+        add_action('woocommerce_single_product_summary', 'woocommerce_template_single_add_to_cart', 50);
+
+        // CHANGE PRODUCT META POSITION
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 40);
+        add_action('woocommerce_single_product_summary', 'woocommerce_template_single_meta', 5);
+
+        // CHANGE PRODUCT RATING POSITION
+        remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 10); // przycisk ocena
+        add_action('woocommerce_single_product_summary', 'woocommerce_template_single_rating', 20);
+
+        // CHANGE PRODUCT TABS POSITION
+        remove_action('woocommerce_after_single_product_summary', 'woocommerce_output_product_data_tabs', 10); //kod odpoweidzialny za usuniecie zakladek
+        add_action('woocommerce_single_product_summary', 'woocommerce_output_product_data_tabs', 50);
+        
+        // REMOVE PRODUCT EXCERPT
+remove_action('woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20); // wylaczenie opisu
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    19. Tworzymy folder  woocommerce > single-product > price.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * Single Product Price, including microdata for SEO
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     1.6.4
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) {
+            exit; // Exit if accessed directly
+        }
+
+        global $product;
+        ?>
+        <div class="product-price" itemprop="offers" itemscope itemtype="http://schema.org/Offer">
+
+            <p class="price"><span class="priceLabel"><?php _e('Cena', 'clothing'); ?></span> <?php echo $product->get_price_html(); ?></p> // gdy zarejestrujemy tlumaczenie. Podstawnienie _e
+
+            <meta itemprop="price" content="<?php echo $product->get_price(); ?>" />
+            <meta itemprop="priceCurrency" content="<?php echo get_woocommerce_currency(); ?>" />
+            <link itemprop="availability" href="http://schema.org/<?php echo $product->is_in_stock() ? 'InStock' : 'OutOfStock'; ?>" />
+
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    20. Towrzymy plik w folderze woocommerce > single-product > meta.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * Single Product Meta
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     1.6.4
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+        global $post, $product;
+
+        $cat_count = sizeof( get_the_terms( $post->ID, 'product_cat' ) );
+        $tag_count = sizeof( get_the_terms( $post->ID, 'product_tag' ) );
+        ?>
+        <div class="product_meta">
+
+            <?php do_action( 'woocommerce_product_meta_start' ); ?>
+
+            <?php if ( wc_product_sku_enabled() && ( $product->get_sku() || $product->is_type( 'variable' ) ) ) : ?>
+
+                <span class="sku_wrapper"><?php _e( 'SKU:', 'woocommerce' ); ?> <span class="sku" itemprop="sku"><?php echo ( $sku = $product->get_sku() ) ? $sku : __( 'N/A', 'woocommerce' ); ?></span></span>
+
+            <?php endif; ?>
+
+            <?php echo $product->get_categories( ', ', '<span class="posted_in">' . _n( 'Category:', 'Categories:', $cat_count, 'woocommerce' ) . ' ', '.</span>' ); ?>
+
+            <?php echo $product->get_tags( ', ', '<span class="tagged_as">' . _n( 'Tag:', 'Tags:', $tag_count, 'woocommerce' ) . ' ', '.</span>' ); ?>
+
+            <?php do_action( 'woocommerce_product_meta_end' ); ?>
+
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    21. Tworzymy plik woocommerce > single-product > rating.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * Single Product Rating
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     2.1.0
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+        global $product;
+
+        if ( get_option( 'woocommerce_enable_review_rating' ) === 'no' )
+            return;
+
+        $count   = $product->get_rating_count();
+        $average = $product->get_average_rating();
+
+        if ( $count > 0 ) : ?>
+
+            <div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
+                <div class="star-rating" title="<?php printf( __( 'Rated %s out of 5', 'woocommerce' ), $average ); ?>">
+                    <span style="width:<?php echo ( ( $average / 5 ) * 100 ); ?>%">
+                        <strong itemprop="ratingValue" class="rating"><?php echo esc_html( $average ); ?></strong> <?php _e( 'out of 5', 'woocommerce' ); ?>
+                    </span>
+                </div>
+                <a href="#reviews" class="woocommerce-review-link" rel="nofollow"><?php _e('Oceń produkt', 'clothing'); ?></a> // dodanie tekstu ocen produkt z przekierowaniem na komentarze do produktu
+            </div>
+
+        <?php endif; ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+
+
