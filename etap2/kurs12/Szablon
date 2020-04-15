@@ -1238,5 +1238,2771 @@ remove_action('woocommerce_single_product_summary', 'woocommerce_template_single
         <?php endif; ?>
         ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
 
+    22. Tworzymy plik w woocommerce/single-product/tabs/ tabs.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * Single Product tabs
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     2.0.0
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+        /**
+        * Filter tabs and allow third parties to add their own
+        *
+        * Each tab is an array containing title, callback and priority.
+        * @see woocommerce_default_product_tabs()
+        */
+        $tabs = apply_filters( 'woocommerce_product_tabs', array() );
+
+        if ( ! empty( $tabs ) ) : ?>
+
+            <div class="productDetails"> // nazwa dal diva
+                <?php foreach ( $tabs as $key => $tab ) : ?>
+
+                    <div class="<?php echo $key; ?>">
+                        <?php call_user_func( $tab['callback'], $key, $tab ) ?>
+                    </div>
+
+                <?php endforeach; ?>
+            </div>
+
+        <?php endif; ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    23. Tworzymy plik single-products-reviews.php w folderze woocommerce
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * Display single product reviews (comments)
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     2.1.0
+        */
+        global $product;
+
+        if ( ! defined( 'ABSPATH' ) )
+            exit; // Exit if accessed directly
+
+        if ( ! comments_open() )
+            return;
+        ?>
+        <div id="reviews">
+            <div id="comments">
+                <h2><?php
+                    if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' && ( $count = $product->get_rating_count() ) )
+                        printf( _n( '<strong>%s</strong> opinia', '<strong>%s</strong> opinie', $count, 'woocommerce' ), $count ); // liczba opinie
+                    else
+                        _e( 'Reviews', 'woocommerce' );
+                ?></h2>
+
+                <?php if ( have_comments() ) : ?>
+
+                    <ol class="commentlist">
+                        <?php wp_list_comments( apply_filters( 'woocommerce_product_review_list_args', array( 'callback' => 'woocommerce_comments' ) ) ); ?>
+                    </ol>
+
+                    <?php if ( get_comment_pages_count() > 1 && get_option( 'page_comments' ) ) :
+                        echo '<nav class="woocommerce-pagination">';
+                        paginate_comments_links( apply_filters( 'woocommerce_comment_pagination_args', array(
+                            'prev_text' => '&larr;',
+                            'next_text' => '&rarr;',
+                            'type'      => 'list',
+                        ) ) );
+                        echo '</nav>';
+                    endif; ?>
+
+                <?php else : ?>
+
+                    <p class="woocommerce-noreviews"><?php _e( 'There are no reviews yet.', 'woocommerce' ); ?></p>
+
+                <?php endif; ?>
+            </div>
+
+            <?php if ( get_option( 'woocommerce_review_rating_verification_required' ) === 'no' || wc_customer_bought_product( '', get_current_user_id(), $product->id ) ) : ?>
+
+                <div id="review_form_wrapper">
+                    <div id="review_form">
+                        <?php
+                            $commenter = wp_get_current_commenter();
+
+                            $comment_form = array(
+                                'title_reply'          => '',
+                                'title_reply_to'       => __( 'Leave a Reply to %s', 'woocommerce' ),
+                                'comment_notes_before' => '<h2>' . __('Dodaj opinię', 'clothing') . '</h2>',
+                                'comment_notes_after'  => '',
+                                'fields'               => array(
+                                    'author' => '<p class="comment-form-author">' .
+                                                '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30" aria-required="true" placeholder="' . __( 'Name', 'woocommerce' ) . '" /></p>',
+                                    'email'  => '<p class="comment-form-email">' .
+                                                '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30" aria-required="true" placeholder="' . __( 'Email', 'woocommerce' ) . '" /></p>',
+                                ),
+                                'label_submit'  => __( 'Submit', 'woocommerce' ),
+                                'logged_in_as'  => '',
+                                'comment_field' => ''
+                            );
+
+                            $comment_form['comment_field'] = '<div class="comment-form-comment">' .
+                            get_avatar($commenter['comment_author_email'], 50) .
+                            '<div class="message"><textarea id="comment" name="comment" cols="45" rows="8" aria-required="true" placeholder="' . __( 'Your Review', 'woocommerce' ) . '"></textarea></div></div>';
+
+                            if ( get_option( 'woocommerce_enable_review_rating' ) === 'yes' ) {
+                                $comment_form['comment_field'] .= '<p class="comment-form-rating"><select name="rating" id="rating">
+                                    <option value="">' . __( 'Rate&hellip;', 'woocommerce' ) . '</option>
+                                    <option value="5">' . __( 'Perfect', 'woocommerce' ) . '</option>
+                                    <option value="4">' . __( 'Good', 'woocommerce' ) . '</option>
+                                    <option value="3">' . __( 'Average', 'woocommerce' ) . '</option>
+                                    <option value="2">' . __( 'Not that bad', 'woocommerce' ) . '</option>
+                                    <option value="1">' . __( 'Very Poor', 'woocommerce' ) . '</option>
+                                </select></p>';
+                            }
+
+                            comment_form( apply_filters( 'woocommerce_product_review_comment_form_args', $comment_form ) );
+                        ?>
+                    </div>
+                </div>
+
+            <?php else : ?>
+
+                <p class="woocommerce-verification-required"><?php _e( 'Only logged in customers who have purchased this product may leave a review.', 'woocommerce' ); ?></p>
+
+            <?php endif; ?>
+
+            <div class="clear"></div>
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    23a. Style dla single product-sa w sass/pages/_single-product-page.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- SINGLE PRODUCT PAGE ---------*
+        .woocommerce .product {
+
+            .images {
+                width: 350px;
+                float: left;
+
+                img {
+                    display: block;
+                    max-width: 100%;
+                }
+            }
+
+                .thumbnails {
+                    margin-top: 20px;
+                    overflow: hidden;
+
+                    .zoom {
+                        display: block;
+                        width: 100px;
+                        height: 130px;
+                        margin-right: 25px;
+                        float: left;
+                        border: 1px #e5e8e6 solid;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+
+                        img {
+                            @include vertical-center;
+                        }
+                    }
+                }
+
+            .summary {
+                width: 550px;
+                clear: right;
+                float: right;
+            }
+
+            .product_title {
+                padding-bottom: 15px;
+                margin-bottom: 15px;
+                border-bottom: 1px $mainBorderColor solid;
+
+                font-size: 30px;
+                font-weight: 300;
+                text-transform: uppercase;
+            }
+
+            .product_meta {
+                margin-right: 40px;
+                float: left;
+
+                font-size: 13px;
+                color: $mainLinkColor;
+
+                a {
+                    color: inherit;
+                }
+
+                .sku {
+                    display: block;
+                    margin-top: 10px;
+                    margin-bottom: 15px;
+
+                    font-size: 18px;
+                    color: #000;
+                }
+            }
+
+            .product-price {
+                margin-right: 40px;
+                float: left;
+
+                font-size: 13px;
+                color: $mainLinkColor;
+
+                .price {
+                    margin-bottom: 0;
+                }
+
+                .priceLabel {
+                    display: block;
+                }
+
+                .amount {
+                    display: inline-block;
+                    margin-top: 10px;
+
+                    font-size: 30px;
+                    font-weight: 700;
+                    color: #000;
+
+                    &:not(:last-child) {
+                        padding-right: 10px;
+                    }
+
+                    & + .amount {
+                        padding-left: 10px;
+                    }
+
+                    em {
+                        font-size: 13px;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            p.stock {
+                display: none;
+            }
+
+            .woocommerce-product-rating {
+                float: left;
+
+                .star-rating {
+                    width: 100px;
+                    height: 15px;
+                    margin-bottom: 15px;
+                    background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                    position: relative;
+
+                    span {
+                        display: block;
+                        height: 15px;
+                        background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+
+                        @extend %no-text;
+                    }
+                }
+
+                .woocommerce-review-link {
+                    padding-left: 4px;
+
+                    font-size: 13px;
+                    color: $mainLinkColor;
+                }
+            }
+
+            .cart {
+                padding-top: 40px;
+                margin-bottom: 13px;
+                overflow: hidden;
+                clear: both;
+
+                .variations.multi {
+
+                    tr:not(:first-child) {
+
+                        td {
+                            padding-top: 13px;
+                        }
+                    }
+                }
+
+                .label {
+                    padding-right: 10px;
+                }
+
+                label,
+                .reset_variations {
+                    font-size: 13px;
+                    color: $mainLinkColor;
+                }
+
+                .reset_variations {
+                    padding-left: 10px;
+                }
+
+                .variations_button {
+                    margin-top: 20px;
+                    overflow: hidden;
+                }
+
+                .quantity {
+                    width: 60px;
+                    height: 43px;
+                    padding-right: 19px;
+                    float: left;
+                    border: 1px $mainBorderColor solid;
+                    border-right: none;
+
+                    position: relative;
+                }
+
+                input[type='number'] {
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    border: none;
+                    border-right: 1px $mainBorderColor solid;
+
+                    -moz-appearance: textfield;
+
+                    font: 300 18px/1 $dosis;
+                    text-align: center;
+                    color: #000;
+
+                    &::-webkit-outer-spin-button,
+                    &::-webkit-inner-spin-button {
+                        margin: 0;
+                        -webkit-appearance: none;
+                    }
+                }
+
+                .plus,
+                .minus {
+                    width: 19px;
+                    height: 20px;
+                    border: none;
+                    background: none;
+
+                    cursor: pointer;
+
+                    position: absolute;
+                    right: 0;
+
+                    font: 300 18px/16px $dosis;
+                    text-align: center;
+                    color: #000;
+                }
+
+                .plus {
+                    height: 21px;
+                    border-bottom: 1px $mainBorderColor solid;
+
+                    top: 0;
+                }
+
+                .minus {
+                    bottom: 0;
+                }
+
+                .single_add_to_cart_button {
+                    padding-right: 50px;
+                    float: left;
+                    background: #4e7c7f url(../images/add_to_cart_icon.png) right center no-repeat;
+
+                    @extend %button;
+                }
+
+                // GROUP PRODUCT
+                .group_table {
+                    border-collapse: separate;
+                    border-spacing: 0 13px;
+
+                    td {
+                        vertical-align: middle;
+
+                        &.label,
+                        &.price {
+                            padding: 0 15px;
+                            border: 1px $mainBorderColor solid;
+
+                        }
+
+                        &.label {
+                            border-right: none;
+                        }
+
+                        &.price {
+                            border-left: none;
+                        }
+                    }
+                }
+            }
+
+            .productDetails {
+                padding-top: 5px;
+                clear: both;
+                border-top: 1px $mainBorderColor solid;
+            }
+
+            .description {
+
+                h2 {
+                    display: none;
+                }
+
+                p {
+                    font-size: 14px;
+                    line-height: 30px;
+                }
+            }
+
+            .additional_information {
+                margin-top: 20px;
+
+                h2 {
+                    margin-bottom: 20px;
+
+                    font-size: 18px;
+                }
+
+                table {
+                    width: 100%;
+
+                    text-align: left;
+
+                    th, td {
+                        padding-bottom: 15px;
+                    }
+
+                    th {
+                        color: $mainLinkColor;
+                    }
+                }
+            }
+
+            // *--------- REVIEWS ---------*
+            .reviews {
+                padding-top: 20px;
+                margin-top: 10px;
+                border-top: 1px $mainBorderColor solid;
+
+                h2 {
+                    margin-bottom: 20px;
+
+                    font-size: 18px;
+                }
+
+                .woocommerce-noreviews {
+                    margin-bottom: 20px;
+
+                    color: $mainLinkColor;
+                }
+
+                .comment {
+                    margin-bottom: 15px;
+                    overflow: hidden;
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 21px;
+                        float: left;
+                        border-radius: 50%;
+                    }
+
+                    .comment-text {
+                        width: 479px;
+                        padding: 20px;
+                        border: 1px #e5e5e5 solid;
+                        float: left;
+
+                        position: relative;
+
+                        &:before {
+                            content: "";
+                            width: 13px;
+                            height: 15px;
+                            background: url(../images/comment_arrow.png) no-repeat;
+
+                            position: absolute;
+                            top: 17px;
+                            left: -12px;
+                        }
+
+                        .meta {
+
+                            em {
+                                font-weight: 700;
+                                color: $mainLinkColor;
+                            }
+                        }
+                    }
+
+                    .meta {
+                        margin-bottom: 20px;
+
+                        font-size: 13px;
+
+                        strong {
+                            font-weight: 300;
+                            color: $mainLinkColor;
+                        }
+                    }
+
+                    .description {
+
+                        p {
+                            font-size: 14px;
+                            line-height: 24px;
+                        }
+                    }
+                }
+            }
+
+            .comment-respond {
+
+                .comment-form-author,
+                .comment-form-email {
+                    margin-bottom: 15px;
+
+                    input[type='text'] {
+                        padding: 0 20px;
+                        margin: 0;
+                        border: 1px #e5e5e5 solid;
+                        background: none;
+
+                        font: 300 14px/30px $dosis;
+                        color: #000;
+                    }
+                }
+
+                .comment-form-author {
+                    padding-left: 70px;
+                    float: left;
+                }
+
+                .comment-form-email {
+                    float: right;
+                }
+
+                .comment-form-comment {
+                    clear: both;
+                    overflow: hidden;
+
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        margin-right: 21px;
+                        float: left;
+                        border-radius: 50%;
+                    }
+
+                    .message {
+                        width: 479px;
+                        height: 100px;
+                        border: 1px #e5e5e5 solid;
+                        float: left;
+
+                        position: relative;
+
+                        &:before {
+                            content: "";
+                            width: 13px;
+                            height: 15px;
+                            background: url(../images/comment_arrow.png) no-repeat;
+
+                            position: absolute;
+                            top: 17px;
+                            left: -12px;
+                        }
+
+                        textarea {
+                            width: 100%;
+                            height: 100%;
+                            padding: 10px 20px;
+                            overflow: hidden;
+                            border: none;
+                            background: none;
+
+                            resize: none;
+
+                            font: 300 14px/30px $dosis;
+                            color: #000;
+                        }
+                    }
+                }
+
+                .comment-form-rating {
+                    margin: 30px 0 0 70px;
+                    float: left;
+
+                    .stars > span {
+                        display: block;
+                        width: 100px;
+                        height: 15px;
+                        background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                        a {
+                            display: block;
+                            width: 20px;
+                            height: 15px;
+                            float: left;
+                            background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                            opacity: 0;
+
+                            @extend %no-text;
+
+                            &:hover,
+                            &.hovered,
+                            &.highlighted,
+                            &.active {
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .star-rating {
+                        width: 100px;
+                        height: 15px;
+                        margin-bottom: 15px;
+                        background: url(../images/star_rating.png) 0 -15px no-repeat;
+
+                        position: relative;
+
+                        span {
+                            display: block;
+                            height: 15px;
+                            background: url(../images/star_rating.png) 0 0 no-repeat;
+
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+
+                            @extend %no-text;
+                        }
+                    }
+                }
+
+                .form-submit {
+                    margin-top: 15px;
+                    float: right;
+
+                    input[type='submit'] {
+                        @extend %button;
+                    }
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    23b. Wklejamy scypt do scripts.js
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        /*------------------------------------------
+            JS SCRIPTS (C) 2014 www.eduweb.pl
+        ------------------------------------------*/
+        (function($) {
+
+        /*
+            PLUGINS
+        */
+
+        // setHeightToHighest
+        $.fn.setHeightToHighest = function() {
+
+            var maxHeight = 0;
+
+            this.each(function() {
+
+                var that = $(this),
+                    height = that.height();
+
+                if(height > maxHeight) {
+                    maxHeight = height;
+                }
+
+            });
+
+            return this.each(function() {
+
+                $(this).css("height", maxHeight);
+
+            });
+
+        };
+
+        // highlightStars
+        $.fn.highlightStars = function() {
+
+            var stars = this;
+
+            return this.each(function() {
+
+                var star = $(this);
+
+                star.hover(
+                    function() {
+
+                        star.prevAll("a").addClass("hovered");
+
+                    },
+                    function() {
+
+                        star.prevAll("a").removeClass("hovered");
+
+                    }
+                );
+
+                star.on("click", function() {
+
+                    stars.removeClass("highlighted");
+
+                    star.prevAll("a").addClass("highlighted");
+
+                });
+
+            });
+
+        };
+
+        // wrapCurrency
+        $.fn.wrapCurrency = function() {
+
+            return this.each(function() {
+
+                var that = $(this), // do html zapisujemy html elementu
+                    html = that.html();
+
+                var wrapped = html.replace(/(&nbsp;.+)/, "<em>$1</em>"); // wyszukujemy spacje i dalsze znaki podmieniamy
+
+                that.html(wrapped);
+
+            });
+
+        };
+
+        // positionCartItemsCount
+        // funckja odpowiedzialna za wyswietlanie liczyb w kolk obok koszyka
+        $.fn.positionCartItemsCount = function() {
+
+            var items = parseInt(this.text()),
+                right = 3;
+
+                if(items === 1)
+                    right = 4;
+                else if(items === 11)
+                    right = 2;
+                else if(items >= 10)
+                    right = 1;
+
+            this.css("right", right + "px");
+
+            return this;
+
+        };
+
+        /*
+            UTILS
+        */
+        $(document).ready(function() {
+
+            var header = $(".mainHeader");
+
+            // SUBMENU
+            $("#nav li.menu-item-has-children").hover(
+                function() {
+                    header.addClass("highlighted");
+                },
+                function() {
+                    header.removeClass("highlighted");
+                }
+            );
+
+            // UNIFORM ELEMENTS
+            $("select, input:radio, input:checkbox").uniform();
+
+            // REVIEWS
+            $(".stars a").highlightStars();
+
+            // WRAP CURRENCY
+            $("span.amount").wrapCurrency();
+
+            // POSITION '.itemsCount'
+            $(".basketLink .itemsCount").positionCartItemsCount();
+
+            // SLIDER  
+            $(".bxslider").bxSlider({ // wywoloanie bx slider
+                auto: true,
+                pause: 5000,
+                controls: false
+            });
+
+            // IF WOOCOMMERCE, REMOVE "textContent" STYLING
+            $(".textContent").each(function() {
+
+                var that = $(this), //szukamy elementu txt conent
+                    woocommerce = that.children(".woocommerce").length; // czy znajduje sie jakies elelemt woocomers
+
+                if(woocommerce) { // jesli tak to usuwamy
+                    that.removeClass("textContent");
+                }
+
+            });
+
+            // WOOCOMMERCE JS EVENTS
+            $("body").on("updated_shipping_method updated_checkout", function() { // akcja przladowania zaznaczenia checxkboxow
+
+                $("select, input:radio, input:checkbox").uniform(); //wybranie radio button
+                $("span.amount").wrapCurrency();
+
+            }).on("added_to_cart", function(e, obj) { // funkcja zamieniajac przyciski z dodaj do koszyka na zobacz koszyk
+
+                $(".basketLink .itemsCount").text(obj.cart_count)
+                    .positionCartItemsCount(); // zliczanie ilosci w koszyku
+
+                $(".button.added").fadeOut(500, function() {
+                    $(this).next(".added_to_cart").addClass("visible");
+                });
+
+            });
+
+            // IF SEVERAL VARIATIONS, ADD CLASS FOR TOP PADDING
+            $("table.variations").each(function() {
+
+                var that = $(this),
+                    variations = that.find("tr").length;
+
+                if(variations > 1) {
+                    that.addClass("multi");
+                }
+
+            });
+
+            // SCROLL TO REVIEWS
+            $(".woocommerce .product .woocommerce-review-link").on("click", function(e) {
+
+                e.preventDefault();
+
+                var id = $(this).attr("href");
+
+                $.scrollTo($(id).offset().top - 20, 500);
+
+            });
+
+        });
+
+        /*
+            WINDOW LOAD
+        */
+        $(window).on("load", function() {
+
+            $(".woocommerce .products li").setHeightToHighest(); 
+            $(".mainFooter .links").setHeightToHighest(); // kolumny maja jednakwoa wsyokosc
+
+        });
+
+        })(jQuery);
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    24. W katalgou tworzymy plikwoocommerce/cart/cart.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+            <?php
+        /**
+        * Cart Page
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     2.1.0
+        */
+
+        // przeniesienie product reove na koniec
+        if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+
+        wc_print_notices();
+
+        do_action( 'woocommerce_before_cart' ); ?>
+
+        <form action="<?php echo esc_url( WC()->cart->get_cart_url() ); ?>" method="post">
+
+        <?php do_action( 'woocommerce_before_cart_table' ); ?>
+
+        <table class="shop_table cart" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="product-thumbnail">&nbsp;</th>
+                    <th class="product-name"><?php _e( 'Product', 'woocommerce' ); ?></th>
+                    <th class="product-price"><?php _e( 'Price', 'woocommerce' ); ?></th>
+                    <th class="product-quantity"><?php _e( 'Quantity', 'woocommerce' ); ?></th>
+                    <th class="product-subtotal"><?php _e( 'Total', 'woocommerce' ); ?></th>
+                    <th class="product-remove">&nbsp;</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php do_action( 'woocommerce_before_cart_contents' ); ?>
+
+                <?php
+                foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+                    $_product     = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
+                    $product_id   = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
+
+                    if ( $_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters( 'woocommerce_cart_item_visible', true, $cart_item, $cart_item_key ) ) {
+                        ?>
+                        <tr class="<?php echo esc_attr( apply_filters( 'woocommerce_cart_item_class', 'cart_item', $cart_item, $cart_item_key ) ); ?>">
+
+                            <td class="product-thumbnail">
+                                <?php
+                                    $thumbnail = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key );
+
+                                    if ( ! $_product->is_visible() )
+                                        echo $thumbnail;
+                                    else
+                                        printf( '<a href="%s">%s</a>', $_product->get_permalink(), $thumbnail );
+                                ?>
+                            </td>
+
+                            <td class="product-name">
+                                <?php
+                                    if ( ! $_product->is_visible() )
+                                        echo apply_filters( 'woocommerce_cart_item_name', $_product->get_title(), $cart_item, $cart_item_key );
+                                    else
+                                        echo apply_filters( 'woocommerce_cart_item_name', sprintf( '<a href="%s">%s</a>', $_product->get_permalink(), $_product->get_title() ), $cart_item, $cart_item_key );
+
+                                    // Meta data
+                                    echo WC()->cart->get_item_data( $cart_item );
+
+                                    // Backorder notification
+                                    if ( $_product->backorders_require_notification() && $_product->is_on_backorder( $cart_item['quantity'] ) )
+                                        echo '<p class="backorder_notification">' . __( 'Available on backorder', 'woocommerce' ) . '</p>';
+                                ?>
+                            </td>
+
+                            <td class="product-price">
+                                <?php
+                                    echo apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
+                                ?>
+                            </td>
+
+                            <td class="product-quantity">
+                                <?php
+                                    if ( $_product->is_sold_individually() ) {
+                                        $product_quantity = sprintf( '1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key );
+                                    } else {
+                                        $product_quantity = woocommerce_quantity_input( array(
+                                            'input_name'  => "cart[{$cart_item_key}][qty]",
+                                            'input_value' => $cart_item['quantity'],
+                                            'max_value'   => $_product->backorders_allowed() ? '' : $_product->get_stock_quantity(),
+                                            'min_value'   => '0'
+                                        ), $_product, false );
+                                    }
+
+                                    echo apply_filters( 'woocommerce_cart_item_quantity', $product_quantity, $cart_item_key );
+                                ?>
+                            </td>
+
+                            <td class="product-subtotal">
+                                <?php
+                                    echo apply_filters( 'woocommerce_cart_item_subtotal', WC()->cart->get_product_subtotal( $_product, $cart_item['quantity'] ), $cart_item, $cart_item_key );
+                                ?>
+                            </td>
+
+                            <td class="product-remove">
+                                <?php
+                                    echo apply_filters( 'woocommerce_cart_item_remove_link', sprintf( '<a href="%s" class="remove" title="%s">&times;</a>', esc_url( WC()->cart->get_remove_url( $cart_item_key ) ), __( 'Remove this item', 'woocommerce' ) ), $cart_item_key );
+                                ?>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
+
+                do_action( 'woocommerce_cart_contents' );
+                ?>
+                <tr>
+                    <td colspan="6" class="actions">
+
+                        <?php if ( WC()->cart->coupons_enabled() ) { ?>
+                            <div class="coupon">
+
+                                <input type="text" name="coupon_code" class="input-text" id="coupon_code" value="" placeholder="<?php _e( 'Coupon code', 'woocommerce' ); ?>" /> <input type="submit" class="button" name="apply_coupon" value="<?php _e( 'Apply Coupon', 'woocommerce' ); ?>" />
+
+                                <?php do_action('woocommerce_cart_coupon'); ?>
+
+                            </div>
+                        <?php } ?>
+
+                        <input type="submit" class="checkout-button button alt wc-forward" name="proceed" value="<?php _e( 'Proceed to Checkout', 'woocommerce' ); ?>" />
+                        <input type="submit" class="button update-button" name="update_cart" value="<?php _e( 'Update Cart', 'woocommerce' ); ?>" />
+
+                        <?php do_action( 'woocommerce_proceed_to_checkout' ); ?>
+
+                        <?php wp_nonce_field( 'woocommerce-cart' ); ?>
+                    </td>
+                </tr>
+
+                <?php do_action( 'woocommerce_after_cart_contents' ); ?>
+            </tbody>
+        </table>
+
+        <?php do_action( 'woocommerce_after_cart_table' ); ?>
+
+        </form>
+
+        <div class="cart-collaterals">
+
+            <?php do_action( 'woocommerce_cart_collaterals' ); ?>
+
+            <?php woocommerce_cart_totals(); ?>
+
+            <?php woocommerce_shipping_calculator(); ?>
+
+        </div>
+
+        <?php do_action( 'woocommerce_after_cart' ); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    24a. Dodanie styli do sass>pages> _cart-pages.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- CART PAGE ---------*
+        .shop_table {
+            width: 100%;
+
+            font-weight: 300;
+
+            thead th {
+                padding: 10px 0;
+                border-top: 1px #e5e5e5 solid;
+                border-bottom: 1px #e5e5e5 solid;
+
+                font-size: 20px;
+                text-align: left;
+
+                &:first-child {
+                    border-left: 1px #e5e5e5 solid;
+                }
+
+                &:last-child {
+                    border-right: 1px #e5e5e5 solid;
+                }
+
+                .checkout & {
+
+                    &:first-child {
+                        width: 80%;
+                        padding-left: 30px;
+                    }
+                }
+            }
+
+            .cart_item,
+            .order_item,
+            .order {
+
+                td {
+                    padding: 15px 45px 15px 0;
+                    border-bottom: 1px #e5e5e5 solid;
+
+                    vertical-align: middle;
+
+                    .checkout & {
+
+                        &:first-child {
+                            padding-left: 30px;
+                        }
+                    }
+                }
+
+                .product-thumbnail {
+                    padding-right: 10px;
+
+                    a {
+                        display: inline-block;
+                        padding: 5px;
+                        border: 1px #e5e8e6 solid;
+                    }
+                }
+
+                .product-name {
+
+                    a {
+                        font-size: 24px;
+                        color: #4e7b7f;
+                    }
+
+                    .variation {
+                        margin-top: 15px;
+
+                        dt {
+                            font-size: 13px;
+                            line-height: 18px;
+                            color: $mainLinkColor;
+                        }
+
+                        dd {
+                            font-size: 20px;
+                            font-weight: 700;
+                            color: #000;
+                        }
+                    }
+                }
+
+                .product-price {
+
+                    .amount {
+                        font-size: 24px;
+                        font-weight: 700;
+                        color: #000;
+
+                        em {
+                            font-size: 13px;
+                            font-weight: 300;
+                        }
+                    }
+                }
+
+                .product-quantity {
+
+                    .quantity {
+                        width: 60px;
+                        height: 43px;
+                        padding-right: 19px;
+                        float: left;
+                        border: 1px $mainBorderColor solid;
+
+                        position: relative;
+                    }
+
+                    input[type='number'] {
+                        width: 100%;
+                        height: 100%;
+                        padding: 0;
+                        border: none;
+                        border-right: 1px $mainBorderColor solid;
+
+                        -moz-appearance: textfield;
+
+                        font: 300 18px/1 $dosis;
+                        text-align: center;
+                        color: #000;
+
+                        &::-webkit-outer-spin-button,
+                        &::-webkit-inner-spin-button {
+                            margin: 0;
+                            -webkit-appearance: none;
+                        }
+                    }
+
+                    .plus,
+                    .minus {
+                        width: 19px;
+                        height: 20px;
+                        border: none;
+                        background: none;
+
+                        cursor: pointer;
+
+                        position: absolute;
+                        right: 0;
+
+                        font: 300 18px/16px $dosis;
+                        text-align: center;
+                        color: #000;
+                    }
+
+                    .plus {
+                        height: 21px;
+                        border-bottom: 1px $mainBorderColor solid;
+
+                        top: 0;
+                    }
+
+                    .minus {
+                        bottom: 0;
+                    }
+                }
+
+                .product-subtotal,
+                .product-total,
+                .order-total {
+
+                    .amount {
+                        font-size: 30px;
+                        font-weight: 700;
+                        color: #000;
+
+                        em {
+                            font-size: 13px;
+                            font-weight: 300;
+                        }
+                    }
+                }
+
+                .product-total {
+
+                    .amount {
+                        font-size: 18px;
+                    }
+                }
+
+                .product-remove {
+                    padding-right: 0;
+
+                    .remove {
+                        display: block;
+                        width: 18px;
+                        height: 21px;
+                        background: url(../images/cart_remove_icon.png) no-repeat;
+
+                        @extend %no-text;
+                    }
+                }
+
+                p {
+                    margin-bottom: 0;
+                }
+            }
+
+            .actions {
+                padding: 15px 0;
+                border-bottom: 1px #e5e5e5 solid;
+
+                .coupon {
+                    float: left;
+
+                    input[type='text'] {
+                        height: 43px;
+                        padding: 0 25px;
+                        margin: 0;
+                        float: left;
+                        border: 1px #e5e5e5 solid;
+                        border-right: none;
+
+                        font: 14px/41px $dosis;
+                        color: #b0b0b0;
+                    }
+
+                    .button {
+                        float: left;
+                    }
+                }
+
+                .checkout-button {
+                    float: right;
+                    background-image: url(../images/checkout_icon.png);
+
+                    @extend %addToCartButton;
+                }
+
+                .update-button {
+                    margin-right: 10px;
+                    float: right;
+                }
+            }
+        }
+
+        .shop_table tfoot,
+        .cart-collaterals {
+            font-weight: 300;
+            text-align: left;
+
+            th {
+                font-size: 18px;
+            }
+
+            th, td {
+                padding: 0 15px 20px 0;
+            }
+
+            .cart-subtotal {
+
+                .amount {
+                    font-size: 18px;
+                    font-weight: 700;
+
+                    em {
+                        font-size: 13px;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            .shipping {
+
+                li {
+                    margin-bottom: 12px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                label {
+                    cursor: pointer;
+
+                    position: relative;
+                    top: 2px;
+
+                    font-size: 14px;
+                }
+
+                .amount {
+                    font-weight: 700;
+
+                    em {
+                        font-size: 12px;
+                        font-weight: 300;
+                    }
+                }
+            }
+
+            .order-total {
+
+                th {
+                    font-size: 30px;
+                    text-align: right;
+                }
+
+                strong {
+                    font-size: 30px;
+                    text-align: right;
+                    color: #517e81;
+
+                    em {
+                        font-size: 13px;
+                        font-weight: 300;
+                    }
+                }
+
+                small {
+                    display: block;
+                    margin-top: 10px;
+
+                    font-size: 14px;
+                    color: #bac4c5;
+                }
+            }
+        }
+
+        .shop_table tfoot {
+
+            tr:first-child {
+
+                th, td {
+                    padding-top: 55px;
+                }
+            }
+
+            th {
+                padding-right: 100px;
+
+                text-align: right;
+            }
+
+            .order-total {
+
+                th {
+                    padding-right: 15px;
+                }
+            }
+        }
+
+        .cart-collaterals {
+            width: 440px;
+            margin: 55px 0;
+            float: right;
+
+            table {
+                width: 100%;
+            }
+
+            p {
+                padding-top: 15px;
+                border-top: 1px $mainBorderColor solid;
+
+                font-size: 14px;
+                line-height: 24px;
+                color: #818c8d;
+            }
+        }
+
+        #payment {
+
+            label {
+                color: #9B9B9B;
+
+                img {
+                    margin-left: 10px;
+
+                    position: relative;
+                    top: -2px;
+
+                    vertical-align: middle;
+                }
+            }
+
+            .payment_methods {
+                padding: 20px;
+                border: 1px $mainBorderColor solid;
+
+                li {
+                    margin-bottom: 20px;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+
+                .payment_box {
+                    margin-top: 10px;
+                }
+            }
+
+            .place-order {
+                margin-top: 30px;
+
+                @extend %clearfix;
+
+                .button {
+                    float: right;
+                    background-image: url(../images/checkout_icon.png);
+
+                    @extend %addToCartButton;
+                }
+
+                .terms {
+                    float: left;
+
+                    label {
+                        float: right;
+
+                        a {
+                            color: #517e81;
+                        }
+                    }
+
+                    .checker {
+                        float: left;
+                    }
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    25. Dodajemy style do sass/pages/ _checkoutpage.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+            // *--------- CHECKOUT PAGE ---------*
+        .checkout {
+
+            h3 {
+                margin-bottom: 20px;
+                clear: both;
+
+                font-size: 18px;
+            }
+
+            .col-1,
+            .col-2 {
+                margin-bottom: 30px;
+            }
+
+            .create-account {
+                padding: 20px;
+                border: 1px $mainBorderColor solid;
+            }
+
+            label.checkbox {
+                font-size: 14px;
+                color: #9B9B9B;
+            }
+        }
+
+        .col2-set {
+            @extend %clearfix;
+
+            .col-1,
+            .col-2 {
+                width: 47%;
+                margin-bottom: 30px;
+            }
+
+            .col-1 {
+                float: left;
+            }
+
+            .col-2 {
+                float: right;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    26. Tworzymy style w folderze sass/components/_form.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- LOGIN FORM ---------*
+        form.login {
+
+            p:first-child:not(.form-row) {
+                margin-bottom: 20px;
+            }
+
+            .button {
+                margin-bottom: 15px;
+            }
+
+            .lost_password {
+                padding-bottom: 20px;
+                margin-bottom: 0;
+
+                a {
+                    font-weight: 700;
+                    color: inherit;
+                }
+            }
+        }
+
+        .input-text {
+            height: 35px;
+            padding: 0 25px;
+            margin: 0;
+            border: 1px #e5e5e5 solid;
+
+            font: 300 14px/35px $dosis;
+            color: #b3b3b3;
+        }
+
+        textarea.input-text {
+            width: 100%;
+            height: 120px;
+            max-height: 300px;
+            padding-top: 20px;
+            padding-bottom: 10px;
+            overflow: hidden;
+
+            resize: vertical;
+
+            line-height: 20px;
+        }
+
+        .form-row {
+            padding-bottom: 15px;
+
+            label {
+                display: block;
+                margin-bottom: 13px;
+
+                color: #9B9B9B;
+            }
+
+            @include placeholder {
+                color: #b3b3b3;
+            }
+        }
+
+        // *--------- CONTACT FORM ---------*
+        .contactForm {
+
+            fieldset {
+                margin-bottom: 10px;
+                overflow: hidden;
+            }
+
+            input[type='text'],
+            input[type='email'],
+            textarea {
+                display: block;
+                width: 355px;
+                height: 40px;
+                padding: 0 25px;
+                border: 1px #e5e5e5 solid;
+
+                font: 300 14px/40px $dosis;
+                color: #b3b3b3;
+
+                &.wpcf7-not-valid {
+                    border-color: #FFB2B2;
+                }
+            }
+
+            textarea {
+                display: block;
+                width: 515px;
+                height: 155px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                overflow: hidden;
+
+                resize: none;
+
+                line-height: 24px;
+            }
+
+            @include placeholder {
+                color: #b3b3b3;
+            }
+        }
+
+        .wpcf7 {
+
+            .wpcf7-submit {
+                @extend %button;
+
+                &:hover {
+                    opacity: 0.7;
+                }
+            }
+
+            .wpcf7-form-control-wrap {
+                display: block !important;
+            }
+
+            .wpcf7-not-valid-tip {
+                display: none !important;
+            }
+
+            .wpcf7-response-output {
+                width: 515px;
+                margin: 10px 0 0 0;
+                border-width: 1px;
+            }
+
+            .wpcf7-validation-errors {
+                border-color: #FFB2B2;
+                background-color: #FFF5F5;
+
+                color: #FC7171;
+            }
+
+            .wpcf7-mail-sent-ok {
+                border-color: #ADFF54;
+                background-color: #F4FFE7;
+
+                color: #83D45D;
+            }
+
+            .ajax-loader {
+                margin-left: 20px !important;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    27. Tworzymy plik w sass/pages/_my-account-page.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- MY ACCOUNT ---------*
+        .my_account_orders {
+            margin-bottom: 30px;
+
+            thead th,
+            tbody td {
+
+                &:first-child {
+                    padding-left: 30px;
+                }
+
+                &:last-child {
+                    padding-right: 0;
+
+                    text-align: right;
+                }
+            }
+
+            .button + .button {
+                margin-left: 10px;
+            }
+        }
+
+        .addresses {
+            margin-top: 30px;
+
+            > div {
+                padding: 20px;
+                border: 1px $mainBorderColor solid;
+
+                .edit {
+                    display: block;
+                    margin-bottom: 15px;
+                }
+
+                address, {
+                    line-height: 18px;
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    28. Tworzymy plik w woocommerce/my-account/my-account.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php
+        /**
+        * My Account page
+        *
+        * @author      WooThemes
+        * @package     WooCommerce/Templates
+        * @version     2.0.0
+        */
+
+        if ( ! defined( 'ABSPATH' ) ) {
+            exit;
+        }
+
+        wc_print_notices(); ?>
+
+        <p class="myaccount_user">
+            <?php
+            printf(
+                __( 'Hello <strong>%1$s</strong> (not %1$s? <a href="%2$s">Sign out</a>).', 'woocommerce' ) . ' ',
+                $current_user->display_name,
+                wp_logout_url( get_permalink( wc_get_page_id( 'myaccount' ) ) )
+            );
+
+            printf( __( 'From your account dashboard you can view your recent orders, manage your shipping and billing addresses and <a href="%s">edit your password and account details</a>.', 'woocommerce' ),
+                wc_customer_edit_account_url()
+            );
+            ?>
+        </p>
+
+        <?php do_action( 'woocommerce_before_my_account' ); ?>
+
+        <?php wc_get_template( 'myaccount/my-downloads.php' ); ?>
+
+        <?php wc_get_template( 'myaccount/my-orders.php', array( 'order_count' => $order_count ) ); ?>
+
+        <?php wc_get_template( 'myaccount/my-address.php' ); ?>
+
+        <?php do_action( 'woocommerce_after_my_account' ); ?>
+
+        <a class="button" href="<?php echo wp_logout_url(home_url()); ?>"><?php _e('Wyloguj', 'clothing'); ?></a> // link do wylogowywania uzytkownika. wp_logout_url
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    29. Dodajemy style do wiadomosci w pliku sass/components/_message.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        .woocommerce-message,
+        .woocommerce-info,
+        .woocommerce-error, // ul
+        .cart-empty,
+        .order-info {
+            width: 100%;
+            padding: 20px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-width: 1px;
+            border-style: solid;
+
+            font-size: 14px;
+            font-weight: 300;
+
+            .button {
+                height: auto;
+                padding: 0;
+                background: none;
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+
+            a, .button {
+                float: right;
+
+                font-weight: 700;
+                line-height: 1;
+                color: inherit !important;
+            }
+        }
+
+        .woocommerce-message,
+        .woocommerce-info,
+        .cart-empty,
+        .order-info {
+            border-color: #a9e4ff;
+            background-color: #e9f8ff;
+
+            color: #65bae2;
+        }
+
+        .woocommerce-error {
+            border-color: #ff8585;
+            background-color: #ffeaea;
+
+            color: #ff7676;
+
+            li {
+                margin-bottom: 13px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    30. Do functions.php dodajemy linijke odpowiedzialna za dodanie zlasha w sciezce
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // CHANGE DEFAULT BREADCRUMB SEPARATOR
+        function clothing_change_breadcrumb_separator($defaults) {
+                $defaults['delimiter'] = '<span class="separator"> | </span></a>';
+
+                return $defaults;
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    31. Do functions.php dodajemy kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // GET CART TOTAL
+        function clothing_get_cart_total() {
+
+            global $woocommerce;
+
+            return $woocommerce->cart->cart_contents_count;
+
+        }
+
+        // GET CART URL
+        function clothing_get_cart_url() {
+
+            global $woocommerce;
+
+            echo $woocommerce->cart->get_cart_url();
+
+        }
+
+        // ADD CART TOTAL TO OBJECT
+        function clothing_add_ajax_cart_count($args) {
+
+            $args['cart_count'] = clothing_get_cart_total();
+
+            return $args;
+
+        }
+
+        add_filter('add_to_cart_fragments', 'clothing_add_ajax_cart_count');
+
+        // SET RELATED PRODUCTS NUMBER
+        function clothing_change_related_products_number($args) {
+
+            $args['posts_per_page'] = 5;
+
+            return $args;
+
+        }
+
+        add_filter('woocommerce_output_related_products_args', 'clothing_change_related_products_number'); // filtr obliczzajacy ile mamy w koszyku
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    32. W functions.php dodajemy kod odopwiedzialny za wyswetlanie okreslonej liczby pokrewnych produktow
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // SET RELATED PRODUCTS NUMBER
+        function clothing_change_related_products_number($args) {
+
+            $args['posts_per_page'] = 5;
+
+            return $args;
+
+        }
+
+        add_filter('woocommerce_output_related_products_args', 'clothing_change_related_products_number');
+
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    33. W functions.php wklejamy kod umozliwajacy to aby uzytkownik nie mogl sie zalogowac do paneu wordpressa
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // DISABLE ADMIN DASHBOARD FOR NON-ADMINS
+        function clothing_restrict_admin_dashboard() {
+
+            if (is_user_logged_in() && is_admin() && ! current_user_can('administrator') && !(defined('DOING_AJAX') && DOING_AJAX)) {
+                wp_redirect(home_url());
+                exit;
+            }
+
+        }
+
+        add_action('admin_init', 'clothing_restrict_admin_dashboard');
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    WLASNY SLIDER I STORNA GLOWNA
+    34. Wrzucamy plik jquery.bxslider.min.js
+    34a. Podpinamy go w footer
+    34b. Dodajemy styl dla tego slidera w pliku _slider.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        .bx-wrapper {
+            padding: 0;
+            margin: 0 auto 40px auto;
+            *zoom: 1;
+
+            position: relative;
+
+            img {
+                display: block;
+                max-width: 100%;
+            }
+
+            .bx-viewport {
+                @include transform(translatez(0));
+
+                li {
+                    width: 100%;
+                    height: 720px;
+                    background-position: center 0;
+                    background-repeat: no-repeat;
+                }
+            }
+
+            .bx-pager,
+            .bx-controls-auto {
+                width: 100%;
+
+                position: absolute;
+                bottom: 30px;
+
+                .bx-pager-item,
+                .bx-controls-auto-item {
+                    display: inline-block;
+                }
+            }
+
+            .bx-pager {
+                padding-top: 20px;
+
+                font-family: Arial;
+                font-size: .85em;
+                font-weight: bold;
+                text-align: center;
+                color: #666;
+
+                &.bx-default-pager {
+
+                    a {
+                        display: block;
+                        width: 10px;
+                        height: 10px;
+                        margin: 0 5px;
+                        border-radius: 5px;
+                        background: #fff;
+
+                        opacity: 0.3;
+
+                        text-indent: -9999px;
+
+                        @extend %transitionAll;
+
+                        &.active,
+                        &:hover,
+                        &:active {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            .bx-loading {
+                width: 100%;
+                height: 100%;
+                min-height: 50px;
+                background: url(../images/bx_loader.gif) center center no-repeat #fff;
+
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 2000;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    35. W functions.php dodajemy kod odopwiedzialny za genreowanie kodu so sldiera
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // REGISTER SLIDE POST TYPE
+        function add_slide_type() {
+            register_post_type('slide',
+                array(
+                    'labels' => array(
+                        'name'          => __('Slider'),
+                        'singular_name' => __('Slider'),
+                        'add_new'       => __('Dodaj nowy slajd'),
+                        'add_new_item'  => __('Dodaj nowy slajd'),
+                        'edit_item'     => __('Edytuj slajd')
+                    ),
+                    'public'    => true,
+                    'show_ui'   => true,
+                    'query_var' => true,
+                    'supports'  => array(
+                        'title', // dodajemy tytul
+                        'thumbnail' // dodawanie miniaturki
+                    )
+                )
+            );
+        }
+
+        add_action('init', 'add_slide_type'); // zarejestrowanie
+
+        // DISPLAY SLIDES
+        function clothing_slider() { // <- fucnkji uzywamy w header jesli jestesmy na stronie glownejj
+
+            $slides = get_posts('post_type=slide&posts_per_page=-1'); // pobieramy posty do zmiennej slide
+
+            if(empty($slides)) return;
+
+            $output = '<ul class="bxslider">' . PHP_EOL;
+
+            foreach($slides as $slide) {
+                $output .= '<li style="background-image: url(' . wp_get_attachment_url(get_post_thumbnail_id($slide->ID)) . ');"></li>' . PHP_EOL; // jeden konkrenty dodany post i pobranie adesu url
+            }
+
+            $output .= '</ul>';
+
+            echo $output;
+
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    36. W dolderze sass/layout/_header.scss zmieniamy style
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- HEADER ---------*
+        .mainHeader {
+            border-bottom: 1px $mainBorderColor solid;
+
+            .home & {
+                border-bottom-color: rgba(238, 238, 238, .1);
+            }
+
+            @extend %transitionAll;
+
+            .home & {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 10001;
+            }
+
+            &.highlighted {
+                border-bottom-color: #b6bbb8;
+
+                .home & {
+                    border-bottom-color: rgba(238, 238, 238, .3);
+                }
+            }
+
+            .topBar {
+                height: 67px;
+                border-bottom: 1px $mainBorderColor solid;
+
+                .home & {
+                    border-bottom-color: rgba(238, 238, 238, .1);
+                }
+            }
+
+                .centerContent {
+                    position: relative;
+                }
+
+                .logo {
+                    width: 127px;
+                    height: 73px;
+                    background: url(../images/logo.png) no-repeat;
+
+                    position: absolute;
+                    top: 14px;
+                    left: 0;
+
+                    .home & {
+                        background-image: url(../images/logo_white.png);
+                    }
+
+                    a {
+                        display: block;
+                        width: 100%;
+                        height: 100%;
+
+                        @extend %no-text;
+                    }
+                }
+
+                .customerMenu {
+                    padding-right: 40px;
+                    margin-top: 20px;
+                    float: right;
+
+                    position: relative;
+
+                    ul {
+
+                        li {
+                            display: inline-block;
+                            height: 24px;
+                            padding-right: 21px;
+                            margin-right: 20px;
+                            border-right: 1px $mainBorderColor solid;
+
+                            font-size: 12px;
+                            line-height: 24px;
+                            white-space: nowrap;
+
+                            &:last-child {
+                                padding-right: 0;
+                                margin-right: 0;
+                                border-right: none;
+                            }
+
+                            &.current-menu-item a, & a:hover {
+                                color: $mainLinkColor;
+                            }
+
+                            a {
+                                color: #1d1d1b;
+
+                                .home & {
+                                    color: #fff;
+                                }
+                            }
+                        }
+                    }
+
+                    .basketLink {
+                        display: block;
+                        width: 28px;
+                        height: 24px;
+                        background: url(../images/basket_count_icon.png) no-repeat;
+
+                        position: absolute;
+                        top: -2px;
+                        right: 0;
+
+                        .itemsCount {
+                            position: absolute;
+                            top: 2px;
+                            right: 3px;
+
+                            font-size: 11px;
+                            line-height: 1;
+                            font-weight: 700;
+                            letter-spacing: 1px;
+                            color: #fff;
+                        }
+
+                        .home & {
+                            background-image: url(../images/basket_count_white_icon.png);
+
+                            .itemsCount {
+                                color: #000;
+                            }
+                        }
+                    }
+                }
+
+            .nav {
+                margin-left: 135px;
+
+                @extend %clearfix;
+
+                > li {
+                    margin-right: 55px;
+                    float: left;
+
+                    position: relative;
+
+                    font-size: 14px;
+                    line-height: 55px;
+                    text-transform: uppercase;
+                    white-space: nowrap;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+
+                    > a {
+                        display: inline-block;
+                        height: 55px;
+
+                        color: #cdcdcd;
+
+                        .home & {
+                            color: #fff;
+                        }
+                    }
+
+                    &.current-menu-item,
+                    &.current-menu-ancestor,
+                    &.current_page_parent,
+                    &:hover {
+
+                        a {
+                            color: $mainLinkColor;
+
+                            .home & {
+                                color: #B5FAFF;
+                            }
+                        }
+                    }
+                }
+
+                    // SUB MENU
+                    .menu-item-has-children {
+
+                        &:before {
+                            content: "";
+                            width: 1px;
+                            height: 12px;
+                            background-color: #b6bbb8;
+
+                            visibility: hidden;
+                            opacity: 0;
+
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+
+                            @extend %transitionAll;
+
+                            .home & {
+                                background-color: rgba(238, 238, 238, .3);
+                            }
+                        }
+
+                        &:hover {
+
+                            &:before {
+                                visibility: visible;
+                                opacity: 1;
+                            }
+
+                            .sub-menu {
+                                visibility: visible;
+                                opacity: 1;
+                            }
+                        }
+                    }
+
+                    .sub-menu {
+                        padding: 20px 50px 20px 20px;
+                        border: 1px #b6bbb8 solid;
+                        background-color: #fff;
+
+                        visibility: hidden;
+                        opacity: 0;
+
+                        position: absolute;
+                        z-index: 10000;
+
+                        @extend %transitionAll;
+
+                        .home & {
+                            border-top: none;
+                            border-color: rgba(238, 238, 238, .3);
+                            background-color: transparent;
+                        }
+
+                        li {
+                            margin-bottom: 25px;
+
+                            font-size: 13px;
+                            line-height: 1;
+
+                            &:last-child {
+                                margin-bottom: 0;
+                            }
+
+                            &.current-menu-item a, & a:hover {
+                                color: $mainLinkColor;
+
+                                .home & {
+                                    color: #B5FAFF;
+                                }
+                            }
+
+                            a {
+                                color: #b3b8b5;
+
+                                .home & {
+                                    color: #ebebeb;
+                                }
+                            }
+                        }
+                    }
+            }
+
+            .searchBox {
+                position: absolute;
+                top: 12px;
+                right: 0;
+
+                input {
+                    height: 32px;
+                    padding: 0 20px 0 38px;
+                    border: 1px $mainBorderColor solid;
+                    background: url(../images/search_icon.png) 11px center no-repeat;
+
+                    font: 400 12px/30px $dosis;
+                    color: #1d1d1b;
+
+                    .home & {
+                        border-color: rgba(238, 238, 238, .2);
+                        background-image: url(../images/search_faded_icon.png);
+
+                        color: #fff;
+                    }
+                }
+
+                .home & {
+
+                    @include placeholder {
+                        color: #fff;
+                    }
+                }
+
+                @include placeholder {
+                    color: #1d1d1b;
+                }
+            }
+        }
+
+        // *--------- BREADCRUMB ---------*
+        .breadcrumb,
+        .woocommerce-breadcrumb {
+            margin: 0 0  30px -15px;
+
+            font-size: 12px;
+            text-transform: uppercase;
+            color: $mainLinkColor;
+
+            a {
+                color: #ccc;
+            }
+
+            .separator {
+                margin: 0 5px;
+
+                color: #ccc;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    37. Wruzcamy kod do sass/page/_home-pages.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- HOME ---------*
+        .home {
+
+            .pageTitle,
+            .woocommerce-ordering,
+            .woocommerce-pagination {
+                display: none; // ukrywamy sortowania i tytyl sklep
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    38. W index.php dodajemy wpisy
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php get_header(); ?>
+
+        <section class="mainContent">
+            <div class="centerContent">
+                <?php clothing_breadcrumb(); ?>
+
+                <h2 class="pageTitle">Blog</h2>
+            </div><!-- /.centerContent -->
+
+        <?php if(have_posts()) : ?>
+
+        <?php while(have_posts()) : the_post(); ?>
+
+            <article class="blogPost <?php if($wp_query->current_post % 2 == 0) : ?>even<?php else: ?>odd<?php endif; ?>">
+
+                <div class="centerContent">
+
+                    <?php if(has_post_thumbnail()) : ?>// jesli miniaturka jest
+                    <a href="<?php the_permalink(); ?>">
+                        <?php the_post_thumbnail('full', array('class' => 'postThumb')); ?>
+                    </a>
+                    <?php endif; ?>
+
+                    <div class="postDetails">
+
+                        <h3><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
+
+                        <div class="postMeta">
+                            <span class="date">
+                                <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('d.m.Y'); ?></time>
+                            </span>
+                            <span class="sep">|</span>
+                            <span class="author"><?php the_author(); ?></span>
+                            <span class="sep">|</span>
+                            <span class="categories"><?php the_category(','); ?></span>
+                        </div>
+
+                        <div class="postExcerpt">
+                            <?php the_content('Czytaj dalej &rarr;'); ?>
+                        </div>
+
+                    </div><!-- /.postDetails -->
+
+                </div><!-- /.centerContent -->
+
+            </article>
+
+        <?php endwhile; ?>
+
+            <?php wp_pagenavi(); ?>
+
+        <?php else : ?>
+
+            <p class="empty">Nie dodano jeszcze żadnych wpisów.</p>
+
+        <?php endif; ?>
+        </section><!-- /.mainContent -->
+
+        <?php get_footer(); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    38a. Dodajemy style w sass/ pages/ _blog-page.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- BLOG ---------*
+        .blogPost, .blogPostFull {
+
+            .postThumb {
+                max-width: 100%;
+                height: auto !important;
+                padding: 15px;
+                margin-bottom: 20px;
+                border: 1px #e5e8e6 solid;
+
+                @include box-sizing(content-box);
+            }
+
+            .postMeta {
+                margin-bottom: 20px;
+
+                font-size: 12px;
+                text-transform: uppercase;
+                color: #ccc;
+
+                .author,
+                .categories a {
+                    color: $mainLinkColor;
+                }
+
+                .sep {
+                    padding: 0 7px;
+                }
+            }
+        }
+
+        .blogPost {
+            margin-bottom: 40px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            &.odd {
+                padding: 40px 0;
+                background-color: #f9fbfb;
+            }
+
+            .postDetails {
+                padding: 0 30px;
+            }
+
+            h3 {
+                margin-bottom: 20px;
+
+                font-size: 20px;
+                font-weight: 300;
+                line-height: 1;
+
+                a {
+                    color: #000;
+
+                    &:hover {
+                        color: #4e7b7f;
+                    }
+                }
+            }
+
+            .postExcerpt {
+                font-size: 14px;
+                font-weight: 300;
+                line-height: 30px;
+                color: #5b6262;
+            }
+
+            .more-link {
+                margin-left: 15px;
+
+                white-space: nowrap;
+                color: #4e7b7f;
+            }
+        }
+
+            .wp-pagenavi {
+                margin-top: 65px;
+
+                font-size: 0;
+                line-height: 0;
+                text-align: center;
+
+                span, a {
+                    display: inline-block;
+                    width: 25px;
+                    height: 25px;
+                    margin-right: 5px;
+                    border: 1px #e5e8e6 solid;
+
+                    font-size: 14px;
+                    font-weight: 300;
+                    line-height: 23px;
+                    color: #9da29f;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+
+                a {
+                    color: #4e7b7f;
+
+                    @extend %transitionAll;
+
+                    &:hover {
+                        background-color: #f9f9f9;
+                    }
+                }
+
+                .current {
+                    background-color: #f9f9f9;
+                }
+
+                .nextpostslink,
+                .previouspostslink {
+                    font-size: 13px;
+
+                    position: relative;
+                    top: -1px;
+                }
+            }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    38b. WP-PageNavi - wtyczna do paginacji
+        Ustawienia > PageNavi
+
+    38c. W index.pxp dodajemy funckje do wyswietlenia nawigacji
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php wp_pagenavi(); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    38d. W single.php dodajemy kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php get_header(); the_post(); ?>
+
+        <article class="mainContent">
+
+            <div class="centerContent">
+
+                <?php clothing_breadcrumb(); ?> // wyswietlenie sciezki
+
+                <div class="blogPostFull">
+
+                    <h2 class="pageTitle singlePage"><?php the_title(); ?></h2>
+
+                    <?php if(has_post_thumbnail()) : ?>
+                        <?php the_post_thumbnail('full', array('class' => 'postThumb')); ?>
+                    <?php endif; ?>
+
+                    <div class="postMeta">
+                        <span class="date">
+                            <time datetime="<?php the_time('Y-m-d'); ?>"><?php the_time('d.m.Y'); ?></time>
+                        </span>
+                        <span class="sep">|</span>
+                        <span class="author"><?php the_author(); ?></span>
+                        <span class="sep">|</span>
+                        <span class="categories"><?php the_category(','); ?></span>
+                    </div>
+
+                    <div class="textContent">
+                        <?php the_content(); ?>
+                    </div>
+
+                </div><!-- /.postFull -->
+
+            </div><!-- /.centerContent -->
+
+        </article><!-- /.mainContent -->
+
+        <?php get_footer(); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    38e. W functions.php doajmy kod do wyswietlania sciezki w pliku
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // BREADCRUMBS
+        function clothing_breadcrumb() {
+
+            $output = '<nav class="breadcrumb">' . PHP_EOL;
+            $output .= '<a class="home" href="' . get_bloginfo('url') . '">' . __('Strona główna', 'clothing') . '</a>'; // link do strony glownej
+            $output .= '<span class="separator"> | </span>';
+            $output .= is_single() ? get_the_title() : 'Blog' . PHP_EOL; // jesli jestesmy na podstreoni z konkretnym wpisem to pobieramy jego tytul
+            $output .= '</nav>';
+
+            echo $output; // wyswietlamy
+
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    39. Kontakt
+    39a. Instalacja pluginu Column Shortcodes
+    39b. Dodanie kogdu w wordpress w stronie kontakt
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        [concatinfo]
+        <h3>Clothing</h3>
+        [one_fourth]
+        ul.Niepodleglosci
+        [/one_fourth]
+
+        [/concatinfo]  
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    39c. Dodajemy shortcode w functions.php do storny kontakt
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // SHORTCODES
+        function shortcode_contactinfo($atts, $content) {
+            return '<address class="contactInfo">' . do_shortcode($content) . '</address>';
+        }
+
+        add_shortcode('contactinfo', 'shortcode_contactinfo');
+
+        // REMOVE EMPTY TAG WHEN DISPLAYING CONTENT // filtr ktroy bedzie dodawnay do the concent
+        function remove_empty_tags($content) {
+            $tags = array(
+                '<p>['    => '[',
+                ']</p>'   => ']',
+                ']<br>'   => ']',
+                ']<br />' => ']'
+            );
+
+            $content = strtr($content, $tags);
+
+            return $content;
+        }
+
+        add_filter('the_content', 'remove_empty_tags');
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    39d. Wklejamy style do sass/pages/_concat-pages.scss
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // *--------- CONTACT ---------*
+        .contactInfo {
+            min-height: 174px;
+            overflow: hidden;
+            background: url(../images/contact_bg.png) right top no-repeat;
+
+            h3 {
+                margin-bottom: 20px;
+
+                font-size: 22px;
+            }
+
+            p {
+                margin-bottom: 0;
+                clear: both;
+            }
+        }
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    39e. Wtyczka Contact Form 7
+
+    40. Widgety dla nawigacji
+    40a. Wyglad > Menu > Utworz nowe > 
+        Menu klienta
+            Moje konto
+            zmaowienia
+            koszyk
+        Menug glowne
+
+    40b. Dodajemy menu do header.php
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <div class="customerMenu">
+            <?php
+                wp_nav_menu(array(
+                    'menu' => 'Menu klienta',
+                    'container'      => false,
+                    'menu_class'     => 'client-menu',
+                    'menu_id'        => 'client-menu'
+                ));
+            ?>
+
+            <a href="<?php clothing_get_cart_url(); ?>" class="basketLink">
+                <span class="itemsCount"><?php echo clothing_get_cart_total(); ?></span>
+            </a>
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    40c. W functions.php dodajemy kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        // REGISTER WIDGETS
+        function clothing_widgets() {
+
+            register_sidebar(array( // dodajmey sidebar
+                'name' => 'Footer - Linki', // fotter to linki
+                'before_widget' => '<div class="box links">', // wyswietlamy div
+                'after_widget' => '</div>', // domykamy
+                'before_title' => '<h3>',// dodajemy tytul
+                'after_title' => '</h3>'
+            ));
+
+        }
+
+        add_action('widgets_init', 'clothing_widgets'); // na akcje widgets init dodajemy nasza funckje
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    40d. W footer usuwamy linki i dodajmy kod ktory wyswietli odpowendie widgety
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <?php dynamic_sidebar('Footer - Linki'); ?>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    41. Wtyczka Easy Social Icons
+    42. W footer.php dodjamy nasze ikonki
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <div class="box social">
+            <h3>Obserwuj nas</h3>
+
+            <?php if (function_exists('cn_social_icon')) echo cn_social_icon(); ?>
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    43. Wyszukiwarka produktow
+    43a. Dodajmey w header.php do form w calss search box kod
+        ______________________________KOD_____________________________________________________________________________________________________________________________________________________________________________________________
+        <div class="searchBox">
+            <form action="<?php bloginfo('url'); ?>"> // przesylamy do strony glownej
+                <input type="text" name="s" placeholder="Szukaj produktów"> // suzkanie porduktow
+                <input type="hidden" name="post_type" value="product"> // szukanie tylko w woocomerce
+            </form>
+        </div>
+        ______________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+    * HTTPS SSL
+    44. WooCommerce > Ustaweinia > Zamowienia
+
+            1. Wymus bezpieczne zamowienia
+            2. Fore HTTP when leaving the checkout - Po dokonaniu zmaowienia przekieuje na zwykly http
+            3. Wtyczka WordPress HTTPS (SSL) - Instalujemy
+            4. Pole HTTPS
+                (Port 443 - domyslny port)
+                Foce SSL Administation - On
+                Force SSL Excluslvely - On
+            5*. JEsli uzywamy z inych serwisow np grawatar to wpisujemy je tam
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
 
 
