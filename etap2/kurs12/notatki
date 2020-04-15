@@ -504,50 +504,69 @@ Czesc Zarzadzanie produktami
     Wtyczka Regenerate Thumnails sluzy do wygenreowania wszystkich miniaturek
 
     Naredzia > Rregenerate thu. > Regenrate all thumbnails
+    Aplikacja bxSlider -aplikacja do  zarzadzania slajdami
 
+    Wtyczka Column Shortcodes - dodawanie krokich linijek kodu dzielacychc na kolumny
 
+    Wtyczka Contact Form 7 - wtyczka do zarzadzania formularzem
 
-
-
-
-
-    ZARZACZ TWORZENIE WLASNEGO SZABLONU POD WOOCEMMERCE > PODSTRONA Z PRODUKTEM CZ2
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    Wtyczka Easy Social Icons - odpowwiada za dodawanie ikonek ktoree odowloju sie do social netowrks
 
 
 -------------------------------------------------------------------------------------------------
-Czesc 
+Czesc HTTPS(SSL)
 -------------------------------------------------------------------------------------------------
+    Szyfrowanie bezpieczne - wpisany tekst nie jest jawnie przesylany do serwera
 
+    Aby bylo mozna przesylac HTTPS potrzebujemy:
+        - Certyfikat - instalowany na serwerze. Dzieki temu przegladarka otrzymuje ten certyfikat 
+            i mowi on ze zostal wykupiony dla naego serwera
+        
+        - Mozna wykupic u CA (Certificate Authory)
 
+        - Wygenerowanie wlasnego - Przegladarka wysweita informacje ze certyfikat nie zostal 
+            zweryfikowany ale szyfruje dane
+    
+    SSL - szyfrowanie 
+        -szyfrowanie asymetryczne 
+            Posiada on klucz publiczny i i prywatny
+            Na serwerze trzymany jest klucz prywatny a do przegladarki publiczny
+            Jesli zaszyfrujemy cos certyfikatem publicnzym to aby rozszyfrowac nalezy kluczem 
+            prytwanym
+
+        -szyfrowanie symetryczne
+            Szyfrujemy tekst innym tekstem i rozszyfrowywujemy tym samym tekstem
+
+    Dzialnie:
+        Przegladarka wysyla zapytanie do serwera HELLO! message i powie ze chce sie polaczyc przez
+            https i ze zna takie szyfrowania.
+        Sprawdza w bazie czy certyfikat byl wystawiony przez znany mu CA i jesli tak to uzna  ze 
+            jest zaufany
+        Klient wygnereuje lsowyklucz i zaszyfruje kluczem publicznym otrzymanym od serwera 
+        Serwer rozszyfruje klucz kluczem prywatnym i wie ze od teraz uzywamy loswoegoklucza 
+        Sposb Symetryczn szyfrowania
+
+    Ustawienie w wordpress szyfrowanie https
+        WooCommerce > Ustaweinia > Zamowienia
+
+        1. Wymus bezpieczne zamowienia
+        2. Fore HTTP when leaving the checkout - Po dokonaniu zmaowienia przekieuje na zwykly http
+        3. Wtyczka WordPress HTTPS (SSL) - Instalujemy
+        4. Pole HTTPS
+            (Port 443 - domyslny port)
+            Foce SSL Administation - On
+            Force SSL Excluslvely - On
+        5*. JEsli uzywamy z inych serwisow np grawatar to wpisujemy je tam
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+
