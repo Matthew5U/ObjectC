@@ -1,0 +1,193 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Projektowanie Stron WWW - UI" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Czesc Projektowanie strony
+-------------------------------------------------------------------------------------------------
+
+    Proces tworzenia stron WWW
+        1. Praca koncepcyjna
+        2. Uzytkownicy i testy
+        3. Agregowanie i strategia tresci
+    
+        4. Design/Development \
+        5. Testy               > SPRINT
+        6. Optymalizacja      /
+        
+        7. Publikacja
+        8. Promocja - SEM / SEO / SOCIAL MEDIA
+
+    Praca koncepcyjna
+        1. Cele biznesowe serwisu
+        2. Uzytkownicy i testy
+        3. Agregowanie tresci 
+        4. Przygotowanie mapy strony
+        5. Tworzenie wireframow podstrony
+        6. Tworzenie makiet z trescia
+        7. Rozpisanie flow - przeplywow
+        8. Prototypowanie   
+
+    Praca koncepcyjna - nazwa i skojarzenia
+        1. Budowanie mapy mysli
+            Stosuj brainstorming na wczesnym etapie
+            Zgromadzone notatki udostepnij uczestnikom
+            Wybierz ktortka chwytliwa nazwe
+            Okresl jezyk i styl przekazu mozlwie szybko
+            Wyznacz wymarzona grupe docelowa 
+            Wyznacz przymiotniki okreslajace twoj serwis
+            Kup domene
+
+        Sprawdzanie dostpenosci nazwy witryny
+            goddaddy
+        Rejestrujemy na 
+            Homeedit
+
+    Burza mozgow
+        Slowa ktore nam sie dobrze  i zle koajrza
+        Wymyslamy nazwe seriwsu
+
+    Uzytkoniwcy
+        Wymyslamy jakich uzytkownikow chcemy miec w seriwsie
+        Dzielimy na kategorie
+        Tworzymy persony - zmysleni konkretni uzytkwonicy
+            Tworzymy im historie/ scenariusze kto moze korzystac z naszej strony i czego oczekuje
+        
+    Cele strony WWW
+        Zapsiujemy najwazniejsze cele naszje stony np sprzedaz wycieczki
+        Co chcemy osiagnac np 200 wejsc
+        Cele okobiznesowe np zangazwoanie mlodych ludzi do ruchu
+        Jak chceym realizowac celeokobiznewsowe np dodanie przewodnikow
+
+        Funkcja wygadu strony np przyciski social networks
+
+    Architetkura infromacji
+        Wklejamy funckcje wygladu strony
+        Projektujemy funkcjonalnosc naszej storny
+        Dajemy uzytkownikom kartki z funckjami naszej storny i maja nam opowiadac swoje odczucia
+
+    Mapa witryny
+        Tworzymy strukture mapy witryny, czyli grupujemy funckje pod nasza strone
+            Strona glowna               Lista wycieczek     Historie    O Nas      Kontakt
+                -promowane kierunki                                             Regulamin  FAQ
+                -promowane wycieczki
+
+    Markdown i projektowanie w tekscie
+        Projetkowanie w tekscie - wszytkie tresci na naszej stronie rozmieszczamy w dokumencie w
+            oparciu o waznosc kazdej funckji na stronie
+
+        Markdown - w okrsleniu o poszczegolne znaki istnieje mozliwosc generownania kodu html
+
+        dilinger.io - strona zamieniajaca mardown na strone html
+
+    TWORZENIE LOGOTYPOW
+    Inspiracje do logotypu
+        Ksiazki
+        Wystawy 
+        logodesignelove.com 
+        pintrest -Biblioteka dla naszych inspiracji. Do dodawania naszych elementow graficznych. Z zebrancyh inspiracji mozemy udostepniac innym
+        logospire.com
+        logopond.com 
+        awwwards.com
+        behance
+
+    Logo - szkicowanie
+        Aplikacja Adobe capture - dodanie zdjecia. Ksztal jest wyrysowywyany przez aplikacje i wedruje do naszej aplikacji adobe 
+
+    Import plikow do ilustratora
+        Aplikacja powinna byc do grafiki wektorowej 
+            np Adoby ilustrator
+
+        Edytowanie ksztaltow
+            1. Sposob
+                1. Zanzaczamy ksztalty
+                2. Shape builder tool
+                3. Alt+ zaznaczenie ksztaltu
+
+
+    Detale logotypu
+        ui8.net - strona do logo
+        Dostosowanie naszego logo pod wzgledem czcionki
+        Alt+strzalka w lewo przesuwa tekst w lewo(tekst na siebie nachodzi)
+
+
+    Praca z Adobe Comp
+        Praca z iphonem
+
+
+    Szkic wireframe 
+        Szkic na kartce papieru przedstawiajcy kolejne ekrany wyswietlae naszej strony na urzadzeniu
+
+
+    Tworzenie wireframe
+        Wireframe Templates -linki do zestawow darmowych ulatwiajacych projektowanie
+
+
+    Testy na urzadzeniu
+        Dostosowywanie naszego layoutu po przez dodanie lini podzialku lub grida
+        Ukladanie np logo do gida
+
+        Otworzenie w urzadzeniu naszego layoutu
+
+
+    Praca z prototypem
+        ctr+- -pominiejszenie widoku
+        ctrl++ -powiekszenie widoku
+        Majac prototyp mozemy ustawiac nasz leyout
+
+
+    Typografia w projekcie
+        Zarzadzanie czciconkami po przez wlacznei filtru typografia
+
+
+    Styl tekstu
+        Grindlover - strona do zarzadzania tekstem
+        Paragraph style
+        Character style
+
+
+    Organizacja warstw
+        Ctrl+g - grupowanie elementow
+        Grupowanie warstw na podstawie ich przynaleznosci
+        Footer 
+            social networks
+        Button
+            jesli ma byc styl to stawiamy kropke
+        Wycieczki
+        Dodajemy rozszerzenia do folderow w ktorych znajduje sie grafika
+            icon-youtube.svg
+
+    
+    Atomy i bilioteki
+        Kompozycja sklada sie z atomow 
+        Atomy - najmniejsze elemnty projektowe np input
+        Moldekuly - polaczone ze soba atomy tworzace wieksza calosc np wyszukiwarka na naszej stronie
+        Organizm - skladowa molekulu wieksza calosc np zapis do newslettera
+
+        Atomowa metoda pracy
+            Przezucanie do biblioteki pojedynczych elementow
+
+    Praca z bibliotekami
+        Colaborate - Podobne co do share link ale dodajemy tylko osoby ktore chchemy zaprosic
+                        inne osoby moga modyfikowac biblioteke
+        Share link - osoba posiadajaca link bedzie mogla wczytac calal bilbioteke do swojego adobe
+                        Tworzy sie kopia biblioteki dla uzytkownika ktory ma link. Nie moze zepsuc 
+                        naszej biblioteki
+
+
+
+    ZACZAC TWORZYMY WIREFRAME - WIDOK TABLETOWY
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
