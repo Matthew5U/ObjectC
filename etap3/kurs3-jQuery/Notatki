@@ -1,0 +1,174 @@
+_________________________________________________________________________________________________
+Kurs "Kurs jQuery" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+
+-------------------------------------------------------------------------------------------------
+Lekcja. jQuery
+-------------------------------------------------------------------------------------------------
+
+    Biblioteka jQuery
+        1. Rodzaje wersji
+            -Skompresowana - Produkcyjna. Nie zajmujemy sie kodem a tylko go uzywamy
+            -Nie skompresowana - Deweloperska. Kod jest czytelny dla uzytkownika
+
+        2. Najpierw dolaczamy biblioteke a pozniej plik z naszymi skryptami
+
+    Zapis
+        $(document).ready(function() {
+            alert("KURS JS");
+        });
+
+        $ to samo co jQuery - Reprezentuje funckje jquery
+
+    Funkcje
+        // Funkcja anonimowa
+        $(function() 
+        {
+            alert("Hi");
+        });
+
+        //Funkcja zdefiniowana
+        function pokazOkno()
+        {
+            alert("Kurs JS");
+        }
+
+        $(pokazOkno); <- Uruchomienie funckji jako parametr w momencie zaladowania strony
+
+    Podstawowe selektory
+        body 
+        header
+        p
+        ...
+
+    Zlozone selektory
+        .klasa li a
+
+    Filtry
+        znacznik:eq(liczba) - Element ktory bedzie formatowany
+        znacznik:gt(liczba) - Wszystkie elementy powyzej tego elementu beda formatowane
+        znacznik:lt(liczba) - Wsyzstkie elementy beda sformatowane ktore sa nizsze od tej liczby
+        znacznik:even - Liczby parzyste beda usuwane z naszej listy do formatowani
+        znacnzik:odd - Liczby nieparzyste beda usuwane z naszej lsty do formatowania
+
+        Przyklad 
+            a:eq(2)
+
+    Wybieranie atrybutow
+        $("p[class]").css("color", "green"); <- Foramtujemy akapity (p) pod warunkiem ze posiadaja
+                                                 dowolna wartosc akapitu class
+
+        $("p[class=kurs]").css("color", "green"); <- Foramtujemy akapity (p) pod warunkiem ze posiadaja 
+                                                class=opis1
+
+          "p[class$=1]" <- Akapity p ktore nazwa klasy konczy sie na jeden np class="opis1"
+          "p[class^=1]" <- Szukamy akapitu ktore na poczatku nazwy klasy posiadaj jedynke w nazwie
+
+          "input[value]" < Formatuje tylko te imputy ktore maja atrybuty value
+
+    Wyszukiwanie
+        $("p:contains(kurs)").css("color", "green"); <- Akapity zawierajace slowo kurs
+
+        Filtr contains mowi o zawieraniu daneglo slowa
+
+        Wazna jest wielkosc liter
+
+    Hierarchia elementow
+        $("p:has(a)").css("color", "green"); <- Formatujemy takie akapity ktore posiadaja wewnatrz
+                                                 odnosnika a
+
+          "p a:nth-child(1)" <- Sfomatowany tylko 1 odnosnik a 
+             a:first-child <- Pierwszy element
+             a:last-child <- Ostatni odnosnik 
+
+    Odczyt zawartosci
+        alert($("p").html()); <- Zawartosc html pierwszego akapitu
+                    .text() <- Zawartosc tylko textu(wszystkie odnosniki) bez html
+                    .p <- Zawartosc akapitu
+
+    Wstawianie elementow
+        $("p").append("Kurs php"); <- Dolaczanie do akapitu p krotki tekst
+
+              .prepend <- Dodaj na poczatku znacznika
+              .appenTo <- To co znajduje sie po lewej dolacz do tego co znajduje sie po prawej
+              .prependTo <- -//- dolacz na poczatku
+
+    Odczyt i modyfikacja atrybutow
+        alert($("#opis1").attr("id"));<- W wyskakujacym okienku wyswietlimy wartosc atrybutu id obiektu
+                                         ktorego ma id= opis1
+
+        $("a").attr("href", "http://strefakursow.pl"); <- Kazdy odnosnik otrzyma atrybut href z 
+        wartosicia z adresu strony
+
+        $("a:eq(1)").attr({ href: "http://strefakursow.pl", title: "Katalog", target: "_blank"}); <-Dodajemy
+             trzy rozne atrybty
+
+    Odczyt i modyfikacja CSS
+       alert($("#opis1").css("color")); <- Wyswietlimy wartosc wlasciwosci kolor dla obiektu ktory 
+                                            ma uniklany id=opis1
+
+        $("#opis1").css("color", "#09F"); <- Modyfikacja koloru
+
+        $("#opis1").css(
+            {
+                "color": "#09F",
+                "font-size": "17px",
+                "font-weight": "bold"
+            }); <- Modyfikowanie kilku wartosci
+
+    Przypisywanie klas CSS
+        1. Tworzymy nowy styl css ktory nigdzie nie zostal przypisany
+
+            $("#opis1").addClass("highlight"); <- Dodaje klase do konkretnego id
+
+            $("div:eq(5)").removeClass("left"); <- Usun klase z diva 6
+
+            alert($("div:eq(5)").hasClass("left")); <- Zwroci true jesli element div posiada klase 
+                                                        left
+            
+            $("#opis1").click(function()) <- Funkcja w momencie klikniecia
+            {
+                $(this).toogleClass("highlight"); <- Modyfikowany ten element na ktory kliknelismy
+                                                        i przelaczymy klase w tym momencie                                                    
+            });
+
+
+    CSS - Edycja szerokosci i wysokosci
+        alert($("img").height()); // Wysokosc obrazka
+
+        alert($("img").height(200)); // Zmiana wysokosc obrazka
+
+        alert($("img").innerHeight()); // Wewnetrzna wysokosc
+
+    Pozostale zagadnienia
+        Usuniecie zawartsci z jQuery
+            $("p").remove(); // Usuniecie akapitow
+
+            $("p").replaceWith("Kurs JQUERY"); // Zastapienie inna zawartoscia
+
+    Zdarzenia podstawy
+        Zdarzenie klikniecia
+                $("p").click(function()
+                {
+                    alert("Kliknieto");
+                }); <- Po kliknieciu zachodzi zdarzenie 
+
+                .dbclick <- Podwojne klikniecie
+
+    Zdarzenie MOUSEENTER
+        $("p").mouseenter(function() // Najechanie mysza na element
+        {
+            $(this).addClass("highlight");
+        }) 
+        .mouseleave (function()
+        {
+            $(this).removeClass("highlight");
+        }); // Dolaczanie kolejnego zdarzenia po przez kropke
+
+
+
+
+ZACZAC FUNKCJA BIND
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
