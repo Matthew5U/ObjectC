@@ -1,0 +1,595 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Zaawansowany PHP" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+
+-------------------------------------------------------------------------------------------------
+Lekcja. 
+-------------------------------------------------------------------------------------------------
+
+    Deklaracja klasy
+
+        <?php
+
+        class Product {
+            
+        }
+
+        if(class_exists('Product')){ // Czy klasa zostala zadeklarowana
+            echo 'Klasa produkt istnieje';
+        }
+        else
+        {
+            echo 'Klasa nie zostala zadeklarowana';
+        }
+
+        ?>
+
+    
+    Metody
+        class Product
+        {
+            function showPrice()
+            {
+
+            }
+
+            function showName()
+            {
+
+            }
+
+        }
+
+        $methods = get_class_methods('Product'); // Zmienna przechowywujaca metody
+        foreach($methods as $method)
+        {
+            echo '<p>' .$method . '</p>';
+        }
+
+        if(method_exists('Product', 'showPrice'))
+        {
+            echo 'Metoda showPrice istnieje';
+        }
+        else
+        {
+            echo 'Metoda showPrice nie istnieje';
+
+        }
+
+    Instancja klasy
+        class Product
+        {
+            function showClassName()
+            {
+                echo 'Nazwa klasy to: Product'
+            }
+
+        }
+
+        // obiekt tego typu - instancja
+        $product1 = new Product();
+        $product2 = new Product();// drugi obiekt
+        $product3 = new Product();// trzeci obiekt
+
+
+        //echo get_Class($product1); // Sprawdz klase obiektu
+        $product1->showClassName(); // Wywolujmy matode na obiekcie
+
+    Zmienne klasy
+        class Product
+        {
+            var $price;
+
+            function showPrice()
+            {
+                return $this->price;
+            }
+        }
+
+        $product1 = new Product();
+
+        $product2 = new Product();
+
+        $product1->price=50;
+        $product1->price=65;
+
+        echo $product1->showPrice().'<br>'; // Wyprowadzamy wartosc zmiennej
+        echo $product2->showPrice(); // Wyprowadzamy wartosc zmiennej
+
+    Konstruktory
+        class Product
+        {
+            // Zmienna cena produktu
+            var $price;
+
+            // Konstruktor jest funkcja
+            function __construct($product_price = 60) // Parametr
+            {
+                $this->price = $product_price;
+            }
+        }
+
+        $product1 = new Product(65); // Nadanie parametru do konstruktora
+        $product2 = new Product(47); // Nadanie parametru do konstruktora
+
+        echo $product1->price.'<br>';
+        echo $product2->price;
+
+    Dziedziczenie
+        class Product
+        {
+            var $price;
+            var $name;
+            var $category = 'Produkt';
+        }
+
+        // Dziedziczenie klasy
+        class Soft extends Product
+        {
+            var $system;
+            var $language;
+            var $category = 'Soft';
+        }
+
+        //Dziedziczenie wlasciwosci
+        $soft1 = new Soft();
+        $soft1->price = 199;
+        echo $soft1->price;
+        echo $soft1->category; // Wyprowadzamy Soft
+
+        // Nie mozemy sie dostac do skladnikow klasy Soft
+
+
+    Modyfikatory dostepu
+        class Abc
+        {
+            // Bez slowka var przy modyfikaotrach dostepu
+            public $x = 100; // Dostep z kazdego miejsca
+            protected $y = 101; // Dostep tylko w tej klasie albo klasie dziedziczacej
+            private $z = 102; // Dostep tylko wewnatrz tej klasy
+
+            // Funkcja do wyjecie wszystkich rodzajow skladnikow
+            // Mozliwosc dodania dostepu do metod
+            function displayProperties()
+            {
+                echo $this->x.'<br>';
+                echo $this->y.'<br>';
+                echo $this->z.'<br>';
+            }
+        }
+
+        class Def extends Abc
+        {
+            function show()
+            {
+                // W tymi miejscu dostep do
+                // public
+                // protected
+                // nie private
+                
+            }
+        }
+
+        $xyz = new Abc();
+
+        // Dostep tylko do public 
+        echo $xyz->x;
+
+        // Dostep do chronionych elementow
+        $xyz->displayProperties();
+
+    Get i Set
+        class Product
+        {
+            private $name; // Nazwa produktu
+
+            //Funkcje sa domyslnie public
+
+            //Funkcja pobierajaca wartosc
+            function getName()
+            {
+                return $this->name;
+            }
+            
+            // Funkcja ustalajaca wartosc (name)
+            function setName($value) // Wartosc tej nazwy
+            {
+                $this->name = $value;// Przypisujemy wartosc do name
+            }
+        }
+        // UStawiamy wartosci 
+        $product = new Product();
+        $product->setName('Kurs php'); // Wprowadzamy jej name
+        echo $product->getName();
+
+    Skladniki statyczne
+        class Product
+        {
+            //Statyczny skladnik
+            static $name = 'Produkt 1';
+
+            static $product_count = 20;
+
+
+            // Statyczna metoda
+            // Liczba wszyskich produktow
+            static function showCount()
+            {
+                //Nie dostaniemy sie w ten sposob do zmiennej
+                //$this-> 
+
+                // Odwolanie sie do zmiennej
+                // self to pelna nazwa klasy
+                echo self::$product_count;
+            }
+        }
+
+        //Blad
+        //echo $name;
+
+
+        //Nie trzeba tworzyc obiektu jesli mamy static
+        // Odwolanie sie do produktu
+        // Uzywamy znak dolara w zmiennej
+        echo Product::$name;
+
+        // Odwolanie do statycznej metody
+        Product::$product_count;
+
+    Klonowanie
+        class Product
+        {
+            var $name;
+        }
+
+        $product1 = new Product();
+        $product1->name='Kurs php';
+        //echo $product1->name.'<br>';
+
+        //Klonowanie 
+        // Takie same wartosci
+        //$product2=clone $product1;
+
+        //Nadpisanie wartosci
+        //$product1->name='Kurs php 2';
+        //echo $product2->name;
+
+        //Uzycie referencji
+        //Odwolanie do tych smaych wartosci w pamieci
+        $product2 = $product1;
+        $product2->name = "Kurs Mysql";
+
+        //Zmienimy wartosci nawet dla pierwszej instancji
+        //Obydwia obiekt sa zmodyfikowane
+        echo $product1->name;
+
+    Porownywanie obiektow
+        class Produkt
+        {
+            function __construct($value)
+            {
+                $this->price = $value;
+            }
+        }
+
+
+        $product1 = new Product(50);
+
+        //$product2 = new Product(68);
+        //$product2 = clone $product1;
+        $product2 = $product1;
+
+        // == <- Sprawdza czy wartosci sa takie same
+        // === <- Sprawdza czy wartosci i typ danych jest taki sam
+
+
+        //Porownanie obiektow
+        if($product1 === $product2)
+        {
+            echo "Tak";
+            // Uzycie referencji
+        }
+        else
+        {
+            echo "Nie";
+            // Jeden obiekt jest klonem
+        }
+
+
+    Abstrakcyjne klasy i metody
+        //Klasa abstrakcyjna nie moze posiadac instacji czyli swoich obiektow
+
+        abstract class Product
+        {
+            abstract protected function showClassName($param1, $param2);
+            // Nie moze posiadac ciala metoda abstrakcyjna
+            //{
+            //}
+        }
+
+        class Soft extends Product
+        {
+            // Tutaj implementujemy metode abstrakcyjna
+            // Takie same parametry
+            // Nie moze byc tutaj private a wyzej protected
+            protected function showClassName($param1, $param2)
+            {
+                
+            }
+        } 
+
+        $soft = new Soft();
+
+        // 1. Klasa abstrakcyjna nie moze posiadac swoich obiektow czyli instancji
+        // 2. Abstrakcyjna metoda nie moze posiadac ciala jedynie moze posiadac sygnature funckji
+        // 3. Metoda abstrakcyjna musi miec implementacje w dziedziczacej klasie
+        // 4. Parametry musza sie zgadzac w metodzie abstrakcyjnej i metoda w klasie 
+        //  dziedziczacej tez musi miec takie same parametry
+        // Takie samo zabezpieczenie czyli protected lub wyzszy
+        // 5. Nie moze byc metoda private w klasie dziedziczacej po klasie abstrakcyjnej w ktorej
+        // metoda jest protected lub wyzsza
+
+    Modyfikator final
+        class Product
+        {
+            function showClassName()
+            {
+
+            }
+        }
+
+        class Soft extends Product
+        {
+            function showClassName()
+            {
+                
+            }
+        }
+
+        // 1. Nie mozemy dziedziczyc klas finalnych
+        // 2. Nie mozemy przeciazyc finalnej metody(dziedziczyc)
+
+    Interfejs
+        interface Product
+        {
+            public function getProductInfo();
+            public function getProductList();
+
+        }
+
+        class ListProducts implements Product
+        {
+            public function getProductInfo()
+            {
+                
+            }
+
+            public function getProductList()
+            {
+
+            }
+
+        }
+
+        class AddProduct implements Product
+        {
+            public function getProductInfo()
+            {
+                
+            }
+
+            public function getProductList()
+            {
+
+            }
+        }
+        // 1. Implementacja metody z interfejsu moze byc wykonana w klasie dziedziczacej po interfejsie
+        // 2. Jesli nasza klasa implementuje interfejs to musi deklarowac wszystkie metody z interfejsu
+        // 3. Kazda klasa implementujaca interfejs musi posiadac implementacje wszystkich metoda z interfejsu
+
+    Przestrzen nazw
+        //Plik main
+
+            // Wlasna przestrzen nazw
+            namespace Main;
+
+            class Product
+            {
+
+            }
+
+            $product = new Product();
+
+
+        //Plik addproduct.php
+
+            //Dolaczamy plik
+            include('main.php');
+            include('product.php');
+            //Definiujemy przestrzen nazw
+
+            $product = new \Main\Product();
+            $product = new \Products\Product();
+
+
+        //Plik product.php
+            namespace Products;
+
+            class Product
+            {
+
+            }
+
+    
+
+    Autoladowanie klas
+        // Plik main
+            //Definiowanie funkcji autoloader
+            function autoloader($class)
+            {
+                include 'class.' . $class . '.php';
+            }
+
+            // Ladowanie automatyczne klas
+            spl_autoload_register('autoloader');
+
+            $p1 = new ListProducts();
+            $p1 = new AddProducts();
+            $p1 = new DeleteProducts();
+
+        // Plic class.ListProduct.php
+            class ListProducts
+            {
+                
+            }
+
+        // Plic class.AddProduct.php
+            class AddProducts
+            {
+                
+            }
+
+        // Plic class.DeleteProduct.php
+            class DeleteProducts
+            {
+                
+            }
+
+    Oblsuga wyjatkow
+        function setPrice($price)
+        {
+            // Jesli if sie zgadza to wyrzuc nowy wyjatek
+            if($price <= 0)
+            {
+                throw new Exception('Cena musi byc wieksza niz zero');
+            }
+            else
+            {
+                return $price;
+            }
+        }
+
+        //Blok do bledow
+        try// sproboj
+        {
+            echo setPrice(200);
+            echo "<br>";
+
+        }
+        catch (Exception $e)// zlap wyjatek
+        {
+            echo "Wyjatek: ". $e->getMessage();
+        }
+
+        //Nie przerywa dalszej czesci programu
+        echo "Dalsza czesc programu";
+
+
+    Wlasne typy wyjatkow
+        //Wlasna klasa wyjatkow
+        class InvalidPriceException extends Exception //dziedziczymy z standardowej klasy bledow
+        {
+
+        }
+
+        function setPrice($price)
+        {
+            // Jesli if sie zgadza to wyrzuc nowy wyjatek
+            if($price <= 0)
+            {
+                throw new InvalidPriceException('Cena musi byc wieksza niz zero');
+            }
+            else
+            {
+                return $price;
+            }
+        }
+
+        function showName($name)
+        {
+            if($name == '')
+            {
+                throw new Exception('Ogolny blad');
+            }
+            else
+            {
+                return $name;
+            }
+        }
+
+        //Blok do bledow
+        try// sproboj
+        {
+            echo setPrice(200);
+            echo "<br>";
+            echo showName('Kurs php');
+            echo "<br>";
+
+        }
+        catch (InvalidPriceException $e)// zlap wyjatek z naszej klasy wyjatkow
+        {
+            echo "Wyjatek: ". $e->getMessage();
+        }
+
+        catch (Exception $e)// Wyjatek standardowy
+        {
+            echo $e->getMessage();
+        }
+
+        //Nie przerywa dalszej czesci programu
+        echo "Dalsza czesc programu";
+
+
+
+
+    Przygotowanie tabel
+        1. Tworzenie bazy danych
+            products
+
+        2. Dane
+            id - INT - PRIMARY - A_I: On
+            name - VARCHAR - 50 
+            category - VARCHAR - 50
+
+        3. Wstawiamy rekordy
+            id - poimijamy
+            name - Kurs PHP
+            category - Informatyka
+
+    Polaczenie z baza danych
+        //db_connect.php
+            // Zmienne do otwarcia polaczenia z baza
+            $server = "localhost";
+            $user = "root";
+            $pass = "";
+            $db = "Products";
+
+            $mysqli = new mysqli($server, $user, $pass, $db);
+
+    SimpleXMLElements
+        include('dane.php');
+
+        $products = new SimpleXMLElements($str); // Plik-ciag znakow to $str
+
+        echo $products->product[0]->price;
+
+    Pliki do przeslania na serwer
+        Tabela w bazie danych
+            id - int - autoincrement - unsigned - primary -  a_I:On
+            name - varchar - 255 -zdefiniowana: untitled.txt
+            type - varchar - 50 - zdefiniowana: text/plain
+            size - bigint -zdefiniowana: 0 - unsginde
+            data - mediumblob
+            created - datetime
+
+    Filtrowanie danych
+        //Filtrowanie stringa(czy nie zaweira np znacnizkow html)
+        filter_var($str, FILTER_SANITIZE_STRING);
+
+        //Funkcja fltrujaca email
+        ilter_var($email, FILTER_SANITIZE_EMAIL);
+
+        //Funkcja sprawdzajaca poprawnosc email
+        filter_var($email_f, FILTER_VALIDATE_EMAIL)
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
