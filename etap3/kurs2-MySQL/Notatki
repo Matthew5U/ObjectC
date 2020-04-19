@@ -1,0 +1,375 @@
+_________________________________________________________________________________________________
+Kurs "Kurs MySQL" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Wprowadzenie
+-------------------------------------------------------------------------------------------------
+    Praca
+        1. Aplikacja Apache - Serwer w naszym komputerze
+        2. Interpreter jezyka PHP
+        3. Baza danych MySQL
+        ------------------------------------------------
+        1. Wamp
+        2. Xamp
+
+    Zarzadzanie MySQL
+        Terminal
+            Haslo
+                1.Password: enter
+                2.usem mysql
+                3.UPDATE user
+                4. SET Password=PASSWORD('naszeHasloDoBazyDanychDlaRoot')
+                5. WHERE user='root';
+
+            Uprawnienia
+                1.FLUSH PRIVILEGES
+
+                6.quit
+
+        Ustawiamy haslo 
+            1.Phpmyadmin
+            2.Config.php
+            3.Linijka z haslem = ustawiamy haslo
+
+        Phpmyadmin  
+            Interfejs - zarzadzanie wygladem
+            MySQL - infromacje
+            Zakladki
+                Bazy danych - nasze bazy danych
+                    Liczby w nawiasie mowia o liczbie tabel
+                    Konkretna baza danych
+                        Przegladaj - przegladanie bazy danych
+                        Struktura - Modyfikowanie struktury tabel
+                        SQL - zapytania
+                        Szukaj - szukanie z kryteriami
+                        Eksport - 
+            SQL - kierowanie zapytan do bazy danych
+            Status - status serwera
+            Ikonki PhpMyAdmin
+        
+        Tworzenie nowego uzytkownika
+            Uprawnienia        
+                Mozliwosc tworzenia uzytkownikow
+                    Wartosc 0 - nieskonczona
+
+        Tworzenie nowej bazy danych
+            1. Zakladka - bazy danych
+            2. Utworz nowa baze danych
+            3. Uzytkownicy
+            4. Edytuj upranwienia uzytkownika
+            5. Wybieramy baze danych dla ktorej egytujemy uprawnienia dal uzytkownika
+        
+        Przypisywanie uprawnien
+            Usage - Zadne uprawnienia
+            ALL PRIVILEGES - Wszystkie uprawnienia
+
+        Tworzenie tabel
+            1. Nazwa tabeli
+            2. Liczba pol
+            3. Ustalamy strukture tabel
+            *Nie uzywamy spacji w nazwach tabel
+            *NULL - pole nie bedzie moglo miec pustej wartosci
+
+            Przyklad
+                nazwa
+                VARCHAR
+                16
+                Brak
+                ut8_general_ci
+
+                Mechanizm skladowania = MyISAM
+                Metoda porownywania napisow = utf8_general_ci <- W jakim kodowaniu przetrzymujemy 
+                                                                    nasz tekst
+ 
+        Typy danych
+           CHAR - ciag znakow - od 0 do 255 znakow
+           VARCHAR - krotkie wartosci o zmiennej wartosci
+           TINYTEXT - 255 znakow
+           TEXT - 65353 znakow
+           MEDIUMTEXT - 16777215 znakow
+           LONGTEXT - 4294967295 znakow
+           TINYINT - Od -127 do 127 lub od 0 do 255
+           SMALLINT - Od -32768 do 32767 lub 0 do 65 535
+           MEDIUMINT - Od -8388608 do 8388607 lub od 0 do 16777215
+           INT
+           BIGINT
+           FLOAT
+           DOUBLE
+           DECIMAL - pierwsza wartosc to laczna dlugosc naszej liczby(przed i po przecinku),
+                        druga wartosc to ilosc miejsc po przecinku
+           DATE
+           DATETIME
+           TIMESTAMP
+           TIME
+           ENUM
+           SET
+
+        Zapis tabeli
+            Wykonaj - Dodanie kolejne pole do tabeli
+            Zachowaj - Zachowanie biezacego ukladu
+
+        Wprowadzanie danych 
+            1. Wybru bazy 
+            2. Dodaj
+            3. Tworzenie nowej tabeli
+                Pomijamy wartosc klucz gownego ktory jest autonumerowany
+
+            4. Definiujemy pola
+            5. Importujemy nasz plik
+
+        Eksport danych
+            1. Wybieramy co chcemy eksportowac czy baze czy dana tabele
+            2. Eksport
+            3. CSV (zalezy jaki chcemy format zapisu)
+            4. Wykonaj
+
+        Zarzadzanie tabelami
+            Sortowanie po przez wybor
+
+        Usuwanie rekordow
+            Wejscie do pol w tabeli i wybieramy usun
+            Truncate - Czyszczenie tabeli
+
+        Wyszukiwanie
+            1. Wybor tabeli
+            2. Zakladka szukaj
+            3. Wpisujemy nasze informacje do wyszukiwania
+
+        Wyszukiwanie zaawansowane
+            LIKE - poszukuje dokladnej wartosci
+                        kurs%
+
+            LIKE%...% - wyszukje rekordy z dowolnym ciagiem znakow po lewej i prawej stronie
+                        
+                % - mowi o tym ze to co sie znajduje za procentem lub przed moze sie znajdowac jako
+                    np tekst
+                    
+                    Przyklad 
+                        Wordpress% znajdzie dane o Wordpress kurs dla poczatkujacych
+                        2011-%-% - produkty z roku 2011 a dzien i miesiac dowolny
+
+    Zapytania MySQL
+        Instrukcja SELECT FROM
+            SELECT * <- Wybieramy wszystko
+            FROM produkty <- Z tabeli produkty
+            LIMIT 0, 10 <- Zczynamy od 0 rekordu do 10
+
+            Przyklady
+                SELECT nazwa FROM produkty
+
+        Klauzaula WHERE
+            SELECT *
+            FROM produkty
+            WHERE  id_produktu = 5 <- Warunek gdzie id_produktu jest rowny 5
+            
+            Przyklad
+                SELECT * FROM produkty WHERE cena > 40 AND cena < 50
+                                       WHERE nazwa LIKE 'kurs'
+
+        Klauzula ORDER BY
+            SELECT *
+            FROM produkty
+            ORDER BY cena <- Sortuj wedlug pola cena
+            DESC <- Sortuj malejaco
+
+        Instrukcja INSERT INTO
+            INSERT INTO <- Wprowadz rekord do tabeli
+            klienci <- Do tabeli klienci
+            VALUES ('', 'Jan', 'Kowalski' ) <- Wartosci | 1.Wartosc pusta gdyz uzywamy autonumerowania 
+                                                          2.Imie 3.Nazwisko
+
+            Przyklad
+                INSER INTO klienci (imie, nazwisko) VALUES ('Piotr', 'Polakowski')
+
+        Instrukcja UPDATE
+            UPDATE <- Zaktualizuj
+            klienci
+            SET <- Nowa wartosc w tabeli klienci
+            imie = 'Kamil' <- Wprowadzamy nowa wartosc
+            WHERE <- Warunek mowiacy gdzie ma co z updateowac
+            id = 2
+
+            Przyklad
+                UPDATE cennik SET cena = cena*0.9
+
+        Instrukcja DELETE FROM
+            DELETE FROM <- Usun z 
+            cennik1 <- Tabela
+            WHERE <- Warunek
+            id = 10
+
+            DELETE TABLE <- Usun tabele
+            cennik1
+
+            Przyklad 
+                DELETE FROM cennik1 WHERE cena < 40
+
+        Funckje podsumowywujace
+            Zliczanie elementow
+                SELECT 
+                COUNT <- Zliczanie 
+                (id_produkty) <- Ile mamy wartosci w id_produkty
+                AS licznik <- Wlasna etykieta licznik
+                FROM <- Z 
+                produkty <- Tabeli produkty
+
+            Wyciaganie sredniej
+                SELECT
+                AVG(cena) <- AVG- srednia
+                AS srednia
+                FROM
+                produkty
+
+            Wartosc Maxymalna
+                SELECT
+                MAX(cena) <- Najwyzsza wartosc
+                AS maximum
+                FROM produkty
+
+            Wartosc Minimlana
+                -//-
+                MIN(cena)
+                -//-
+
+        Sumowanie
+            W pionie
+                SELECT
+                SUM(styczen) <- Sumowanie wartosci z pola styczen
+                AS <- Nadaj nazwe etykiecie jako
+                Styczen_Suma <- Nazwa etykiety
+                FROM sprzedaz <- Z tabeli sprzedaz
+
+            W poziomie
+                SELECT
+                Sklep, Styczen, Luty, Marzec, <- Wybieramy pola
+                SUM(Styczen, Luty, Marzec) <- Tworzymy pole do wyswietlenie wyniku
+                AS SUMA <- Etykieta jako suma
+                FROM Sprzedaz <- Z nazwy tabeli sprzedaz
+                WHERE id = 2 <- Gdzie id = 2
+            
+        Tworzenie Table w jezyku SQL
+            CREATE TABLE <- Utworz tabele
+            kategorie (id INT, nazwa VARCHAR(24)) //Nazwa pola i typ danych
+            
+            CREATE TABLE styczen <- Tworzymy tabele
+            SELECT id, Sklep, styczen <- wybieramy pola
+            FROM sprzedaz <- Pobieram z tabeli sprzedaz
+
+        Instrukcja ALTER TABLE
+            ALTER TABLE <- Zmodyfkuj tabele
+            sprzedaz
+            ADD kwiecien INT <- Dodaj nowe pole i okresl typ danych (np kwiecien)
+
+            ALTER TABLE 
+            sprzedaz
+            DROP kwiecien <- Usun pole kwiecien
+
+            ALTER TABLE sprzedaz
+            ADD oddzial INT AFTER Sklep <- Dodanie tabeli za polem Sklep
+
+            ALTER TABLE sprzedaz
+            MODIFY oddzial VARCHAR(24) <- Modyfikuje tylko typ danych
+
+            ALTER TABLE sprzedaz
+            CHANGE ooddzial nowa_nazwa VARCHAR(24)<- Zmien nazwe i typ danych dla istniejacego pola
+
+        Korzystanie z konsoli MySQL
+            Konsla MySQL
+                1. Wprowadzenie hasla
+
+                2. show databases; <- Zobaczenie wszystkich bazy danych
+
+                3. use kursy; <- Przejscie do bazy danych kursy
+
+                4. show table; <- Wyswietlenie wszystkich tabel
+
+                5. describe produkty; <- Wyswietl informacje na temat tabeli
+
+                6. select * from cennik; <- Wyswietlamy zawartosc tabeli
+
+                7. quit <- Wylogowanie z bazy danych
+
+        Pobieranie danych z wielu tabel
+            SELECT produkty.id_produktu, produkty.nazwa, kategorie.nazwa <- odwolanie do pola 
+                    pierwszego z tabeli produkty, pola nazwa z tabeli produkty i pola nazwa z 
+                    tabeli 
+            FROM produkty, kategorie <- Z tabel produkty i kategorie
+            WHERE produkty.id_kategorie = kategorie.id_kategoria <- Warunek aby sie nie 
+                                                                        dublowaly wyniki       
+
+            *produkty.id_produktu = tabel.poleZTejTabeli
+        
+        Grupowanie 
+            SELECT SUM(produkty.cena), kategorie.nazwa <- Sumowanie cen
+            FROM produkty, kategorie
+            WHERE produkty.id_kategoria = kategorie.id_kategoria
+            GROUP BY kategorie.id_kategoria <- Grupowanie po przez kategorie
+
+        Podzapytanie
+            Glowne zapytanie
+                SELECT nazwa, cena FROM produkty 
+                WHERE <- Warunek to pierwsze zapytanie
+                //Zapytanie poboczne
+                cena > (SELECT AVG(cena) <- Srednia wartosc ceny  
+                FROM produkty) <- Z wszystkich produktow
+
+        Polaczenie z baza
+            W pliku cwiczenie.php jest wszystko rozpisane
+
+        Funkcja
+            trim() - usuwa wprowadzone spacje
+
+        Wskazowka
+            1. W sql operator przypisania np tak jak w c++ jest "==" to w sql jest to pojedynczy znak
+                c++ a==0
+                sql a=0
+
+            2. Przerwanie wykownywania daleszej czesci
+                $lacze = mysqli_connect('localhost', 'skursow', 'haslo1')
+                or die("Brak polaczenia"); // Przerwanie wykonywania skrytpu 
+
+            3. @lacze - wyciszenie bledow
+
+    Funckje MySQL
+        1. Opeacje na ciagach znakow
+            SELECT LTRIM('     kurs') <- Przyciecie spacji po lewej stronie
+                   RTRIM('kurs     ') <- Przyciecie spacji z prawej strony
+                   UPPER('kurs') <- Zamiana liter na duze
+                   LOWER('KURS') <- Zamiana litery na male
+                   LENGTH('kurs) <- Dlugosc ciagu
+                   REVERSE <- Odwraca ciag znakow
+                   REPEAT('fraza ktroa powtarzamy', 5(liczba ile razy ma powtorzyc)) <- Powtarza
+
+        2. Funkcje numeryczne
+            SELECT ABS(-300) <- Zwraca wartosc absolutna(bezwzgledna)
+                   ROUND(2.4(liczba ktora zaokraglimy), 3(ile miejsc po przecinku ma zaokraglic))
+                                         ^- Zaokragla liczbe
+
+                   MOD(10,3) <- Zwraca liczbe z dzielenia czyli modulo %
+                   
+                   
+            SELECT * FROM 'produkty'
+            ORDER BY RAND() <- Zwraca rekordy w losowej kolejnosi
+            LIMIT 0, 1 <- Zwrocenie jednego rekordu
+
+        3. Funkcje daty i czasu
+            SELECT NOW() <- Zwrocenie biezacej daty i czasu
+
+            SELECT CURTIME() <- Zwraca biezacy czas
+
+            SELECT CURDATE() <- Zwraca biezaca date
+
+            SELECT DAY('2011-06-02') <- Zwraca dzien miesiaca
+            // Zwroci 2
+
+            SELECT WEEK('2011-06-02') <- Zwraca numer tygodnia
+            // Zwroci 22
+
+            SELECT DAYOFYEAR('2011-06-02') <- Zwraca dzien roku
+            // Zwroci 153
+
+            SELECT MAKEDATE(2011, 34) <- Zwroci date na podstawie dwoch argumentow
+            // Zwroci 2011-02-03
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
