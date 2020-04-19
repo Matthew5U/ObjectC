@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<products>
+		<product>
+			<name>Kurs Photoshop kreatywna fotografia ślubna</name>
+			<link>http://strefakursow.pl/kursy/fotografia/kurs_photoshop_kreatywna_fotografia_slubna.html</link>
+		</product>
+		<product>
+			<name>Kurs Fruity Loops zaawansowany</name>
+			<link>http://strefakursow.pl/kursy/audio/kurs_fruity_loops_zaawansowany.html</link>
+		</product>
+		<product>
+			<name>Kurs Android - tworzenie aplikacji</name>
+			<link>http://strefakursow.pl/kursy/programowanie/kurs_android_-_tworzenie_aplikacji.html</link>
+		</product>
+		<product>
+			<name>Kodeki i kompresja wideo</name>
+			<link>http://strefakursow.pl/kursy/edycja_wideo/kodeki_i_kompresja_wideo.html</link>
+		</product>
+		<product>
+			<name>Kurs HTML5 zaawansowany</name>
+			<link>http://strefakursow.pl/kursy/tworzenie_stron/kurs_html5_zaawansowany.html</link>
+		</product>
+		<product>
+			<name>Kurs Joomla 2.5 tworzenie szablonów</name>
+			<link>http://strefakursow.pl/kursy/joomla/kurs_joomla_2_5_tworzenie_szablonow.html</link>
+		</product>
+		<product>
+			<name>Kurs Photoshop CS6 esencja</name>
+			<link>http://strefakursow.pl/kursy/fotografia/kurs_photoshop_cs6_esencja.html</link>
+		</product>
+	</products>
