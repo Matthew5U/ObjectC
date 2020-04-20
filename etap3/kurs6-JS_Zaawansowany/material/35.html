@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Wyrażenia regularne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:300px;">
+
+<p id="source">Kurs photoshop CS6 esencja to już czwarta publikacja naszego autorstwa na temat tego wspaniałego programu.  Dodatkowo zupełnie za darmo wraz kursem photoshop CS6 otrzymasz kurs Bridge CS6. Ten ciekawy program dołączony do photoshopa pozwoli Ci na efektywne zarządzanie kolekcją zdjęć. </p>
+
+<form action="#" method="" class="form form-horizontal" id="user_form">
+
+	<p id="message" class="alert-error" style="width:100%"></p>
+    <br>
+    <br>
+    <input type="submit" class="btn btn-primary" id="submit_form" value="Wyslij"/>
+
+</form>
+
+</div>
+
+
+<script>
+
+document.getElementById('submit_form').onclick = funtion()
+{
+	var sourceText = document.getElementById('source').innerHTML;
+	var expr = /photoshop/g; // g - globalne wysuzkiwanie
+ 	var newText = "Photoshop";
+	var result = sourceText.replace(expr, newText);
+	document.getElementById('source').innerHTML = result;
+}
+
+</script>
+
+
+</body>
+</html>
