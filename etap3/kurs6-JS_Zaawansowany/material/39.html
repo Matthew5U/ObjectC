@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Wyrażenia regularne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:400px;">
+
+<p id="source">Lorem ipsum dolor 33-100 sit amet, consectetur adipiscing elit. Donec id magna ornare, porta enim eu, malesuada 44-400 sem. Ut elementum ligula at 81-090 nisl 55-678 hendrerit posuere.</p>
+
+	<p id="message" class="alert-error" style="width:100%"></p>
+    <br>
+    <button id="submit" class="btn">Wyślij</button>
+
+
+</div>
+
+
+<script>
+
+var btn = document.getElementById('button');
+
+btn.addEventListener('click', showAlert, false);
+
+function showAlert()
+{
+	alert("Kurs JS");
+	btn.removeEventListener('click',showAlert,false);
+}
+
+document.getElementById("source")
+
+</script>
+
+
+</body>
+</html>
