@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Różne techniki JS</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:500px;">
+
+
+
+</div>
+
+
+<script>
+
+var ctn = document.getElementById('content');
+
+window.addEventListener('load', showArguments("Kurs Js", 56, "inernet"),false);
+
+/*
+window.addEventListener('load', showProductInfo("Kurs Js", 56, "inernet"),false);
+
+function showProductInfo(name, price,category)
+{
+	var n = name;
+	var p = price;
+	var c = category;
+
+	if(!category)
+	{
+		var c = "Bez kategorii";
+	
+	}
+	else
+	{
+		var c = category;
+	}
+	ctn.innerHTML = n + " " + p + " " + c;
+}
+*/
+
+function showArguments()
+{
+	for(var i=0; i< arguments.length; i++)
+	{
+		var args = arguments[i];
+		alert(args);
+	}
+}
+
+</script>
+
+
+</body>
+</html>
