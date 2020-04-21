@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Wyrażenia regularne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:300px;">
+
+<p id="source">Kurs przygotowaliśmy z myślą o praktycznym zastosowaniu języka JavaScript. Nasz kurs pozwoli ci poznać najważniejsze elementy składowe języka. Do kursu dołączyliśmy pliki źródłowe.</p>
+
+	<p id="message" class="alert-error" style="width:100%"></p>
+    <br>
+    <button id="submit" class="btn">Wyślij</button>
+
+
+</div>
+
+
+<script>
+
+document.getElementById('submit').onclick = function(){
+	var sourceText = document.getElementById('source').innerHTML;
+	var expr = new RegExp("[0-9]{2} - [0-9]{3}","g");
+	var result 
+	
+	while((result = expr.exec(sourceText)) != null)
+	{
+		alert("Wynik: " + result[0] + " Pozycja: " + result.index);
+	}
+}
+
+</script>
+
+
+</body>
+</html>
