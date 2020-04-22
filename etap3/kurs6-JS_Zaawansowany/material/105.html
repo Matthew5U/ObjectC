@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>MooTools</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="mootools-core-1.4.5-full-nocompat.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+    	<p id="info" class="alert alert-info">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pretium tincidunt urna. Phasellus sit amet nibh ligula. Proin auctor feugiat elementum. Aenean fringilla interdum est, a pulvinar lectus consectetur vitae.</p>
+        <br>
+        <button class="btn btn-primary" id="button">Uruchom</button>
+    	<br>
+    </div>
+
+</div>
+
+<script>
+
+$('button').addEvent('click',function(){
+	var anim = new Fx.Tween('info',
+	{
+		duration: 'long',
+		property: 'height'
+	});
+	anim.set(100);
+	anim.start(100,40);
+});
+
+</script>
+
+</body>
+</html>
