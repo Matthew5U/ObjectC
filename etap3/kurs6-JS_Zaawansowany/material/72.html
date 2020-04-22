@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Żadania</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:500px;">
+
+	<button class="btn btn-primary" id="button" type="button">Wyślij</button>
+	
+    <br>
+    <br>
+    
+    <ul id="list">
+	</ul>
+    
+</div>
+
+
+<script>
+
+var btn = document.getElementById('button');
+var list = document.getElementById('produc_name');
+
+btn.addEventListener('click',function(){
+	
+	function createObject(){
+		return new XMLHttpRequest();
+	}
+	
+	var req = createObject();
+	req.open('GET','produkty.xml',false);
+	req.send(null);
+	var doc = req.responseXML;
+	
+	nameSpan.innerHTML = doc.getElementsByTagName('product')[1].getElementsByTagName('link')[0].childNodes[0].nodeValue;  // Zwraca tablice wszyystkich elementow spelniajacych to kryterium
+	
+	var products = doc.getElementsByTagName('product');
+
+	for(var i = 0; i < products.length; i++)
+	{
+		var pName = products[i].getElementsByTagName('link')[0].childNodes[0].nodeValue;
+		var li = document.createElement('li');
+		var textNode = document.createTextNode(pName); 
+		li.appendChild(textNode);
+		list.appendChild(li);
+	}
+
+	
+	});
+
+</script>
+
+
+</body>
+</html>
