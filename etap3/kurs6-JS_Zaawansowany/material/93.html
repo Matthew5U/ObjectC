@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Prototype</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="prototype.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+    	<p id="par"></p>
+    
+        <button class="btn btn-primary" id="button">Uruchom</button>
+    
+    </div>
+
+</div>
+
+<script>
+
+var btn = document.getElementById('button');
+
+btn.addEventListener('click',function(){
+	
+    var numbers = [2, 3, 6 ,2, 3];
+
+    //alert(numbers.size());
+	
+    /*
+    numbers.each(function(n)
+    {
+        alert(n);
+
+    });
+    */
+
+    var str = "<i>kurs js</i>";
+    //$('par').innerHTML = str.startsWith('k');
+    $('par').innerHTML = str.stripTags();
+
+});
+
+</script>
+
+</body>
+</html>
