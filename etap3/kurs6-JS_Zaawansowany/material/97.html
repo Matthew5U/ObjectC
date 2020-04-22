@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Prototype</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="prototype.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    	
+        <p id="par"></p>
+    
+    </div>
+
+</div>
+
+<script>
+
+	var Product = Class.create(
+		{
+			initalize : function(name)
+			{
+				this.name = name;
+	
+			},
+
+			showName: function()
+			{
+				return this.name;
+			}
+		});
+
+	var Soft = Class.create(Product, 
+	{
+
+	});
+
+	var s1 = new Soft('Windows 7');
+
+	//$('par').innerHTML = s1.name;
+	$('par').innerHTML = s1.showName;
+
+
+</script>
+
+</body>
+</html>
