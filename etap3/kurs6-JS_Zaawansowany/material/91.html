@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Prototype</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="prototype.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+    	<p id="par">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi bibendum dignissim ante sed egestas. Integer eu quam at sapien malesuada varius vel non sapien. Nam ut orci at nisi auctor aliquet. Phasellus quis aliquam erat. Morbi orci sapien, tempor nec viverra eu, ultrices ac dolor.</p>
+    
+        <button class="btn btn-primary" id="button">Uruchom</button>
+    
+    </div>
+
+</div>
+
+<script>
+
+// Wykorzystujemy framework prototype
+var btn = document.getElementById('button');
+
+btn.addEventListener('click',function(){
+	
+    var par = $('par');
+	
+    //alert(par.innerHTML);
+
+    alert(par.remove().innerHTML);
+    
+
+});
+
+</script>
+
+</body>
+</html>
