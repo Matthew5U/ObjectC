@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Żadania</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:500px;">
+
+	<button class="btn btn-primary" id="button" type="button">Wyślij</button>
+
+</div>
+
+
+<script>
+
+	var btn = document.getElementById('button');
+
+	btn.addEventListener('click', function()
+	{
+		function createObject(){
+
+			return new XMLHttpRequest();
+		}
+
+		var req = createObject();
+		//req.open('GET', 'plik.text', false);
+		req.open('GET', 'plik.txt',true);
+		req.send(null);
+		req.onreadystatechange = function()
+		{
+			if(req.readyState == 4)
+			alert(req.responseText);
+			
+		};
+		//alert(req.statusText); // 200 - to wszystko w porzadku
+		alert(req.getResponseHeader("Date"));
+	});
+
+</script>
+
+
+</body>
+</html>
