@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+
+	//var html = "<a href='http://wikipedia.org' id='sk-link' class='btn'>Strefa kursow</a>";
+	//$('#wrapper').append(html);
+
+	var html = $("<a></a>",
+	{
+		href: "http://wikipedia.pl",
+		id: "sk-link",
+		"class": "btn",//slowo class jes zarezerwowane dla js
+		title: "Strefa kursow",
+		text: "Strfa kursow"
+	});
+	$('#wrappert').append(html);
+})
+	
+
+
+</script>
+
+</body>
+</html>
