@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Metody pomocnicze</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+    
+    </div>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+/*
+	var o1 = 
+	{
+		'name' : 'kurs jquery'
+	}
+
+	var o2 =
+	{
+		'price' : 45
+	}
+
+	var o3 = 
+	{
+		'category': 'internet',
+		'name' : null
+	}
+
+	var output = $.extend({}, o1, o2, o3);
+	alert(JSON.stringify(output));*/
+
+	var x =
+	{
+		'showName' : function(name)
+		{
+			alert(name);	
+		}
+	}
+	$.estend(x);
+	$.showName('kurs js');
+});
+
+</script>
+
+</body>
+</html>
