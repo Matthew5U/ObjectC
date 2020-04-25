@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Praca z danymi</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+	$('body').date('name', 'kurs jquery');
+	$('body').data('id',345632);
+	$('body').data('numbers', [10,20,30,40,50]);
+	$('#wrapper').text($('body').data('numbers'));
+});
+
+</script>
+
+</body>
+</html>

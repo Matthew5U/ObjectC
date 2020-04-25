@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Metody pomocnicze</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <ul id="list">
+    	<li>Pierwszy</li>
+        <li>Drugi</li>
+        <li>Trzeci</li>
+        <li>Czwarty</li>
+        <li>Piąty</li>
+    </ul>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+    var listItems = document.getElementsByTagName('li');
+    var itemsArr = $.makeArray(listItems);
+    //alert(itemsArr.length);
+    itemsArr.reverse();
+    $(itemArr).appendTo($('#list'));
+});
+
+</script>
+
+</body>
+</html>

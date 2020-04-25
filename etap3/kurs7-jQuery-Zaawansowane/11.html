@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Metody pomocnicze</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+    	<ul id="list">
+        </ul>
+    
+    </div>
+
+</div>
+
+<script>
+
+	$(document).ready(function()
+	{
+		/*
+		var numbers = [10, 20, 30, 40, 50];
+		$each(numbers, function(index, value)
+		{
+			alert("Indeks: " + index + " " + "Wartosc: " + value);
+		});*/
+
+		var obj = 
+		{
+			'name ' : 'kurs jquery',
+			'price' : 55,
+			'category' : 'internet'
+		};
+		var list = $('#list');
+		var li = "";
+
+		$.each(obj, function(key,value)
+		{
+			li += "<li>" + value + "</li>";
+		});
+		list.append(li);
+
+	});
+
+</script>
+
+</body>
+</html>

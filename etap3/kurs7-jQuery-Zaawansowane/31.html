@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <article id="art">
+    	<header id="art-header">
+        	<h3>Lorem ipsum dolor </h3>
+        </header>
+        <p id="art-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam imperdiet id diam quis mattis. Ut mi augue, semper sed lacus et, auctor rutrum urna. Nunc ut diam lorem. Phasellus vel mauris pretium lacus malesuada posuere.</p>
+        <p class="art-info">Nunc ut diam lorem.</p>
+    </article>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+	
+	$('.art-info').clone(true).appendTo('#art-header');
+	
+})
+
+$('art-info').click(function()
+{
+    $(this).toggleClass('text-error');
+})
+	
+
+
+</script>
+
+</body>
+</html>
