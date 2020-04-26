@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Tworzenie pluginów</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+<script src="borders_2.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <p id="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	
+    <p id="par">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, odio sit amet adipiscing rutrum, dui turpis vehicula sem, ac ornare lacus magna convallis turpis. Praesent varius, sem ut fermentum sollicitudin, quam mauris mattis sem, non molestie diam mi sed enim. Nam eget velit dolor.</p>
+    
+    <p id="foot">Praesent varius, sem ut fermentum sollicitudin, quam mauris mattis sem, non molestie diam mi sed enim. Nam eget velit dolor.</p>
+
+</div>
+
+<script>
+
+//callback - funkcja opcjonalna
+// pusty iteral wpisuje domyslne wartosci
+$('p').makeBorder({},10);
+	
+
+(function($){
+
+    //callback - funkcja opcjonalna
+	
+	$.fn.makeBorder = function(borderOptions,callback){
+        
+        // sprawdzamy nasz callback 
+        // jesli jest to funckja to wykona sie 
+		if(typeof callback == 'function'){
+			callback.call(this);
+		} else {
+			alert('callback nie jest funkcją');
+		}
+		
+		var borderSettings = $.extend({
+			bWidth: "1px",
+			bStyle: "solid",
+			bColor: "#999",
+			bRadius: "0"
+		},borderOptions);
+		
+		return this.css({
+			"border-width" : borderSettings.bWidth,
+			"border-style" : borderSettings.bStyle,
+			"border-color" : borderSettings.bColor,
+			"border-radius" : borderSettings.bRadius
+		});
+	};
+	
+}(jQuery));
+
+</script>
+
+</body>
+</html>
