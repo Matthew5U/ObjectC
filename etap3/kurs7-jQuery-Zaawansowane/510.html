@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <div class="img-wrap">
+    	<img src="zend.png" alt="">
+    </div>
+    <div class="img-wrap">
+    	<img src="cmssss.png" alt="">
+    </div>
+    <div class="img-wrap">
+    	<img src="cake.png" alt="">
+    </div>
+    <div class="img-wrap">
+    	<img src="phpppp_adv.png" alt="">
+    </div>
+  	
+</div>   
+
+<script>
+
+// oblusga bledow dla elementow img
+$('img').on('error',function(){
+    // closest - najblizczy elelemnt
+    // usuwamy elelemnt
+	$(this).closest('div').remove();
+});
+
+</script>
+
+</body>
+</html>
