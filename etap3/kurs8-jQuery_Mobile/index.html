@@ -1,0 +1,447 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Podpinamy nasze zbudowane style -->
+<link rel="stylesheet" href="css/sk.min.css">
+
+<!-- Podpiecie -->
+
+<!-- Odwolanie tylko do struktury a nie do css kotre tez s dolaczane -->
+<link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile.structure-1.3.2.min.css">
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+<script src="scripts/script.js"></script> 
+
+<title>Strefa Kursów</title>
+
+</head>
+
+<body>
+    
+    <!-- Laduje tylko pierwsza strone a pozniejsze mozna je rozwijac -->
+    <!-- Kazda strona to elelemnt div -->
+	<div id="home" data-role="page" data-title="Start"><!-- Start poczatek -->
+    <!-- -->
+        <!-- Dodajemy role ktora jest naglowek-->
+        <div data-role="header">
+        	<h1>Start</h1>
+        </div>
+        <!-- Div ktroy odpowiada za wciecie w otrym znajduje sie zawartosc strony -->
+        <div data-role="content">
+                <!-- Wstawiamy logo -->
+            <div id="logo"><img src="images/poziom.png" alt=""></div>
+                <!-- Grupa kontrolek ktore tworza jedna calosc-->
+                    <!-- Sterowanie rozmieszczeciem | vertykalnie lub horyzontalnie -->
+            <div data-role="controlgroup" data-type="vertical">
+                <!-- Prowadzi do nowosci-->
+                    <!-- elelemty a zamieniamy na button czyli przyciski -->
+                <a href="#latest" data-role="button">Nowości</a>
+        		<a href="#blog" data-role="button">Blog</a>
+        		<a href="#videos" data-role="button">Filmy</a>
+                <a href="#prices" data-role="button">Cennik</a>
+        		<a href="#order" data-role="button">Zamówienie</a>
+                <a href="#messages" data-role="button">Wiadomości</a>
+            </div>
+            <a href="#loginpanel" data-role="button">Logowanie</a>
+        </div>
+    <!-- Stopka  -->
+    <!-- Element opcjonalny -->
+        <div data-role="footer" data-position="fixed">
+        <!-- Div ktroy odpowiada za wciecie w otrym znajduje sie zawartosc strony -->
+        	<div data-role="content">
+                <!-- Dodawanie ikon -->
+                <!-- Odnosnik do wlasciwosci-->
+                <!-- ui-btn-left - przycisk po lewej stronie-->
+                <!-- data-rel - dzialanie wczytanej wartosci jako dialog(okienko) -->
+                <!-- data-theam - styl motywow -->
+            	<p><a href="#introsettings" data-icon="info" data-role="button" class="ui-btn-left" data-rel="dialog" data-theme="b">Ustawienia</a></p>
+            </div>
+        </div>
+
+        <!-- Panel logowania -->
+        <!-- overlay - sposob pojawiania panelu -->
+        <div data-role="panel" id="loginpanel" data-display="overlay">
+        	<form id="loginform" action="">
+            	<label for="user">Login</label>
+                <input type="text" id="user" name="user" />
+                <label for="pass">Hasło</label>
+                <input type="password" id="pass" name="pass" />
+                <input type="submit" id="loginsubmit" value="Zaloguj" data-icon="check" data-theme="b"/>
+                <!-- zamyka element nadrzedny czyli caly elelemnt -->
+                <a href="#home" data-rel="close" data-role="button" data-icon="back" data-theme="b">Zamknij</a>
+            </form>
+        </div>
+    </div><!--  Start koniec -->
+    
+
+    <div id="latest" data-role="page" data-title="Nowości"><!-- nowosci poczatek -->
+    
+        <!--Naglowek-->
+        
+        <div data-role="header">
+        	<h1>Nowości</h1>
+    <!--Powrot do stony startowej-->
+        <!-- notext - wysietlenie tylko ikony -->
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        </div>
+        <div data-role="content">
+            <!-- Podzial na siatke -->
+            <!-- a = dwie pionowe kolumny -->
+        	<div class="ui-grid-a">
+                <!-- Bok siatki -->
+                <!-- Perwsza kolumna -->
+            	<div class="ui-block-a">
+                	
+                	<img src="images/jq_adv.png" alt="">
+                </div>
+
+                <!-- Druga kolumna -->
+                <div class="ui-block-b">
+                	
+                	<img src="images/js_adv.png" alt="">
+                </div>
+
+
+                <div class="ui-block-a">
+                	
+                	<img src="images/php_adv.png" alt="">
+                </div>
+                <div class="ui-block-b">
+                	
+                	<img src="images/php_cms.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <!-- Pasek nawgiacyjny -->
+            <!-- Z odnosnikami -->
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#latest" data-icon="arrow-r" data-theme="b">Nowości</a></li>
+                    <li><a href="#blog" data-icon="arrow-r" data-theme="b">Blog</a></li>
+                    <li><a href="#videos" data-icon="arrow-r" data-theme="b">Filmy</a></li>
+                    <li><a href="#order" data-icon="arrow-r" data-theme="b">Zamówienie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- nowosci koniec-->
+    
+    <!-- Uzywamy JSON -->
+    <div id="blog" data-role="page" data-title="Blog"><!-- blog poczatek -->
+    	<div data-role="header">
+        	<h1>Blog</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        </div>
+        <div data-role="content" id="blog-wrapper">
+        	
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#latest" data-icon="arrow-r" data-theme="b">Nowości</a></li>
+                    <li><a href="#blog" data-icon="arrow-r" data-theme="b">Blog</a></li>
+                    <li><a href="#videos" data-icon="arrow-r" data-theme="b">Filmy</a></li>
+                    <li><a href="#order" data-icon="arrow-r" data-theme="b">Zamówienie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- blog koniec-->
+    
+
+    <!--  Pojedynczy wpis -->
+    <div id="post" data-role="page">
+    	<div data-role="header">
+        	<h1>Blog</h1>
+            <a href="#blog" data-icon="back" data-theme="b">Wróć</a>
+        </div>
+        <div data-role="content" id="post-wrapper">
+            
+        </div>
+    </div>
+    
+    <div id="videos" data-role="page" data-title="Filmy"><!-- Filmy poczatek -->
+    	<div data-role="header">
+        	<h1>Filmy</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        </div>
+        <div data-role="content" id="videos-wrapper">
+        	
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#latest" data-icon="arrow-r" data-theme="b">Nowości</a></li>
+                    <li><a href="#blog" data-icon="arrow-r" data-theme="b">Blog</a></li>
+                    <li><a href="#videos" data-icon="arrow-r" data-theme="b">Filmy</a></li>
+                    <li><a href="#order" data-icon="arrow-r" data-theme="b">Zamówienie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- Filmy koniec-->
+    
+
+    <!-- Pojedynczy film  -->
+    <div id="player" data-role="page">
+    	<div data-role="header">
+        	<h1>Player</h1>
+            <a href="#videos" data-icon="back" data-theme="b">Wróć</a>
+        </div>
+        <div data-role="content">
+        	<div id="video">
+            </div>
+        </div>
+    </div>
+    
+
+    <!--  Zamowienie formularz -->
+    
+    <div id="order" data-role="page" data-title="Zamówienie"><!-- zamówienie poczatek -->
+    	<div data-role="header">
+        	<h1>Zamówienie</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        </div>
+        <!--  formularz zamowienia -->
+        <div data-role="content">
+            <p>Wypełnij wszystkie pola</p>
+            <!-- Tworzenie formularza -->
+            <form id="orderform" method="get" action="#">
+        
+            <!-- Pierwsza grupa wporwadzanych danych -->
+            <div data-role="fieldcontain">
+            	<label for="firstname">Imię:</label>
+                <input type="text" id="firstname" name="firstname" />
+                <label for="lastname">Nazwisko:</label>
+                <input type="text" id="lastname" name="lastname" />
+                <label for="address">Adres:</label>
+                <input type="text" id="address" name="address" />
+            </div>
+
+            <div data-role="fieldcontain">
+            	<label for="pcode">Kod produktu:</label>
+                <input type="number" id="pcode" name="pcode" />
+                <label for="date">Data:</label>
+                <input type="date" id="date" name="date" />
+                <label for="comments">Uwagi:</label>
+                <!-- Miejsce do wpisywania tekstu atuomatycznie samo zmienia rozmiary -->
+                <textarea id="comments"></textarea>
+            </div>
+                <!-- Przycisk -->
+            	<button id="submit" data-theme="b">Wyślij</button>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#latest" data-icon="arrow-r" data-theme="b">Nowości</a></li>
+                    <li><a href="#blog" data-icon="arrow-r" data-theme="b">Blog</a></li>
+                    <li><a href="#videos" data-icon="arrow-r" data-theme="b">Filmy</a></li>
+                    <li><a href="#order" data-icon="arrow-r" data-theme="b">Zamówienie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- zamówienie koniec-->
+    
+    <!--  Ustawienia intro -->
+    
+    <div id="introsettings" data-role="page" data-title="Ustawienia intro"><!-- unstawienia intro poczatek -->
+    	<div data-role="header">
+        	<h1>Ostrzeżenie</h1>
+        </div>
+        <div data-role="content">
+        	<h2>Czy na pewno chcesz zmienić ustawienia?</h2>
+        	<p>Edycja ustawień może doprowadzić do nieprawidłowego działania aplikacji</p>
+            <!-- Przekierowanie do storn z ustawien -->
+            <a href="#settings" data-role="button" data-theme="b">Tak, chcę przejśc do ustawień</a>
+            <a href="#home" data-role="button">Nie, dziękuję</a>
+        </div>
+        
+    </div><!-- ustawienia intro koniec-->
+    
+    <!-- USTAWIENIA -->
+    <div id="settings" data-role="page" data-title="Ustawienia"><!-- ustawienia poczatek -->
+    	<div data-role="header">
+        	<a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        	<h1>Ustawienia</h1>
+        </div>
+        <div data-role="content">
+            <!-- ustawienia -->
+    		<form id="settingsform" method="get" action="#">
+            	<div data-role="fieldcontain">
+            		<label for="showlatest">Pokaż najnowsze produkty</label>
+                    <!-- Select  -->
+                    <select name="showlatest" id="showlatest" data-role="slider">
+                        <!-- Wybor opcji -->
+                        <!-- Funkcja wlaczona lub wylaczona -->
+                        <option value="On">Tak</option>
+                        <option value="Off">Nie</option>
+                    </select>
+                </div>
+                
+                <!-- Obiekty typu radio -->
+                <!-- Tworzenie kontrolek z kotrych mozemy wybrac tylko jedna z kilku -->
+                <div data-role="controlgroup" data-type="horizontal">
+                	<legend>Ilość wpisów na jednej stronie</legend>
+                    <label for="op1">5</label>
+                    <input type="radio" name="noposts" id="op1" value="op1" />
+                    <label for="op2">10</label>
+                    <input type="radio" name="noposts" id="op2" value="op2" />
+                    <label for="op3">25</label>
+                    <input type="radio" name="noposts" id="op3" value="op3" />
+                    <label for="op4">50</label>
+                    <input type="radio" name="noposts" id="op4" value="op4" />
+                </div>
+
+                <!-- Kontrolki ktore sa zaznaczane po ile chcemy -->
+                <div data-role="controlgroup">
+                	<legend>Wybierz kategorie produktów</legend>
+                    <label for="pcat1">Programowanie</label>
+                    <input type="checkbox" name="pcat1" id="pcat1" />
+                    <label for="pcat2">Internet</label>
+                    <input type="checkbox" name="pcat2" id="pcat2" />
+                    <label for="pcat3">Grafika</label>
+                    <input type="checkbox" name="pcat3" id="pcat3" />
+                    <label for="pcat4">Wideo</label>
+                    <input type="checkbox" name="pcat4" id="pcat4" />
+                </div>
+                <fieldset data-role="fieldcontain">
+                	<legend>Ilość filmów w jednej kategorii</legend>
+                    <label for="slider">(od 0 do 100)</label>
+                    <!-- Pasek przeiwjany -->
+                    <!-- 50 - polowa zakresu | Od 1 do 100  -->
+                    <input type="range" name="slider" id="slider" value="50" min="0" max="100" />
+                </fieldset>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="content">
+            	<p><a href="#home" data-icon="back" data-role="button" class="ui-btn-left" data-theme="b">Wróć</a></p>
+            </div>
+        </div>
+    </div><!--  ustawienia koniec -->
+    
+    <!-- Wiadomosci -->
+    <div id="messages" data-role="page" data-title="Wiadomości"><!-- wiadomości poczatek -->
+    	<div data-role="header">
+        	<a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        	<h1>Wiadomości</h1>
+        </div>
+        <div data-role="content">
+            <h2>Kategorie</h2>
+            
+            <!-- Widok listy -->
+            <ul data-role="listview">
+                <!-- Ilosc wiadomosci -->
+                <li><a href="#">Odebrane <span class="ui-li-count">7</span></a></li>
+                <li><a href="#">Wysłane <span class="ui-li-count">2</span></a></li>
+                <li><a href="#">Usunięte <span class="ui-li-count">14</span></a></li>
+            </ul>
+            <hr>
+            <h2>Najnowsze wiadomości</h2>
+            <ul data-role="listview">
+                <!-- Sformatowany naglowek -->
+            	<li data-role="list-divider">2013-10-07</li>
+                <li><a href="#">Lorem ipsum...</a></li>
+                <li><a href="#">Lorem ipsum...</a></li>
+                <li><a href="#">Lorem ipsum...</a></li>
+                <li data-role="list-divider">2013-10-06</li>
+                <li><a href="#">Lorem ipsum...</a></li>
+                <li><a href="#">Lorem ipsum...</a></li>
+            </ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="content">
+            	<p><a href="#home" data-icon="back" data-role="button" class="ui-btn-left" data-theme="b">Wróć</a></p>
+            </div>
+        </div>
+    </div><!--  wiadomości koniec -->
+    
+    <!-- Cennik -->
+    <div id="prices" data-role="page" data-title="Cennik"><!-- cennik poczatek -->
+    	<div data-role="header">
+        	<h1>Cennik</h1>
+            <a href="#home" data-icon="home" data-iconpos="notext" data-theme="b">Start</a>
+        </div>
+        <div data-role="content">
+            <!--  table-stripe /  -->
+            <!-- rola tabeli  -->
+            <!-- data mode columtoggle - przelaczanie wyswietlalnie ilosci tabel -->
+            <!-- Modyfikujemy tekst wyswietlany na pzycisku -->
+        	<table data-role="table" data-mode="columntoggle" id="pricestable" class="ui-responsive table-stripe ui-table" data-column-btn-text="Wybierz kolumny">
+                
+                <!-- style kolorowania od a do e -->
+                <thead class="ui-bar-d">
+       				<tr>
+                        <!-- Priorytety kolumn. To co ma najnizszy numer bedzie wysiwetlane jako najwazniejsze przy malym ekranie -->
+                        <th data-priority="3">ID</th>
+                        <th data-priority="1">Nazwa</th>
+                        <th data-priority="1">Cena</th>
+                        <th data-priority="2">Kategoria</th>
+       				</tr>
+     			</thead>
+                <tbody>
+                	<tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                    <tr>
+                    	<td>1</td>
+                        <td>Kurs jQuery - zaawansowany</td>
+                        <td>69.00zł</td>
+                        <td>Tworzenie stron</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div data-role="footer" data-position="fixed">
+        	<div data-role="navbar">
+            	<ul>
+                	<li><a href="#latest" data-icon="arrow-r" data-theme="b">Nowości</a></li>
+                    <li><a href="#blog" data-icon="arrow-r" data-theme="b">Blog</a></li>
+                    <li><a href="#videos" data-icon="arrow-r" data-theme="b">Filmy</a></li>
+                    <li><a href="#order" data-icon="arrow-r" data-theme="b">Zamówienie</a></li>
+                </ul>
+            </div>
+        </div>
+    </div><!-- cennik koniec-->
+
+<!-- Podpinamy nasz blog w postaci json -->
+<script src="http://blog.strefakursow.pl/?json=news&callback=showPosts" type="text/javascript"></script>
+
+<!-- pobieranie danych json z youtube -->
+<script src="http://gdata.youtube.com/feeds/users/strefakursow/uploads/?alt=json-in-script&orderby=viewCount&callback=showVideos" type="text/javascript"></script>
+</body>
+
+</html>
