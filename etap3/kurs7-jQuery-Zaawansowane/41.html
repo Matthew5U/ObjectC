@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>AJAX, JSON, XML</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <button id="bt" class="btn btn-primary">Wyślij</button>
+
+</div>
+
+<script>
+
+$('#bt').click(function()
+{
+	$.ajax(
+		{
+			url: 'plik.txt',
+			success: function(s)
+			{
+				alert($.type(s)); //wczytanie pliku
+			},
+
+			error: function(e)
+			{
+				alert('blad zadania')
+			},
+
+			complete: function(c) // zawsze sie wykona
+			{
+				alert('zadanie ukonczone');
+			}
+		}
+	);
+});
+	
+</script>
+
+</body>
+</html>
