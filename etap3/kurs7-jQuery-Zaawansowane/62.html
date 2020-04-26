@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Różne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="prototype.js"></script>
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <p id="art1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p id="art2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+</div>
+
+<script>
+
+
+
+// metoda uwolni znak $ i nie bedzie miala konfilkut z jq
+// tworzenie wlasnej zmiennej zmiast $ mamy np litere j
+var j = $.noConflict(); 
+
+// dodanie klasy za pomoca bilbitoeki jquery
+j(document).ready(function() {
+   j('#art2').addClass('text-error'); 
+});
+
+// dodanie klasy za pomoca bilbitoeki prototype
+function changeClass(){
+    // w prototype nie trzeb dawac # do id tylko poprostu zapisac
+	var art1 = $('art1'); // tutaj konfilkt bibliotek
+	art1.addClassName('alert alert-info');
+}
+
+// wywolanie naszej funkcji
+changeClass();
+		
+</script>
+
+</body>
+</html>
