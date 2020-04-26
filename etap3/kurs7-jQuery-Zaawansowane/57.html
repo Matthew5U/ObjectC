@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+	<div id="content">
+    
+    	<img src="php_adv.png" alt="#" id="cover"/>
+        
+        <hr>
+        
+        <p id="p1"><button id="btn1" class="btn btn-primary">Następny</button></p>
+        <p id="p2"></p>
+        
+    </div>
+  	
+</div>   
+
+<script>
+
+// po kliknieciu
+/*$('img').on('click',function(){
+	imgAlert(); // komunikat po kliknieciu obrazka - nasza funkcja
+});
+
+$('button').on('click',function(){
+	btnAlert();
+});*/
+
+function imgAlert(){
+	alert('IMG');
+};
+
+function btnAlert(){
+	alert('BUTTON');
+};
+
+
+// Delegacja zdarzen
+
+// odwolanie do eleemntu
+// zaregaowanie na click
+// obejmuje na obrazkach i przyciskach wewnatrz div content
+$('#content').on('click','img, button',function(e){
+	//domyslny
+	e.preventDefault();
+	
+	// wlasciwosc target
+	var t = e.target;
+	
+	// jesli wystapi na img lub przycisku
+	switch(t.tagName.toLowerCase()){
+		// Jeli wystapilo zdarzenie na obrazku
+		case 'img': 
+		imgAlert();
+		break;
+
+		// Jesli wystapilo zdarzenie na przycisku
+		case 'button':
+		btnAlert();
+		break;
+		default:
+	}
+	
+});
+
+//zmienna przycisk
+var newBtn = $('<button>',{
+	id: 'btn2',
+	'class': 'btn btn-primary', // slowo class jest zarezerwowana dla js
+	text: 'Poprzedni'
+});
+
+// Dodanie przycisku
+$('#p2').append(newBtn);
+
+</script>
+
+</body>
+</html>
