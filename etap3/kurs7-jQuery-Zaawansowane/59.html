@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    
+    <div id="nav-buttons">
+        <button class="btn btn-inverse">Pierwszy</button>
+        <button class="btn">Drugi</button>
+        <button class="btn">Trzeci</button>
+        <button class="btn">Czwarty</button>
+        <button class="btn">Piąty</button>
+    </div>
+  	
+</div>   
+
+<script>
+
+// kiedy nacisniemy i puscimy klawisz
+$(document.documentElement).on('keyup',function(e){
+	
+    // strzalka w lewo
+	if(e.keyCode == 37){
+        // dodanie klasy dla poprzednigo elementu w kodzie html
+		$('.btn-inverse').prev().addClass('btn-inverse');
+		
+        // usuniecie dla nastepnego czyli wczesniejszego elementu
+        $('.btn-inverse').next().removeClass('btn-inverse');
+	} 
+    // strzalka w prawo
+    else if (e.keyCode == 39){
+        // nastepny element na tym samym poziomie
+		$('.btn-inverse').next().addClass('btn-inverse');
+		$('.btn-inverse').prev().removeClass('btn-inverse');
+	}
+	
+});
+
+</script>
+
+</body>
+</html>
