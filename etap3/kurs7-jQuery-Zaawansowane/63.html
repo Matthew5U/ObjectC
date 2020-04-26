@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Różne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+<script src="jquery.cookie.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <p id="art1"></p>
+    <button id="run" class="btn btn-inverse">Stwórz cookie</button>
+    <button id="read" class="btn btn-inverse">Odczytaj cookie</button>
+    <button id="del" class="btn btn-inverse">Usuń cookie</button>
+
+</div>
+
+<script>
+
+// plugin cookie
+
+// pierwszy przycisk
+$('#run').on('click',function(){
+	
+    // plik cookie
+    // nazwa klucza, wartosc , czas wygasniecia (14 dni)
+    $.cookie('newcookie','strefakursow',{expires: 14});
+});
+
+
+$('#read').on('click',function(){
+    // ustawimy nowe cookie
+	var output = $.cookie('newcookie');
+	
+    // wprowadzamy zawratosc cookie
+    $('#art1').html(output);
+});
+
+
+$('#del').on('click',function(){
+
+    // usuwanie cookie
+	$.removeCookie('newcookie');
+});
+		
+</script>
+
+</body>
+</html>
