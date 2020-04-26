@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <ul id="list">
+    	<li>Php</li>
+        <li>Jquery</li>
+        <li>JavaScript</li>
+        <li>Ajax</li>
+        <li>MySQL</li>
+    </ul>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+    var items = $('li');
+    // pobieramy wszystkei elementy seplniajace to kryterium
+    //var output = items.get(); // () - wszystkie | (0) - pierwszy elelemnt | (-2) - drugi od konca
+    //alert(output.innerHTML);
+
+    alert(items.innerHTML); // pierwszy elelemnt w items
+
+    alert(items.index()); // numer indeksu pierwszego elelemntu pozycji
+
+});
+	
+</script>
+
+</body>
+</html>
