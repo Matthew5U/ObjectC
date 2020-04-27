@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Tworzenie pluginów</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <p id="par">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+</div>
+
+<script>
+
+// nasz wlasny plugin
+$('p').textColor();
+	
+// Nasz plugin mozna goprzeniesc do pliku 
+// obiekt $.fn a w nim metody
+// nazwa naszej metody textColor
+// wartoscia jest funkcja
+$.fn.textColor = function(){
+	// oryginalny obiekt jquery
+    this.css("color","blue");
+};
+
+</script>
+
+</body>
+</html>

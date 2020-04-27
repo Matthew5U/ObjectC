@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+	
+	var products = ['kurs js','kurs php','kurs jquery','kurs mysql','kurs joomla'];
+	var ul = $("<ul></ul>");
+	var items = [];
+
+	/*
+	$.each(products, function(i, v)
+	{
+		$("<li></li>").text(v).append(ul);
+	});
+	*/
+
+	$.each(products, function(i,v)
+	{
+		items.push("<li>" + v + "</li>");
+		//items += "<li>" + v + "</li>";
+
+	});
+
+	ul.html(items.join(''));
+
+	//ul.append(items);
+
+	$("#wapper").append(ul);
+
+})
+	
+
+
+</script>
+
+</body>
+</html>

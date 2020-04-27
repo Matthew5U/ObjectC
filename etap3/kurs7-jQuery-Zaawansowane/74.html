@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Tworzenie pluginów</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+<script src="borders.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <p id="intro">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+	
+    <p id="par">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin sodales, odio sit amet adipiscing rutrum, dui turpis vehicula sem, ac ornare lacus magna convallis turpis. Praesent varius, sem ut fermentum sollicitudin, quam mauris mattis sem, non molestie diam mi sed enim. Nam eget velit dolor.</p>
+    
+    <p id="foot">Praesent varius, sem ut fermentum sollicitudin, quam mauris mattis sem, non molestie diam mi sed enim. Nam eget velit dolor.</p>
+
+</div>
+
+<script>
+
+// nadpisujemy jedna z opcji 
+$('p').makeBorder({bRadius: "10px"});
+	
+
+// Wlasny plugin z opcjami
+
+(function($){
+	
+	$.fn.makeBorder = function(borderOptions){
+		//zmienna z ustawieniami
+        //extend odpowiada za dolaczanie obiektow
+        var borderSettings = $.extend({
+			bWidth: "1px",
+			bStyle: "solid",
+			bColor: "#999",
+			bRadius: "0"
+            // obiekt docelowy
+            // nadpisanie ustawien domyslnych
+		},borderOptions);
+		
+        // zwracamy nadpisywanie opcji stylownia bordera
+		return this.css({
+			"border-width" : borderSettings.bWidth,
+			"border-style" : borderSettings.bStyle,
+			"border-color" : borderSettings.bColor,
+			"border-radius" : borderSettings.bRadius
+		});
+	};
+	
+}(jQuery));
+
+
+</script>
+
+</body>
+</html>

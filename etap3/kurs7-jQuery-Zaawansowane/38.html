@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <ul id="list">
+    	<li>Php</li>
+        <li>Jquery</li>
+        <li>JavaScript</li>
+        <li>Ajax</li>
+        <li>MySQL</li>
+    </ul>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+    //$('li').addClass('text-warning'); // wszystkie elementy li
+    
+    //$('li').not(':first').addClass('text-warning'); // wprowadzamy zmiany oprocz not
+
+    $('li').flter(':first').addClass('text-warning'); // wybieramy tylko do elementu
+
+    $('li').filter(':even').addClass('text-warning'); // parzyste
+
+    $('li').slice(2).addClass('text-warning'); // dwa pierwsze elementy nie sa brane pod uwage
+    //slice(1,3) - odcina do 1 i pozniej od 3
+    
+
+
+});
+	
+</script>
+
+</body>
+</html>

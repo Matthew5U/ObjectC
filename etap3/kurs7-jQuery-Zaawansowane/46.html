@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>AJAX, JSON, XML</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <button id="bt" class="btn btn-primary">Wyślij</button>
+	
+    <div id="content">
+    
+    	
+    
+    </div>
+    
+</div>
+
+<script>
+
+$('#bt').click(function(){
+	
+	// zapytanie typu ajax
+	$.ajax(
+		{
+			url: 'produkty.xml',
+			dataType: "xml",
+			success: function(xml) // parametr
+			{
+				//alert(xml);
+				var ul = $("<ul>");
+				var links = '';
+				$(xml).find('product').each(function()
+				{
+					var name = $(this).find('name').text(); // pobieramy text z wezla
+					var href = $(this).find('link').text();
+					links += "<li><a href='" + href + "'>" + name + " </a></li>";
+				});
+				ul.html(links); // pozycja listy z odnosnikami
+				$('#content').appendTo(ul);
+			}
+		}
+	);
+	
+});
+	
+</script>
+
+</body>
+</html>

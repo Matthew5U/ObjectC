@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>AJAX, JSON, XML</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    
+	
+    <div id="content">
+    
+    	<form>
+        
+        	<input type="text" id="pname" name="productname" placeholder="Nazwa" />
+             <br>
+            <input type="text" id="price" name="price" placeholder="Cena" />
+            <label>Kategoria</label>
+            <select name="category">
+            	<option>Internet</option>
+                <option>Grafika</option>
+                <option>Wideo</option>
+                <option>Programowanie</option>
+            </select>
+            <br>
+            <label for="avail">Dostępny</label>
+            <input type="checkbox" name="avail" id="avail" value="true" />
+            <br>
+            <br>
+            <label>opis</label>
+            <input type="file" name="desc">
+        </form>
+    
+    </div>
+    
+    <button id="bt" class="btn btn-primary">Wyślij</button>
+    
+</div>
+
+<script>
+
+$('#bt').click(function(){
+    
+    // zmiana danych z formalurza na url
+
+    var str = $('form').serialize(); // serializacja
+    alert(str);
+	
+    // aby umozliwisc serializacje musi posiadac atyrbut name
+    // na plikach nie wykonamy serialize
+});
+	
+</script>
+
+</body>
+</html>

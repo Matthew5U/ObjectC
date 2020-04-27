@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zdarzenia - techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	<p>
+    	<button id="bt" class="btn btn-primary">Kliknij</button>
+    <p>
+    
+    <p id="par">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut est magna, tristique non libero ut, mollis posuere elit. Nullam velit lectus, sollicitudin in vehicula sed, venenatis vitae urna. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <hr>
+    <a href="http://strefakursow.pl" id="sk">Strefa Kursów</a>
+
+</div>
+
+<script>
+
+	/*
+	$('#bt').click(function()
+	{
+		alert('zdarzenie click'); // skrocona funkcja on
+	});
+
+	$('#bt').on('click', {name: 'click'}, function(e) // przekazujemy dane
+	{
+		alert(e.data.name);
+	});
+
+	*/
+	$('#sk').on('click', function(e)
+	{
+		e.preventDefault(); // blokujemy domyslne akcje narzucane przez przegladarka
+	});
+
+	$('#par').on('mouseenter', function()
+	{
+		$(this).addClass('alert alert info');
+	}).on('mouseleave', function() // dolaczamy zdarzenie przez kropke
+	{
+		$(this).removeClass('alert alert-info');
+	});
+
+</script>
+
+</body>
+</html>

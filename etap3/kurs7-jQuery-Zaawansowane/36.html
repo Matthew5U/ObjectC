@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <ul id="numbers">
+    	<li>Php</li>
+        <li>Jquery</li>
+        <li>JavaScript</li>
+        <li>Ajax</li>
+        <li>MySQL</li>
+        <li>Cms</li>
+        <li>Kurs</li>
+    </ul>
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+	function sortItems(a,b)
+    {
+        return a.innerHTML > b.innerHTML ? 1 : -1; //pytjanik ?
+    
+    };
+
+    $('ul li').sort(sortItems).appendTo('ul');
+});
+	
+</script>
+
+</body>
+</html>

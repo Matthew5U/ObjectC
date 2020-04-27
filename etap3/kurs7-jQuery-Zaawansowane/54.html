@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zdarzenia - techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">  	
+        
+</div>
+
+<script>
+var time = null; // zmienna mowiaca o czasie 5s do konca
+var rTime = null; // czas ktory pozostal
+var def = $.Deferred();
+
+// Jesli klikniemy to wykona sie funkcja
+def.done(function(){
+	alert("Pozostało: " + rTime + "S");
+});
+
+// Jesli nic nie wykonamy to ruchomi sie ta funkcja
+def.fail(function(){
+	alert('Koniec czasu');
+});
+
+// uplyw czasu
+setTimeout(function(){
+	def.reject();
+},5000);
+
+// obsluga zdarzeni click
+$(document).click(function(){
+
+	// ile pozostalo czasu
+	// wartosc odadnia wiec dododajmey minus
+	rTime = -($.now() - time)/1000;
+	
+	// obiekt zostanie zakceptowany 
+	def.resolve();
+});
+
+// sprawdza czas
+$(document).ready(function() {
+    time = $.now() + 5000;
+});
+
+
+</script>
+
+</body>
+</html>

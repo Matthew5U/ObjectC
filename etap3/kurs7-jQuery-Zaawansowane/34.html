@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zaawansowane techniki DOM</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    
+
+</div>
+
+<script>
+
+$(document).ready(function() {
+	var f = document.createDocumentFragment();
+	//f.appendChild(document.createElement(p));
+	//$('#wrapper').append(f);
+
+	f.appendChild(document.createElement('div'));
+	f.appendChild(document.createElement('div'));
+	f.appendChild(document.createElement('div'));
+	$('#wrapper').append(f);
+
+});
+	
+
+
+</script>
+
+</body>
+</html>

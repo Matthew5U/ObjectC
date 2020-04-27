@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Zdarzenia - techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">  	
+     <h3 id="title"></h3>
+     <p id="desc"></p>
+     </div>   
+</div>
+
+<script>
+
+$(document).ready(function(){
+   /*$.ajax({ // metoda ajax
+	   url: 'title.php', // adres
+	   success: function(data){ // jesli zadanie zadzaial prawdilowo
+		   $('#title').append(data); // dodanie danych do tytulu
+	   }
+	});
+	$.ajax({
+	   url: 'desccc.php', // tutaj do desccc.php
+	   success: function(data){
+		   $('#desc').append(data);
+	   }
+	});*/
+
+	var titleReq = $.ajax({ // zadanie do pierwszego pliku php
+	   url: 'titleee.php'
+	});
+	var descReq = $.ajax({ // drugie zadanie do pliku php
+	   url: 'desc.php'
+	});
+	// laczenie dwoch wartosci po przez slowko when, gdy obydwa dzialania zadzialaja prwadilo
+	// done - wykona funkcje
+	$.when(titleReq,descReq).done(function(titleData,descData){
+		$('#title').append(titleData[0]); // dodajemy opis z pliku. Doczynienia mamy z tablica, dltego wybieramy 0 gdyz sa to pierwsze elementy
+		$('#desc').append(descData[0]);
+	}).fail(function(){ // jesli sie nie uda znalesc pliku tozworci blad
+		$('#title').html('wystapił błąd');
+	});
+});
+
+</script>
+
+</body>
+</html>

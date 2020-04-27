@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Techniki zaawansowane</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="jquery-2.0.0.min.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+	
+    <img id="cover" src="php_adv.png" alt="">
+    <hr>
+    <p id="info"></p>
+	<button id="add" class="btn btn-inverse">Dodaj</button>
+    <button id="remove" class="btn btn-inverse">Usuń</button>
+  	
+</div>   
+
+<script>
+
+$(document).ready(function() {
+    // Funkcja uruchamianaa po kliknieciu
+	$('#add').on('click',function(){
+		$('#cover').on('click',function(){
+			alert('IMG');
+		});
+		// W akapicie wyswietl sie koumnikat
+		$('#info').html('dodano zdarzenie');
+	});
+	
+	// po klikniciu na id remove
+	$('#remove').on('click',function(){
+		
+		// off - wylacz obsluge zdarzen dla obrazka. Zdarzenie klikania zostalo usuniete
+		$('#cover').off('click');
+		$('#info').html('usunięto zdarzenie');
+	});
+	
+});
+
+
+
+</script>
+
+</body>
+</html>
