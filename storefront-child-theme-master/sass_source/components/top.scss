@@ -1,0 +1,208 @@
+// Ogolne wlasciwosci naglowka
+// Cala gora
+.site-header {
+	background: $white;
+	color: $main-text-color;
+	padding-top: 0;
+	margin-bottom: 30px;
+}
+
+// Wnetrze headera
+.site-header-inner {
+	width: 100%;
+	position: relative;
+	padding-top: 30px;
+	@media #{$small} {
+		@include plpr15;
+	}
+}
+
+/* Zlikwidowania paddingu dla naglowka */
+.site-header {
+	.col-full {
+		padding: 0 15px 0;
+	}
+}
+
+// Logo - reguly przeznaczony dla logo
+.site-header .site-branding {
+	float: none;
+	width: auto;
+	margin: 0;
+	clear: none;
+	display: table-cell;
+	h1 {
+		line-height: 2em;
+		a {
+			font-size: 23px;
+			color: $main-text-color;
+			@include basic-transition;
+			letter-spacing: .2em;
+			text-transform: uppercase;
+			&:hover {
+				color: $accent-color;
+			}
+		}
+	}
+}
+
+// Wyszukiwarka
+.woocommerce-active .site-header .site-search {
+	float: none;
+	width: 100%;
+	margin: 0;
+	clear: none;
+	margin-top: 25px;
+	@media #{$small} {
+		margin-top: 0;
+		display: table-cell;
+		vertical-align: top;
+		padding-right: 120px;
+		padding-top: 5px;
+		width: 30%;
+	}
+}
+
+// Koszyk
+// Ukrywamy szczegolowa zawartosc koszyka
+.widget_shopping_cart {
+	display: none;
+}
+
+// Style dla koszyka
+.woocommerce-active .site-header .site-header-cart {
+	width: auto;
+	float: none;
+	margin: 0;
+	display: none;
+
+	/* Znikanie dla malych rozdzielczosci */
+	@media #{$small} {
+		display: block;
+		position: absolute;
+		top: 0;
+		right: 15px;
+	}
+	
+	z-index: 9999;
+	padding: 20px;
+	background: $main-text-color;
+	text-align: center;
+	width: 66px;
+	a {
+		color: $white;
+		font-size: 20px;
+		position: relative;
+		top: 5px;
+	}
+	
+	/* Dodanie odpowiedniego marginesu */
+	.cart-icon {
+		display: block;
+		margin-bottom: 5px;
+	}
+}
+
+// Menu glowne
+// Wyzerowanie odnosnikow i padingow
+.main-navigation ul.menu ul li a, .main-navigation ul.nav-menu ul li a {
+	padding: 0;
+	margin: 0;
+}
+
+// Wyzerowanie styli dla menu ktore jest ustawione w rzedzie
+.woocommerce-active .site-header .main-navigation {
+	padding: 0;
+	margin: 30px 0 0;
+	position: relative;
+	border-top: 1px solid $bright-border-color;
+	font-size: 14px;
+	font-weight: 400;
+	// Od takiej wartosci ustawiamy style
+	@media #{$small} {
+		width: auto;
+		float: none;
+		margin-right: 0;
+	}
+	li {
+		margin: 0 20px 0 0;
+		a {
+			padding: 12px 15px;
+			color: $main-text-color;
+			@include basic-transition;
+			&:hover {
+				color: $accent-color;
+			}
+		}
+	}
+}
+
+// Style dla submenu
+.main-navigation ul.menu ul, .main-navigation ul.nav-menu ul {
+	background: $white;
+	padding: 8px 0;
+	li {
+		a {
+			padding: 5px 20px;
+			margin: 0;
+			@include basic-transition;
+			background: $white;
+			&:hover {
+				color: $accent-color;
+				background: $white;
+			} 
+		}
+	}
+}
+
+/* Prawidlowy kolor tekstow w rozwijanym menu */
+.main-navigation ul.menu ul.sub-menu li a {
+	color: lighten($main-text-color,30%);
+}
+
+// Menu mobilne
+// Menu rozwijane
+.menu-toggle {
+	background: $white;
+	margin: 20px auto;
+	box-shadow: none;
+	color: $main-text-color;
+	font-size: 18px;
+	font-weight: 400;
+	padding: 5px 10px;
+	&:hover {
+		color: lighten($main-text-color,30%);
+	}
+	&:active, &:focus {
+		color: $white;
+		background: $main-text-color;
+		outline: none;
+	}
+}
+
+// Menu unikalne dla urzadzen mobilnych
+.handheld-navigation {
+	position: absolute;
+	left: 0;
+	right: 0;
+	background: $white;
+	z-index: 9999;
+	ul {
+		li {
+			@include b-bottom;
+			// Pierwszy element na liscie
+			&:first-child {
+				border-top: 1px solid $bright-border-color;
+			}
+			a {
+				// Ikony ktore so dodane przed pseudoelementem
+				&:before {
+					content: none;
+				}
+	 		}
+		}
+		
+	}
+}
+
+

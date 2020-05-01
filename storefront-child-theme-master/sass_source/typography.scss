@@ -1,0 +1,38 @@
+// Plik zawiera style tekstow
+
+// Podstawowe wlasciwosci tekstu
+// Dla calego body
+body {
+	font-family: $primary-font;
+	font-size: $basic-font-size;
+	line-height: $basic-line-height;
+	color: $main-text-color;
+}
+
+// Glowne ustawienia dla naglowkow
+h1, h2, h3, h4, h5, h6 {
+	font-family: $secondary-font;
+	font-weight: 400;
+	margin: 0;
+	
+	color: $main-text-color;
+}
+
+p {
+	margin: 0 0 10px;
+	font-weight: 400;
+}
+
+h2 {
+	font-size: 213%;
+}
+
+h3 {
+	font-size: 130%;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}

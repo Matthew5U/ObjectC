@@ -1,0 +1,186 @@
+// Kontener strony 
+
+// Pojedyncza strona z produktem
+.single-product-inner {
+	padding: 38px 0 30px;
+	position: relative;
+	@media #{$small} {
+		@include plpr15;
+	}
+	// Summary - opis
+	.images, .summary {
+		width: 100%;
+		@include plpr15;
+		@media #{$small} {
+			float: left;
+			width: 50%;
+		}
+	}
+}
+
+// Wszystkie div kotre id zaczyna sie od product 
+div[id^="product"] {
+	padding-left: 0;
+	padding-right: 0;
+	@media #{$small} {
+		@include plpr15;
+	}
+}
+
+// Lewa kolumna
+.woocommerce-main-image {
+	display: block;
+	margin-bottom: 20px;
+}
+
+// Do miniaturek
+.thumbnails {
+	margin-bottom: 20px;
+	&:after {
+		@include clearfix;
+	}
+	a {
+		float: left;
+		width: 25%;
+		opacity: 0.55;
+		&:hover {
+			opacity: 1
+		}
+	}
+}
+
+
+// Prawa kolumna
+div[itemprop="description"] {
+	margin-top: 20px;
+	p {
+		line-height: 1.6em;
+	}
+}
+
+// Div otaczajacy asze ceny
+div[itemprop="offers"] {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	.price {
+		color: $accent-color;
+		font-weight: 400;
+		font-size: 40px;
+		display: block;
+		position: relative;
+		
+		// Cena promocyjna - cena aktualna
+		ins {
+			display: block;
+			line-height: 1.1;
+		}
+
+		// Cena przekreslona - cena stara
+		del {
+			font-size: 18px;
+			color: lighten($dark-grey,25%);
+		}
+	}
+}
+
+// Blok wyboru ilosci produktow
+.single-product .quantity, .cart button {
+	width: 100%;
+	display: inline-block;
+	@media #{$small} {
+		width: 33%;
+	}
+}
+
+// Odtep ilosc produktow od przycisku
+.quantity {
+	margin-right: 0;
+	margin-bottom: 10px;
+	@media #{$small} {
+		margin-right: 10px;
+	}
+}
+
+// Odstep (od kategoria: Odziez)
+.product_meta {
+	padding-top: 30px;
+	span {
+		margin-top: 5px;
+		display: block;
+		font-size: 13px;
+	}
+}
+
+// Zakladki na dole
+.tabs-wrapper {
+	@include plpr15;
+}
+
+// wc - woocommerce wraper
+.wc-tabs-wrapper {
+	border-top: 1px solid $bright-border-color;
+	padding-top: 20px;
+	margin-top: 10px;
+}
+
+// Przycisk opis i opinie
+.wc-tabs {
+	margin-bottom: 30px;
+	display: table;
+	li {
+		padding: 10px 0;
+		@media #{$small} {
+			float: left;
+			padding: 0 30px;
+			&:first-child {
+				padding-left: 0;
+			}
+		}
+		a {
+			color: $main-text-color;
+			font-size: 18px;
+			font-weight: 400;
+			@include basic-transition;
+			font-family: $secondary-font;
+		}
+	}
+}
+
+// Aktywne odnosniki
+.wc-tabs li.active a {
+	border-bottom: 2px solid $accent-color;
+}
+
+// Znikniecie naglowkow h2 w komentarzach
+.wc-tab h2 {
+	display: none;
+}
+
+// Opinie
+#comments {
+	padding-top: 0;
+	ol {
+		list-style-type: none;
+		li {
+			width: 100%;
+			padding: 0 0 20px;
+			display: table;
+			position: relative;
+			margin-bottom: 20px;
+			@include b-bottom;
+			img {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
+			// Odsuniecie komentarza od avatara
+			.comment-text {
+				position: relative;
+				padding-left: 80px;
+				.meta {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}
