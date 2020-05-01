@@ -1,0 +1,78 @@
+// Siatka na ktorej bede wyswietlane produkty
+// Klasa products a w tej klasie product
+.products .product,
+/* Takie same dla produktow w footerze */
+.site-footer .footer-widgets .block  {
+	margin-bottom: 30px;
+	/* Dla malych urzadzen */
+	@media #{$small} {
+		float: left;
+		width: 50%;
+		@include plpr15;
+	}
+	/* Dla srednich urzadzen */
+	@media #{$medium} {
+		float: left; 
+		width: 25%;
+		margin-right: 0;
+	}
+	img {
+		width: 100%;
+		/* Komorka tabeli */
+		display: table-cell;
+		/* Wyrownanie do srodka */
+		vertical-align: middle;
+	}
+}
+
+// Karta produktu
+// Klasa dla produktu
+.product-grid-wrapper {
+	@include basic-shadow;
+	 /* W odwolaniu do bloku */
+	position: relative;
+	padding: 6px;
+	a {
+		/* Ukrywanie elementow wychodzacych poza blok */
+		display: block;
+		overflow: hidden;
+	}
+	a > img {
+		@include basic-transition;
+		&:hover {
+			/* Powiekszenie o 10% */
+			transform: scale(1.1);
+		}
+	}
+	/* Block wyprzedazy lewy gorny rog */
+	.onsale {
+		top: 6px;
+		left: 6px;
+	}
+} 
+
+/* Znajduje sie tam opis produktu i cena */
+.product-grid-desc {
+	padding: 20px 6px;
+	.price {
+		font-size: 17px;
+		color: $accent-color;
+		/* Cena przekresloa, na promocji. Znajduje sie w znacnziku del(tekst przekreslony)*/
+		del {
+			/* Rozjasnienie koloru */
+			color: lighten($dark-grey, 10%);
+			font-size: 15px;
+		}
+	}
+}
+
+/* Odziela nam nazwe od ceny */
+.product-grid-divider {
+	border-bottom: 2px solid $bright-border-color;
+	display: block;
+	margin-bottom: 20px;
+	width: 100%;
+	clear: both;
+	height: 20px;
+}
+

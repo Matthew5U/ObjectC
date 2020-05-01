@@ -1,0 +1,40 @@
+// Ogolne style panelu logowania
+ .woocommerce-account {
+ 	h2 {
+ 		display: none;
+ 	}
+ 	.woocommerce {
+ 		width: 100%;
+ 		@media #{$small} {
+ 			width: 40%;
+ 			margin: 0 auto;
+ 		}
+ 	}
+ 	.login {
+ 		padding: 30px;
+ 		margin-top: 10px;
+ 		a {
+ 			color: $main-text-color;
+ 			margin-top: 10px;
+ 			display: inline-block;
+ 			&:hover {
+ 				color: $accent-color;
+ 			}
+ 		}
+ 		.button {
+ 			width: auto;
+ 			display: inline-block;
+ 		}
+ 		.inline {
+ 			float: right;
+ 			display: inline-block;
+ 			input {
+ 				position: relative;
+ 				top: 3px;
+ 			}
+ 		}
+ 		.lost_password {
+ 			margin-bottom: 0;
+ 		}
+ 	}
+ }

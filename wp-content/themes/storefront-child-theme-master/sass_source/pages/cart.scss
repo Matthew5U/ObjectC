@@ -1,0 +1,114 @@
+// Tabela produkty - style glowne
+table.cart {
+	td {
+		background: $white;
+		padding: 0;
+		vertical-align: middle;
+	}
+	th {
+		border-bottom: none;
+		padding: 11px 0;
+		font-weight: 400;
+		color: $main-text-color;
+		text-transform: none;
+	}
+	// Usuwamy wyroznienie co 2 wiersza
+	tr:nth-child(2n) td {
+		background: $white;
+	}
+
+	// Odwzorowania styli tabeli
+	tbody td {
+		border-bottom: 4px solid $main-bg-color;
+	}
+
+	// Dlugosc elelemntu wyboru ilosci rzeczy
+	input {
+		max-width: 80%;
+		@media #{$small} {
+			max-width: 40%;
+		}
+	}
+
+	// Kolor ciemny dla odnosnikow
+	a {
+		color: $main-text-color;
+		&:hover {
+			color: $accent-color;
+		}
+	}
+
+	// Przycisk usuwania z koszyka
+	.remove {
+		font-size: 1.3em;
+		display: block;
+		margin-left: 10px;
+	}
+
+	// Cena
+	.amount {
+		font-size: 1.2em;
+	}
+
+	th:nth-child(2), td:nth-child(2) {
+		display: none;
+	}
+
+	// Usuniecie drugiej kolumny 
+	@media #{$small} {
+		th:nth-child(2), td:nth-child(2) {
+			display: table-cell;
+		}
+	}
+
+	// kupon
+	.coupon {
+		margin-bottom: 20px;
+		@media #{$small} {
+			float: left;
+			margin-bottom: 0;
+		}
+	}
+	input[name="update_cart"] {
+		@media #{$small} {
+			float: right;
+		}	
+	}
+	.actions {
+		padding: 20px 15px;
+		.input-text {
+			padding: 8px 20px;
+			box-shadow: none;
+			line-height: 1.45;
+			margin-left: 10px;
+			margin-right: -2px;
+		}
+	}
+}
+
+// Podsumowanie koszyka
+.cart_totals {
+	h2 {
+		margin: 20px 0;
+		font-size: 1.6em;
+	}
+	table {
+		background: $white;
+		li {
+			margin-bottom: 5px;
+		}
+		.order-total {
+			// Podsumowanie ceny
+			.amount {
+				color: $accent-color;
+				font-size: 16px;
+			}
+		}
+	}
+}
+
+// Przycisk do przejscia do platnosci
+.wc-proceed-to-checkout {
+	float: right;
+	margin-top: 20px;
+}

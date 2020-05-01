@@ -1,0 +1,40 @@
+// Plik przechowuje zmienne
+
+// Zapytania o media
+// Zmienne mowiace o rozdzielczosci ekranu
+$x-small: "only screen and (min-width: 480px)";
+$small: "only screen and (min-width: 768px)";
+$medium: "only screen and (min-width: 992px)";
+
+// Zmienne tekstowe
+// Pierwsza czcionka
+$primary-font: 'Merriweather', sans-serif;
+// Druga czcionka
+$secondary-font: 'Lato', sans-serif;
+$basic-font-size: 13px;
+$basic-line-height: 1.42857;
+
+// Kolory
+// Zmienne przechowywujace kolory
+$accent-color: #C9743c;
+$white: #FFF;
+
+// Glowny kolor w main
+$main-text-color: #111;
+$v-light-grey: #f4f4f4;
+$dark-grey: #666;
+$section-border-color: #222;
+$bright-border-color: #EEE;
+$black: #000;
+
+$footer-bg-color: #191919;
+$footer-text-color: $bright-border-color;
+
+// Kolor tla
+$main-bg-color: #f0f0f0;
+$shadow-color: rgba(204,204,204,.7);
+
+// Kolory - komunikaty
+// W walidacji formularzu
+$msg-red: #BB1C23;
+$msg-green: #A7E5E0;
