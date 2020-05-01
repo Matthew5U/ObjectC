@@ -1,0 +1,144 @@
+// Ogolne style stopki
+
+// Caly div
+.site-footer {
+	padding-bottom: 0;
+	background: $main-bg-color;
+}
+
+// Dla elementow a ktore nie sa przyciskami
+.site-footer a:not(.button) {
+	color: $main-text-color;
+	@include basic-transition;
+	&:hover {
+		color: $accent-color;
+	}
+}
+
+// Style dla produktow
+// Mieszczenie sie dwoch kolumn
+.footer-widgets.col-4 .block {
+	margin-right: 0;
+}
+
+// Dla elementow produkty
+.footer-widgets {
+	padding-top: 0;
+	border: none;
+	.block {
+		margin-bottom: 20px;
+		aside {
+			padding: 25px 25px 10px;
+			margin-bottom: 0;
+			@include basic-shadow;
+		}
+	}
+
+	// Odwolanie do ul
+	ul {
+		font-weight: 400;
+		
+		// W ul do li
+		li {
+			padding: 15px 0;
+			font-size: 12px;
+			width: 100%;
+			@include b-bottom;
+			// Ostatni element li
+			&:last-child {
+				border-bottom: none;
+			}
+			@include clearfix;
+			a {
+				font-size: 14px;
+				padding-bottom: 5px;
+				display: block;
+				color: $main-text-color;
+				@include basic-transition;
+				&:hover {
+					color: $accent-color;
+				}
+			}
+
+			// Obrazek
+			img {
+				float: left;
+				max-width: 60px;
+				height: auto;
+				margin-right: 10px;
+			}
+
+			// Cena nowa
+			ins {
+				color: $accent-color;
+				
+				// Powiekszenie tekstu
+				font-size: 1.1em;
+			}
+
+			// Cena przekreslona
+			del {
+				font-size: 1.1em;
+				color: lighten($main-text-color,30%);
+			}
+		}
+
+		// Wszystkie ceny na pomaraczowo
+		li > .amount {
+			color: $accent-color;
+		}
+	}
+}
+
+// Dolny wiersz stopki - footer
+.sidebar-footerbottom {
+	background: $footer-bg-color;
+	color: $footer-text-color;
+	padding: 30px 15px 10px;
+	@media #{$small} {
+		padding-top: 10px;
+	}
+	h3 {
+		color: $footer-text-color;
+		margin: 19px 0;
+	}
+
+	// Linki w foter
+	.footerbottom-widget {
+		@include plpr15;
+		margin-bottom: 30px;
+		@media #{$small} {
+			width: 33.33%;
+			float: left;
+			// Usuwamy padding ktore wychodza
+			&:first-child {
+				padding-left: 0;
+			}
+			&:last-child {
+				padding-right: 0;
+			}
+		}
+		a {
+			color: $accent-color;
+			&:hover {
+				color: $footer-text-color;
+			}
+		}
+	}
+}
+
+// Divider
+.footerbottom-divider {
+	height: 1px;
+	background: lighten($dark-grey,35%);
+	clear: both;
+}
+
+// Style dla copyright
+.footer-credits {
+	padding: 25px 0 0;
+	p {
+		margin-bottom: 0;
+		
+	}
+}

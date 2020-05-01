@@ -1,0 +1,350 @@
+// Plik zawiera style globalne calej witryny
+
+// Body
+body {
+	background: $main-bg-color;
+}
+
+// Reset margin oraz padding
+body {
+	/* Wszstkie elementy wewnatrz body */
+	* {
+		margin: 0;
+		padding: 0;
+	}
+}
+
+// Usuwanie marginesow w id priamry i main
+#primary, #main {
+	margin: 0;
+	padding: 0;
+}
+
+// Box sizing
+// Model pudelkowy
+* {
+	box-sizing: border-box;
+}
+
+// Dla before i after
+*:before, *:after {
+	box-sizing: border-box;
+}
+
+// Tabele
+// Glownie strona koszyka bo bazuje na tabelach
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+// Glowna kolumna
+// Odpowiada za tekst ktory znajduje sie w sordku
+// Caly kontent tam jest
+.col-full {
+	max-width: 1200px;
+	padding: 0 15px 15px;
+	margin: 0 auto;
+}
+
+// Zawartosc wpisu/strony
+.entry-content {
+	/* Dla malych rozdzielczosci czyli do rozdzielczosci 768 */
+	@media #{$small} {
+		@include plpr15;
+	}
+}
+
+// Clear
+.clear {
+	clear: both;
+}
+
+// .content-area
+// Dla pojedynczego prduktu
+.content-area {
+	width: 100%;
+}
+
+// Wpis/Strona
+.hentry {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+// Odnosniki
+a {
+	font-weight: 400;
+	color: $accent-color;
+	outline: none;
+	@include basic-transition;
+	/* a:active, a:focus */
+	&:active, &:focus {
+		/* Obramowanie none */
+		outline: none;
+	}
+}
+
+.hentry .wp-post-image {
+	margin-bottom: 0;
+}
+
+// Elementy z bialym tlem
+.product-grid-wrapper, .entry-header,
+.footer-widgets .block aside,
+.single-product-inner, 
+.woocommerce-info, .col2-set, .woocommerce-checkout-review-order,
+.woocommerce-order-received .woocommerce,
+.woocommerce-account .woocommerce,
+.promo-box-inner {
+	background: $white;
+}
+
+// Etykieta promocja
+// Blok pokazujacy promocje
+.onsale {
+	display: block;
+	position: absolute;
+	background: $msg-red;
+	color: $white;
+	height: 35px;
+	line-height: 35px;
+	width: 90px;
+	text-transform: uppercase;
+	text-align: center;
+	left: 15px;
+	@media #{$small} {
+		left: 30px;
+	}
+}
+
+// Dla tych elementow zawsze font-weight: 400
+del, ins, span, th, label, strong {
+	font-weight: 400;
+}
+
+// Komunikaty sklepu
+// Np. dodanie produktu do koszyka
+.woocommerce-message {
+	padding: 15px 20px;
+	background: $msg-green;
+	line-height: 33px;
+	margin-bottom: 20px;
+	@media #{$small} {
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+	.button {
+		background: $white;
+		color: $main-text-color;
+		margin-right: 20px;
+	}
+}
+
+.woocommerce-error {
+	background: $msg-red;
+	color: $white;
+	padding: 15px 20px;
+}
+
+// Wymagane
+.required {
+	color: $msg-red;
+}
+
+
+// Gwiazdki
+// Style odpowiedzialne za dodoanie oceny w postaci gwiazdki
+.star-rating {
+		float: right;
+		overflow: hidden;
+		position: relative;
+		height: 1em;
+		line-height: 1;
+		font-size: 1em;
+		width: 5.4em;
+		font-family: 'star';
+
+		&:before {
+			content: "\73\73\73\73\73";
+			//color: darken( $secondary, 10% );
+			float: left;
+			top: 0;
+			left: 0;
+			position: absolute;
+		}
+
+		span {
+			overflow: hidden;
+			float: left;
+			top: 0;
+			left: 0;
+			position: absolute;
+			padding-top: 1.5em;
+		}
+
+		span:before {
+			content: "\53\53\53\53\53";
+			top: 0;
+			position: absolute;
+			left: 0;
+			color: $msg-red;
+		}
+	}
+
+	.woocommerce-product-rating {
+		@include clearfix();
+		line-height: 2;
+		display: block;
+
+		.star-rating {
+			margin: .5em 4px 0 0;
+			float: left;
+		}
+	}
+
+	.products {
+		.star-rating {
+			display: block;
+			margin: 0 0 .5em;
+			float: none;
+		}
+	}
+
+	.hreview-aggregate {
+		.star-rating {
+			margin: 10px 0 0 0;
+		}
+	}
+
+	#review_form {
+		#respond {
+			@include clearfix();
+			position: static;
+			margin: 0;
+			width: auto;
+			padding: 0 0 0;
+			background: transparent none;
+			border: 0;
+
+			p {
+				margin: 0 0 10px;
+			}
+
+			.form-submit {
+				input {
+					left: auto;
+				}
+			}
+
+			textarea {
+				box-sizing: border-box;
+				width: 100%;
+			}
+		}
+	}
+
+	p.stars {
+		position: relative;
+		font-size: 1em;
+
+		a {
+			display: inline-block;
+			font-weight: 700;
+			margin-right: 1em;
+			text-indent: -9999px;
+			position: relative;
+			border-bottom: 0 !important;
+			outline: 0;
+
+			&:last-child {
+				border-right: 0;
+			}
+
+			&.star-1,
+			&.star-2,
+			&.star-3,
+			&.star-4,
+			&.star-5 {
+				border-right: 1px solid #ccc;
+
+				&:after {
+					font-family: "WooCommerce";
+					text-indent: 0;
+					position: absolute;
+					top: 0;
+					left: 0;
+				}
+
+			}
+
+			&.star-1 {
+				width: 2em;
+
+				&:after {
+					content: "\e021";
+				}
+
+				&:hover:after,
+				&.active:after {
+					content: "\e020"
+				}
+			}
+
+			&.star-2 {
+				width: 3em;
+
+				&:after {
+					content: "\e021\e021";
+				}
+
+				&:hover:after,
+				&.active:after {
+					content: "\e020\e020"
+				}
+			}
+
+			&.star-3 {
+				width: 4em;
+
+				&:after {
+					content: "\e021\e021\e021";
+				}
+
+				&:hover:after,
+				&.active:after {
+					content: "\e020\e020\e020"
+				}
+			}
+
+			&.star-4 {
+				width: 5em;
+
+				&:after {
+					content: "\e021\e021\e021\e021";
+				}
+
+				&:hover:after,
+				&.active:after {
+					content: "\e020\e020\e020\e020"
+				}
+			}
+
+			&.star-5 {
+				width: 6em;
+				border: 0;
+
+				&:after {
+					content: "\e021\e021\e021\e021\e021";
+				}
+
+				&:hover:after,
+				&.active:after {
+					content: "\e020\e020\e020\e020\e020"
+				}
+			}
+		}
+	}
+
+

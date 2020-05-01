@@ -1,0 +1,50 @@
+// Style ogolne dla przyciskow
+input[type="button"], input[type="reset"],
+input[type="submit"], .button {
+	padding: 8px 20px;
+	font-weight: 400;
+	vertical-align: top;
+	line-height: 1.47;
+	box-shadow: none;
+	outline: none;
+	font-family: $primary-font;
+	@include basic-transition;
+	&:active, &:focus {
+		outline: none;
+	}
+}
+
+// Przyciemnianie oraz rozjasnianie
+$lda: 12%; 
+
+// Kolory oraz hover 
+.page .button {
+	background: $main-text-color;
+	color: $white;
+	/* Dla ciemno szarych */
+	&:hover {
+		background: lighten($main-text-color,$lda);
+	}
+}
+
+// Przyciski CTA( Call to action)
+#page .checkout-button,
+#page .single_add_to_cart_button, /* Dodaj do koszyka */
+#page #place_order, /* Przycisk zloz zamowienie */
+.login .button { /* Przycisk logowania */
+	background: $accent-color;
+	color: $white;
+	/* Dla przyciskow CTA, pomaranczowy */
+	&:hover {
+		background: darken($accent-color,$lda);
+	}
+}
+
+// Przycisk kupuje i place
+#page #place_order {
+	font-size: 20px;
+	width: 100%;
+	padding: 10px;
+}
+
+// Strona logowania

@@ -1,0 +1,24 @@
+// Plik zawierajace wszystkie pliki scss
+// Importujemy w odpowiedniej kolejnosci, gdyz inne moga byc uzyte w innych plikach
+
+// Elementy pomocnicze
+@import 'sass_source/variables.scss'; /* Zmienne */
+@import 'sass_source/mixins.scss';  /* Mixiny -czyli takie pomocnicze ustawienia typu padding itp */
+@import 'sass_source/global.scss'; /* Ustaiwenia globalne */
+@import 'sass_source/typography.scss'; /* Ustawienia czcionek */
+
+// Komponenty
+@import 'sass_source/components/product-grid.scss'; /* Siatka produktow */
+@import 'sass_source/components/buttons.scss'; /* Przyciski */
+@import 'sass_source/components/headers.scss'; /* Naglowki */ 
+@import 'sass_source/components/forms.scss'; /* Plik odpowiedzialny za fomrularze */
+@import 'sass_source/components/top.scss'; /* Gora */
+@import 'sass_source/components/footer.scss'; /* Stopka */
+
+// Strony
+@import 'sass_source/pages/single-product.scss'; /* Strona z prduktem */
+@import 'sass_source/pages/category-page.scss'; /* Sortowanie produktow */
+@import 'sass_source/pages/cart.scss'; /* Strona koszyka */
+@import 'sass_source/pages/checkout.scss'; /* Strona kasy platnosci */
+@import 'sass_source/pages/account.scss'; /* Strona logowania */
+@import 'sass_source/pages/front-page.scss'; /* Strona  frontowa */

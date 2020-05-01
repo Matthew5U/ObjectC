@@ -1,0 +1,87 @@
+// Naglowki produktu
+.products .product h3 {
+	@include text-size(18px,20px);
+	margin: 0 0 5px;
+}
+
+.product_title {
+	@include text-size(27px,30px);
+	margin: 0 0 5px;
+}
+
+// Naglowek h2
+.related h2 {
+	margin: 20px 0;
+	@media #{$small} {
+		@include plpr15;
+	}
+}
+
+// Naglowki widgetow stopki
+.widget_products h3 {
+	@include text-size(20px,22px);
+	padding: 0 0 20px;
+	margin: 0;
+	color: $main-text-color;
+	border-bottom: 2px solid $bright-border-color;
+}
+
+// Tam gdzie dodalismy wlasne klasy --
+// Naglowki sekcji
+.section-title-outer {
+	width: 100%;
+	margin-bottom: 30px;
+	margin-top: 20px;
+	@include clearfix;
+	@include plpr15;
+}
+
+// Wyswietlenie jako tabeli
+.section-title-wrapper {
+	display: table;
+}
+
+// Dla tytulu
+.section-title {
+	@include text-size(1.6em,1em);
+	padding: 10px 20px;
+	display: table-cell; /* Komorka tabelii */
+	white-space: pre; /* Wylaczenie zawijania tekstu */
+}
+
+// Separator
+.section-title-separator {
+	display: table-cell;
+	height: 1px;
+	position: relative;
+	vertical-align: middle;
+	width: 50%;
+}
+
+// Linia
+.section-title-line {
+	height: 1px;
+	border-bottom: 1px solid $section-border-color;
+	display: block;
+	position: relative;
+	top: 1px;
+	width: 100%;
+}
+
+// Naglowek strony
+.entry-header-outer {
+	@media #{$small} {
+		@include plpr15;
+	}
+}
+
+.hentry .entry-header, .archive .entry-header {
+	padding: 30px;
+	margin-bottom: 0;
+	border-bottom: none;
+	h1 {
+		border-bottom: none;
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+}

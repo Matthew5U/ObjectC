@@ -1,0 +1,36 @@
+2020-05-01T00:29:26+00:00 CRITICAL Uncaught Error: Call to undefined function storefront_html_tag_schema() in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php:12
+Stack trace:
+#0 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(723): require_once()
+#1 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(672): load_template('/shared/httpd/w...', true)
+#2 /shared/httpd/woocommerce/htdocs/wp-includes/general-template.php(41): locate_template(Array, true)
+#3 /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront/template-homepage.php(15): get_header()
+#4 /shared/httpd/woocommerce/htdocs/wp-includes/template-loader.php(106): include('/shared/httpd/w...')
+#5 /shared/httpd/woocommerce/htdocs/wp-blog-header.php(19): require_once('/shared/httpd/w...')
+#6 /shared/httpd/woocommerce/htdocs/index.php(17): require('/shared/httpd/w...')
+#7 {main}
+  thrown in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php on line 12
+
+2020-05-01T01:09:12+00:00 CRITICAL Uncaught Error: Call to undefined function storefront_html_tag_schema() in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php:12
+Stack trace:
+#0 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(723): require_once()
+#1 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(672): load_template('/shared/httpd/w...', true)
+#2 /shared/httpd/woocommerce/htdocs/wp-includes/general-template.php(41): locate_template(Array, true)
+#3 /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/template-homepage.php(15): get_header()
+#4 /shared/httpd/woocommerce/htdocs/wp-includes/template-loader.php(106): include('/shared/httpd/w...')
+#5 /shared/httpd/woocommerce/htdocs/wp-blog-header.php(19): require_once('/shared/httpd/w...')
+#6 /shared/httpd/woocommerce/htdocs/index.php(17): require('/shared/httpd/w...')
+#7 {main}
+  thrown in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php on line 12
+
+2020-05-01T01:09:13+00:00 CRITICAL Uncaught Error: Call to undefined function storefront_html_tag_schema() in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php:12
+Stack trace:
+#0 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(723): require_once()
+#1 /shared/httpd/woocommerce/htdocs/wp-includes/template.php(672): load_template('/shared/httpd/w...', true)
+#2 /shared/httpd/woocommerce/htdocs/wp-includes/general-template.php(41): locate_template(Array, true)
+#3 /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/template-homepage.php(15): get_header()
+#4 /shared/httpd/woocommerce/htdocs/wp-includes/template-loader.php(106): include('/shared/httpd/w...')
+#5 /shared/httpd/woocommerce/htdocs/wp-blog-header.php(19): require_once('/shared/httpd/w...')
+#6 /shared/httpd/woocommerce/htdocs/index.php(17): require('/shared/httpd/w...')
+#7 {main}
+  thrown in /shared/httpd/woocommerce/htdocs/wp-content/themes/storefront-child-theme-master/header.php on line 12
+
