@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>MooTools</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="style.css" />
+<script src="mootools-core-1.4.5-full-nocompat.js"></script>
+</head>
+
+<body>
+
+<div id="wrapper">
+
+    <div id="content">
+    
+        <button class="btn btn-primary" id="button">Odczytaj</button>
+        <button class="btn btn-primary" id="remove">Usuń</button>
+
+    </div>
+
+</div>
+
+<script>
+
+var c = Cookie.write('username','Strefakursow', {duration: 7}); // 7 dni
+
+
+$('button').addEvent('click',function(){
+	var output = Cookie.read('username');
+	alert(output);
+});
+
+$('remove').addEvent('click',function(){
+	if(Cookie.read('username') == 'Strefakursow')
+	{
+		c.dispose();
+	}
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Żadania</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:500px;">
+
+	<button class="btn btn-primary" id="button" type="button">Wyślij</button>
+    
+    <br>
+    <br>
+    
+	<div id="data">
+
+	</div>
+
+</div>
+
+
+<script>
+
+var btn = document.getElementById('button');
+var data = document.getElementById('data');
+
+btn.addEventListener('click',function(){
+	
+	function createObject(){
+		return new XMLHttpRequest();
+	}
+	
+	var req = createObject();
+	req.open('GET','data.json',true);
+	req.send(null);
+	req.onreadystatechange = function(){
+		if(req.readyState == 4)
+			var jsonObj = eval("(" + request.responseText + ")") // zmiana do formatu json
+		data.innerHTML = jsonObj.products[1].price;
+	};
+	
+	});
+
+</script>
+
+
+</body>
+</html>
