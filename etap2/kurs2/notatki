@@ -1,0 +1,356 @@
+_________________________________________________________________________________________________
+Kurs "Responsive Web Design" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja. RWD
+-------------------------------------------------------------------------------------------------
+Nowosci w CSS Layout:
+    - Flex Box
+        Sa to kontenery ktorymi mozemy sterowac
+
+    - Grid Layout
+    
+    
+    - Kształty
+    
+    
+    - Wykluczenia
+    
+    
+    - CSS Regions
+
+Chrome Canary - przegladarka chroma ktora udostepnia funkcjonalnosci ktore bede kiedys udostepnione
+
+    Flex:
+        display: flex; <- kontener oparty o flex model, obok siebie jak float 
+        flex: 1; <- dopasowanie sie do wartosci calego kontenera, ile zostalo miejsca | dwa divy 
+            to jesli damy kazdemu po 1 to sie podzielna na pol
+        order: -1; <- wskazuje ze jest wyzej niz element nad nim znajdujacy sie w kodzie
+
+    Grid(siatka):
+        Wartosci:
+            -procenty/fixed
+            -nazuje na zawartosci
+            -elastyczny
+
+        Rozmieszczenie:
+            -header
+            --------
+            -nav
+            -article
+            -aside
+            --------
+            -footer
+
+        Funkcje:
+            column-count: 4; <- dzielenie na kolumny tekstu
+            column-rule: 1px solid red; <- obramowanie
+            column-gap: 40px; <- zarzadzanie przestrzenia
+
+    Wykluczenia:
+        wrap-flow: both; <- dla obrazka albo kontenerow zachodzi funkcja oplywania go
+        wrap-margin: <- margines
+        position: absolute;
+
+    Kształty
+        shape-outside: circle(50%, 50%, 50%) <- oplywanie obrazku, kontenera ktory ma ksztal 
+            np kola
+            
+        shape-inside: circle(50%, 50%, 50%)  <- Jest to ksztal w srodku kontenera
+
+    Regions:
+        Przeplywanie contentu z jednego diva do drugiego
+
+            Region change - zawartosc ktora chcemy rozbic
+
+            Tworzymy nowe divy do ktorych bedziemy przelweac tekst
+
+            Css w ktorym znajudje sie nasz test(w tej klasie formatujemy tekst):
+                float-into: regionyCSS; <- tworzymy wlasna nazwe
+
+
+            Css dla divu w ktorych ma sie znalesc tekst:
+                flow-from: regionyCSS; <- Flow ma byc z wczesniejszej stworzonej klasy
+
+    Laczenie filtrow css(blend)
+
+
+PRZYDATNY KOD:
+Tworzenie slidera w css:
+    <div class="slider">
+        <div class="slides-container">
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+        </div>
+
+        <span class="nav prev icon-left-open"></span>
+        <span class="nav next icon-right-open"></span>
+    </div>
+ 
+ ctr+d zaznacza wszystkie takie smae znaczniki
+
+box-sizing - sa liczone z ogolnym divem 
+
+Floatowane video:
+#section2 .video-player
+ {
+	overflow: hidden;
+}
+
+#section2 .video-player h1
+{
+	font-size: 18px;
+}
+
+#section2 .video-player .left
+{
+	margin-right: 330px;
+	width: auto;
+}
+
+#section2 .video-player .right
+{
+	width: 300px;
+	float: right;
+}
+
+.fluid-video-wrapper
+{
+	position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+<div class="fluid-video-wrapper">
+    <iframe src="//www.youtube.com/embed/XYm8v_eUIpQ" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+
+	text-overflow: ellipsis; <-- chowajac text dodaje trzy kropki ...
+
+    Facebookwe komentarze:
+    #fb-root 
+    {
+        display: none;
+    }
+
+    .fb_iframe_widget, 
+    .fb_iframe_widget span, 
+    .fb_iframe_widget span iframe[style] 
+    {
+        width: 100% !important;
+    }
+
+<<<<<<<<<<<<<<<< Obrazy >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Problem ladowania obrazkow w zaleznosci od wyswietlacza
+    Wpisanie na sztywno dwoch obrazow i zmienianie tylko klasy nie poprawia transferu dla
+    uzytkownika
+
+    Ustalenie obrazu w css po przez media queries (media@) optymalizujemy pod kontem konkretnego
+        urzadzenia.
+        Dzieki temu zabiegowi na malych urzadzeniach jest mozliwosc pobrania tylko malego obrazu.
+        Duzy obraz tez bedzie pobrany ale juz na duzych monitorach
+
+	background-image: -webkit-image-set(url('obraz.jpeg') 1x, url('obraz.jpeg') 2x); <- dla obrazow
+        zwyklych czyli 1x ustawiany jest jeden obrazek a jesli retina ktora sklauje x2 to drugi 
+        obrazek bedzie zaladowany
+
+    Uzycie bilioteki js - srcset-polyfill
+    <img srcset="obraz1.jpeg 2x, obraz2.jpeg 480w"> <- w znaczniku zapisujemy jakie obrazy maja byc 
+        wysiwetlane po zaladowaniu strony, trzeba odswiezyc strone aby nowy obraz zostal zaladowany
+
+    bilbiotek picturefill.js <- bilioteka ta pozwala na ladowanie obrazkow w zaleznoci od rozdizelczosci
+        monitora
+
+        <span data-picture data-alt="tekst alternatywny">
+        <span data-src="crocodile_480x285.jpg"></span>
+        <span data-src="crocodile_960x570.jpg" data-media="(min-width: 481px)"></span>
+        <span data-src="crocodile_1920x1140.jpg" data-media="(min-width: 481px) and 
+        (-webkit-min-device-pixel-ratio: 2)"></span>
+
+<noscript></noscript> Wykonuje kod w momencie blokowania js w przegladarce
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Tabele >>>>>>>>>>>>>>>>>>>>
+    Responsywne tabele:
+        -Wylaczanie kolumn 
+        -Dodanie skypru ktory kontroluje co ma byc wyswietlanie przez tabele
+        -Tabela w postaci listy - cala tabela jest zmieniana w liste
+        -Tagi na > tabele > na liste
+        -Reorganizacja tabeli. Naglowki zamieniaja sie z wartosciami miejscami
+        -Ukrycie tabeli i dopiero nacisniecie powoduje jej wyswietlenie
+        -Tabela w postaci kola
+
+PRZYDATNY KOD:
+    1. Przyklad
+        @media screen and (max-width: 64em){
+        .stock-market th:nth-child(4),
+        .stock-market th:nth-child(5),
+        .stock-market td:nth-child(4),
+        .stock-market td:nth-child(5){
+            display: none;
+            }
+        }
+
+    2. Przyklad scrollbara
+    .flip-scroll table <-- klasa do skrolowania tabel
+        .flip-scroll table{
+        width: 100%;
+        display: block;
+        position: relative;
+        border-collapse: collapse;
+        border-spacing: 0;
+        }
+
+        .flip-scroll thead{
+            display: block;
+            float: left;
+        }
+
+        .flip-scroll thead tr{
+            display: block;
+        }
+
+        .flip-scroll th{
+            display: block;
+            text-align: right;
+        }
+
+        .flip-scroll tbody{
+            display: block;
+            width: auto;
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .flip-scroll tbody tr{
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .flip-scroll td{
+            display: block;
+            min-height: 1.25em;
+            text-align: left;
+        }
+    }
+
+    3. Przyklad listy
+    @media screen and (max-width: 64em){
+
+        .table-to-list table,
+        .table-to-list thead,
+        .table-to-list tbody,
+        .table-to-list th,
+        .table-to-list td,
+        .table-to-list tr{
+            display: block;
+        }
+
+
+        .table-to-list thead tr{
+            position: absolute;
+            top: -9999px; // wyrzuca gdzies po za strone (WTF?)
+            left: -9999px;
+        }
+
+        .table-to-list tr{
+            border: 1px solid #000;
+        }
+
+        .table-to-list td{
+            position: relative;
+            padding-left: 50%;
+            border: none;
+            border-bottom: 1px solid #eee;
+            white-space: normal;
+            text-align: left;
+        }
+
+        .table-to-list td:before{
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap; // nie wchodza do nowej lini
+            text-align: left;
+            font-weight: bold;
+
+            content: attr(data-title); // dla td wartosc date-title
+        }
+
+    }
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TOUCH EVENTS >>>>>>>>>>>>>>>>>>>>>>>
+Rodzaje:
+    touchstart - dotkniecie ekranu
+    touchmove - porusza sie po ekranie
+    toucheend - zabranie palca z ekranu
+    touchenter - najedzie na element palcem
+    touchleave - opusci element palcem
+    touchcancel - wyjedzie palcem poza okno przegladarki
+
+<canvas></canvas> <- element do rysowania po obiekcie
+
+OBSLUGA GESTOW:
+Hammer.js - obsluguje gest np tapniecia itp
+
+
+
+
+
+
+
+ZACZAC LEKCJE "TWOZENIE NAIWGACJI NA STRONIE"
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja.
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja.
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
