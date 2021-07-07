@@ -1,0 +1,409 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Photoshop dla DEsignerow" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+
+    <!-- LESS -->
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Kolory w photoshop
+-------------------------------------------------------------------------------------------------
+
+Zarzadzanie kolorami dla sieci
+    -Standard ICC <- domysle ustawienia
+        -gamma 1.8/2.2 <-wartosc jasnosci
+        -white point D65 <- bialy punkt
+        -profil sRGB <- profil rgb. Mozna dostosowac softwerowo lub hardweorowo
+
+    Photoshop przyporzadkowuje profil kolorystyczny co wplywa na przesuniecie kolorow
+        -Adobre rgb <- profil photoshop
+        
+        -------
+        -monitor RGB <- profil optymalny dla sieci czyli taki z ekranu
+        -asid prifile <- metoda nieszkodlawia dla kolorow naszego pliku
+        -convert profil <- modyfikujemy nasz profil kolortyczny w pliku
+        -odzanczamy sRGB i embed color profile przy zpaisie dla web
+        -------
+
+        kolor dla sieci wybieramy color setting sRGB <- na tym dzialamy. moze nie do konca zgadzac
+            sie z tym co bedzie w seci
+
+            Aby to obejsc
+                view > proof setup > monitor rgb podgladanie kolorow jak beda wygladac pliki wyslane
+                strone
+
+            Mozna przy zapisie do sieci(web) zapisac convert to sRGB ale nie trzeba bo i tak pracujemy
+                z tym trybem
+
+--------------------------------------------
+Techniki pracy z kolorem
+    Kolory w sieci 
+        kod 16 #RRGGBB
+
+        Probnik koloru:
+        wciesniety alt i probnik daje mozliwosc zmiany koloru background
+
+        Panel:
+            color <- wybor koloru
+            swatches <- mozliwosc wyboru gotowego koloru
+
+                Mozliowsc zapisania wlasnych kolorow na swatches <> pliki.aco 
+
+                kuler.adobe.com <- zestawy kolorustyczne
+
+                Regula kola kolorow <- rozne reguly przy wyborze kolorow
+
+                Adobe kuler w photoshop 
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Przydatne techniki
+-------------------------------------------------------------------------------------------------
+
+    Nagrywanie akcji
+        Window> action > nowy katalog> nazwa katalogu > record > wszystko co zostanie wykonane w 
+            photoshopie zostanie nagrana akcja
+
+
+    Window > tmeline < wszystkie warstwy zostana dodane do timeline
+        Dzieki temu mozemy tworzyc animacje
+            Dodawanie klatek mowi nam jak pa wygladac animacja
+
+        file > export > export videos
+
+
+    Save for web > gif
+
+
+    -------------------------------------
+    Pikselowa perfekcja
+
+    W adobe ilustrator. Tworzenie grafiki wektorowej. Zamian grafiki wektorowej na bitmae daje ta 
+        mozliwosc ze piksele sa rowno ustawione. Nie da sie trafic na siatke pikseli gdzie piksel 
+        bedzie na srodku siatki 
+
+    ctl+k > snap vector tools and transforms to pixel grid > piksele sa wyrownywane do grda bitmapy
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z wzorami
+-------------------------------------------------------------------------------------------------
+
+    Definiowanie wzorow
+        Adobe ilustrator
+        symbol > object > patter > make > done 
+            > swatches <- i jest nasz wzor
+
+        Photoshop
+            kwadrat 2x2 > robimy wzor > edit >define patter >
+                patter stamp tool <- malujemy wzorem
+
+            shift+alt+prawy_przyciskmyszy <-zmianakolour
+
+            alt+prawyprzyciskmyszy <- zmiana rozmiaru pedzla 
+
+            Szum nadkladanie na warstwe z tlem > filter > noise
+
+    ------------------------------------------------
+    Ksiezycowy obraz
+
+        Generujemy szum (generowane sa na podstawie pikseli ktore juz sa na warstwie)
+        image > adjustment > Brightness /contrast
+        Skalowanie istneijacej warstwy
+        filt >sharpen > smart sharpen > amount
+        ctrl + e laczenie warstw
+        szybka maska
+        to co jest biale jest widoczne to co jest czarne jest niewidoczne
+        filtr > render > clouds
+        gumka ycieranie wybranej warstwy
+
+        alternatywe
+        filtre >render > lighting effects
+        infinit light -zarzadzanie swiatlem dla sceny
+
+        render > lighitn efect > presets ,- rowne modyfikacje oswietlenia
+
+        render > lens flare - rodzaj flary (Taki blysk)
+
+    ---------------------------------------------------
+    Wykorzystanie z pattern
+
+        Zaznaczyc plik i wyodrbnic to co jest na canvasie(lub copy merged) i wklejamy 
+        Edit > defin pattern
+        filter > other > offset 
+        Przesuwanie wymiarow o 200
+        patter overley > zebra 2 
+        zaznaczam fragment > edit > fill > content-avare
+        defin patern
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Projektowanie layoutuow na wiele urzadzen
+-------------------------------------------------------------------------------------------------
+    Przygotowanie na wiele rodzielczosci. Teraz juz sie nei projektuje strony na kilka roznych 
+        rozdzielczosci tylko trzeba miec na uwadze iz teraz jest zbyt duzo rozdizeloczosci aby 
+        tworzyc na jedna z nich.
+
+    Towrzenie nowych plikow z layoutem towrzymy wymiary dokumentu
+        Liie podzialku pomagaja utrzymac wymiary okna
+        Nalezy wziac pod uwage na elementy przelgadraki typu scroll bar itp
+
+        Na telefonie nie mam scroll barow - wiec tam nie trzeba rezerwowac miejsca na te narzedzia
+
+    Wykorzystanie grid 960.gs w photoshop
+        Kazdy plik zawiera kolumny 12, 16, 24.
+        Na takej siatce latwo mozna stowrzyc strone ktora jest idealnie rozmieszczona przez pomocnicze
+            siatki.
+
+            Istnieje plagin dla photoshop 960.gs
+                Window > action > 960 grids 
+
+-------------------------------------------------------------------------------------------------
+Czesc inne przydatne funckje
+-------------------------------------------------------------------------------------------------
+
+    Nie warto zapisywac pliku do html z photoshopa
+
+    -----------------------------------------------------
+    Smart object
+
+        W adobi ilustrator kopiujemy grafike do photoshop jako smart boject 
+
+            Taki obiekt 
+                - mozna skalowac bez utraty jakosci
+                - mozna go edytowac w dowolnym czasie w np aplikacji adoby ilustrator. Zmiany tam 
+                    wprowadzone sa zapisywane i wysylane do aplikacji w ktorej jest grafik juz otwarta 
+                    czyli np w photoshop 
+
+    -------------------------------------------------------------
+    Layer Comps
+
+        Windows >layer comps <- jest ot warstwa do np symulacji rozwijania menu na stronie
+        Dodanie nowego layer comp 
+            applay to layer
+                visibilite <- ukryta lub odslonieta pozycja
+                position <- polezenie warst w widoku layers
+                appearance <- zapis zmiany stylu warstw
+
+                ^to jest do warstw ktore cos maja do pokazania a nie do menu ktore istnieje i jest 
+                    tylko przenoszone na layoucie 
+
+        Do rozsuwania menu ktore istnieje ale jest poza canvasem sluzy
+            window > history >create snapshoot 
+                
+                    dzieki temu podejsciu maozemy przelaczac sie miedzy tymi tak jakby stronami
+
+-------------------------------------------------------------------------------------------------
+Czesc Praktyczny projekt
+-------------------------------------------------------------------------------------------------
+
+    shift+tab ukrycie bocnzego prawej belki
+    f <- jak fullcsreen
+    file new > akction > grid960 > image > cnavas size > odznaczamy relative
+    ctrl+R > units pixels
+    view > snap to > snap to guides - przyleganie 
+         > lock guides - blokuje linie podzialki girda 
+
+    preferences > guides > girdline every - co ile lini podzialki
+
+    New workspace na gorze po prawej 
+    alt+shift - kopiowanie elementow i przesuwanie w lini
+
+    ctrl+h odznaczenie zaznaczonych warstw
+
+    Szkic - mokaup
+
+    Podlozenie tekstury
+        klikamy prawy na warstwe > duplicate layer > ctrl+T > ctr+0 (skalowanie pliku aby zobaczyc rozmiary)
+
+        alt najezdzamy na laczenie warst (cliping mask) > tryb mieszania na wastwie(normal > multiply)
+
+        Wpisujemy tekst > nastepnie prawy i conver to shape i staje sie napis wektorowy
+
+        txext > i klikamy na canvasie i mozemy pisac bez zalamania lini
+        ctrl+enter - wyjscie z edycji textu
+
+        Type > lorem impsu
+
+        alt+ strzalki - powiekszamy odstpepy lub zmniejszamy
+
+        Window > paragraph style - umozliwa zpaisanie ustawien tekstu 
+
+        paragraph style option - ustawienia stylu
+
+        ctrl+; - pokazanie lini podzialki
+
+
+        Prostokat z zaokraglonymi bokami > dwa razy klikamy na ta warstwe za jej nazwa (layer style)
+            ctrl+h - ukrywa zazanczenie elementu
+            bevel & emobss - taki jakby gradient
+
+            Bierzemy pod uwage nakladanie warstwe gdyz w ps6 warstwy nakladaja sie na siebie
+
+            JEsli nie zrastrujemy naszeg o prostokata to nie mozemy nadac mu szumu
+            ^ mozna uzyc pattern overlay aby nie stracic wlasciwosci wektorowych
+
+        NArzedzie selekcji z sziftem skaluje idealnie ksztalt np kolo
+
+        ctrl +shift+i > delete usuwa reszta pikseli
+
+        ctrl+T -zmiana rozmiaru ksztaltu
+
+
+        Praca z Ribbonem
+            warp - wyginanie ksztaltu
+
+            mozliwosc dodaia punktu wektorowego
+            conver point tool > klikamy na punkcie wektorowym i usuwa nam wygladzenie lini
+            Dodanie drop shadow > ctrl > ikonka rectangel1 >shift+ctrl > kilkam nastepne obrazki male > 
+            ctrl+del wypelnieie kolorem wewnatrz > ctrl+d -odzanaczanie > przesuwam warstwe na spod i dajemy drop
+            shadow
+            
+            --DALSZA CZESC--
+            klawisz alt modyfikuj jednatylko punkt wyginania
+            stroke - obramowanie
+            create layers - wszystkie efkety beda rozdzielone na rozne warstwy
+            ctrl+J - powielenie 
+            zanzaczamy element wybieramy recntangle i wybieramy stroke
+            Zaznaczamy warstwy > new group froma layers i grupujemy do jednej warstwy
+
+            subtruct froma shape - czyli wyciecie z ksztaltu
+
+            pencil > brush >spacing (duza wartosc ) > selekcja
+
+
+        Praca z menu
+            filter >sharpen >smart sharpen - wyostrzanie obrazka
+            ctrl+shift+n - nowa warstwa
+                ctrl - przeniesie sie do narzeda move tool
+                spacja - przeniesie sie do narzedza przesuwania(lapka)
+
+            Keybrd shortcuts and menus <- mozliwosci dostosowania skroty klawiszowe
+
+
+        Auto select - zaznaczanie calych warst
+
+        Rectangle marque tool > zanzaczamy i klikamy maske
+
+        przytrzymanie szift zaznacza dane przemidoty
+
+        Wyrownanie jest na gorze listy. Cliping daj moziwosc kolorowania tylko danego elementu
+
+        Tworzenie ikonek
+
+            Nowy plik (80x80px)> window > new window for untided5 > window > arrange > 2-up vertical
+            Rysujemy ksztaltami np aparat        
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Zapisywanie i optymalizacja grafiki
+-------------------------------------------------------------------------------------------------
+    Grafiki
+        -Wektorowe
+            -.svg
+
+        -Rastrowe
+            -.png - zapis obrazka z przezroczystoscia
+                Lepszy format od gif bo mniej wazy przy tych samych wartosicach
+                Najelpsze formaty do zapisywania z przezroczystoscia
+                Format bezstratny
+                png8 - pliki bez przejsc tonalnych
+                png24 zpais z przezroczystoscia bez staratny
+
+            -.gif - optymalne dla obrazko o malej liczbie szczegolow. gradientow itp
+                mozna zapisac kanal alpha ale ma problem na krawedziach. Widac biale piksele jesli 
+                wrzucamy obrazek do sieci
+
+                colors - ogranicza liczbe kolorow
+                perceptual - przejscia dla graidentu jest najlepszy
+                adaptive - wybiera najwiecej pikseli takich smaych 
+                diter - szum
+                interlace -off
+                web snap - 0%
+
+                trancparency -on
+                matte - dajemy none
+                ^usuwa biale piksele na obwodce obrazka 
+
+            -.jpg - lepiej dla bardzo szczegolowego pliku
+                Najczestsze poniewaz daje mozliwosc kompresji
+                Second compression (ponizej 50%)
+                blur - rozmycie pomaga w zmniejszaniu pliku
+                progresive - off
+                optimalize - on
+                convert to sRGB - on
+                metadata - metadane
+
+        Nie zapisujemy jako save as gdy zapisujemy zdjecia do sieci
+        Korzystamy save for web dla zpaisu zdjec do sieci
+
+        Save for web
+            w: -width
+            h: -height 
+            quaity: Bicubic - skalowanie obrazka zmienia strukture pikseli
+
+        Skalowanie obraz najlepiej zrobic w image > resize image > resample image (on) > bicubic automatic 
+            >zmieanimy  procenty na ile chcemy zmniejszyc i ok
+
+        zaznaczeni warstw i ctrl+E <- splaszczenie warstw
+
+        Trim-przycinanie obrazka do zapisuj png
+
+---------------------------------------------------------------------
+Ciecie szblonu 
+    Selection tool 
+        Auto select - klikajac na elelmtny to zaznaczamy warstw
+        group - zaznaczamy grupy
+        crop tool > 2xenter wyciecie do osobnego pliku
+        copy merge
+        
+        Zawansowana:
+
+        Slice tool
+            narzedzie selection >
+                wylaczamy teksty
+                    zapisuejmy tlo z ktorego beziem przycinac
+                        raz z tlem przezroczysytm a raz bez
+                    *jesli tlo jest powtarzalne to zapisujemy maly skrawek
+                    jesli nie jest powtarzalne to zapisujemy calosc
+
+                    save for web > znaznczamy na wszystkie odciecie ktore zazanczylismy i zapisujemy > 
+                    selected slices
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+

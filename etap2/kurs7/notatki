@@ -1,0 +1,256 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Photoshop do html i css" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc teoretyczn i praktyczna photoshop
+-------------------------------------------------------------------------------------------------
+
+    1. Essentials
+    2. Puste swatches
+    3. IStnieje mozliowosc otwarcia plikow css w photoshop
+    4. pixel grid 
+    5.Image interpolation: bicubic
+    6. animated zoom =off
+    7. Snap vector tools and tranforms to pixel gird
+    8. Panele
+        hisotry
+        action 
+        navigator
+        switches
+    9. Doatek
+        guideguide
+        pixeldropr
+    10. Snap - przyleganie do girda
+    11. dafont.com - kroje pisma za darmo
+        wgrac do font squirrel lub z tej samej strony sciagnac gotowy
+        edge web font - darmowe
+        google font - darmowe
+    12. shutterstock - obrazy 
+        istockphoto.com - obrazy
+        fotolia - obrazy 
+
+        Adobe bridge - do zarzadzania zdjeciami
+        mini bridge - do photoshop
+
+    Wordpress
+
+        index.php - storna glowna i jednosczesnie domyslna dla innych
+        header.php - na gorze kazdej strony
+
+        page.php - szablon contentu dla statycznych stron
+        single.php - szablon dla widoku postow
+        search.php - strona wynikow wyszukiwania
+        image.php - widok otwartego obrazku
+        archive.php -  wyswietla wszystkie posty z taksonomii
+        archives.php - lista archiwow z wyszukiwarka, zakrsem dat, kategoriami
+        links.php - jesli korzystasz z blogroll - lista linkow
+        comments.php - widok komentarzy
+
+        sidebar.php - wyglad sidebara
+
+        foote.php - na dole kazdej stony
+
+        404.php - strona wyswietla przy blednym linku
+        screenshot.png - minaturka szablonu 300x255
+
+
+    Range > zaznaczenie tla > restrize i czyscimy przestrzen
+
+    Dzielenie obrazu na okolo 770px aby calosc uzytkownik mogl ogarnac wzrokiem
+
+    custome shape > shape tool
+
+    Nakladanie obrazku
+        uzywamy tryb mieszania
+        pedzelek
+        malowanie elementu ktory ma byc przywrocony
+        czarne tlo przywaraca mieszanie 
+        biale przywaca oryginalny obraz
+
+    Samrt sharpen wyostrza obrazek
+
+    Rastryzacja czyli robienie z obrazu wektorowego bitmape
+
+    pdzel mixer brush tool > mokry > rozmazanie fragmentu plotna
+
+    ctrl+E polaczenie warstw
+
+    spinanie warst z zaznaczeniem warstwy w ktorej ma byc zjdecie. Dzieki temu zdjecia
+    sie chowaja w tej warstwie ktora zazanczylismy
+
+    miniaturki dawac takie same zeby nie obciazac zapytaniami serwera
+
+    paginacja -  linki do strona (poprzednia nastepna)
+
+    swiatlo:
+        punktowe - swieci w punkcie
+        spot light - od boku 
+
+-------------------------------------------------------------------------------------------------
+Czesc STRONA
+-------------------------------------------------------------------------------------------------
+
+    Dolaczamy do strony fonty ktore mamy zainstalowane w komputrze po przez dany typ plikow
+        @font-face {
+        font-family: 'MuseoSlab500Regular';
+        src: url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.eot'); <- glowny plik
+        src: url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.woff') format('woff'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.ttf') format('truetype'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.svg#MuseoSlab500Regular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    a
+    {   
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        text-decoration: inherit;
+    }
+    ^ dzieki temu nie trzeba formatowac tekst w kontenerze formatowac rowniez liknu. Dziedziczy po
+    kontenerze
+
+    Wycinanie layout
+        - Zapisujac slice po wycinaniu zaznaczamy SELECTED SLICE
+
+        - Stowrzenie nowego pliku
+            zaznaczenie warstw i wrzucenie do nowego pliku
+                zaznaczeniem slice
+                    zapisujemy save for web
+
+    Podkaldanie obraz pod element a czyli tekst i ukrycie tekstu ale text bedzie sie indeksowac
+
+        text-indent: 1px; wciecie piksela
+
+
+    CarouFredSel - karuzela na stronie
+
+    overflow - moze wystawac za kontener
+
+
+    Dodanie mapy google
+        API key - klucz api do may googla >
+            create new project > wybieramy liste api z ktorej bedziemy korzystac
+            >overwiew > google maps api v3 >api access> kopiujemy api key
+                > wywlouje sie po przez script podajac api key googla
+
+        Na stornie towrzymy div 
+            <div id="map"></div>
+
+        script googla jest napisany w js dzieki ktoremu mozna wporawdzac zmiany
+
+        Scypt wlasny
+
+            var $headerMapCont = $('#header #map');
+
+            if($headerMapCont.size() > 0) 
+                {
+
+                    var restaurantList = [
+                        {
+                            "city":"Warszawa",
+                            "restaurantsCount":"1"
+                        }
+                    ];
+
+                    function initHeaderMap() 
+                    {
+                        //tworzenie mapki
+                        function createHeaderMap($cnt, lat, lng)
+                        {
+                            var opts = {
+                                center: new google.mpas.LatLng(lat, lng),
+                                zoom: 8,
+                                scrollwheel: flase,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            }
+
+                            var headerMap = new google.maps.Map($cnt.get(0),opts);
+                      
+                            if(restaurantLists) 
+                            {
+                                for(var entry in restaurantList)
+                                {
+                                    (function(entry, map)   {)
+                                    var geocoder = new google.maps.Geocoder();
+
+                                    geocoder.geocode({
+
+                                        address: entry.city
+                                        }, function(results, status) {
+                                            if(status == google.maps.GeocoderStatus.OK)
+                                            {
+                                                var options = {
+                                                    strokeColor: "#000",
+                                                    strokeOpacity: 1,
+                                                    strokeWeight: 2,
+                                                    fillColor: "#F55B0C",
+                                                    fillOpacity: 1,
+                                                    center results[0].geometry.location,
+                                                    map: headerMap,
+                                                    radius: entry.restaurantsCount * 3500
+                                                }
+
+                                                    new google.maps.Circle(options);
+
+
+
+                                        }   
+                                        else
+                                        {
+                                            alert("Gelokacja sie powiadla sie" + status);
+                                        }
+                                    }
+                                    );
+                                    })(restaurantList[entry], headerMap)
+                                }
+                            }
+                      
+                      
+                      
+                      
+                        }
+
+                        //sprawdzanie geolokalizacji uzytkownika
+                        if(navigator.geolocation)
+                        {
+                            var success = function{position}
+                            {
+                                createHeaderMap($headerMapCont, position.coords.latitude, positon.coords.longitude)
+                            };
+
+                            var error=function()
+                            {
+                                createHeaderMAp($headerMapCont, 52.259, 21.020);
+                            }
+
+                            navigator.geolocation.getCurrentPosition(success, error);
+                        }
+                    }
+                } 
+
+
+                //ladujemy mape
+                google.pas.event.addDomListener(window, 'load', initHeaderMap)
+            
+
+    Animacja w programie Adobe Edge Animate
+    Wczytuje sie tam html
+
+        Autokey frame mode - to oc sie zmieni zazanczy jako animacje
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+

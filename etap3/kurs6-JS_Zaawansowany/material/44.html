@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Model zdarzeń</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left:100px;margin-top:100px;width:400px;height:400px;background:#CCC">
+	<p id="message" class="alert-info" style="font-size:22px"></p>
+</div>
+
+
+<script>
+
+var box = document.getElementById('content');
+var message = document.getElementById('message');
+
+box.addEventListener('mousewheel', function()
+{
+	var ev = window.event;
+	var mv = ev.wheelDelta;
+	message.innerHTML = mv;
+	
+});
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+// Na przykładzie: http://cssdeck.com/labs/fancy-3d-button
+
+@import "reset", "mixins";
+
+body {
+    font: 12px/18px Tahoma, sans-serif;
+    color: #494949;
+}
+
+h1 {
+    margin: 0 0 40px 0;
+
+    font: 24px/1 Georgia, serif;
+}
+
+#container {
+    width: 700px;
+    margin: 100px auto;
+}
+
+.button1 {
+    display: inline-block;
+    padding: 15px 35px;
+    position: relative;
+
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    -webkit-box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, .7);
+    -moz-box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, .7);
+    box-shadow: 0px 9px 0px rgba(219, 31, 5, 1), 0px 9px 25px rgba(0, 0, 0, .7);
+    
+    -webkit-transition: all .1s ease;
+    -moz-transition: all .1s ease;
+    -ms-transition: all .1s ease;
+    -o-transition: all .1s ease;
+    transition: all .1s ease;
+
+    background-color: rgba(219, 87, 5, 1);
+
+    font-family: 'Monda';
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -2px;
+    text-align: center;
+    color: rgba(255, 255 ,255, 1);
+
+    &:active {
+        -webkit-box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
+        -moz-box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
+        box-shadow: 0px 3px 0px rgba(219, 31, 5, 1), 0px 3px 6px rgba(0, 0, 0, .9);
+
+        top: 6px;
+    }
+}
+
+.button {
+    @include button(#E0617A);
+
+    font-family: 'Monda';
+    font-weight: 700;
+    font-size: 24px;
+    letter-spacing: -2px;
+    text-align: center;
+
+}

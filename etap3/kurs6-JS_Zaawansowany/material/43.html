@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Model zdarzeń</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+<div id="content" style="margin-left:100px;margin-top:100px;width:400px;height:400px;background:#CCC">
+
+	<img src="sklogo.jpg" id="image" style="width:261px;margin:50px auto auto 50px;"/>
+
+</div>
+
+
+<script>
+
+var im = document.getElementById('image');
+
+im.addEventListener('click', function(event)
+{
+	var output = event.screenX + " ";
+	output += event.screenY;
+	alert(output);
+
+});
+
+</script>
+
+
+</body>
+</html>

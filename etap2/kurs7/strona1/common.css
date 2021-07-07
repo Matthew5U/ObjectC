@@ -1,0 +1,151 @@
+@charset "utf-8";
+/* CSS Document */
+
+a {
+	font-family: inherit;
+	font-size: inherit;
+	color: inherit;
+	text-decoration: inherit;	
+	}
+
+.container a {
+	border-bottom: 1px dashed #999999;
+}
+
+.container a img {
+	border-bottom: none;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Arial';
+	font-weight: normal;
+}
+
+.clear {
+	clear: both;
+}
+
+.hidden {
+	display: none;
+	}
+
+/* food fight common styles */
+
+.opponent {
+	width: 288px;
+	height: 360px;
+	position: relative;
+	color: #fff;
+	margin-top: 75px;
+}
+
+.opponent > div,
+.opponent img {
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+}
+
+.opponent .header,
+.opponent .details {
+	position:absolute;
+	font-size: 34px;
+	font-family: 'Arial';
+	text-align: center;
+	text-transform: uppercase;
+	z-index: 1;
+}
+
+.opponent .header {
+	width: 115px;
+	height: 95px;
+	padding-top: 20px;
+}
+
+.opponent .details {
+	width: 83px;
+	height: 58px;
+	top: 100px;
+	line-height: 15px;
+	padding-top: 25px;
+}
+
+.opponent .header small {
+	display: block;
+	font-size: 24px;
+}
+
+.opponent .details small {
+	font-size: 10px;
+	display: block;
+}
+
+.opponent .image {
+	width: 278px;
+	height: 278px;
+	padding: 5px;
+	position: relative;
+	z-index: 2;
+}
+
+.opponent .image img {
+	border: 2px solid #fff;
+}
+
+.opponent.good > div {
+	background: #2c8f0e;
+}
+
+.opponent.good .header {
+	transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+	left: -30px;
+	top: -30px;
+}
+
+.opponent.good .details {
+	right: -70px;
+}
+
+.opponent.bad {
+	float: right;
+}
+
+.opponent.good {
+	float: left;
+}
+
+.opponent.bad > div {
+	background: #dc2727;
+}
+
+.opponent.bad .header {
+	transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+	left: 210px;
+	top: -30px;
+}
+
+.opponent.bad .details {
+	right: 276px;
+}
+
+.opponent p {
+	text-align: center;
+	margin-top: 20px;
+}
+
+
+
+
+
+

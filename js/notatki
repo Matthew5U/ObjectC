@@ -1,0 +1,294 @@
+_________________________________________________________________________________________________
+Kurs JavaScript notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="timer.js"></script>
+    
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Skrypty po stronie klienta
+-------------------------------------------------------------------------------------------------
+
+var = variable(zmienna) pojemnik na dane
+new = nowy
+
+Nie okreslamy typu zmiennej
+
+document.getElemntBYId("zeger") <-- zlap element po przez id
+                               .innerHTML <--co kolwiek znajduje sie w tym dive podmien w html
+                                         =  <-- i podmieniamy to na element za znakiem rowna sie
+
+Do sklejania napisow uzywamy znaku plus ( + ) - Konkatenacja
+
+Funkcja - wydzielony fragment kodu, ktory ma konkretny cel do wykonania
+
+argument - zmienna poslana do funckji, potrzebna do wykonania jakiegos zadania
+
+Funkcja mowiaca jaka funkcje ma wywolac co jaki czas
+    setTimeout("odliczanie()", 1000); <-- 1sekunde
+
+Funckje sa uruchamiane dopiero po wywolaniu ich
+
+Dodanie onload w ciele body odrazu uruchamia skrypt
+
+Podpiecie skryptu js:
+    1. W osobnym pliku
+    2. Zadeklarowanie w sekcji head
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 2.
+-------------------------------------------------------------------------------------------------
+document.getElementById("idTutajWpisujemy") <-- Uchwyt
+                                           .value; <-- wartosc uchwycona(np. liczba 21)
+
+document.write(liczba) <-- wypisuje np. liczbe 
+
+W petli nie trzeba deklarowac i jako var i bo js wie automatycznie wie ze to jest licznik petli
+
+var numer = Math.floor(Math.random()*5)+1; <-- Funkcja zmiennej losowej 
+    floor - zaokragli w dol
+    random - losuje z 5 mozliwwych ale ze numerujemy od 0 to dodajemy 1
+
+Jesli chcemy uzyc znaku w stringu to musimy uzyc backslesha \ 
+    np znak "" zapisujemy > \" lub zapisac caly lancuch w '' a uzyc w srodku ""
+
+
+jQuery - bibliotek JavaScript, pozwalajaca osiagnac interesujace ekefty animacji na stornie, dodac
+            dynamiczne zmiany jej zawraosci, wykonac zapytania AJAX
+
+    Funckje:
+        fadeIn() - pojaw sie na stronie
+        Zapis uchwytu w jqery wyglada nastepujaco
+        $("#slider")  (a w czystym js wyglada to tak: document.getElementById("slider").innerHTML = plik;)
+
+argument = jakas warosc przeslana funckji
+
+clearTimeout(nazwa_timera); - funkcja do zatrzymywania timera jednak musi istniec globalna nazwa 
+                                timera
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 3.
+-------------------------------------------------------------------------------------------------
+window.onload = wypisz_haslo; <-- MA zajsc zdarzenie w momencie zaladowania strony(<body onload="wypisz();")
+
+haslo = haslo.toUpperCase; <-- zamiana liter na duze w js
+
+haslo.length; <-- dlugosc lancucha
+
+napis[5] - ten sposob jest w js niebezpieczny i nieprzewidywalny dla lancuchow liter
+
+DLA TABLIC TEN ZAPIS WYZEJ JEST NORMLANY
+
+napis.charAt(5) - tak dostaniemy sie do konkretnego znaku w js
+
+        tdiva = tdiva + '<div class="litera">A</div>'; <-- sciezka w "" a caly tag w ''
+
+var litery = new Array(35); <-- ilosc zarezerwowanych szuflad a nie indeks suzflady
+
+Konkatenacja - sklejanie napisow
+    W js mozna uzyc:
+        nowy_napis.concat(napis1,napis2);
+
+Zmienna podana w funckji jako argument nie musi byc deklarowana jako var
+alert() - do testowania
+
+charAt() - sluzy tylko do odczytu znaku z lancucha a nie zpais do lancucha
+
+String.prototype.ustawZnak = function(miejsce, znak) <-- Do klasy string dokladamy nowa metode ustawZnak
+
+this - wskaznik ktory wskazuje na obiekt, na rzecz ktoego wywolano nasz funkcje:
+
+    napis.ustawZnak(0,"B")
+
+    Wskaznik this zawsze wskaze na obiekt po lewej stronie kropki:
+    
+    napis
+
+return this.toString(); <-- nadal zostanie lancuchem
+
+substr - podlancuch - wyjety fragment lancucha <-- drugi paraetr opcjonalny jesli nie ma to 
+                        przegladarka wyciagnie wszsytkie napisy do konca ktore zostaly
+substring
+
+var napis = "Ala ma Kota";
+012345678910
+
+"kot"
+^^^^^
+napis.substr(7,3); 
+napis.substring(7,10);
+
+Czcionka zachowujaca stala szerokosc znakow nazywamy czcionka typu monospace
+
+Flaga = zmienna o wartosci true/false
+
+document.getElementById(element).style.background = "green"; <-- zmiana wlasciwosci stylistycznych
+                                                                    w js
+
+ocument.getElementById(element).setAttribute("onclick",";"); <-- zamien atrybuty na pusta instrukcje
+
+new Audio("sciezka) <- do dziwekow
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Liczby
+-------------------------------------------------------------------------------------------------
+W js liczby calkowite to reprezentacje zmiennoprzecinkowe zapisane w standardzie IEEE 754
+
+System zapisu wykladnika i mantysa uzywa js
+    zapis po przecinku liczby w js wynika z faktu iz mantysa nie zmiesci wystarczajac liczbe bitow 
+    do reprezentacji liczby
+
+Najwieksza liczba calkowita w js to : Liczby calkowite az do 2^53 sa reprezentowanie dokladnie
+    9007199254740992 
+
+Kiedy tylko mozna, uzywa sie tzw. NATYWNYCH INTOW, to znaczy rodzimy dla danej architektury
+
+Math.pow(2,53) <-- potegowanie w js
+
+Maksymalny int obslugiwany w js - to taka liczba calkowita ktora sama jest poprawnie reprezentowana
+w js(IEEE 754), jak i rowniez kazda liczba mniejsza od niej jest poprawnie obslugiwna
+
+Sposoby zaokraglania po przecinku
+    1.
+    Math.round() - zaokraglanie 
+
+        x = Math.round((0.1 + 0.2)*10) / 10;
+
+            DOKLADNOS NP 2 MIEJSC PO PRZECINKU UZYWAMY 100 I DZIELIMY NA 100
+
+            !1.005 = 1 dla dwoch miejsc dla tej funkcji
+
+    2.
+    toFixed(miejsc) - metoda formatuje wartosc liczby do zadanej ilosci miejsc po przecinku, ale uwaga: 
+        wynikiem jej dzialania bedzie lancuch znakow ( a nie liczba w notacji wykladniczej)
+
+        !1.005 = 1.00 dla dwoch miejsc dla tej funcji 
+    
+    3.
+    Przebudowanie funckji round
+
+            Number.prototype.round = function(miejsc) <-- pzebudowanie prototypu funckji round
+            {
+            return +(Math.round(this+"e+"+miejsc) + "e-"+miejsc); <- +(); zapis daje nam pewnosc ze nastapi zapisanie ze stringa 
+                                                na number
+            }
+
+                this - wskazuje na obiekt na rzecz ktorego wywolano nasz Funckje
+                x.round(2) = zaokraglenie zmiennej x do 2 miejsc po przecinku
+                Dzieki uzyciu this metoda round wie, ze chodzi nam o zakraglenie x(czyli this 
+                zwraca uchwyt obiektu po lewej stronie operatora kropki)
+                e = exponent = wykladnik
+                e+ oznacza zwiekszanie go
+                e- oznacza zmniejszanie go
+
+
+Inne spospoby zaokraglania
+    Math.round() od 0.0 do 0.4 zaokragli w dol a od 0.5 i wyzej zaokragli w gore
+
+    Math.Floor() zaokragli w dol
+
+    Math.ceil() zaokragli zawsze w gore
+
+    Math.trunc() usunie czesc ulamkowa
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 5. jQuery
+-------------------------------------------------------------------------------------------------
+Biblioteka narzedziowa
+
+jQuery 
+    query - zapytanie. Nazwa taka poniewaz kierujemy zapytania
+
+    Funkcja globalna:
+
+        jQuery() = $();
+
+        Uchwyty
+            js: document.getElementById('pojemnik)
+            html: <div id="pojemnik"></div>
+
+            jQuery: $('#container') - (identyfikaor) - selektor css
+                    '.kafelek' - klasa
+                    'input' - znacnzik
+                    '[alt="kot"]' - lancuch
+                    document - obiekt
+                    '<br>' - kod html
+                    function(){} - funkcja
+
+        Metody
+            $('a).attr('target','_blank');
+                attr = attribute
+
+
+Funkcja jquery zwraca obiekt jquery
+    Obiekt jQuery moze reprezentowac nie tylko jeden element ale caly ich zbior
+
+    var obiekt1 = $('#container');
+
+addEventListener() - dodaj nasluchiwacza dla zdarzenia
+
+element.addEventListener() 
+    pozwala dodac do elelemntu dowolna ilosc "nasluchiwaczy" danego zdarzenia( w przeciwsienstwie 
+    do sposobu z atrybutami - wowczas jestesmy ograniczeni do jednej funckji obslugujacej zdarzenie)
+
+    Nie zadziala w IE<9
+
+Implementujemy jquery przed implementacja naszych skryptow
+
+jQuery - funkcje
+    element.css(co ma byc zmienione, na co ma byc zmienione) - stylizacja css w jqerry
+
+    addClass() - dodaj klase do elementu. Dodaje a nie usuwa juz istniejeacej wczesniej zdefiniowanych
+                    klasy
+    
+    removeClass() - odpina juz istniejaca klase
+
+    toggleClass() - Jesli elelemnt posiada przypieta klase to ja usuwamy z elementu, zas w przeciwnym
+                    wypadku jesli elelemnt nie posiada przypietej klasy to wowczas dodaj klase do tego 
+                    obiektu(ponownie dodaj a nie zastap)
+
+    element.html() - zmienia html znacznika
+
+Blokowanie systemu po przez flagi boolean. 
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+
+
+
+
+

@@ -1,0 +1,545 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Sekrety Photoshop" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z warstwami
+-------------------------------------------------------------------------------------------------
+
+    ctrl+k > interface > wersja kolorstyczna photoshopa > podkladanie tla canvasu
+
+    layers > panel options > zmiana rozmiaru miniaturek
+
+    ----------------------------------------------
+    zaznaczenie warstw
+        auto select > move tool
+
+    ----------------------------------------------
+    sprzatanie nieuzwyanych plikow
+        delete hidden layers - usuwa schowane warstwy
+
+    ----------------------------------------------
+    odchudzic plik .psd
+        nowa warstwa > wypelnienie bialy kolorem > file save as  > zapisujemy plik
+            photoshop generuje minaiturke dlatego dodanie bialej warstyw zmniejsza rozmiar
+
+    ----------------------------------------------
+    Krycie na 200%
+        opacity 50 % pedzelka 
+            ctrl+j i powielenie warstwy z oppacity 
+    
+    -----------------------------------------------
+    Filtrowanie warstw
+        filtrujemy po ptypie text > zazanczajac warstwy > i wybrac ktroj pisam
+
+        Filtrowanie po nazwie -dzieki nazywaniu warstw mozemy je pozniej odnajdowac
+    
+-------------------------------------------------------------------------------------------------
+Czesc Praca z interfejsami
+-------------------------------------------------------------------------------------------------
+    Operowanie grid layoutow
+        view > new guide layout > mozliwosc ustawienia swoich kolumn
+        jesli mamy obiekt wzgledem obiektu view > new guide from shape
+
+        ----------------------------------------------
+        Kompozycje warstw
+            Mozliwosc zapamietania ulozenia warstw(layers comps) - snapshoot
+
+        --------------------------------------------
+        Smart boject
+            window >arrange > dzielenie obrazu na dwa pliki
+            wrzuamy obiekt > conver to smart boject> dwa razy klikniecie w miniaturke smart object
+            i mozemy wtedy dzialac na pliku >np skew czyli taki jakby resize
+
+        ---------------------------------------------
+        Wymiarowanie layoutu
+            ukrywanie warst w i odczytywanie wymiarow
+
+        ---------------------------------------------
+        Eksport stylo CSS
+            zaznczamy warstwe > copy code CSS
+
+        ---------------------------------------------
+        Polecenia Extract w przelgadarce
+            Zapis pliku save as > creativ adobe .com > w chumrze extract > najezdzanie na elementy storny
+            pokazuje nam wymiary plikow
+
+        ---------------------------------------------
+        Wyrownanie elementow
+            Panel aligne > zaznaczyc dwie warstwy > i opcje wyrownnania na goze po prawej
+        
+        ---------------------------------------------
+        Extract w photoshop cc
+            zaznaczenie warstwy > file > extract assets
+
+        ---------------------------------------------
+        Wyznaczenie srodka z liniami podzialki
+            ctr+r <-linie podzialki 
+            wyciagniecie lini pomocniczych ustawia sie same jesli sie zbliza do srokda
+
+            ctr+a pozniej ctr+t i sa obramowania o srodkach
+
+            view>new guid layout > 2 kolumny pionow i poziomo
+
+            new guid > 50% vertical > 50% horizontal
+
+        ---------------------------------------------
+        szybka maskami
+            klawisz q  - zmiana metadanych -tryb szybkiej maski
+            drugi raz klawisz q wychodzi
+
+            gradient + szybka maska > (to co jest czerowne nie aktywne) - selekcja na podstawie gradientu
+            ctrl+j nowa warstwa i mamy zdjecie bez tamtej maski
+
+        ----------------------------------------------
+        MAska na warstiwe typu clipping
+            stowrzenie z warstwy warstwe 0 > alt i polacezenie dwoch stykow warstw tworzy clipping np na tekscie
+
+        ----------------------------------------------
+        Sztuczki z maskami
+            zrobienie maski na warstiwe
+            d -domysle kolory
+            x - odwracanie koloow
+            background - ukrywa
+            foregraund -dokrywa
+            alt+click - podglad maski
+
+            wiecej masek na jedne warstiwe 
+                1 Nowa grupa > obrazek wrzucic > i dac maske na grupie
+                2. Smart object > wewnatrz obiektu jedna maska i na zewnatrz druga maska
+                3. Dwie maski z dolu opcji (1. pikselowa 2. wektorowa)
+
+                obraz z maski 
+                    kliknac na makse z altem i pozniej ctr+v daje nam maske z obrazu
+
+        ------------------------------------------------
+        Narzedzie rotacji i szybka maska
+            quick mask > wcisnac i przytryzmac r i obrocic obraz do latwego malowania w poziomie
+
+        -----------------------------------------------
+        Nawigacja po dokumencie
+            dwa razy na lapke - widescreen
+            dwa razy na lupe - 100%
+            h+lewy przycisk myszy - przeniesie sie w kolejny element na zdjeciu
+            ctl+d - tranformacja warstwy 
+            ctr+0 - zmiana widoku do latwego transformownaia obrazu
+        
+        ------------------------------------------------
+        Podglad w liquify
+            filter>liquify > i przeciaganie reka 
+                >advance mode > show bacdrop > podglad warstw
+                    use > layer 0 - praca na layoucie
+        
+        ------------------------------------------------
+        Skroty i filtry
+            camera raw > dzieki tej aplikacji mozna modyfikowac zdjecia np barwy itp
+            alt+p - zapisane jako default ostantij zminay
+
+            ze zdjecia > conver smatr object > filter camera row > zmiana w camra row nie jest koncowym zapisem zjdecia
+
+        -------------------------------------------------
+        Intuicyjne suwaki
+            W camra row > suwaki w glownej zakladce 
+                whites - najwiecej zmieniaja
+                blacks - najwiecej zmieniaja
+
+                    pomoc - przycicnanie pikseli z alt. JEsli widze ze piksele sie robia niebieskie puszczam
+                    przycisk alt -ukazuje przycis reset
+
+        ---------------------------------------------------
+        otiweranie plikow ps
+            z camra row > done > zapisane do pliku ale nie otwarte w ps
+            opean image > otiwera w ps na warstiwe 
+            alt > open copy - kopia pliku w ps
+            shift > open object - smart object w ps
+
+        ---------------------------------------------------
+        Kopiowanie ustawien zdjec
+            Praca z podobnymi zdjeciami > auto
+                1. presets > wybieramy ustawienia > nasza nazwa > ok
+                    wybor nowego zdjecia > preset> naszanazwa > wybor takich samych wartosci
+                
+                2. wybor dwoch zdjc > zaznaczeni dowch zdjec i synchronize > ok
+                
+                3. preset na jednym zjdeciu 
+                    zaznaczenie dwoch zdjec i develope setting > paste setting
+               
+        ----------------------------------------------------
+        Tryb mieszania
+            1. patter >high pass - specyficzny klimat zdjec 
+            2. blur > motion blur - rozmycie
+
+        ------------------------------------------------
+        Image
+            > adjustment > match color > soucre nasz dokument i layer warstwa
+
+        ------------------------------------------------
+        PErspektywa
+            edit > perspective warp > zanzaczamy obraz > tryb warp > przesuwanie obrazu
+
+        ------------------------------------------------------
+        Prostowanie inaczej
+            edit > puppet warp > siatka > show mesh > ferwer point > 4 krawedzei obrazka > wbijanie pinezki tam gdzie
+            bedziemy modyfikowac
+
+        ------------------------------------------------------
+        Wybiorczy kontrast z krzywymi
+            do zdjecia > adjustmn layer > krzywa > funkcja na gorze na lapke i na obrazie sciagmy w gore albo dol
+          
+        ------------------------------------------------------
+        korekta cieni i rozblyskow
+            warstwa > aadjustments > properties > bightness 
+            włąsciwosci nad warstwa nie sa takie same jake Adjustment sekcji image na gorze listy
+
+            image > adjustment >shaodws - cienie
+        
+        --------------------------------------------------------
+        HDR Toning
+            image > adustmens  >hdr toning >poprawiamy 
+
+        --------------------------------------------------------
+        ustawienia content aware move
+              z pomoca narzedzia content awere move to i przesuwamy fragment obrazka
+
+        -------------------------------------------------------------
+        Sprzatanie z invertem
+            ctrl+i > spothilig brushtool
+
+        -------------------------------------------------------
+        Filtr rozymcia 
+            lasoo tool > zaznaczamy > edit >fill >content aware
+            select >domyfi >expand > 7px >shift+backspace
+            filter > blur galeryy > path blur
+
+        ----------------------------------------------------
+        filtr intelignety
+            filter > filter galery> i zatwierdzenie zmian >powstanei filtru intelginetego
+            mala ikonka > miesza filtry
+
+        -------------------------------------------------------------
+        Dodge & burn na skroty
+            doge - rozjasnia 
+            burn - przyciemnia piskele
+
+            utworzenie nowego layoutu i praca na nim
+
+        ---------------------------------------------------------------
+        wskazowki do pracy z pedzlem
+            f5 >spacing > odleglos miedzy wartosciami pedzla
+            klikniecie pedzelkiem a pozniej klikniecie znwou z shift i zrobi rowna linie pod punktu do punktu
+            alt+ prawy przycism myszy zmienia rozmiary pedzla
+
+        ----------------------------------------------------------------
+        presety narzedzi
+            rone narzedzia posiadaja rozne ustawinai narzedzi 
+            f5 stworzenie noweg presetu to zmienien ustawien np olowka i zapisanie i pozniej ustawic jako jeden z presetow
+
+        -----------------------------------------------------------
+        Zmiana ielkosci pedzla
+            alt+prawy pycisk myszy > porsuszanie w gore w dol - twardosc pedzla
+                                    > w prawo lewo - wielkosc pedzla
+            edit >preferenc >genreal > vary round brush hardness - wartosc opacity
+
+        ----------------------------------------------------
+        obramowania w photshop
+            obramowanie zostaje w pamieci 
+            1. resetowanie ustawien
+            2. presety ustawien dla narzedzi - dzieki temu kazde narzedzie bedzie mialo swoje watosci
+
+        ----------------------------------------------------------
+        Kopiowanie i wklejanie 
+            ctrl+t - skalowanie +alt i skaluje od srodka + shift - ze skalowaniem
+            Przenoszenie metoda move tool
+            ctrl+c > ctrl +shift +v
+
+        -----------------------------------------------------------
+        Polecenie Copy Merged
+            ctrl+alt+0 - widok 100%
+            skopoiwonaie tego co widzimy - ctrl+shift +c (copy merged)
+            ctr+shift+alt+e - zrobienie screena
+
+        -------------------------------------------------------------
+        Praca z plikami
+            ctrl+n - nowy plik
+            preferences > file handing > recetn file list conatins: 40 files
+            klikniecie w puste pole canvas dwukroteni > otworzeni pliku
+
+        --------------------------------------------------------------
+        Panel historii
+            1. Robienie snapshootow-ulatawia przywaracania plikow z przed modyfikacji (wartos ustawic skrot klaiwsozwy)
+            nieliniowa historia daje mozliwosc usuniecie np ktoku 50 i nie usunie to krokow po 50  tylko usunie tej jeden krok 
+            history brush tool dziala jak gumka
+        
+        ---------------------------------------------------------------
+        Powtarzanie ostatni operacji
+            shift+ctrl+alt+t - powtorzenie operacji ktora byla przed chwila wykonana
+
+            Do fitrow
+            ctrl+f - powielenie Filtrowani
+            ctrl+alt+f - odtwarza ostatnie polecenie ze zmiana parametrow
+
+        ---------------------------------------------------------------
+        Presety i preferencje
+            Przy tworzeniu nowego pliku mozemyustawic watosci i zapisac jako preset
+            edit > presets >mgrate presets > export
+            mozna zalogowac sie do ps i synchronizowac ustawienia z konta
+
+        -----------------------------------------------------------------
+        Sprzatanie z purge
+            Effciency <95%
+                > przydzielenie wiecej ramu
+                > wybranie lepszego dysku do cash
+                >ilosc krokow w historii
+            
+            cash size - ile pamieci pobiera ps
+            edit> purge >all - wyczeszzenie pamieci podrecznej
+
+        ------------------------------------------------------------
+        Skroty klawiaturowe w ps
+            f - tryb fulscreen
+            tab- znikanie pani edycji
+            sihft+tab - ukrycie prawego panelu 
+            alt - omijanie glupich pytan ps
+            alt - daje mozliwosc powrcenia do defaultowych opcji
+            ctrl+shift+alt+k - skorty klawiaturowe 
+
+        ---------------------------------------------------------------
+        Wartosci w oknie dialogowym
+            informuje nas jakie wartosci mozna wpisac
+
+        ---------------------------------------------------------------
+        Opcje wspolpracy
+            Rejestrator krokow -nagrywa nasza prace na komputerze
+            dodaj komentarz - dodanei komentarzy w momencie nagrywania
+
+            Wspodzielenie photoshopa z inna osoba - edit > remote connection > podajemy adres ip i nazwe hosta
+                dzieki temu bedzie mozna razem pracowac na jednym photoshopie
+
+        ---------------------------------------------------------------
+        Podlinkowane obiekty inteligentne
+            file > place linked > podlinkowanie jakiegos obrazu
+            file > package - zpaisuje wszystkie pliki zwiazane z nasza strona np sa podlinkowane do naszej storny 
+            linki to tez zapisze
+
+        ---------------------------------------------------------------
+        Paca z Vanishing point
+            Wypisanie textu i zazanczenie literki t na gorze daj nam mozliwosc zmiany polozenia tekstu np vertykalnie
+            filter > vanishing poin - punkty wyznaczajace perspektywy
+
+        ---------------------------------------------------------------
+        Samplowanie z eyedroppere
+            mozliwosc probkowania z poza ps 
+            alt+prawyprzcisk myszy - daje nam mozliwosc wyboru koloru bedac np w pedzlu
+    
+        ----------------------------------------------------------------
+        Notatki i lorem ipsum
+            text tool> pole tekstow > menu > type > lorem impsum
+            note tool(shift+i) > i towrzymy notatki
+
+        -----------------------------------------------------------------
+        Sztuczki z tekstem i punctution
+            zaznaczymy warstwe tekstu > wybieramy narzedzie type tool > i zmieniamy wartosci tekstu
+            
+            dwa razy klikniecie w tekst zazanczy caly tekst > mozna edytowac tekst
+
+            ctrl+h - ukrywa zaznaczenie np tekstu. To co przeszkadza podczas podgladu
+
+            Przy aktywnej ramce tekstowej > ctrl+t > trsofrumuje tekst
+
+            pisanie tkstu > ctrl+ t > otiweraja sie ustawienia do edycji tekstu
+
+            zaznaczyc tekst > paragrpah > menu podreczne > roman hanging punctuation - cudzyslow wszedl poza ramke
+
+        ------------------------------------------------------------
+        Font z typkit
+            ustawienie kursora miedzy literami  > nacisniecie alt daje mozliwosc przesuwania tekstu
+
+            Wybor czcionki > typkit > mozliowsc wyboru czcionki > desktop > synchronizacja z komputerem > dziekit temu w ps mozemy wybrac czcionke ktora nas interesuje
+
+        ---------------------------------------------------------------
+        Oblewanie tektstu
+            pen tool > zazanczamy obramowanie tekstu
+
+        -------------------------------------------------------------
+        Aliasing w Windows
+            Aliasing - wygladzanie tekstu > zaznaczenie tekstu > sharp -ostry
+                                                                 strong - mocny 
+                                                                 windows -wyrenderowany przez windowsa
+                                                                 windows LCD  - najlepszy jest z lcd
+
+        ---------------------------------------------------------------------
+        Wykorzystanie Icon Fontow
+            Font awesome - bibliotek ikon ktora mozemy wykorzystac w photoshopie
+                fontawesome cheatsheet > wybieramy ikonke > wrzucamy ja do ps  > wybieramy font na font awesome
+
+        ---------------------------------------------------------------------
+        Funkcja Focus area
+            Select > focus area -skupienie na pierwszym planie
+
+        ---------------------------------------------------------------------
+        Color range
+            select > color range > pipetka z + > zazanczamy elementy > quic selection tool > zazaczamy 
+            elementy ktore wchodza w tryb malowania
+            
+            zaznaczyc warstwe > refind edge - wygladza krawedzi
+            burn toool - wypalenie bialych pikseli
+
+        -----------------------------------------------------------------------
+        Korekta koloro cery
+            Select > color range > select > skin tones - zaznacza kolory skory
+
+        -----------------------------------------------------------------------
+        Maskowanie z kanalami
+            channels > edit> fill > color >black > mode >overlay
+            select > modyfi > contract
+
+        ------------------------------------------------------------------------
+        Rozmycie elekecji
+            lasso > feader - rozmycie
+            lasso > zaznaczenie warstwy > zrobienie maski > feader
+            lasso > szybka maska (q) > blur
+
+        ----------------------------------------------------------------
+        Selekcja na kanalach
+            channels (obok layout) > wybor kontrastu najbardzeej wyraznego > kopia kanalau ktory 
+            chcemy modyfikowac > przyciemniamy kolor > pedzel > mode: overlay
+
+        -------------------------------------------------------------------
+        Jeszcze bardzej skomplikowane kanaly
+            kanaly > rgb > image > calculation >red+blue
+
+        -------------------------------------------------------------------
+        Rozdzka i lasso
+            lasso > zaznaczamy dana teren > rozdzka + alt i odejmujemy dany teren
+
+        ------------------------------------------------------------------
+        Precyzyjna selekcja z Piorkem
+            peen tool *itnieje panel sciez paths > rawer bean
+                *auto add/ delet - dodanie punktow wektorowych 
+            Zaznaczenie cie obiektu > ctrl+enter
+
+        -------------------------------------------------------------------
+        Gumka tla
+            gumka na drugim miejscu > reset tool > powiekszamy ja > sampling once - wycieranie tla
+
+        -------------------------------------------------------------
+        Tryby mieszania a wycinanie
+            Tryb mieszania > multiply  - dla bialgo tla
+            tryb mieszania > screen - dla czarnego tla
+                             overlay - dla tla szarego
+
+        ---------------------------------------------------------------- 
+        Dopasowanie selekcji
+            Quick selection > zanzaczaym >select > refind edge > shift edge >refind radius tool (np do zaznaczania wlosow)
+            *mozliwosc uzycia shiftu dla prostych krawedzi
+
+        -----------------------------------------------------------------
+        Wycinanie wlsowow
+            Znajdujemy w googlu -maska wlosow > wklejamy maske z wlosamy > zanzaczamy dany wfragment > warp > dostosowywujemy wlosy 
+            przechodzmi na maske > ctrl+shift" alt > odmalywywujemy miejsca poza wlosami
+            pedzelkiem z malym flow  podmalowac wlosy
+
+        ----------------------------------------------------------------
+        Praca z color Match
+        1. clon warsty > filter > blur > avarage (usredniony kolor pikseli) > laczymy warstwy > opacity
+        2. Image Adjustment > match color > image staticics > wskazujemy obray > mieszamy obrazy
+
+        -----------------------------------------------------------------
+        Zautomatyzowanie rozmiarow do druku
+            window > action > nagrywanie akcji > przycianie obrazu > ratio > i wybieramy rozmiary > image > size > resolution > odnzaczamy resample > ustawiamy
+            rozmairy w cm > zaznaczamy resample > zmieniamy resolution> i zpaisujemy do druku 
+
+            Odznaczenie w danym miejscu akcji daje nam mozliwosc dostosowania pojedynczej akcji
+
+        ------------------------------------------------------------------
+        Akcje jak w instagram
+            Strona photoshoptuturials > akcje > z preferencji > load action > nasz a akcja > zapisanie naszej akcji
+
+        ----------------------------------------------------------------
+        Domysle stle warst 
+            W layer style mozna ustawic wlasne domyslne ustawiania. UStawiamy tak jak chcemy i zaznaczamy make default
+
+            PEdzel > ikona pedzla > new preset - daje mozliwosc ustawienia wlasnych wartosc
+
+        ------------------------------------------------------------
+        Sztuczka z Drop shaodws
+            LAyer stye > drop shadow 
+
+        ------------------------------------------------------------------------
+        Efekty warstw
+            Klikniecie prawym przyciskiem mysyz na warstwe
+                >scale effect - zmiana efektu warstwy
+                >create layer - przenosi warsty na osobne warstwy
+
+        -------------------------------------------------------------------
+        Sztuczkaz z flara
+            filter > render > lens flare - dodanie flary domyslnie bez mozliwosci modyfikacji
+            Na nowej warstwie dajemy kolor czarny> mieszamy warstwy lighten >i mozliowsc modyfikacji flary
+
+        --------------------------------------------------------------
+        Ogien
+            pen tool > sciezka >filter > render > flame - mozliwosc dodania ognia
+            text > create work path (sciezka na podstawie tekstu)>filter > render> flame
+
+        ----------------------------------------------------------
+        Ramka w photoshop
+            UTowrzenie nowej warstwy > filter > redner > picture frame
+
+        --------------------------------------------------------------
+        Drzewa w photoshop
+            Dodanie nowej warstwy > filter > render > tree
+            nowa warstwa > grey overlay > i dodaje nam to cien drzew
+
+        --------------------------------------------------------------------
+        Wprowadzenie do 3D
+            nowa warstwa > naryswoanie ksztatltu > 3d > new 3d extusion with selection path
+             > deform section > depth - dlogosc
+                                twist -skrecic
+            time line - towrzy animacje
+
+        ---------------------------------------------------------------------
+        Extrude tekstu do 3d
+            Narzedzie tekstowe > nasz tekst > 3D > mozliwosc zastosoawnia tekstu 
+            3D > split extusion > kazda litera jest brana osobno
+            Render
+
+        -------------------------------------------------------------------
+        Praca z bibliotekami
+            Librares > create new library > mozliwosc przezucania warstw do biblioteki 
+            *dzieki temu  mozemy wrzucac elementy strony internetowej (layout)
+
+        ---------------------------------------------------------------
+        Synchronizacja ustawien
+            Edit> preferences > sync settings > upload lub download
+            edit > sam dol > upload seeting - wysyla ustawienie do chmury  
+
+        -------------------------------------------------------------------
+        Wersjowanie plikow
+            preference > file handling > recent file contains
+            save in backgound - zapisywanie podczas pracy
+            auto save - automatyczne zapisywania kopi
+            desable compression of psd and psb files -ciezsze ale szybszy zapis
+
+            dzieki chmurze mozna podgladac prace nad naszym projektem
+
+        ---------------------------------------------------------------------
+        Kreatwyny market
+            pixelbuddha
+            pixden
+            graphicburgr
+
+            Creativ cloud > zasoby > market
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

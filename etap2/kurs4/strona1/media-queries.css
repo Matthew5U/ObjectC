@@ -1,0 +1,155 @@
+@media all and (min-width: 1024px) {
+	
+	#sea .device {
+		background: url(../gfx/desktop-size.png) no-repeat;
+	}
+	
+	#sea .frame .desktop-size {
+		display: block;
+	}
+	
+	#sea .frame .tablet-size, #sea .frame .phone-size {
+		display: none;
+	}
+		
+}
+
+@media all and (min-width: 483px) and (max-width: 1023px) {
+	
+	#sea .device {
+		background: url(../gfx/tablet-size.png) no-repeat;
+	}
+	
+	#sea .frame .tablet-size {
+		display: block;
+	}
+	
+	#sea .frame .desktop-size, #sea .frame .phone-size {
+		display: none;
+	}
+		
+}
+
+@media all and (max-width: 482px) {
+	
+	#sea .device {
+		background: url(../gfx/phone-size.png) no-repeat;
+	}
+	
+	#sea .frame .phone-size {
+		display: block;
+	}
+	
+	#sea .frame .tablet-size, #sea .frame .desktop-size {
+		display: none;
+	}
+		
+}
+
+
+@media all and (min-width: 965px) {
+	
+	#sky .outer-wrapper {
+		width: 945px;
+		margin: 0 auto;
+		margin-top: 90px;
+		position: relative;
+	}
+	
+	#sky .wrapper {
+		position: absolute;
+		width: 390px;
+		right: 0px;
+		}
+	
+	#sky .the-world {
+		position: absolute;
+		right: 0px;
+		}	
+	
+}
+
+@media all and (max-width: 964px) {
+	
+	#sky .outer-wrapper {
+		width: 100%;
+		margin: 0 auto;
+		margin-top: 90px;
+		position: relative;
+	}
+	
+	#sky .wrapper {
+		margin: 0 auto;
+		width: 390px;
+		margin-bottom: 60px;
+	}
+	
+	#sky .the-world {
+		position: relative;
+		top: 120px;
+		margin: 0 auto;
+	}
+	
+	#sky .planet {
+		margin: 0 auto;
+	}
+
+}
+
+@media all and (max-width: 849px) {
+	
+	#clouds .buttons {
+		height: auto;
+	}
+	
+	#clouds .buttons .wrapper {
+		width: 300px;
+	}
+	#clouds .buttons .btn {
+		margin-top: 25px;
+		margin-left: 0px;
+		float: none;
+	}
+	#clouds .buttons .btn:first-of-type {
+		margin-top: 0px;
+	}
+	
+	#clouds .fbox {
+		-webkit-column-count: 1;
+		-moz-column-count: 1;
+		column-count: 1;
+		width: 300px;
+	}
+	
+	#clouds ul {
+		width: 250px;
+		margin-top: 20px;
+	}
+	
+}
+
+@media all and (max-width: 1065px) {
+	
+	#underground .box-wrapper {
+		overflow: hidden;
+		display: block;
+		min-width: 390px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+	
+	#underground .box-wrapper ul, #underground .box-wrapper div {
+		float: left;
+		margin: 0;
+		margin-top: 30px;
+		width: 100%;	
+	}
+	
+	#underground .box-wrapper div {
+		padding: 50px 0;
+	}
+}
+	
+	
+	
+	

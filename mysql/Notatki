@@ -1,0 +1,277 @@
+_________________________________________________________________________________________________
+Kurs MySQL notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+
+    
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Baza danych
+-------------------------------------------------------------------------------------------------
+Baza danych - to uporzadkowany zbior danych, zazwyczaj zorganizowany jako zestaw tabel powiazanych
+    realcjami
+
+Dane znajduja sie w tabelach. Tabela sklada sie z :
+    -kolumn - cecha (atrybut) obiektu np nazwisko
+    - wiersz - wartosc wybranych cech konkretnego obiektu w bazie np Kowalski
+
+    Rekord (krotka) - to pojedynczy wiersz w tabeli, czyli zestaw pól w niej wystepujacych. Np. 
+        moze to byc zestaw cech danego ucznia
+
+    Pole (atrybut) - czesc tabeli przechowujaca jednostkowe dane np. nazwisko konkretnej osoby w 
+        tabeli.
+
+    Id - identity(tozsamosc) - unikatowy identyfikator id to w mysql primary key
+        primary key - klucz podstawowy - zwany tez kluczem glownym to jedno lub wiecej pol, ktorych
+            wartosc jednoznacznie identyfikuje kazdy rekord w tabeli. Taka cecha klucza nazywana jest 
+            unikatowoscia
+
+        klucz obcy - to klucz ktory jest glowny w innej tabeli ale w danej tabeli jest zapisany w kolumnie 
+
+    Redundancja - powtorzenia
+
+    Relacja:
+        Relacyjny model bazy danych - to model w ktorym dwie tabele sa ze soba powiazane
+
+    DBMS - System zarzadzania baza danych
+        np. mysql, postgesql, oracle
+
+        phpMyAdmin - narzedzie sluzace do latwego zarzadzania baza danych w MySQL
+
+            primary_key - klucz glowny
+            A_I - auto increment - autmoatyczne numerowanie nuemru id o 1
+
+
+    int -calkowita
+    float - zmienno przecinkowa
+    text - napis (string)
+    long text - dluzszy text
+    date - przechwouje date RRRR-MM-DD
+    time - czas GG:MM:SS
+
+SQL - Structured Query Language - strukturalny jezyk zapytan | Uzywa sie go aby cos zmienic w bazie 
+    danych
+    
+    query - kwerenda, czy li zpaytanie do bazy
+
+ZAPYTANIA
+    int mozna podac bez cudzyslow czyli id=15 ale i tak id="15"
+
+    string juz trzeba podac tak answer='a'
+
+    ORDER BY - uporzadkuj wedlug
+        ASC - ascending(rosnaco)
+        DESC - descending(malejaco)
+        np. ORDER BY tresc ASC
+
+    Slowo kluczowe dla przedzialow
+        id>=10 AND id<=12 mozna zapisac jako  
+        id BETWEEN 10 AND 12
+
+    LIKE - podobony, taki sma jak
+    SELECT * FROM pytania WHERE tresc LIKE "Jak%"   - wszstko co zaczyna sie od pierwszych trzech
+         liter Jak np. JAk.. jakie.. jakowoz 
+    "%c++%"  - jesli pojawi sie gdizekolwiek c++
+    SELECT * FROM pytania WHERE tresc LIKE "%c++%" OR odpd LIKE "%C++%"
+
+    SELECT * FROM pytania WHERE (kategoria="programowanie" OR kategoria="systemy operacyjne i sieci")
+     AND rok=2012 <-- laczy nam kategoria OR-em i dodaje and ze maja byc z roku 2012
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. Ksiegarnia
+-------------------------------------------------------------------------------------------------
+LIMIT 1 - mowi ogarnicz wyszukiwanie do jednego wyniku
+
+SELECT * FROM ksiazki WHERE tytul LIKE "%PHP%" <- wyszukaj wszystk oco ma w naziwe php obojetnie 
+    gdzie wiec dajemy % przed i po slowei php
+
+Zapytania proste SELECT - wyjmujemy dane tylko z jednej tabeli
+Zapytania złożone SELECT - dane ktore chcemy wyciagnac z bazy znajduja sie w wiecej niz jednej tabeli.
+    A to moze okazac sie klopotliwe, bo pomiedy tabelami istnieja rlacje
+
+Dopiero PO klauzuli WHERE uzywamy spojnikow logicnzych AND/OR a przed dajemy przecinek
+
+Schemat nazwenictwa tworzenia zapytan z wielu tabel
+    
+    tabela.kolumna
+
+SELECT klienci.imie, klienci.nazwisko, zamowienia.idzamowienia, zamowienia.data FROM klienci, 
+zamowienia WHERE klienci.idklienta = zamowienia.idklienta <-- wyciagamy z dwoch kolumn
+    i zpaisujemy ze klucz glowny z jednej tabeli jest dokaldnie tym samym kluczem co jakas kolumna 
+    w drugiej tabeli
+
+    Po klauzuli WHERE musimy wypisac wszystkie relacje zachodzace pomiedzy uzywanymi przez nas w 
+        zapytaniu zlozonymi tabelami
+
+    Uzywanie aliasow (przezwisko) - k.nazwisko  FROM klienci AS k
+    SELECT k.imie, k.nazwisko, z.idzamowienia, z.data FROM klienci AS k, 
+    zamowienia AS z WHERE klienci.idklienta = zamowienia.idklienta  
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. INSERT i UPDATE
+-------------------------------------------------------------------------------------------------
+INSERT - wstawianie do bazy
+UPDATE - edycja 
+
+dump - kopia bazy danych
+
+UPDATE - czyli zmiana
+SET - ustaw
+
+UPDATE klienci SET nazwisko="Psikuta"
+UPDATE klienci SET nazwisko="Psikuta" WHERE idklienta=4
+
+ROUND - zaokraglanie. (co zaokraglamy, ile miejsc po przecinku)
+UPDATE ksiazki SET cena=ROUND(cena*1.1,2)
+
+UPDATE ksiazki SET cena=cena-10 ORDER BY cena DESC LIMIT 1 <- zapytanie dla najdrozszej ksiazki
+
+
+Podmienianie obu wartosi w jednym zapytaniu
+Nie wystapienie klauzuli WHERE mowi nam o tym ze jesli wymieniamy nazwy to dajemy przecinek a nie 
+    spojnik AND lub OR
+
+    UPDATE klienci SET imie="Joanna", nazwisko="Dostojewska" WHERE idklienta=10
+
+
+    UPDATE zamowienia SET status="wyslano" WHERE idzamowienia BETWEEN 4 AND 5
+
+INSERT INTO - wstawianie do bazy danych
+VALUES - wartosci
+NULL - wartosc pusta - autoinkremnt sam wstawi wartosc
+
+Mozemy podac wlasna kolejnosc danych a nie tak jak wystepuje w bazie zby cos wypisac
+INSERT INTO zamowienia (idzamowienia, data, status, idklienta, idksiazki) VALUES (NULL, "2016-01-01", "oczekwianie", 7, 3)
+
+Mozemy dodac kwerende mimo nie ze podamy wszystkich danych wystepujacych w tabeli
+INSERT INTO ksiazki (idksiazki, nazwiskoautora, tytul) VALUES (NULL, "Grębosz", "Symforani C++")
+
+Dodanie dwoch rekordow
+INSERT INTO klienci VALUES (NULL, "MArlin", "Monroe", "Los Angeles"), (NULL, "Jhno", "Takis", "Los Angeles")
+
+ALTERNATYWA JEST SET do wartosci VALUES
+
+INSERT INTO klienci SET idklienta=NULL, imie="Steve", nazwisko="McQuenn", miejscowosc="LOS ANGELES"
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Modele danych, Relacja. Iloczyn kartezjanski
+-------------------------------------------------------------------------------------------------
+model - reprezentacja fragmentu rzeczywistego swiata
+
+Model danych - itegralany zbior zasad, opisujacy dane i powiazania pomiedzy nimi oraz okreslajacy
+    ograniczniea nakladane tak na dane jak i na operacje na nich wykonywane
+
+    3 zasadnicze role:
+    -rola strukturalna - okreslanie sposobu przechwoywania danych
+    -rola integralna - zagwarantowanie stalibnosci systemu przechowywanych danych
+    -rola manipulacyjna - zapewnienie mzoliwosci bezpiecznej modyfikacji danych oraz ewentualnych 
+        zmian struktur danych
+
+Struktura danych - sa zaawansowanymi pojemnikami na dane, ktore ukladaa te dane
+
+Modele danych:
+    Jednorodne - uzywamy w nim jednego zgromadzenia danych |Prosty ale trudny do odnajdowania danych
+
+    hierarchiczny - oparty na drzewiastych (hierarchicznych) strukutrach danych, charakteryzuje sie
+        stosowaniem zwiazkow nadrzednych- podrzednych | Wada -brak elastycznosci w operacji na danych
+    
+    Obiektowy - oparty na podejsciu, ktore znamy z programowania obiektowe: rzeczywistosc reprezentowana
+        jest przez obiekty, ktore rozumiemy jako instancje klas
+        obiektowy jezyk zapytani to OQL
+
+        klasa = encja - zestaw atrybutow i metod
+        obiekt = instancja - jeden z reprezentantow klasy
+
+    Relacyjno-obiektowy- model mieszany, w ktorym mechanizm przechwoywania danych jest relacyjny,
+        jednak w operowaniu na danych mozemy uzyc interfejsu metod wykrozystujacych mechanizmy obiektowe
+
+    Sieciowy - modyfikacja modelu hierarchicznego, oparta na typach kolekcji oraz typach rekorod, zas 
+        reprezentacja powiazan przyjmowal postac tzw. grafu zorientowanego, ktory nazywano siecia 
+
+    RELACYJNY 
+        Relacja(tabela) - podzbior iloczynu kartezjanskiego / Matematycznie
+        relacja - powizanie logiczne wystepujace pomiedzy tabelami realizowane za pomoca klucza 
+            podstawowego i klucza obcego
+
+-------------------------------------------------------------------------------------------------
+Kurs 5. Usuwanie danych
+-------------------------------------------------------------------------------------------------
+Usuniecie danych:
+    Update - zmiana zawartosci pola w tabeli
+
+    DELETE - Kasowanie jednego lub wielu rekordow w tabeli
+
+        DELETE FROM zamowienia WHERE idzamowienia = 2
+        //nie zmienia sie inkrementacja w sesie ze jesli wykasujemy id 2 to wszystkie rekordy zmienia 
+            swoje liczby. Zostaje dziura ale to dobrze
+
+            Dwie zasady z cyklu "ANTY-FUCKUP"
+                1. Nie zapomnij okreslic klauzula WHERE, ktorych rekordow w tabeli ma dotyczyc zapytanie DELETE
+                    (bo jak zapomnimy to WSZSYTKIE rekordy usuniemy)
+
+                2. Przed wyslaniem do bazy jakichkolwiek nietestowanych zapytan DELETE, TRUNCATE albo DROP
+                    najlepiej wykoncac backup(eksport) bazy - w razie wystapienia problemow z usuniecie 
+                    niewlasciwych rekodow badz struktur, mozmy odtworzyc zniszczone dane
+
+            Mozna uzyc ORDER BY i LIMIT dzieki temu ponumerujemy co ma byc usuwanie
+
+                DELETE FROM klienci ORDER BY idklienta DESC LIMIT 5
+
+    TRUNCATE - Skasowanie wszystkich rekordow tabeli
+        Usuwa wszystkie dane o wiele szybciej niz DELETE
+
+        TRUNCATE TABLE nasza_nazwa_tabeli
+
+        Operacja TRUNCATE jest szybsza, poniewaz nie usuwa rekordow kolejno, lecz zamiast tego tabela jest najpierw
+            zdropowana(usunieta) z bazy a potem odtworzona na nowo (zapyaniem CREATE)
+
+
+
+    DROP - kasowanie struktury w bazie danych
+        tabeli 
+        bazy
+
+        DROP DATABASE ksiegarnia - usuwa cala bazedanych
+
+        DROP TABLE IF EXISTS klienci - usun jesli istnieje
+
+        DROP TABLE klienci - usuwa wszystkich klienci
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+

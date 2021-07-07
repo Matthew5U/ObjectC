@@ -1,0 +1,394 @@
+_________________________________________________________________________________________________
+Kurs PHP notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    
+
+    
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Kurs XAMPP
+-------------------------------------------------------------------------------------------------
+Serwer
+X - Cross-plaform
+A - Apache - twarty serwer HTTP dostepny dla wielu systemow opracyjnych
+M - MySQL
+P - PHP
+P - Perl - jezyk programowania, wzorowany jezyku C. przeznaczony glownie do pracy z danymi tekstowymi
+
+Alternatywa Devilbox i composer 
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Piersze kroki
+-------------------------------------------------------------------------------------------------
+Uzytkownik >> (url) >> serwer >> (php) >> interppreterphp
+uzytkownik << (html) << serwer<< (html) << interpreterphp
+
+php -(personal home page ) mechanizm dzialania witryny
+php -(po licencji gnu nazway zostal PHP Hypertext preprocessor)
+
+
+instrukcja echo "witaj swiecie" wypisuje nam linie
+
+Zmienna - szuflada na dane, miejsce w pamieci RAM serwera, gdzie mozna przechowac jakies dane
+
+            Nie trzeba okreslac typu danych np int 
+
+            $imie - zmienne 
+                Nie moze zawierac spacji i operatorw(np +)
+                Nie moze zawierac polskich znakow
+                Nie moze zaczynac sie od cyfry
+
+            "" <-- Sa slabsze niz apostrofy
+            '' <-- Nie mozna uzywac zmiennych w apostrofach. Dzialanie $ jest wylaczone w apostrofach
+
+            Zapis obrazu:
+                echo "Witaj, $imie" <-- wypisze zmienna imie --> Witaj, Joanna
+                echo 'Witaj, $imie' <-- wypisze -->Witaj, $imie
+                echo '<img src="obraz.jpg" >'; <-- wczytanie obrazu
+
+            konkatenacja(klejenie napisow) w php jest wykonywana przez znak kropki .
+                echo $imie.', witaj na stronie';
+
+<form></form> daje nam mozwliosc iz przyscis submit zbierze wszystkie input
+
+<form action="order.php" method="get">
+    action - akcja, gdzie ma przeslac dane z input
+
+    metho - metoda przesylania formularza
+        get - wartosci liczbowe zostana wyslane jako dodatkowa naklejka do adresu strony. Slabo 
+        przy duzych danych do przeslania
+
+        post - poczta. Poslane dane nie sa zauwazalne golym okiem
+
+
+
+    name dajemy do php - mowi jak sie nazwa input w ktorym zostalo cos wpisane
+    id dajemy do js
+
+Wieloliniowe echo
+echo<<<END
+
+
+
+
+
+END; <-- musi byc napisane przy boku nie moze znajodwac sie spacja
+
+ echo<<<END <-- blad bo jest spacja przed echo
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. Logowanie DOBRE NOTATKI W zaloguj.php
+-------------------------------------------------------------------------------------------------
+Parametr serwera, ktory okresla jak dlugo wazna jest nawiazana przez klienta sesja - po uplywie
+    tego czasu bezczynnosci trzeba bedzie zalogowac sie ponownie
+
+    Parametr ten jest okreslony w pliku php.ini, nosi on nazwe session.gc_maxlifetime i domyślnie
+        ma wartosc 1440 sekund        
+
+
+LOGOWANIE:
+
+1.W kazdym pliku php, ktory ma byc dostepny jedynie dla zalogowanych uzytkownikow umiescimy na
+    poczatku pliku ifa, ktory sprwadzi, czy uzytkownik jest zalogowany. JEsli nie jest zalogowany,
+    to przekieruje go do inex.php
+
+2.W pliku index.php, dodamy ifa, ktory sprawdzi, czy tkos jest zalogowany. JEsli jest, to wowczas
+    przekierujemy go do pliku gra.php, czyli tak jakby nowej strony głównej dostępnej jedynie dla 
+    zalogowanego gracza.
+
+3.W pliku skrytpu logowania zaloguj.php(przetwarzajacym podany login i haslo ) umiescimy ifa, ktory
+    sprawdzi czy obie zmienne POST: login i haslo zostaly ustawione. Jesli nie istnieja takie 
+    zmienne, to przekierujemy uzytkownika do formularza logowania index.php
+
+isset - czy jest ustawiona (np czy login istnieje)
+
+MD5 - szyfrowanie hasel
+
+Dane potrzebne do uzyskania polaczenia:
+    1. Adres MySQL
+    2. Login MySQL
+    3. Hasło MySQL
+    4. Nazwa bazy danych
+
+    *dane do logoawnia umieszczamy w innym pliku
+
+Dołaczanie blibliotek
+    1.include - wlacz plik do zrodla 
+    2.include_once - php sprawdzi czy plik nie byl dodany wczesniej w kodzie i jesli nie to doda go
+                        innaczej jesli bedzie to juz nie doda 
+    3.require - wymagaj pliku do zrodla
+    4.require_once - php sprawdzi czy plik nie byl dodany wczesniej w kodzie i jesli nie to doda go
+                        innaczej jesli bedzie to juz nie doda 
+
+    Funkcja require jest w zasadzie identyczna do include, jedynie innaczej obsluguje sytuacje 
+        wyjatkowe. Gdy wlaczanego pliku nie uda sie otworzyc,, to include wygeeruje tylko ostrzezeni
+        a skrypt bedzie sie dalej wykonywac. Zas require wygeneruje blad krytyczny i dalesze wykonanie
+        skryptu zostanie wstrzymane
+
+        Dopisanie _once nie zmienia ogolnej zasady dzialania funkcji, a jedynie sprawi, ze PHP przy
+            wlaczaniu pliku do kodu dodatkowo sprawdzi, czy ten plik nie zostal juz dolaczony wczesniej
+            w dokumnecie. JEsli tak, to dolaczane linie nie zostana ponownie wklejone w plik
+
+$polaczenie = @new mysqli($host, $db_user, $db_password, $db_name); <-- Tworzymy zmienna ktora rep
+                                                                        rezentuje nasze polaczenie
+    @ daje to ze nie bedzie wyrzucac zadnych bledow w aplikacji
+
+    operator new rezerwuje nam nowa pamiec
+
+    //connect_ernno rowny zero oznacza, iz ostatnio podjeta proba polaczenia sie z baza zakonczyla 
+    sie sukcesem
+    if($polaczenie->connect_errno!=0) // Jesli sie spelni to errno = 1 czyli true(czyli sie nie polaczylismy)
+
+    1. WArtosc rowna zero traktujemy tak samo jak waros false
+    2. Kazda inna wartosc liczbowa niz zero trakowana jest jako true
+
+!PAMIETAMY O ZAMKNICIU POLACZENI!
+
+    Cale zapytanie zamykamy w cudzyslowach a zmienne w apostrofach i zapisujemy do zmiennej
+
+    query -zapytanie
+
+Tablica assocjacyjna(skojarzeniowa)
+    Jako dostep do zmiennych w tablicy uzyskiwane sa po przez nazwy tabel a nie numer indeksu 
+        tablicy
+
+Zwolnienie pamieci po zmiennej to 
+    close();
+    free();
+    free_result();
+
+ZAWSZE CZYSCIMY REZULTATOW ZAPYTANIA
+
+Sesja w PHP
+    Umozliwia ona przekazywanie zmiennych pomiedzy podstronami w latwy sposob, z uzyciem globalne 
+    tablicy asocjacyjnej o nazwie $_SESSION.
+
+    Jest to pojemnik na zmienne tylko dla tworcy seriwsu
+
+    Zmienne sa przechwowane po strnie serwera, a klient na swoim komputerze posiada tylko tzw. 
+    indetyfikator sesji PHPSESSID
+
+    Zmienne sesyjne sa przechowywane na serwerze, aklint posiada tylko identyfikaotr sesji
+        tzw. PHPESSID. To ID jest zapisywane w cookie lub przekazywane poprzez URL metoda GET
+
+    isset - jesli istnieje
+    unset - usu zmienna
+
+Wstrzykiwanie sql
+
+Znak komentarza w MySQL
+    Podobnie jak w wielu jezykach programowania, wszystko co zostalo zapisane po znaku komentarza
+        zostanie zignorowane przez interpreter kodu i potraktowane jako notatka dla programisty
+
+        Komentarz w MySQL: -- Tresc komentarza
+
+    Socjotechnika - w bezpieczenstwie teleinformatyczny zestaw metod majacych na celu uzyskanie 
+        niejawnych informacji przez cyberprzestepce
+
+    
+    Przyklad:
+    Znamy login:
+    marek' -- [marek,apostrof, spacja, dwa myslniki, spacja]
+
+    Nie znamy nic:
+        login dowolny
+        a haslo
+            ' OR 1=1 -- [apostrof, spacja, OR, spacja, 1=1, spacja, dwamyslniki, spacja]
+            Dzieki temu logujemy sie na pierwsze konto w bazie
+
+        W SQL operator porownania to = a w c++ to ==
+
+    SQL injection - luka w zabezpieczeniu aplikacji internetowych polegajacyhc na nieodpwoiednim 
+        filtrowaniu znakow z danych wejsciowych, co pozwala na przezania dodatkowych paramterwo 
+        do oryginalnego zapytania sql
+
+        Nie ufaj uzytkownikowi
+
+        walidacja = sprawdzenie poprawnosci danych
+        sanityzacja = wyczyszczenie danych z potencjalnie niebezpieczneych zapisow
+
+        mysqli_real_escape_string() - Funkcja, ktorej powinnismy uzyc na kazdym ciagu znakow, ktory 
+                                        otrzymalismy od uzytkownika i ktorego uzywamy w zapytaniu SQL
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. Skrypt rejestracji - ciag dalszy
+-------------------------------------------------------------------------------------------------
+Jesli nie wspazemy action w form to ten sam plik przetwozy dane
+
+zamkniecie czegokolwiek w label mowi nam o tym ze wszystko co sie tam znajduje tworzy jedna calosc
+
+Captcha - completely Automated Public Turing test to tell Computers and Humans Apart
+
+    Test turinga - sposob okreslania zdolnosci maszyny do poslugiwania sie jezykie naturalnym i 
+        posrednio majacym dowodzic opanowania przez nia umiejetnosci myslniea w sposob podobny do ludzkiego
+
+strlen($napis) - dlugosc napisu w php
+
+ctype_alnum() - sprawdz czy wszystkie znaki w lancuchu sa alfanuemryczne
+                zwraca true albo false
+
+preg_match() - ta funckja korzysta z tzw. wyrazen regularnych
+
+filter_var(zmienna, filtr) - przefiltruj zmienna w sposob okreslony przez rodzaj filtru(drgui paramet funckji)
+
+Hashowanie hasla - Jest to zamiana hasla na tzw. hash, czyli zakodowany ciag znakow. Zamiane realizuje 
+                    algorytm hashujacy(szyfrujacy) np. MD5, SHA
+
+Zamiana jest jednokieruknowa - mozliwa jest tylko zamiana hasla na hash, funkcji odwrotnej(zamieniajacej
+    hash nah haslo nie ma)
+
+    Zamiana jest takze bezkolizyjna, czyli dwa rozne hasla nigdy nie wygenreuja takiego smaego hasha
+
+    To samo haslo zawsze wygeneruje nam ten sam hash
+
+password_hash() - funkcja hashujaca w php uzywa salt(dodatkowe znaki doklejanie do poczatku hasha)
+
+    Password_default to stala oznaczajaca: uzyj najsilniejszego algorytmu hashujacego jaki jest dostpeny
+        aktualnie jest to algorytm bcrypt(na 2015 rok)
+
+    PASSWORD_BCRYPT - jest to algorytm hashujacy haslo
+
+JSON - JavaScript Object Notation - lekki format wymiany danych komupterowych, bazujacych na 
+    podzbiorze jezyka JS. Pomimo nazwy kojarzacej sie z JSem wiele jezykow programowania obsluguje 
+    ten format przsylu.
+
+-> operator ten oznacza. Jest to notacja obiektowa, uzyskania po zdekodowaniu odpowiedzi funkcji 
+    json_decode(). Skladnia to klasyczny zapis obiektowy w postaci:
+
+    obiekt->atrybut_obiektu
+
+try .. catch
+    try - sprobuj
+    catch - zlap
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Przetwarzanie daty serwerowej i czasu serwera
+-------------------------------------------------------------------------------------------------
+time - czas na serwerze
+
+datetime w sql 1000-01-01 do 9999-12-31 23:59:59
+
+timestamp w sql 1970-01-01 do 2038-01-16 03:14:07
+
+mktime - stowrz czasu
+    hour, minute, second, mont, day, year
+
+microtime - liczba mikrosecund od czasu 1970
+
+date() - data
+    Y - 2016 rok 
+    y - 16
+    m - miesiac 01
+    n - bez zera 1
+    M - angielski 3 literowy skrot miesiaca
+    d - dzien z zerem 02
+    j - dzien bez zera 2
+    D - angielski 3 literowy skort tygodnia
+    H - format 24 godzinny z zerem
+    h - godizna 12 godzina z zerem
+    G - format 24 godziny ale bez 0
+    g - format 12 godzinny ale bez 0
+    i - liczba minut
+    s - liczba sekund
+
+    MYSQL DATETIME
+    YYYY-MM-DD HH:MM:SS 
+    Tak przechwujemy date w mysql
+
+print_r() - wypisuj rekursywnie | zobaczenie obiektu w php jedna komenda bez potrzeby formatowania dodatkowa komenda
+
+checkdate() - sprawdza wpisana date
+    miesiac,dzien,rok - pamietac
+
+    // wypisanie czasu serwera
+    echo time()."<br>";
+
+
+    //mktime - stworz czas
+    echo mktime(19, 37, 0, 4, 2, 2005)."<br>";
+
+    echo microtime()."<br>";
+
+    echo date('Y-m-d H:i:s')."<br>";
+
+    //tworzymy nowy obiekt
+    $dataczas = new DateTime();
+
+
+    //dostajemy sie do metody znakiem ->
+    //echo $dataczas->format('Y-m-d H:i:s')."<br>".print_r($dataczas);
+
+    $dzien = 26;
+    $miesiac = 7;
+    $rok = 1875;
+
+    if(checkdate($miesiac, $dzien, $rok))
+        echo "Poprawna data";
+    else
+        echo "Nie poprawna data";
+
+diff() - roznica czasow
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 5. PDO
+-------------------------------------------------------------------------------------------------
+Object Oriented Programing
+
+API - interfejs klas, metod, funckji, zmiennych, parametrow, ktorych aplikacja PHP uzywa w celu 
+    zrealizwoania zaplanowanych przez programiste zadan
+
+    Moze byc obiektowy lub proceduralny
+
+W mysqli zamykalismy poczaczenie: $polaczeni->close();
+
+PDO zamyka polaczenie automatycznie , kiedy zginie obiekt klasy PDO(przy koncu wykonania skryptu,
+    lub kiedy zniszczymy go sami przypisujac do niego NULL)
+
+    Polaczenie zostanie automatycznie zerwane ale warto go zniszczyc przy duzych plikach 
+
+Skrocenie zapisu inline:
+
+Mozna uzyc <? zamiast <? ale to musi byc wlaczone w pliku php.ini
+<?= jest to samo co <php echo
+
+warunek ? instrukcja1 : instrukcja2
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+

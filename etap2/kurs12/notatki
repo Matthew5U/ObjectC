@@ -1,0 +1,572 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress - WooCommerce" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------
+Czesc Wstep
+-------------------------------------------------------------------------------------------------
+
+    Dane wrzucamy do htdocs
+        1. http://cocalhost/phpmyadmin
+        2. Zmiana nazwy na woocommerce
+        3. Wrzucenie bazy danych
+            1. Tworyzmy bazedanych woocommerce1
+            2. Importujemy baze danych
+            3. Przechodzimy do pliku wp-config.php w zainstalowanem wordpresie i zmieniamy dane
+                define('DB_NAME', 'woocommerce1');
+                define('DB_USER', 'root');
+                define('DB_HOST', 'localhost');
+            4. Przechodzimy do panelu administratora w wordpressie
+                Login: admin
+                Haslo: admin
+    
+
+    WooCommerce
+        Nie jest samodzielnym systemem woocommerce. Potrzebuje wordpressa
+        Jest to zaawansowany dodatek do wp.
+        Dzieki niemu mozna stowrzyc niewielkie sklepy internetowe
+
+        Dzieki niemu mozemy
+            -zarzadzac produktami
+            -zarzadanie stanem magazynowym
+            -rejestracja uzytkownikow
+            -zautomatyzowana sprzedaz
+            -konfirguracja opcji platnosci wysylki
+            -mozliwosc przydzielania kuponow
+            -raporty sprzedazy
+        
+        Zalety:
+            -opieranie na Wordpressie
+                -swietny interfejs uzytkownika
+            -WooCommerce jest darmowy
+            -wiele darmowych i platnych dodatkow, szablonow
+            -mozliwosc tworzenia wlasnych szablonow
+            -BEZPIECZENSTWO
+
+        Wady:
+            -Stosunkowo drogie dodatki od WooThemes
+            -Nieco trudny do zrozmienia na poczatku
+
+    
+-------------------------------------------------------------------------------------------------
+Czesc UStawienia WooCommerce
+-------------------------------------------------------------------------------------------------
+
+    Instalacje:
+        1. Sposob
+            1. Sciagniecie pliku
+            2. Wypakowanie do plugins
+            3. Aktywowanie wtyczki
+
+        2. Sposob
+            1. Wejscie do panelu admina wordpressa
+            2. Przejscie do zakladki wtyczki
+            3. WooCommerce - excelling eCommerce
+            4. Instalowanie
+            5. Wlaczenie wtyczki
+            6. Uaktualniamy polski jezyk
+                -Update translation
+            7. Zainstaluj strony sklepu woocommerce 
+            8. Wyglad > menu > "dodawanie stron"
+            9 Ustawienia czytania > strona glowna wyswietla > sklep
+
+
+    Backup Wordpressa:
+        1. Panel admina > narzedzia > import > wordpress > instalujemy wordpress importer >
+            > wlacz wtyczke importer
+        2. Narzedzia > wtyczka > dodaj nowa > BackUpWordPress > insalujemy > wlacz wtyczke
+            Narzedzia > kopie zapasowe 
+            
+            BackUpWordPress
+                Co dziennei robi zapasowa kopie bazy danych
+                Raz w tygodniu robie kopie zapasowa bazy danch + kopie wszystkich plikow
+
+        3. Complete Weekly > Uruchom teraz
+
+
+    Importowanie produktow:
+        1. Panel admina > Narzedzia > Import > wybieramy nasz plik > dummy-data.xml
+        2. Wybieramy uzytkownika do ktorego ewentualne posty zostana dopisane
+        3. Download and import file attachments
+
+
+    Ustawienia:
+        1. WooCommerce > Ustawienia > Ustawienia glowne
+            1. Bazowa lokalizacja  - JAkie panstwo ma domyslnie ustawic do wysylki
+            2. Lokalizacja sprzedazy - Ustawienie do jakich krajow mozemy wyslac nasze prdukty
+            3. Napis w sklepie - koumnikat ktory bedzie wyswietlany w calym sklepie
+            4. Api - wazne dla developerow do tworzenia aplikacji
+            5. Waluta - waluta w naszym sklepie
+            6. Pozycja znaku waluty - jak ma sie wysweitlac cena
+            7. Wyswietlanie danych 
+            8. Style - kolory dla strony
+            9. Srypty:
+                -Lightbox - galeria zdjec
+                -Rozszerzenie wyboru krajow - przeszukiwanie pol z panstawmi
+            
+        2. WooCommerce > Ustawienia > Podukty
+            Opcje produktow:
+                Archiwum produktow/ Srona sklepu: - Srona na ktorej beda wyswietlane nasze archiwum
+                Wyglad strony sklepu - wyglad sklepu wyzej ustawionego
+                Domyslny widok kategorii - Kategoie podkategorii
+                Domyslne sortowanie produktow
+                Jednostki wagi
+                Jednostki wymiaru
+                Ocenanie produktow
+                    Pozwalaj na recenzje tylko od zaufanych uzytkwonikow - tylko tym ktorzy kupili nasz produkty
+                
+                Rozmiary obrazkow
+                Produkty po pobraniu
+                    Pobeiranie wymaga zalogowania - wyamganie zalogowanie do pobrania
+
+            Magazyn:
+                Zarzadzanie stanem magazynowym - ograniczenia w ilosci
+                Wstrzymuj stan magazynowy - jezli ktos doda do koszyka na 60 min to na 60 min rezerwuja ten przedmiot
+                Powidomienia
+                Widocznosc braku w magazynie
+                Wyswietlanie stanu magazynowego
+
+        3. WooCommerce > Ustawienia > Podatek
+            Zakladka Opcje podatku:
+                Wlacz podatki - przeliczamy podatki w naszym sklepie
+                Ceny podawane z podatkiem
+                Obliczaj podatek w oparciu o
+                Domyslny adres klienta
+                Klasa podatkowa dla wyslki - Vat 23 % czyli klasa podatkowa oparta o produkty w koszyku lub standardowa
+                Dodatkowe klasy podatkowe - brak
+                Wyswietlanie cen w sklepie - z podatkiem
+                Przysotek ceny - np brutton
+                Wyswietlanie cen w koszyku
+                Wyswietlanie sumy podatku
+
+            Zakladka standardowe stawki: 
+                Dodaj wiersz
+                    Kod kraju: PL - dla polski
+                    Kod stanu: brak
+                    Kod pocztowy: brak
+                    Kod miasto: brak
+                    Stawka %: 23
+                    Nazwa podatku: VAT23
+                    Priorytet: 1
+                    Stawka skladana: Odznaczamy
+                    Wysylka: Odznaczamy (Koszt wysylki wpisujemy od razu)
+
+        4. Zamowienia:
+            Opcje zamowenia:
+                Kupony: - uzywnaie kuponow np ze znizkami
+                Wlacz zakupy gosci - wymuszanie rejestraci do zakupow
+                Wymus bezpieczne zamowienia - Posiadanie certyfikatu ssl
+                Strona koszyk
+                Strona zamowienia
+                Regulamin
+                Platnosci - order-pay - zamowienie oplac
+                Bramki platnosci: Dokonywanie platnosci
+                    Przelew bankowy
+                    Platnosc czekiem
+                    PayPal
+                    Gotowka za pobraniem
+
+            System BACS (Platnosc przlewem bankowym)
+                Wlacz przelwey bankowe
+                Tytul
+                Opis
+                Szczegoly konta - dane tam gdzie ma dotrzec przelew
+
+            PayPal
+                Specyficzne opcje dla kazdej platnosci
+
+        5. Wysylka
+            Opcje wysylki
+                Wlacz wysylke: nie trzeba dla porduktow cyfrowych
+                Kalkulator: obliczenie kosztow wysylki
+                Schowaj koszty wysylki przed wpisaniem adresu
+            
+                Sposob wyswietlenia wysylki
+                Adres wysylki
+                Ogranicz wysylke do lokalizacji
+                Sposoby wysylki - rodzaje wysylki. Ustawainie kolejnosci
+
+            Darmowa wysylka
+                Wlacz darmowa wysylke 
+                Darmowa wysylka wymaga: PRofity aby dostac darmowa wysylke
+                Minimalna wartosc zamowienia dla jakiej mozna wyslac za darmo
+
+            Plaska Stawka
+                Tytul metody np Wysylka kurierska
+                Status opodatkowany
+                Koszt: koszt wysylki
+                Dodatkowe stawki: dodanie np wysylki priorytetem
+                Koszty dodane - za zamowieni 
+                Koszt - dla danej klasy wysylkowej jest inny koszt np dla duzych produktow
+                    Dodaj koszt
+                        Klasa wysylkowa np duze produkty cena 5 zl - dodanie za wysylke duzego przedmiotu
+                Minimalna oplata manipulacyjna: oplata np za pudelko    
+
+
+        6. Konta
+            Strona moja konto
+                Wyglad konta
+
+        7. Email
+            Opcje email
+                Pole "Od" - tytul naszej witryny od
+                Email "Od" - email uzytkownia zalogowanego
+                Szablon email - wyglad naszego przeslanego maila
+
+            Nowe zamowienie
+                Wlacz powiadomienie - wiadomosc o nowym zamowieniu klienta
+                Tytul
+                Naglowek maila
+
+            Zamowienie w trakcie realizacji
+
+            Nota dla klienta
+
+            Nowe konto
+
+-------------------------------------------------------------------------------------------------
+Czesc Zarzadzanie produktami
+-------------------------------------------------------------------------------------------------
+
+    Panel produktu
+        Panel Produkty > Produkty > Dodaj nowy pordukt
+            Nazwa produktu
+            Opis dlugi
+            Krotki opis
+            Panel boczny
+                Zapis szkicu
+                Galeria produktu - dla wielu zdjec
+                Obrazek wyrozniajacy - dla jednego zdjecia | Zdjecie glowne w galerii
+                Widocznosc w katalgou
+                    Katalog/wyszukiwanie - w katalgou i wyszukiwarce
+                    Ukryj
+                Kategorie produkut - zaznaczamy kategorie glowna i poboczna w ktorej ma sie znales
+                    nasz produkt
+                
+                OPUBLIKUJ
+
+            Dane produktu
+                Ustawienia glowne
+                    Prosty produkt
+
+                    Produkt z wariantami - posiadajacy jakies warianty
+
+                    Produkt grupowy - produkt ktory bedzie skladal z kilka prdouktow np aparat+karta+stojak
+
+                    Produkt zewnetrzny/afilacyjny - Produkt wystawiamy u siebie ale nie wystawimy go u siebie.
+                        Produkty z inny stron
+
+                    Prodkut prosty > Wirtulany: on > DO pobrania: on
+                        Pliki do pobrania
+                            Dodaj plik
+                                Adres url do pliku
+                                
+                            Limit pobran
+                            Wygasniecie pobrania
+                            Rodzaj pobrania
+
+                    Wirtualny - nie jest produktem fizycznym (np usluga informatyczna)
+                    Do pobrania - do pobrania( np ebook)
+                    SKU - oznaczenie produktu w magazynie (np sku-1 suit)
+                    Cena - Wartosc
+                    Cena wyprzedazy
+                        Data wyprzedazy
+                    Status podatku: opodatkowany
+                    Klasa podatkowa: standardowa
+
+                Magazyn
+                    Zarzadzac zapasem? - mozliwosc wpisania ile jest porduktow na stanie 
+                    Ilosc na stanie
+                    Pozwalanie na zamoienia oczekaujace
+                    Stan magazynowy: na stanie
+                    Sprzedawane indywidualne 
+
+                Wysylka
+                    Waga
+                    Wymiary
+                    Klasa wysylkowa
+                        Nasza stworzona klasa wysylkowaDuze produkty - doda 5zl ktore ustalislimy w sklepie
+
+                Powiazane pordukty
+                    Produkty Up-sell - produkty polecane zamiast obecnego przegladanego produktu
+                    Produkty cross-sell - dodatkowe pordukty w koszyku ktore wyswietlamy
+                    Grupowanie  - wybieramy nasz utowrzony wczesniej produkt grupowy
+
+                Atrybut
+                    Dodaj
+                        Mozliowsc dodania wlasnych wlasciowci np Romiar koszul wartosc 36|37
+                        Widocznosc na stronie produktu
+                            Np dodanie atrybutu kolor t-shirtu
+                        Zdjeca dla wariantu pokazuje dane zdjecie po zaznaczeniu odpowednich wariantow
+                    Nowy atrybut > Nasz dodany atrybut w panelu atrybuty
+                        Widoczny na stronie produktu
+                        Dla wariantow
+
+                Warianty
+                    Dodaj wariant
+                        Nowy numer sku dla konkretengo wariantu
+                        Cena
+                        Pozostale opcje 
+                    Polacz wszsytkie warianty
+                        Opcje dla wszsytkich wariantow:
+                            Cena > Idz > Wpisujemy cene
+                            Magazyn > Idz > Ile mamy na magazynie
+                        Zamknij wszystko 
+
+                Zaawansowane
+                    Notatka do zakupu - notatka ktora bedzie wyslana podczas zakupu do klienta
+                    Kolejnosc w menu
+                    Wlacz opinie
+
+        Panel Produkty > Kategorie
+            Dodanie nowych kategorii
+                Garnitury
+                Koszule
+                    eleganckie (rodizc koszule)
+            Opis
+            Miniaturka
+
+        Panel Produkty > Atrybuty
+            Nazwa np Rozimiar koszuli
+            Typ np lista wyboru
+            Domyslne sortowanie np wlasne sortowanie
+
+            Prawy panel 
+                Konfiguruj taksonomie
+                    Nazwa: 36
+                    Rodzic: Brak
+                    Opis: Brak 
+
+        Panel Produkty > Klasy wysylkowe
+            Nazwa np duze produkty
+
+
+    Kupony
+        Panel WooCommerce > Kupony 
+            Dodaj kupon
+                Kod kupony - tresc kuponu (nazwa ktora gdy bedzie wpisana przy zamowieniu da nam 
+                    znizke)
+
+                Opis
+
+                Dane kuponu
+                    Ustawienia glowne
+                        Typ rabatu
+                            Rabat na koszyk np %
+                                10
+                            Zezwol na darmowa wysleke
+                            Zastosuj przed podatkiem
+                            Data wygasnienia kuponu
+
+                    Ograniczneia uzytkowania
+                        Minimalna kwota zakupu
+                        Maximum spend - jesli przekroczy dana wartosc to nie dostanie kuponu
+                        Do pojedynczego uzytku - Uycie jako pojedynczego kuponu
+                        Wyklucz produkt z wyprzedazy - Jesli pordukt jest na wypredazy to nie 
+                            mozna uzyc na nim kuponu
+
+                        Podukty - wyznaczamy na jakie produkty dajemy kupon
+                        Wyklucz
+                        Kategorie produktow
+                        Wyklucz kategorie
+                        Ograniczenie do wybranych adresow email - Tylko dla danych posiadaczy emaila
+
+                    Limit wykorzystania
+                        Limit wykorzystania na kupon - Ilu klientow tyle kuponow
+                        Limit wykorzystania na uzytkownika - Uzytkownik tylko raz go moze uzyc
+
+                Prawy panel
+                    OPUBLIKUJ
+
+
+    Zamowienia
+        Fizyczne
+            WooCommerce >zmaowiony przedmiot > status > zobacz
+                Dane zamowieni
+                    Status zamowienia
+                    Klient
+
+                Zamowione produkty
+                    Dane o zamowienia 
+
+                    Prawy bocnzy panel 
+                        Uwagi do zmaowienia
+
+                        Dodjan notke
+                            Notka dla klienta
+
+            WooCommerce > Zamowienia > Dodaj zamowienie
+                Status zamowienia
+                Klient
+                Zamowione pordukty
+                Add product
+
+        Wirtualne
+            WooCommerce > Zamowienia > Zobacz
+                Status zamoiwenia: zakonoczony
+
+                Uprawnienia porduktu do pobrania
+                    Szukamy nasz produkt i przyznaj dostep
+
+    Raporty
+        WooCommerce > Raporty
+            Zamowienia - informacje o zamoiweniach
+
+            Klienci 
+
+            Magazyn -Niski tan magazynowy. Pokazuje infomacje o malej ilosci porduktow w magazynie
+
+            Podatki
+
+    Poprawne numerowanie zamowien
+        Wtyczki > Dodaj nowa > WooCommerce Sequential Order Numbers
+            Wtyczka numerujaca odpowednio id zamowienia
+            Wystarczy ja tylko wlaczyc i to wszystko
+
+    Generowanie Faktur w PDF
+        Wtyczki > Dodaj nowa > WooCommerce PDF Invoices & Packing Slips
+            Wtyczka do generowania faktur pdf
+
+            WooCommerce > Zamowienia PDF
+                Ogolne
+                    Jak pokazac PDF
+                    Dolacz zamowienie do 
+
+                Szblony
+
+                Status - Czy generowanie faktur dziala 
+
+    Optymalizacja pod katem pozycjonowania
+        UStawienia > Bezposrednie odnosniki
+            Ustawiamy Nazwa wpisu - przyjazna nazwa url
+            
+            Dodawanie zjdec o odpowiedniej nazwie(tak jak produkt sie nazywa, odzielanie -)
+            Dodawanie tytulu do zdjec
+                Produkt > pordukty > Wpisywanie tytulu podczas importowania zdjecia
+                                   > Wpisanie alternatywnego tekstu jest automatyczne z tytulu ale 
+                                        mozna to zmienic
+
+        Wtyczki > Dodaj nowa > WordPress SEO by Yoast
+            Wtyczka do pozyconowania naszej strony
+            SEO > Kokpit
+                  Tytuly i meta tagi
+                  Edytor Hurtowy - mozliwosc zmiany nazwy porduktu
+
+            Pordukty > Produkty > Ustaweinia SEO 
+                Ogone
+                    Dzieki temu pola przy dodoawniau produktu mozemy pokazac jak sie bedzie wsyweitlac nasz
+                        produkt w przegladarce google
+
+                Analiza strony
+
+                Zawansowane
+
+                Spolecznosci
+                    Mozliwosc dodania opsiu do produktu w momencie udostpenienia porduktu u kogos na facebooku
+
+                  Wtyczka jest dobrze skonfigurowana juz na poczatku
+                
+
+    Wbudowane shortcody
+        Sa to krotkie kody odpowadajace danym. Np [product id="198"]
+        Na woothemes mozliwosc zobaczenia wszystki shortcodow 
+
+        Strona > dodaj nowa  
+            Dodanie tekstu
+                [featured_products per_peg="12" columns="4"]
+                Strona z polecanymi porduktami
+
+            Oznaczanie porduktow jako polecane
+                1. Wejscie w edytuj pordukt > zaznaczenie Wyroznij pordukt
+                2. Oznaczenie produktu gwiazdka w porduktach
+
+    Menu i przydatne widgety
+        Wyglad > Widgety
+            Kategorie produktow WooCommerce - Male menu z WooCommerce
+
+        Wyglad > Menu
+            Mozliwsc dodania do menu kategori np koszule i t-shirty
+
+        Kokpit 
+            Box witaj w wordpresie | Na gorze opcje ekranu. Pozwalaja one na modyfikowanie wygladu kokpitu
+
+    
+    WooCommerce dla IOS
+        Uzytkownicy > Twoj porfil > Klucze WooCommerce: On (wygneruj klucz aplikacji)
+            Klucz konsumenta
+            Haslo konsumenta
+
+    Program EasyFind - przeszukiwanie zawartosc plikow (mac os)
+    FileSearch - dla windowsa
+
+
+    Wtyczka Regenerate Thumnails sluzy do wygenreowania wszystkich miniaturek
+
+    Naredzia > Rregenerate thu. > Regenrate all thumbnails
+    Aplikacja bxSlider -aplikacja do  zarzadzania slajdami
+
+    Wtyczka Column Shortcodes - dodawanie krokich linijek kodu dzielacychc na kolumny
+
+    Wtyczka Contact Form 7 - wtyczka do zarzadzania formularzem
+
+    Wtyczka Easy Social Icons - odpowwiada za dodawanie ikonek ktoree odowloju sie do social netowrks
+
+
+-------------------------------------------------------------------------------------------------
+Czesc HTTPS(SSL)
+-------------------------------------------------------------------------------------------------
+    Szyfrowanie bezpieczne - wpisany tekst nie jest jawnie przesylany do serwera
+
+    Aby bylo mozna przesylac HTTPS potrzebujemy:
+        - Certyfikat - instalowany na serwerze. Dzieki temu przegladarka otrzymuje ten certyfikat 
+            i mowi on ze zostal wykupiony dla naego serwera
+        
+        - Mozna wykupic u CA (Certificate Authory)
+
+        - Wygenerowanie wlasnego - Przegladarka wysweita informacje ze certyfikat nie zostal 
+            zweryfikowany ale szyfruje dane
+    
+    SSL - szyfrowanie 
+        -szyfrowanie asymetryczne 
+            Posiada on klucz publiczny i i prywatny
+            Na serwerze trzymany jest klucz prywatny a do przegladarki publiczny
+            Jesli zaszyfrujemy cos certyfikatem publicnzym to aby rozszyfrowac nalezy kluczem 
+            prytwanym
+
+        -szyfrowanie symetryczne
+            Szyfrujemy tekst innym tekstem i rozszyfrowywujemy tym samym tekstem
+
+    Dzialnie:
+        Przegladarka wysyla zapytanie do serwera HELLO! message i powie ze chce sie polaczyc przez
+            https i ze zna takie szyfrowania.
+        Sprawdza w bazie czy certyfikat byl wystawiony przez znany mu CA i jesli tak to uzna  ze 
+            jest zaufany
+        Klient wygnereuje lsowyklucz i zaszyfruje kluczem publicznym otrzymanym od serwera 
+        Serwer rozszyfruje klucz kluczem prywatnym i wie ze od teraz uzywamy loswoegoklucza 
+        Sposb Symetryczn szyfrowania
+
+    Ustawienie w wordpress szyfrowanie https
+        WooCommerce > Ustaweinia > Zamowienia
+
+        1. Wymus bezpieczne zamowienia
+        2. Fore HTTP when leaving the checkout - Po dokonaniu zmaowienia przekieuje na zwykly http
+        3. Wtyczka WordPress HTTPS (SSL) - Instalujemy
+        4. Pole HTTPS
+            (Port 443 - domyslny port)
+            Foce SSL Administation - On
+            Force SSL Excluslvely - On
+        5*. JEsli uzywamy z inych serwisow np grawatar to wpisujemy je tam
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,673 @@
+_________________________________________________________________________________________________
+Kurs "Kurs jQuery" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+
+-------------------------------------------------------------------------------------------------
+Lekcja. jQuery
+-------------------------------------------------------------------------------------------------
+
+    Biblioteka jQuery
+        1. Rodzaje wersji
+            -Skompresowana - Produkcyjna. Nie zajmujemy sie kodem a tylko go uzywamy
+            -Nie skompresowana - Deweloperska. Kod jest czytelny dla uzytkownika
+
+        2. Najpierw dolaczamy biblioteke a pozniej plik z naszymi skryptami
+
+    Zapis
+        $(document).ready(function() {
+            alert("KURS JS");
+        });
+
+        $ to samo co jQuery - Reprezentuje funckje jquery
+
+    Funkcje
+        // Funkcja anonimowa
+        $(function() 
+        {
+            alert("Hi");
+        });
+
+        //Funkcja zdefiniowana
+        function pokazOkno()
+        {
+            alert("Kurs JS");
+        }
+
+        $(pokazOkno); <- Uruchomienie funckji jako parametr w momencie zaladowania strony
+
+    Podstawowe selektory
+        body 
+        header
+        p
+        ...
+
+    Zlozone selektory
+        .klasa li a
+
+    Filtry
+        znacznik:eq(liczba) - Element ktory bedzie formatowany
+        znacznik:gt(liczba) - Wszystkie elementy powyzej tego elementu beda formatowane
+        znacznik:lt(liczba) - Wsyzstkie elementy beda sformatowane ktore sa nizsze od tej liczby
+        znacznik:even - Liczby parzyste beda usuwane z naszej listy do formatowani
+        znacnzik:odd - Liczby nieparzyste beda usuwane z naszej lsty do formatowania
+
+        Przyklad 
+            a:eq(2)
+
+    Wybieranie atrybutow
+        $("p[class]").css("color", "green"); <- Foramtujemy akapity (p) pod warunkiem ze posiadaja
+                                                 dowolna wartosc akapitu class
+
+        $("p[class=kurs]").css("color", "green"); <- Foramtujemy akapity (p) pod warunkiem ze posiadaja 
+                                                class=opis1
+
+          "p[class$=1]" <- Akapity p ktore nazwa klasy konczy sie na jeden np class="opis1"
+          "p[class^=1]" <- Szukamy akapitu ktore na poczatku nazwy klasy posiadaj jedynke w nazwie
+
+          "input[value]" < Formatuje tylko te imputy ktore maja atrybuty value
+
+    Wyszukiwanie
+        $("p:contains(kurs)").css("color", "green"); <- Akapity zawierajace slowo kurs
+
+        Filtr contains mowi o zawieraniu daneglo slowa
+
+        Wazna jest wielkosc liter
+
+    Hierarchia elementow
+        $("p:has(a)").css("color", "green"); <- Formatujemy takie akapity ktore posiadaja wewnatrz
+                                                 odnosnika a
+
+          "p a:nth-child(1)" <- Sfomatowany tylko 1 odnosnik a 
+             a:first-child <- Pierwszy element
+             a:last-child <- Ostatni odnosnik 
+
+    Odczyt zawartosci
+        alert($("p").html()); <- Zawartosc html pierwszego akapitu
+                    .text() <- Zawartosc tylko textu(wszystkie odnosniki) bez html
+                    .p <- Zawartosc akapitu
+
+    Wstawianie elementow
+        $("p").append("Kurs php"); <- Dolaczanie do akapitu p krotki tekst
+
+              .prepend <- Dodaj na poczatku znacznika
+              .appenTo <- To co znajduje sie po lewej dolacz do tego co znajduje sie po prawej
+              .prependTo <- -//- dolacz na poczatku
+
+    Odczyt i modyfikacja atrybutow
+        alert($("#opis1").attr("id"));<- W wyskakujacym okienku wyswietlimy wartosc atrybutu id obiektu
+                                         ktorego ma id= opis1
+
+        $("a").attr("href", "http://strefakursow.pl"); <- Kazdy odnosnik otrzyma atrybut href z 
+        wartosicia z adresu strony
+
+        $("a:eq(1)").attr({ href: "http://strefakursow.pl", title: "Katalog", target: "_blank"}); <-Dodajemy
+             trzy rozne atrybty
+
+    Odczyt i modyfikacja CSS
+       alert($("#opis1").css("color")); <- Wyswietlimy wartosc wlasciwosci kolor dla obiektu ktory 
+                                            ma uniklany id=opis1
+
+        $("#opis1").css("color", "#09F"); <- Modyfikacja koloru
+
+        $("#opis1").css(
+            {
+                "color": "#09F",
+                "font-size": "17px",
+                "font-weight": "bold"
+            }); <- Modyfikowanie kilku wartosci
+
+    Przypisywanie klas CSS
+        1. Tworzymy nowy styl css ktory nigdzie nie zostal przypisany
+
+            $("#opis1").addClass("highlight"); <- Dodaje klase do konkretnego id
+
+            $("div:eq(5)").removeClass("left"); <- Usun klase z diva 6
+
+            alert($("div:eq(5)").hasClass("left")); <- Zwroci true jesli element div posiada klase 
+                                                        left
+            
+            $("#opis1").click(function()) <- Funkcja w momencie klikniecia
+            {
+                $(this).toogleClass("highlight"); <- Modyfikowany ten element na ktory kliknelismy
+                                                        i przelaczymy klase w tym momencie                                                    
+            });
+
+
+    CSS - Edycja szerokosci i wysokosci
+        alert($("img").height()); // Wysokosc obrazka
+
+        alert($("img").height(200)); // Zmiana wysokosc obrazka
+
+        alert($("img").innerHeight()); // Wewnetrzna wysokosc
+
+    Pozostale zagadnienia
+        Usuniecie zawartsci z jQuery
+            $("p").remove(); // Usuniecie akapitow
+
+            $("p").replaceWith("Kurs JQUERY"); // Zastapienie inna zawartoscia
+
+    Zdarzenia podstawy
+        Zdarzenie klikniecia
+                $("p").click(function()
+                {
+                    alert("Kliknieto");
+                }); <- Po kliknieciu zachodzi zdarzenie 
+
+                .dbclick <- Podwojne klikniecie
+
+    Zdarzenie MOUSEENTER
+        $("p").mouseenter(function() // Najechanie mysza na element
+        {
+            $(this).addClass("highlight");
+        }) 
+        .mouseleave (function()
+        {
+            $(this).removeClass("highlight");
+        }); // Dolaczanie kolejnego zdarzenia po przez kropke
+
+    Funkcja bind
+    $("p").bind("click", function() // Zdarzenie oraz obsluga tego zdarzenia
+    {
+        alert("Kurs");
+    }) 
+
+    Rozne zdarzenia
+        .mouseover // Podobne do .mouseenter
+        .mouseout // Podobne do .mouseleave
+        .mouseup // Gdy przytrzymamy i zwolnimy przycisk myszy
+        .keypress // Nacisniecie dowolnego przycisku na klawiaturze
+        .keyup // Tak jak mouseup tyle ze z uzyciem klawiatury
+        .croll // W momencie przewiniecia strony
+
+    Obiekt zdarzenia
+        $("p").click(function(zdarzenie)
+        {
+            alert(zdarzenie.type); // Zwracamy typ zdarzenia
+            alert(zdarzenie.target); // Element docelowy
+            alert(zdarzenie.timeStamp); // Czas w ktorym wystapilo zdarzenie
+            alert(zdarzenie.pageX); // Wspolrzedna naszego klikniecia w poziomie 
+            alert(zdarzenie.pageY); // Wspolrzedna naszego klikniecia w pionie
+            alert(zdarzenie.pageX+","+zdarzenie.pageY);  
+        });
+
+    Metoda hover
+        $("#banner").hover(function() // Moment najechania
+        {
+            $(this).attr("src", "img/2.jpg");
+        },
+        function(){ // Wraca oryginalny obrazek
+            $(this).attr("src", "img/1.jpd")
+        }
+        );
+
+    Przyklad uzycia zdarzen
+        $("#obrazek").hover(function() // W momencie najechania na obrazek
+            {
+                var opisKursu = $("#obrazek").attr("title"); // Atrybut przypisalismy do zmiennej
+                $("#opis").append("<p>"+opisKursu+"</p>"); // Wstawilismynasza zmienna do akapitu
+            },
+            function(){
+                $("#opis p").hide(); // Ukryj akapit
+            });
+
+    Selektory w formularzu
+        $("form :input").css("border", "2px solid #777"); // Modyfikujemy input po przez zapisc form :input
+        $("form :submit").css("border", "2px solid #777"); // Modyfikujemy submit po przez zapisc form :submit
+        $("label").css("border", "2px solid #777"); // Modyfikujemy etykiety
+
+        $("#biurowe").click(function()
+        {
+            alert("Kurs JQuery");
+        });
+
+    Zdarzenia formularza    
+    $("#name").focus(function(zdarzenie) // Skupienie na elemencie
+        {
+            alert(zdarzenie.type);
+        });
+
+        $("#name").blur(function(zdarzenie) // Wychodzimy z pola imie i pojawia sie blur
+        {
+            alert(zdarzenie.type);
+        });
+
+        $("form").submit(function(zdarzenie) // Zatwierdzenie formularza
+        {
+            alert(zdarzenie.type);
+        });
+
+    Walidacja formularza
+    $("#newsletter").submit(function()
+        {
+            if(($("#name").val() == "") || ($("#email").val() == ""))// Sprawdzamy wartosc w polu name i w polu email
+            {
+                alert("Uzupelnij wymagane pola");
+                return false; // Zwrac false co przerwie wyslanie formularza
+            }
+        });
+
+    Pola typu checkbox
+    $("#newsletter").submit(function()
+        {
+            
+            //alert("Zaznaczono "+$(":checked").length+"kategorie"); // :checked - zbiro zazanczonych elementow
+            //                                                       // Zapis ile zaznaczono checkboxow      
+            
+            if($(":checked").length == 0)
+            {
+                alert ("Zazancz co najmnije 1 kategorie");
+                return false;
+            }
+        });
+
+    Aktywne pola
+        $(document).read(function()
+        {
+            $("input").focus(function()
+            {
+                $(this).css(
+                    {
+                        "border": "2px solid #29B6CF",
+                        "background": "#FFFEDD"
+                    });
+                $("input").blur(function()
+                {
+                    $(this).css(
+                        {
+                            "border": "1px solid #DDD",
+                            "background": "#F5F5F5"
+                        });
+                });
+            });
+
+        }); 
+
+    Ukrywanie pol
+    $(document).read(function()
+        {
+            $("#problem").click(function()
+            {
+                $("#description").toogle("slow"); // Przyjmuje predkosc animacji
+            });
+
+        }); 
+
+    Wartosci domyslne
+        $("#name1").bind("focus", function()
+        {
+            if($(this).val() == "Podaj swoje imie") // sprawdzamy czy wartosc jest to samo co 
+                                                        wartosc domyslna tego inputa
+            {
+                $(this).val("");
+            }
+        });
+        $("#name1").bind("blur", function()
+        {
+            if($(this).val() == "")
+            {
+                $(this).val("Podaj swoje imie");
+            }
+        });
+
+    Modyfikacja wygladu
+        $(document).read(function()
+        {
+            //$("tr:odd").css("background-color", "#01294F");
+            $("tr").hover(function()
+            {
+                $(this).css("background-color", "#1294F");
+            },
+            function()
+            {
+                $(this).css("background-color", "#FFF");
+            }
+            );
+        });   
+
+    Modyfikacja struktury tabeli
+        $("#lista tr:last").after("<tr><td>Kurs C#</td><td>49</td></tr>"); // Wstawianie komurek
+        $("#lista tr:first").after("<tr><td colspan='2' class='kategoria'>Biurowe</td></tr>"); // Wstawianie komurek
+        $("#lista tr:eq(4)").after("<tr><td colspan='2' class='kategoria'>Internet</td></tr>"); // Wstawianie komurek
+        $("#lista tr:eq(7)").after("<tr><td colspan='2' class='kategoria'>Programowanie</td></tr>"); // Wstawianie komurek
+
+    Wstep do animacji
+        $("#hide").click(function()
+        {
+            $("#lista").hide(); // Ukrycie listy czyli naszej tabeli
+        });
+        
+        $("#show").click(function()
+        {
+            $("#lista").show(); // Pokaz tabele
+        });
+
+        $("#toggle").click(function()
+        {
+            $("#lista").toggle(); // Zmienia stan widocznosci naszej tabeli. show lub hide
+        });
+
+    Parametry animacji
+        $("#hide").click(function()
+        {
+            $("#lista").hide(2000, function() // Szybka animacja
+                            //"slow"
+                            //500 - Czas w milisekunadach
+                            //2000 - 2000ms
+            {
+                alert("Animacja skonczona");
+            });
+        });
+
+    Animacja Fade
+        $("#hide").click(function()
+        {
+            $("#lista").fadeOut(2000, function() // Zanikanie. () - zniknie domyslnei. (2000) - zaniknie po 2s
+            {
+                alert("Animacja zakonczona");
+            });
+        });
+        $("#show").click(function()
+        {
+            $("#lista").fadeIn(2000); // Pojawianie sie. 
+        });
+        $("#show").click(function()
+        {
+            $("#lista").fadeTo(2000, .5); // Docelowy poziom przezroczystosci od 0 do 1 
+        });
+
+    Animacja slide
+        $("#hide").click(function()
+        {
+            $("#banner").slideUp(); // Zwijanie do gornego lewego kata
+        });
+        $("#show").click(function()
+        {
+            $("#banner").slideDown(); // Rozwijanie w dol
+        });
+        $("#toogle").click(function()
+        {
+            $("#banner").slideToggle(); // Przelacz zwijanie i rozwijanie
+        });
+
+    Laczenie animacji
+        $("#hide").click(function()
+        {
+            // Zajescie animacji jedna po drugie az sie skonczy jedna to druga sie zacznie
+            $("#banner").hide(); // Ukrwanie
+            $("#banner").slideDown(2500); // Rozwijanie 
+            $("#banner").slideUp(2500); // Zwijanie 
+
+            // Alternatywa
+            $("#banner").hide().slideDown(2500).slideUp(2500);
+
+            $("#banner").hide().slideDown(2500).delay(3000).slideUp(2500); // delay - opuznienie
+            
+        });
+
+    Tworzenie wlasnej animacji
+        $("#an2").click(function()
+        {
+            $("#akapit").animate({fontSize: "20px", width: "150px"}, 2000);  // W css fontSize a w 
+                            animacji fontSize // Rozmiar docelowy 20px // Dlugosc animacji
+            
+        });
+        $("#anl").click(function()
+        {
+            $("#obrazek").animate({opacity: "0"}, 2000);
+        })
+
+    Animacja pozycji
+    //$("#container").css("left", "+100px"); // Przesuniecie obrazka o 100px
+        $("$right").click(function()
+        {
+            $("#container").animate({left: "+=100px"}); // W stosunku do polozenia poprzedniego w prawo
+        });
+        $("left").click(function()
+        {
+            $("#container").animate({left: "-=100px"});
+        });
+
+    Roziwjana zawartosci
+        $("p").hide();
+        $("#h2").click(function()
+        {
+            $(this).next("p").toggle(); // Przelaczamy akapit ktore sa tuz pod naglowkiem h2
+        
+        });
+        
+        $("#zwin").click(function()
+        {
+            $("p").hide();
+        });
+
+        $("#rozwin").click(function()
+        {
+            $("p").show();
+        });
+
+    Powiekszanie obrazkow
+        $("#okladkamala").hover(function()
+            {
+                //$("#okladkaduza").show();
+                var pozycja = $("#okladkamala").offset(); // offset to wymiary odsuniecia elementu od lewej i prawej
+                $("#okladkaduza").css("left", pozycja.left+76).css("top", pozycja.top+68).css("display", "block").show();
+                // Wyswietlimy nasza okladke mala jako duza po najechaniu
+            },
+            function()
+            {
+                $("#okladkaduza").hide();
+            }
+            );
+
+    Rozwijane artykuly
+        $(".rozwiniecie").hide();
+        $(".rozwiniecie").after("<h4 class='pokaz'>"+"Rozwin"+<"</p>");
+        $(".pokaz").click(function()
+        {
+            $(this).prev("p").toggle(); // Poprzedni akapit
+            if($(this).text() == "Rozwin")
+            {
+                $(this).text("Zwin"); // Wprowadzamy slowo zwin
+            }
+            else
+            {
+                $(this).text("Rozwin"); // Przywaracamy wartosc 
+            }
+        });
+
+    Ukrywanie elementow
+        $(".wstep").append("<h4 class='usun'>"+Usun+"</h4>");
+        $(".usun").click(function()
+        {
+            $(this).parents(".artykul").hide(600, function()
+            {
+                $(this).parents(".artykul").remove(); // Usuwanie akapitu
+            });
+        });
+
+    Wysuwanie elementow
+        $("#slider").hover(function()
+        {
+            $(this).animate({left: "0px"});
+        },
+        function()
+        {
+            $(this).animate({left: "-292px"})
+        }
+        );
+
+    Rozwijane menu
+        $("ul#menu li").hover(function()
+        {
+            $(this).find(".podmenu").slideDown(); // Wybieramy podmenu
+        },
+        function()
+        {   
+            $(this).find(".podmenu").slideUp();
+        });
+
+    Harmonijka
+        //$("#harm p:not(:first)").hide(); // Ukryjemy wszystkie akapity z wyjatkiem peirwszego
+        $("#harm p:eq(3)").show(); 
+        
+        $("#harm h2").click(function()
+        {
+            $(this).next("p").slideToggle().sibling("p:visible").slideUp(); // sibling - rodzenstwo. Rozwiniety moze byc tylko jedne akapit
+        });
+
+    Tresc podzielona na karty
+        $("a.zakladki").click(function()
+        {
+            $(".aktywna").removeClass("aktywna");
+            $(this).addClass("aktywna");
+            $(".zawartosc").hide();
+            var otwartaZakladka = $(this).attr("title");
+            $("#"+otwartaZakladka).show(); // Selektor bazujacy na id
+        });
+
+-------------------------------------------------------------------------------------------------
+Lekcja. jQuery UI
+-------------------------------------------------------------------------------------------------
+
+    Omowienie biblioteki jQuery
+        UI - interfejs uzytkownika
+    
+    Instalacja UI jQuery
+        1. Strona jQuery
+        2. 3 odnosnik
+        3. Build custom
+        4. Zaznaczanie komponentow
+            Core - Wszystko
+            Reszta - To co chcemy
+        5. Po prawej wybieramy szablon
+        6. Wybor wersji
+        ------------------------------
+        7. Otwarcie pliku zip
+        8. Otwarcie naszeko katalogu glownego
+        9. Umiesczamy plik z zip i folderu js w naszym folderze
+        10. Z pliku zip css kopiujemy szablon i wklejamy do folderu z glownym projektem
+        11. Tworzymy odwolanie do biblioteki
+            
+            <link href="jquery-ui-1.8.16.custom.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8" />
+            
+            <script type="text/javascript" src="jquery-ui-1.8.16.custom.min.js"></script>
+
+    Wyswietlenie okienku
+        $("#logo").dialog(); // Okienko z komunikatem
+
+    Skalowanie elementow
+        $("#banner").resizable({/*maxWidth: 600*/ handles: "n, e, s, w"}); // Zmiana rozmiaru obrazka
+                         // rozmiar w kazda strone
+
+    Przeciaganie zawartosci lsty
+        $("p:eq(1)").draggable({axis: "x"}); // Elementy przeciagalne // w plaszczyznie poziomej
+        $("p:eq(1)").draggable({snap: "p"}); // Przeciaganie tylko do sasiednich akapitow
+
+        $(".ukladanka").draggable({snap: "h2"}); // PRzyciaganie do naglowkow h2
+
+    Sortowanie zawartosci listy
+         $("#sortowanie").sortable({revert: 1000});     // Metoda sortowania - sortable. revert - 
+                                                            animacja na koncach listy
+                                  //opacity: 0.5        // Element przeciagany ma zmniejszone oppacity
+                                  //cursor: "pointer" // Kursor 
+
+    Animacja kolorow
+        $(".animacjakoloru").hover(function()
+        {   
+            $(this).animate({"backgroundColor": "#001A34", "color": "#FFFFFF"}); // Zmiana tla i tekstu w jq ui 
+        },
+        function()
+        {
+            $(this).animate({"backgroundColor": "#072550", "color": "#71d4e7"}); 
+        });
+
+    Efekty z biblioteki UI
+        $(".btn:first").click(function()
+        {
+            $("#banner").hide("blind", 2000); // Zwiniecie obrazka
+                            //"explode" // Rozszerzany obrazek
+        });
+
+    Okna dialogowe
+        $("#promocja").dialog({title: "Promocja", show: "slide", hide: "explode", position: "top", model: true}); 
+            // Efekt chowania i pokazywania okienka umieszczamy w "" 
+            //[300, 200] // od lewej 300 od gornej 200 
+    
+    Kalendarz
+        //$("#date").datepicker({dateFormat: "dd/mm/yy", duration: 2000}) // format daty, czas pojawiania sie kalendarza 
+        $("#date").datepicker({dateFormat: "dd/mm/yy", showWeek: true}) // dni tygodnia 
+        $("#date").datepicker({dateFormat: "dd/mm/yy", dayNamesMin: ["Nd", "Pn", "Wt", "Sr", "Cz", "Pt", "So"]}); // Nazwy dni tyodnia 
+
+    Formatowanie komponentow jQuery UI
+        Szukanie w pliku ui css znacnzika dialog i modyfikujemy
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Pluginy jQuery
+-------------------------------------------------------------------------------------------------
+
+    Lightbox jQuery
+        1. Plik jqury.lightbox.js przenosimy do glownego folderu z projetkem
+        2. Dodajemy go
+            <script type="text/javascript" src="jquery.lightbox.js"></script>
+        3. Plik z css wrzucamy do naszych plikow w katalogu css
+        4. Dodajemy go
+            <link href="css/lightbox.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8" />
+        5. Katalog img wklejamy do naszego glownego katalogu z projektem
+
+        6. Dodajemy do obrazkow wartosc rel="galeria"
+        *Dodanie title wprowadza tytul
+
+        7. Uruchomienie a js
+            $("#main a").lightbox(); 
+
+    Animowany slider
+        1. Strona nivo.dev7studios.com/pricing/
+        2. Wypakowywujmy nasz slider do glownego folderu i podpinamy w dokumencie
+            <link href="nivo-slider2.6/nivo-slider/nivo-slider.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8" />
+            <link href="nivo-slider2.6/nivo-slider/themes/default/default.css" rel="stylesheet" type="text/css" media="screen" charset="utf-8" />
+
+            <script type="text/javascript" src="nivo-slider2.6/nivo-slider/jquery.nivo.slider.pack.js"></script>
+
+        3. Do naszych obrazkow dodajemy
+            <div class="lider-wrapper theme-default"> //domyslny szablon
+            <div id="slider" class="nivoSlider">
+
+        4. Dodanie do js
+            $("#slider").nivoSlider({effect: "fade", paseTime: 2000, startSlide: 4}); 
+            // Przejscie, czas ladowania slajdow, zaczecie od 5 obrazka
+
+    Przejscia Easing
+        1. jQuery Easing Plugin
+        2. Wrzucamy nasz plik jquery.easing.js do glownego foldera
+        3. Podpinamy go do pliku
+            <script type="text/javascript" src="jquery.easing.1.3.js"></script>
+        
+        4. W js dodajemy kod
+            $("#animacja").click(function()
+            {
+                $("#akapit").slideUp(4000, easeOutExpo); // Zwijanie akapitu. Czas, rodzaj zwijania
+            });
+
+    Menu LavaLamp
+        Przechodzac podswietlenie
+        1. jQuery LavaLamp menu plugin
+        2. Wrzucamy plik jQuery.lavalamp.js i easing
+        3. Podpinamy na stronie
+            <script type="text/javascript" src="jquery.easing.1.3.js"></script>
+            <script type="text/javascript" src="jquery.lavalamp.js"></script>
+        4. Za pomoca elementu .backLava w css modyfikuje nam wyglad
+            #menu li.backLava
+            {
+                background-color: #99CCCC;
+                border: 1px solid #FFF;
+                position: absolute;
+                width: 9px;
+                z-index: 8;
+            } 
+        5. W js dodajemy kod
+                $("#menu").lavaLamp({fx: "easeOutBounce", speed: 1000, returDelay: 2000 }); 
+    // fx - efekt, speed - szybkosc, czas po ktorym zaznaczeni powroci do menu
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

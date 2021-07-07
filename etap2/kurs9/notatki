@@ -1,0 +1,612 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress od podstaw" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep do Wordpressa
+-------------------------------------------------------------------------------------------------
+
+    Na maca i wondows:
+        Instalacja mamp
+        Uruchomienie serwer lokalnie
+        Podpiecie folderu do programu
+        wrzucenie projektu 
+        uruchomienie serwera
+
+        monitor zasobo > siec  > porty nasluchujace
+
+    wordpress.org - wersja do pobrania i hostowanie bloga
+    wordpress.com - platforma przeznaczona dla poczatkujacych. Mozna zalozyc bloga nie posiadajac 
+                    serwera itp
+    
+    1. Pobranie wordpressa
+    2. Instalacja:
+        W phpmyadmin tworzymy baze danych
+        W privilages dodajemy add user acount
+            mateusz
+            jakieshaslo
+            uprawinienia
+            GO
+            ^stworzenie uzytkownika
+        Przejscie na serwerze do folderu wordpress
+        Podanie danych aby polaczyc z baza danych
+            Prefiks tabel - zostaje
+        Reszta danych
+            Nazwa uzytkownika itp do logowania sie na wordpress
+
+    Struktura katalogow
+    index.php - glowny plik
+        w pliku tym edytujemy linie aby zmienic sciezke
+            wordpress/wp-blog-header.php 
+    
+    wpconfig.php - glowny plik z danymi calej stony np. dostep do bazy danych
+    
+    W panelu admina:
+        W ustawieniach zmieniamy adres witryny 
+
+        Uzytkownicy - Stworzenie uzytkownika jako admin i nadanie mu minimalnych uprawnien uchroni 
+            nas przed atakami 
+
+    Aktualizacje:
+        Narzedzia > Eksport > pobierz plik transportu - dump
+        Kokpit > aktualizacji
+
+    *Dodanie kodu do ukrycia aktualizacji w wordpress
+        wp-content > themes > twentyninteen> template parts > functions.php
+
+    _______________________________________________________________________________________________________
+    function remove_core_updates(){
+        global $wp_version;return(object) array('last_checked'=> time(),'version_checked'=> $wp_version,);
+        }
+        add_filter('pre_site_transient_update_core','remove_core_updates');
+        add_filter('pre_site_transient_update_plugins','remove_core_updates');
+        add_filter('pre_site_transient_update_themes','remove_core_updates');
+    ________________________________________________________________________________________________________
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Konfigruacja Wordpressa
+-------------------------------------------------------------------------------------------------
+
+    Konfiguracja maila
+        Kokpit > wtyczki > dodaj nowa > Easy WP SMTP - wtyczka do wysylania maily
+        Easy WP STMPInstaluj > aktywuj > setting > w skcji dokumentacji wchodzmy w link dzieki 
+            ktoremu dowiemy sie jak przypisac nasza skrzynke mail do wordpresssa
+
+
+    Kokpit i Bloki
+        Kokpit - glowna sekcja
+            Mozliowsc reorganizacji widgetow(bloki)
+
+            Dodawanie wlasnych widgetow do kokpitu 
+                W config.php wklejamy kodu
+                    ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+                    add_action('wp_dashboard_setup', 'my_custom_dashboard_widgets');
+  
+                    function my_custom_dashboard_widgets() {
+                    global $wp_meta_boxes;
+                    
+                    wp_add_dashboard_widget('custom_help_widget', 'Theme Support', 'custom_dashboard_help');
+                    }
+                    
+                    function custom_dashboard_help() {
+                    echo '<p>Welcome to Custom Blog Theme! Need help? Contact the developer <a href="mailto:yourusername@gmail.com">here</a>. For WordPress Tutorials visit: <a href="https://www.wpbeginner.com" target="_blank">WPBeginner</a></p>';
+                    }  
+                    ___________________________________________________________________________________________________________________________________________________________________________________________________________________________________
+
+        Wtyczki - mozliwosc dodawania wyczek
+            Dashboard widgets suite
+                Ustawienia
+                    Control panel - wylaczenie nie bedzie dawalo podpowiedzi na kokpicie
+
+
+    Konto i Gravatar
+        Uzytkownicy > twoj profil > pokazuj pasek narzedzi podczas przegldania witryny         
+                                  > kolory 
+                                  > Informacje uzytkownika
+                                        Zmiana zdjecia profilovego przez serwis Gravatar
+                                            Gravatar.com > Rejestracja > Upload image
+
+        Gorna belka
+            Logo wordpressa > dokumentacja - Dokumentacja wordpressa
+        
+            Link do witryny
+
+            Wpisy
+
+
+    Ustawienia i Permalinki
+        Ustawienia > ogolne > Tutaj mozemy zmieniac dane naszej witryny tak jak tytul itp
+                                Tytul strony
+                                Opis naszej witryny do 150 slow
+                   
+                   > bezposrednie odnosniki - istnieje mozliwosc zmiany adresu dla odnosnikow
+                                                Serwer musi zawierac htacces i mod migrate
+
+                                                Jesli wordpress bedzie mial problemy z htacces 
+                                                    to wklejamy link nazywam plik .htaccess i 
+                                                    wrzucamy go w glownym katalogu obok index.php
+                                                        _______________________________________
+                                                        # BEGIN WordPress
+                                                        <IfModule mod_rewrite.c>
+                                                        RewriteEngine On
+                                                        RewriteBase /
+                                                        RewriteRule ^index\.php$ - [L]
+                                                        RewriteCond %{REQUEST_FILENAME} !-f
+                                                        RewriteCond %{REQUEST_FILENAME} !-d
+                                                        RewriteRule . /index.php [L]
+                                                        </IfModule>
+                                                        # END WordPress
+                                                        _______________________________________
+
+        Wpisy > edycja - mozliwosc dodania wlasnych postow
+                        Edycja naglowka po prawej stornie
+
+-------------------------------------------------------------------------------------------------
+Czesc Tresci w Wordpress
+-------------------------------------------------------------------------------------------------
+
+    Wpisy a Strony
+        Roznica miedzy wpisami a stornami
+            Strony - statyczne elementy np strona kontaktowa
+                Mozna miec jedna strone ktora bedzie rodzicem innych stron
+
+            Wpisy - czesc blogowa np artykul
+                Mozliwosc grupowania po tagach (czego nie ma w stronie)
+
+
+    Praca ze stronami
+        Strona > szkice - nie opublikowane tresic
+               > wszystkie - nasze strony
+                    Szybk edycja - Mozliwosc modyfiacji lub usunie storny
+                    *mozliwosc dostania sie do strony po zalogowaniu
+
+                    Edycja - mozlwiowsc edytowania storny (Zawartosci)
+               
+               > Dodaj nowa - dodaje nowa strone
+                >podejrzyj
+                >szkic
+                >opublikuj (np w konkretnym terminie)
+
+                    Powiazanie stron 
+                        Rodzic: i tutaj nasza nowa strona 
+
+        Wyglad > menu > pokazuje nasze menu
+               > dostostuj > Mozliowosc modyfikacji stron
+
+
+    Kategorie i Tagi
+        Wpisy > kategorie  > kategoria o nazwie  "bez kategori" - tutaj wszyste wpisy trafiaja
+                           > twonierzenie nowej kategorii
+
+              > tagi - pojedyncze slowka 
+
+            
+    Wlasciwosci Wpisow i Pingbacki
+        Wpis > wszystkie wpisy > 
+                                Wpisujac tagi daje nam mozliwosc podpoweidzi lub dodania nowego tagu
+
+                                Pingbacki - wpsominanie o twoich wpisac
+             > Kategorie > zmiana nazw prowdzi do odlinkowania innych stron
+
+        Ustawienia > dyskusja > mozliwosc odznaczania znaczania pingbackow i ich ustawien
+                   > pisanie > Uslugi aktualizacji - pingabcki o naszych wpisach
+                   > bezposrednie odnosniki > aliasy kategorii - uzywanie aliasow do tagow 
+                   ( np pordukty/ mleko)
+
+
+    Wlasne Typy Postow z Pods i ACF
+        Wtyczka:
+            Advanced Custom Fields
+                Z panelu wlasne pola - nie dodaja tylko klucz wartosc tylko maja zawansowane wartosci 
+                    np. mapa googla
+
+            Pods - tworzenie calych nowych typow postow (inny rodzaj storny np z przepisow na rodzaje filmow)
+                Add Field 
+                    Przyklad
+                        Czas przygtoowywyania posilku  inne info > save pods
+                    
+                    Daje to mozliwosc przy dodoawnaia wpisu pole ktore odpowiada za np pokazanie 
+                    czasu wykonania przepisu
+
+
+    Rozszerzanie wpisow - Typy Postow i Wlasne pola                    
+        Wpis > dodaj nowy
+                            Zajawka - jesli ma zaostoswanie z motywu ktorego krozystasz
+                            obrazek - tak samo jak zajawka tyle ze dla obrazu
+                            format wpisu - mozna go ustawic w 
+                                UStawienia > pisanie > domyslny format wpisu
+
+                                klikniecie 3 kropek > dodanie wlasne pola
+                                                        Wyglad > edytor - mozliwosc edytownia kodow zrudlowych motywu
+        wyglad> motywu 
+
+-------------------------------------------------------------------------------------------------
+Czesc Edytor i Formatowanie Tresci 
+-------------------------------------------------------------------------------------------------
+    
+    Podstawy edytora
+        Wpis > nowy wpis > po prawej stronie zakladka dokument
+            zmien rodzaj bloku
+                Mozliwosc modyfikowania tekstu na liste albo naglowek i inne
+                *cmond+k - dodanie lnku we wpisie
+                blok - rozmiar tekstu
+                     - kolor tla
+
+                Dodanie nwoego bloku na tym samym wpisie 
+                    -plus na gorze 
+                    -lub trzy kropki nad blokiem insteniejacym
+
+                Mozliwosc zmiany kolenosci bloku
+                    - Wpisanie listy daje mozliwosc iz mozna wyzej dodac do nich naglowki
+
+
+    
+    Praca z obrazami
+        Strona pexels.com- glownie darmowe ale lepiej sprawdzc licence
+
+        Media > 
+                przezucenie pliku na storne media po przez przeciagniecie towrzy nam biblioteke mediow
+            we wpisie 
+                -wyslanie na serwer
+                -wklejenie linku adresu gdzie sie obraz znajduje
+                -przezucenie obrazu bezposrenio na wpis (automatycznie doda to zdjecie do panelu media)
+
+        Mozna edytowac obraz. NA dole jest przycis edytuj obraz
+
+        Ustawienia > media - ustawianie domsylnych ustawien
+
+        *Trzeba zwracac uwage na rozmiar pliku - monza je kompresowac przez np kompresor jpeg
+
+
+
+    Praca z Blokami
+        Mozliwosc resizowac obrazek we wpisie
+
+        Mozliosc dodania okladki i modyfikowania zdjecia
+
+        Blok > galeria > zaznaczenie obrazkow.
+        Przycinanie obrazkow
+        Odnosniki - np otwieranie na nowej karcie
+
+        Mozliwosc dodnia blokow dynamicznych np fil z youtube 
+
+
+    Wydajna praca w Edytorze
+        We wpisie ikonka na gorze "i" zwraca informacje ile np znajudje sie wpisow na blogu itp
+        trzy kropki po prawej na gorze daje mozliwosci lepszego wygladu podczas pracy z wpisem
+
+    Zaznaczenie bloku > 3 kropki na gorze po lewej > daje mozliwosc zapis bloku i uzywania go pozniej
+
+    Skroty kalwiszowe w 3 kropkach po prawej
+
+
+    Historia wersji i publikowanie
+        Wtyczka > dodaj nowa > public post preview - publikowanie tymczowysch linkow
+            We wpisise po prawej Enable post preview
+                Dodaje to "Oczekujacy na przeglad" 
+
+            Dostepnosc wpisu:
+                Publiczny
+                Prywatne - dla tych ktorzy sa zalogowani w wp
+                Zabezpieczone haslem 
+
+        Historia wersji
+            Wpsiy > po prawej zakladka historia  > historie naszego pliku > przywroc ta wercje
+            -oznacza napisanie najnowszej wercji
+            W opcjach weryfikacja przed publikacja jest wazna aby zweryfikowac przed opublikowaniem strony
+
+-------------------------------------------------------------------------------------------------
+Czesc Role, Uzytkownicy i Komentarze
+-------------------------------------------------------------------------------------------------
+
+Uzytkownicy > Dodaj nowego uzytkownika
+        -Dodanie nazyw uzytkownika admin dodajac najnizsze uprawnienia aby hakerzy nie dostali 
+        sie do storny
+
+        5 rol do nadania uzytkownikowi
+            Super admin - glowna glowa + zarzadzanie networkami
+            admin - glowna glowa
+            edytor - zajmuje sie postami, i innych uzytkownikow
+            autor - zarzadza wlasnymi postami
+            contributor - widzi wszystkie posty ale nie bedzie mogl zarzadza postami
+            subskrybent - moze tylko zarzadzac swoim kontem i nic wiecej
+
+    Ustawienia> ogolne > czlonkowstwo > domyslna rola nowych uzytkowniko - w momencie rejestracji 
+    istnieje mozliwosc od razu dodania im praw
+
+        mozliwosc wylaczenia obrazkow w komentarzach
+
+
+    Tworzenie wlasnych rol
+        Wtyczki > dodaj nowa > Advanced Access Manager
+            Mozliowsc oddania nowych rol
+
+            Zakladka AAM > Prawa czesc 
+                Role
+                    Menagerole
+                        Mozemy ustawic co widzi uzytkownik
+                        Capabilities - mozliwosc dodania praw roznym rolom
+                Znaczek plusa - dodanie nowego uzytkownika i przypisac mu jakie role chcemy        
+
+                USers - widzimy jakich mamy uzytkownikow 
+
+
+    Praca Z komentarzami
+        UStawienia > dyskusja
+            Zanim komentarz pojaw sie na blogu komentarz musi byc zatwierdzony
+            Zagneizdzoen komentarze - Dobra wartoscia jest 3
+            Ile komentarzy ma byc na stronie
+            Dzielenie komentarzy
+            Porzadkowanie komentarzy
+
+            email z informacja o komnetarzach
+
+            moderacja koemtarzy - przed zatwierdzeniem mozemy sprawdzic
+
+            czarna lita komentarzy
+
+
+    Wtyczka Akismet
+        Wtyczka do spamu
+            Trzeba go ustawic
+                Uzyskaj klucz API > add personal substriction > wybieramu 0 zl > kopiujmy klucz i go wklejamy
+
+            W panelu admin bedzie wyswietla komentarze ktore sa spamem
+
+-------------------------------------------------------------------------------------------------
+Czesc Wyglad i Funkcje strony
+-------------------------------------------------------------------------------------------------
+
+    Wyglad > menu 
+        edytuj menu - tworzenie menu
+            Usun menu
+
+            NAzwa menu
+            Po lewej stronie opcje do zarzadzania menu
+                Mozliwosc dodania stron do menu
+                Mozliwosc dodania wpisu do menu
+                Mozliwosc dodania odnosnikow
+            
+            Zarzadzaj w podgladzie na zywo - ogladanie na zywo menu
+                Stworz nowe menu - mozliwosc tworzenia nwoego menu
+
+        zarzadzaj rozmieszczeniem -umieszczanie menu w dowolnym miesjcu w ktorym wspiera nasz motyw
+
+
+    Widgety
+        Wyglad > widgety
+            Mozliwosc oddawnia widgetow po przez wordpressa lub wtyczki
+            Mozliwosc podpiecia mapy google
+        Podglad nazywo -podgladanie widgeotw na zywo
+
+
+    Wlasne widget
+        Wtyczki > Content Aware Sidebars - unlimited Widget Areas
+            Dzieki tej aplikacji mozemy dodawac wlasne sidebary
+            
+            Panel Pasi boczne > dodaj nowy 
+                Wprowadzamy tytul
+                Gdzie ma sie pojawic
+                
+                Po prawej stronie sa Opcje
+                    Scalanie stopek albo dodanie pod lub nad stopka
+
+                Sidebar onditon > ustawienia  > negativ conditon - on
+
+        Wyglad > widgety > po prawej Newsletter > np. dodanie kalendarza
+
+        Wyglad > edytor > functions.php > mozliwosc dodania widgetu po przez kod
+            _________________________________________________________
+            function arphabet_widgets_init(){
+
+                register_sidebar( array(
+                    'name'  => 'Newsletter',
+                    'id'    => 'newsletter-right',
+                    'before_widget' => '<div>',
+                    'after_wiget' => '</div>',
+                    'before_title' => '<h2 class="rounded">',
+                    'after_title' => '</h2>',
+
+                ) );
+            }
+            _________________________________________________________
+
+            W edytorze trzeba wskazac gdzie ma sie nzajdowac widget
+                1.towrzymy strone np. sidebar.php i dkolejamy
+                2.W header.php wklejamy kod
+                __________________________________________________________________________________
+                <?php if ( is_active_sidebar( 'newsletter-right' ) ) : ?>
+                <div id="priamry-sidebar" class="pimary-sidebar widget-area" role="complementary">
+                    <?php dynamic_sidebar( 'newsletter-right'); ?>
+                </div>
+                <?php endif; ?>
+                __________________________________________________________________________________
+                Musimy dodac style aby ladnie sie wyseitlao
+
+        Mozliwosc skorzystania z kodu html i w kodzie wrzuci widget
+
+        Zainstalowanie wtyczki Newsletter Sign-Up
+            settings > ustawienie email
+
+            Wyglad > widget > Wtyczka odnosnie wyslania emailow
+
+
+        Motywy w WordPress
+            Wyglad > Motywy
+                szczegoly > aktywuj, podglad an zywo lub usun
+                    Customizowanie motywu
+                        Olowek pokazuje wlasciwosci widgetu
+
+                Dodaj nowy motyw > Wszystkie darmowe motywy
+                    Mozliwosc filtorwania motywow
+                        Zainstaluj 
+                            Motywy > podglad na zywo
+                                Po lewej stronie jest menu do ustawien motywu
+                                Jesli chcemy uzywac funckji pro w motywie trzeba zaplacic
+
+
+        Pobieranie i instalacja Motywow
+            envatomarket - storna z platnymi motywami
+                Pobarny moyw jest zazwyczaj w zip
+                    1.Motywy> dodja motywy > wysjli motyw na serwer > zainstaluj teraz
+                    2. Rozpakowanie motywu > folder z plikamy wklejamy do wordpressa w wp-conntent >thems 
+                        (jesli pliki sa na serwerze to wysylamy na serwer)
+                        JEsli motyw nie dziala to go usuwamy w folderze czyli w plikach 
+
+-------------------------------------------------------------------------------------------------
+Czesc Modyfikacje Motywu
+-------------------------------------------------------------------------------------------------
+    Tworzenie Motywu Potmonego
+        Wtyczka > dodaj nowa > child theam Configurator
+            Wtyczka do tworzenia klonow istniejacego motywu
+
+            Narzedzia > child themes > Wybieranie motywu > Create new child theam
+
+            Wyglad > motywy > aktywacja motywu child 
+
+    
+    Struktura WordPressa
+        Wyglad > dostosuj >dodatkowy css
+            Waznosc: 
+                Core wordpress - glowna czesc
+                szblon.php - czesc mniej inwazyjna ale wazna
+                szablon html/css - bezpieczne operowanie na plikach
+
+    
+    Modyfikacje kodu CSS
+        Wyglad > odstosuj > dodatkowy CSS
+            wybieramy na stronie zbadaj elementy > sprawdzamy w jakich klasach siedza dane elementy
+            Wipsujemy dana klase po lewej stornie i przypisujemy jej style
+            W ustaweiniach obok publikuj mozemy dodac kiedy ma byc opbulikowane 
+
+            We wpisie w blok mozmey przygotowac sobie link czyli kotwica html.
+                Mozemy dzieki temu utowrzyc osbie link #nazwanaszejkotwicy
+
+        Blok z tekstem > blok > zawwansowane > dodatkowe klasy css > nadanie jakiejs klasy - czyli 
+            dodanie nowej klasy
+
+        Wyglad > dostosuj > dodatkowe css 
+            wpisujemy klase i kodujemy ja 
+
+
+    Wlasne fonty na stronie
+        1.Wybieramy font jaki chcemy z google fonts
+            Kopiujemy link > wyglad > edytor > header.php > sekcja head > wklejamy kod
+
+            Wchodzimy w nasz wpisc > dodatkowe css > i np h2{ i nasz font}
+
+        2. Easy gogole Fonts - wtyczka
+            MAmy w edycji wpisu - Typography
+            ^Czas wadowania naszej strony jst zbyt duza gdy zuyjemy wszedzie inny font
+    
+
+    Logo i pliki SVG
+        Strona
+            Na stronie mybrandnewlogo - mozemy wygenerowac logo
+            Canva.com - strona do generowania logo
+
+        Oprogramownaie figma
+            zarejestrowac sie > ikona z plusem 
+                Tworzenie wlasnego loga na canvasie
+
+        safe svg - wtyczka pozwalajaca do wrzucania plikow svg
+            media > dodaj nowe > nasz plik svg
+
+        Wyglad >dostosuj > tozsamosc witrynyn > logo
+            Logo musi 190x190px
+
+            Wyglad > edytor > header.php > wklejamy obrazek dodajemy wlasna klase
+
+    Zaawansowana Edycja CSS 
+        Strona  > dodaj nowa > tworzym stone
+        Wyglad > dostosuj > storna glowna > utworzona nasza strona
+
+        Wylaczenie widgetow na naszej stronie
+            widget context - wtyczka do wlaczania/wylaczania widgetow na naszej stronie
+
+            PRzechodzimy do edycji naszej strony > widgety > widget context - mozliowsc ukryci 
+                widgetu
+
+            Dodanie kodu do home w css zmieni tylko strone glowna 
+
+
+    Shortcodes
+        WP Show Posts - wtyczka do pokazywania postow gdzielkowie tlko zechcemy
+
+        Przechodzimy do WP Show Posts
+            >Dodajemy nowe posty i informacje o tych postach
+                >po prawej>  uslug > shortcodes
+                    Sa to takie rzeczy znajudje sie w nawiasie kwadratowym dzeki czemu mozna wsstrzykac kod
+
+                    Strony > wybieramy nasza strone > wklejamy shortcode
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Migracja WordPressa i Wtyczki
+-------------------------------------------------------------------------------------------------
+
+    PRzeniesienie plikow na serwer
+        1. Potrzebyn jest serwer i domena
+        2. Program do przenoszenia plikow z serwerem
+        3. Szukamy folderu
+            -Public html
+            lub 
+            -www
+        4. Czyscimy public html -czyli dane o dostawcy
+        5. W panelu odstawcy hostingu mozna stowrzyc baze danych
+        6. PRzechodzi do pliku z konfiguracjami w plikach zo wrzucilismy dane do bay danych
+        7. Tworzymy w bazie dnaych na hostingu uzytkonika
+
+        8.Na local host php my admin
+            Baza wordpress > export > custom > save output to a file > add drop table statment > go 
+            Mamy plik sql
+
+        9. Wchdozimy do pane phpmyadmin na hostingu
+        10. Importujemy nasza baze danych
+        *11. JEsli przedrostki sie nie zgadzaja bo hostingo dawaca wymaga innnej nazwy
+        *12. PRzechdizmy do plikow na serwerze i edytujemy config.php
+        *13. Table prefix
+        11. Wordpres na sztywno zapisuje adresy ktore nalezy zmienic w bazie dnaych
+            Zmieniamy dane na nasze adresy
+        _________________________________________________________________________________________________________________________________________________________________________________
+        UPDATE wp_options SET option_value = replace(option_value, 'http://localhost', 'https://eduweb.space/wordpress-podstawy') WHERE option_name = 'home' OR option_name = 'siteurl';
+
+        UPDATE wp_posts SET guid = replace(guid, 'http://localhost','https://eduweb.space/wordpress-podstawy');
+
+        UPDATE wp_posts SET post_content = replace(post_content, 'http://localhost', 'https://eduweb.space/wordpress-podstawy');
+
+        UPDATE wp_postmeta SET meta_value = replace(meta_value,'http://localhost','https://eduweb.space/wordpress-podstawy');
+        _________________________________________________________________________________________________________________________________________________________________________________
+
+
+    Backup W WordPress
+        Wtyczki > dodaj nowa
+            Duplicator - wordPRess Migration Plugin - wtyczka do zarzadzaia migracja 
+                Panel Duplicator > create new  > ustawiami ustawienia > next > budujemy paczki > 
+                    sciagami installer i archive > i wrzucamy je na serwer ktore zostanie zainstaowana
+
+        Narzedzia > export > tworzym backup naszego wordpressa jednak to nie jest calkowity dump
+        Narzedzia > import > wordpress > i wgranie naszego dumpa ktory byl stworzony z export w narzedziach
+
+            BackWPup - wtyczka pozwala tworzyc bardzo zawansowane exporty
+                Add new job > wykonwyania kopi zaposowych naszego wordpressa co jakis czas
+         
+
+    Popularne Wtyczki
+        Googl analitycs dashboard  for wp - analityka google
+        Jetpack  - daje wglad  w analityke strony
+        Hotjar Connecticator - Zastosowanie ankiet
+        Contact Form 7 - forumlarz kontaktowy
+        Yoast SEO - formowanie tresci pod kontem SEO
+        google XML Sitemaps - generowanie site map. Dla robota wyszukiwarki 
+        w3 total cache - gdy blog bedzie wiekszy. packowanie jako paczki do szybszego ladowania strony
+        BackWPup 
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

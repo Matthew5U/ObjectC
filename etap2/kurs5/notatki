@@ -1,0 +1,1007 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Preprocesory CSS" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+
+    <!-- LESS -->
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc 
+-------------------------------------------------------------------------------------------------
+
+Preprocesory - umozliwiaja nam pisanie  kodu css o szybszy spospob a i tak jest interpretowany do 
+    kodu css przez przegladarke
+
+Czym sa?
+    Preprocesory css - to narzedzia pozwalajace nam tworzyc oraz utrzymywac arkusze stlow w sposob duzo
+        lepiej zorganizowany, bardziej czytelny, prostszy i co chyba najwazniejsze szybszy niz w standardowy
+        sposob.
+
+        Dzieki temu do dyspozycji mamy nowe rozszerzone "abstrakycjne" jezyki ktore nie sa jednak 
+        bezposrenido rozumiane przez przegladarki.
+
+
+Dlaczego powstaly?
+    -aby rozszerzyc mozlwisoci jezyka CSS, ktory nie oferuje dynamicznych cech znanych miedzy innymi
+        z jezkow programowania
+
+    -w mysli zasady DRY(dont repeat yourself) - nie powtarzaj sie 
+
+
+Cechy jezykow programownia w arkuszach stylow:
+    -zmienne - do ktorych przypisujemy wartosic
+    -domieszki - jak szablony gotowe do wielokrotnego uzycia
+    -funkcje - przyjmujace i zwracajace wartosci
+
+
+Najpopularniejsze preprocesory CSS
+    - LESS
+    - SASS
+    - Stylus
+
+Dodanie LESS
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+
+    rozszerzenie .less
+
+    1. kod napisany w less
+    2. bibloteka less.js w przegladarce ktora podpielismy
+    3. przeksztalca kod na css i wstawia do sekcji w head
+    4. przegladarka wtedy czyta kod i przedstawia wynik na ekrnaie
+
+Wady less:
+    - przy duzych arkuszach stylow bedziemy obserwowali efekt migniecia zanim przegladarka 
+        wygreneruje oraz przetworzy kod css
+
+    - uzytkownicy z wylaczona obsluga JavaScript w ogole nie zobacza efektow naszej pracy 
+
+Dzialanie:
+    Plik podpinamy do naszej strony, jesli jednak nie chcemy podpinac pliku less ktory trzeba 
+        skompilowac do pliku css to mozemy uzyc narzedzie ktore samo kompiluje plik less do css 
+        i dzieki temu podpinamy gotowy plik css 
+
+        Program Koala + (na widnowsie rubyInstaller for windows )
+
+Wstep do SASS
+    Rozszerzenia:
+        -.scss
+        -.sass
+
+        Kazdy poprawny plik css bedzie poprawnym plikem scss
+        Plik sass oparty jest na ruby. Nie ma klamer tylko znaki biale
+            tabluatory mowia co nalezy a co nie do danej klasy
+
+        Mozliowsc zainstalowania koala do kompilowania plikow sass i less.
+        Istnieje mozliwosc zainstalowania sass na komputerze i w konsoli mozna kompilowac pliki
+
+        Komentarze w sass:
+            mozliowsc stosowania //
+
+        Skladnia 
+
+        Mozliwosc zagniezdzania regul
+
+        #mainheader
+        {
+            background-color: blue;
+        }
+
+        #mainheader a
+        {
+            color: white;
+        }
+
+        ^Powyzszy tekst mozna zapisac nastepujaco
+
+        #mainheader
+        {
+            background-color: blue;
+
+            a
+            {
+                color: white;
+            }
+        }
+------------------------------------------------------
+        Znaczek & mowi "podstaw w to miejsce mojego rodzica
+
+        Sa to odwolania np &.przycisk.
+            JEsli rodzicem byl a to odowlujemy sie do rodzica a z klasa przycisk
+
+            a
+            {
+                color: blue;
+
+                &:hover
+                {
+                    text-decoration: none;
+                }
+            }
+            ^To samo co
+            #mainheader a:hover
+            {
+                text-decoration: none;
+            }
+------------------------------------------------------
+        Mozliowsc wyjscia z danej klasy ale przypisania i tak tej klasy
+
+        #mainheader
+        {
+            .home & 
+            {
+                height: 20px;
+            }
+        }
+
+        ^To oznacza to samo co w kodzie css
+
+        .home #mainheader
+        {
+            height: 20px;
+        }
+------------------------------------------------------
+        Zapis wejscia do znacznika nizej
+
+        #mainheader
+        {
+            > div
+            {
+                height: 20px;
+            }
+        }
+
+        ^To oznacza to samo co w kodzie css
+
+        #mainheader > div
+        {
+            height: 20px;
+        }
+----------------------------------------
+        Zapis dla rozlacznych elelemntow
+        p
+        {
+            border-bottom: 5px;
+            border-right: 10px;
+        }
+        ^To samo co
+
+        p
+        {
+            border: 
+            {
+                top: 1px #000 solid;
+                bottom: 1px #000 solid;
+            }
+
+            font:
+            {
+                size: 12px;
+                weight: bold;
+            }
+            ^LUB MOZNA ZPAISAC TO TAK
+
+            font: 12px/18px Tahoma
+            {
+                weight: bold;
+            }
+
+       
+        }
+
+W LESS dokaldnie taka sama instrukcja pisania
+
+Identyfikatory( np #przycisk czyli id="przycisk) warto nie zagniezdzac
+
+Starac sie nie zagniezdzac zbyt gleboko tych wlasnosci
+-----------------------------------------------------------
+Zmienne SASS
+    Zmienne nazywam jak w php
+        $nazwa zmiennej : wartosc;
+        To co zostaeni zadeklarowane po dwukropku to wartosc
+        
+        Przyklad:
+
+            $containerWidth: 940px;
+            $borderType: solid;
+            $linkColor: #FFFFFF;
+            $linkColorHover: blue;
+            $undeline: false;
+            $font: 18px/20px Tahoma, arial, sans-serif <-font 18px i wysokosc lini 20px
+            $border: 1px #000 $borderType
+
+            body
+            {
+                $font: "1px";
+                font: $font;
+
+                a
+                {
+                    color: $linkColor;
+                    border: $border;
+                    &:hover
+                    {
+                        color: $linkColorHover
+                    }
+                }
+            }
+
+
+            #container
+            {
+                width: $containerWidth;
+            }
+
+SASS w przeciwienstwie do LESS odroznia rozne nazyw czyli
+in-out to samo co in_out 
+W less to nei zadziala
+
+Napisywanie zmiennych istnieje po przez hierarchie 
+-------------------------------------------------
+W LESS zmienne deklarujemy w postaci malpy
+    @containerWidth: 940px;
+    @borderType: solid;
+    @linkColor: #FFFFFF;
+    @linkColorHover: blue;
+    @undeline: false;
+    @font: 18px/20px Tahoma, arial, sans-serif <-font 18px i wysokosc lini 20px
+    @border: 1px #000 $borderType
+
+
+Operacje matematyczne
+W less nalezy dawac nawiasy do operacji matematycznych. Jesli dodamy do pierwszej zmiennej ktora
+    jest w px i dodam jej 10cm to less zlekcewazy cm i doda 10px czyli jednostke liczby do ktorej 
+    jest dodawana
+
+W SASS zapis 19/20 px mowi o tym ze czcinka 18 i wysokosc lini 20
+W LESS ten sam zapis juz dzieli te wartosic nalezy uzyc wtedy tzw "ucieczki(escape)" ~"19px/20px"
+
+W sass
+    $selector: p;
+
+    #{$selector} 
+    {
+        color: red;
+    }
+    ^ to samo co
+    p
+    {
+        color: red;
+    }
+
+W less tak samo tyle ze zamista $ uzywamy @
+------------------------------------------------------
+W sass zmiena typu default
+
+    $font: arial
+    $containerWidth: 940px;
+    $borderType: solid;
+    $linkColor: #FFFFFF;
+    $linkColorHover: blue;
+    $undeline: false;
+    $font: 18px/20px Tahoma, arial, sans-serif !default; jezeli jest cos wyzej zdefinowane to 
+                                                            podstaw tamta zmienna a jesli nie ma
+                                                            to podstaw ta zmienna default
+    $border: 1px #000 $borderType
+
+
+Mixiny - SASS
+    Oczywiscie bo jak ze innaczej istneije IE ponizej 8 i tam OCZYWSICIE NIE DIZAL przypisanie 
+        bolkowo-liniowe. Mozna to rozwiazac w nasepujacy sposob.
+
+        p
+        {
+            display:inline-block;
+            *display: inline;
+            zoom: 1;
+        }
+
+        Mixiny sa stosowane aby ne powielac kodu skladajcego sie z kilku linijek
+
+            PRzyklad:
+                @mixin inline-block
+                {
+                    display:inline-block;
+                    *display: inline;
+                    zoom: 1;
+                }
+
+                Odwolanie:
+                p
+                {
+                    @include inline-block;
+                }
+    LESS
+        .inline-block() <- tworzymy tak jak by klase, nawiasy okragle daja to ze nie wyswietli sie
+                            ta klasa w pliku ktora sluzy do wpisywania do innych klas a nie 
+                            wysiwetlaniu jej w pliku jak osobny teks
+        {
+            display:inline-block;
+            *display: inline;
+            zoom: 1;
+        }
+
+        Odwolanie:
+        p
+        {
+            .inline-block;
+        }
+
+-------------------------------------------
+Przekazywanie parametru
+    @mixin opacity($opacity)
+    {
+        opacity: $opacity;
+        filter: alpha(opacity=$opacity*100); // dla starszych przegladarek opacity podajemy od 0 do 1
+    }
+
+    img
+    {
+        $:hover
+        {
+            @include opacity(0.2)
+        }
+    }
+
+W LESS
+    .opacity(@opacity)
+    {
+        @opacityPercent: (@opacity * 100)
+        opacity: $opacity;
+        filter: alpha(@opacityPercent); // dla starszych przegladarek opacity podajemy od 0 do 1
+    }
+
+    img
+    {
+        &:hover
+        {
+            .opacity(0.2)
+        }
+    }
+
+JEsli podamy domyslny parametr to bedzie on uzyty np.
+    .opacity(@opacity: 0.2)<- domyslny jesli na dole nie przekazano paramteru
+    {
+        @opacityPercent: (@opacity * 100)
+        opacity: $opacity;
+        filter: alpha(@opacityPercent); // dla starszych przegladarek opacity podajemy od 0 do 1
+    }
+
+    img
+    {
+        &:hover
+        {
+            .opacity; <- domyslny jest wyzje czyli 0.2
+        }
+
+        LUB
+        &:hover
+        {
+            .opacity(0.5);
+        }
+    }
+    TAK SAMO JEST W SASS^
+
+<<<<<<<<<<<<<<<<<<<<<<<< przekazywanie wiecej parametrow >>>>>>>>>>>>>>
+W SASS
+@mixin transition($props: all, $speed: 0.2s, $easing: linear)
+{
+    transition: $props $speed $easing;
+}
+
+Jesli nie podajemy zadnych argumentow to tobimy to tak:
+img
+{
+    @include transition;
+}
+
+Jesli podajemy argumenty tak jakie sa w kolejnosci wyzej to robimy to tak:
+img
+{
+    @include transition(opacity, 0.5s);
+}
+
+Jesli podejmy argument ktory w kolejnowsci jest inny niz pierwszy to:
+img
+{
+    @include transition($easing: ease-out);
+}
+
+Podobnie jest w LESS
+----------------------------------------------
+mixina dzialajaca tylko w less
+
+.box-shadow(@x: 0, @y: 0, @blur: 1px, @color: #000)
+{
+    box-shaodw: @arguments; <- bierze argumenty wyzej i dodaje je pod @arguments
+}
+
+p
+{
+    .box-shadow !important;
+}
+
+W less dziala jeszcze !important. W sass juz nie dziala
+
+----------------------------------------------
+mixina do zebra styl - rozne style dla elementow
+W sass
+    @mixin zebra-style($color)
+    {
+        tr:nth-child(odd)
+        {
+            background-color: $color;
+        }
+
+        tr:nth-child(even)
+        {
+            background-color: darken($color, 20%);
+        }
+    }
+
+table
+{
+    @include zebra-style(#FFF);
+}
+
+-------------------------------------------------------
+Instrukcje warunkowe
+
+    Przypisanie zaokraglonych naroznikow
+
+    W SASS
+
+        @mixin border-radius($radius: 5px, $border: 0)
+        {
+            border-radius: $radius;
+            
+            @if $border > 0 
+            {
+                border: $border #000 solid;
+            }
+            @else
+            {
+                border: none;
+            }
+        }
+
+        img
+        {
+            @include border-radius(15px);
+        }
+
+        @mixin text-color($color: #000)
+        {
+            @if $color == turkus <- znak rownosci
+            {
+                color: #40ECDD;
+            }
+
+            @else if $color == red
+            {
+                color: red;
+            }
+
+            else
+            {
+                color: $color;
+            }
+        }
+
+        h1
+        {
+            @include text-color(turkus);
+        }
+
+
+    W LESS
+        W LESS operator rownosci (jak normalny programista by myslal ze jest to ==) niestety nie
+            bo w less jest to jeden znak rownosci = Pozdro dla tych co o wymyslilij. (Mistrzowie
+            rozkminy stu lecia nie ma co )
+
+        .text-color(@color) when (@colr = turkus)
+        {
+            color: #40E0D0;
+        }
+
+        .text-color(@color) when (@color = magneta)
+        {
+            color: magneta;
+        }
+
+        .text-color(@color)
+        {
+            color: @color;
+        }
+
+        .text-color(@color) when not (@color = turkus) and (@color = blue)
+        {
+            color: @color;
+        }
+
+        .border-radius(@radius: 5px, @border: 0) when (@border > 0 )
+        {
+            border-radius: @radius;
+            border: @border #000 solid;
+        }
+        
+        
+        h1
+        {
+            text-color(turkus);
+        }
+
+        ----------------------------------
+        Rozroznianie wyboru mixin na podstawie podanych liczby argumentow
+        .border(@radius)
+        {
+            border-radius: @ radius;
+        }
+
+        .border-radius(@radius, @border)
+        {
+            border-radius: @radius;
+            border: @border @000 solid;
+        }
+
+        img
+        {
+            .border-radius(10px); <- pierwsza mixyna zostala uzyta
+            .border-radius(10px, 20px); <- uzyta druga mixina
+        }
+
+REASUMUJAC
+    W SASS mozna twozyc jedna mixine z ta sama nazwa
+    W LESS mozna tworzyc po przez dobieranie na podstawie warunkow a nazwy mixn maja takie same nazwy
+
+-----------------------------------------------------------------------
+Polecenie Extend
+        W SASS
+            .gradientGreen{
+                tutaj wlasnosci tej klasy
+            }
+
+                @extend .gradientGreen; <-rozszerz klase gradientgreen
+                dodaje do stylow dla np headera i button ten naglowek i 
+                zostaje rozszerozne
+
+            Dajac zamiast kropki procent umozliwa nam pominiecie klasy 
+            ktora rozszerzamy. Ona istnieje
+                ale nie jest poakzywana w kodzie css
+
+            Dodajac do kazdej klasy np @extend button rozszerzamy klasy o klase 
+            button tam gdzie dodalismy extend 
+
+            Jesli selektor by nie istnial to byl by wygenerowany blad
+            Dopisania !optional nie wygenruje bledu jesli dany selektor nie istnieje
+
+        W lass od 1.4 mozna w koali uzywac a nizej przez przegladarke
+            Zapis zapisuje sie nastpeujaca
+
+            .red:extend(.button){} czyli w sass bylo .red{@extend .button};)
+
+----------------------------------------------------------------------
+Petle
+    Dzialaja w SASS ale nie w LESS
+     
+    FOR: 
+        @for $i from 1 through 6 <- nie pomija 6 bo jest through, gdby bylo to to by zobilo do 5 wlacznie
+        {
+            //kod petli
+            h#{$1} <-h bedzie takie samo ale nasze i bedzie sie zmieniac
+            {
+                font-size: 26px;
+            } 
+
+            h#{$1} <-h bedzie takie samo ale nasze i bedzie sie zmieniac
+            {
+                font-size: 26px - (2 * $i);
+            } 
+        }
+        ---------------------------------------
+        @mixin headings($fontSzie)
+        {
+            @for $i from 1 through 6 <- nie pomija 6 bo jest through, gdby bylo to to by zobilo do 5 wlacznie
+            {
+                h#{$1} 
+                {
+                    font-size: 26px - (2 * $i);
+                } 
+            }
+        }
+
+        @include headings(30px);
+
+
+    EACH
+        @each $socialItem in fb, yt, twitter, behance
+        {
+            
+            li.social-#{$socialItem} <- przyjmuje wartosci fb nastepnie yt i tak dalej
+            {
+                background-image: url(#{$cocialItem}_icon.jpg);
+            }
+        }
+        ^gneruje nam siciezki do ikon fb i tak dalej
+
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        $social: fb, yt ....
+
+        @each $socialItem in @social <- krotszy zpais 
+
+        PRzyklad
+        @mixin list($list) {
+            @each $item in $list {
+
+                li.#{$item} { <- #{} - interpolacja
+                    background-image: url(images/#{$item}.png);
+                }
+            } 
+        }
+
+        ul 
+        {
+        @include list(fb twitter yt eduweb);
+        }
+
+
+    WHILE
+        
+        $i: 1;
+        @while $i <= 6 
+        {
+            // i jakas instrukcja
+
+            $i: $i + 1;
+        }
+
+---------------------------------------------
+Wbudowane funkcje w sass tak samo jest w less
+    Strona:
+        sass-lang.com <- strona z dokumentacja funkcji do sass
+
+        Przyklad
+
+        div
+        {
+            width: round((200px / 53));<-podajemy wartosc czyli tutaj wartosc w nawiasach bedze policzona
+
+        }
+
+        .wrapper
+        {
+            width: percentage(0.5);
+        }
+
+        @mixin border-radius($radius) 
+        {
+            @if unitless($radius)
+            {
+                $radius: $radius + px;
+            }
+
+            border-radius: $radius;
+        }
+
+        img
+        {
+            @include border-radius(20);
+        }
+
+----------------------------------------------------
+Wlasne funkcje
+
+    W sass jest to mozliwe jednak w less nie dzialaja wlasne funkcje
+
+    W SASS
+
+        $imagesPath: "../../img"; 
+
+        @function divide($number1, $number2)
+        {
+            $result: ($number / $number2);
+            
+            
+            @return round($result);
+
+        }
+
+        @function image-url($name)
+        {
+            $imagePath: "images/" !default;
+
+            @return url(#{$imagePath}#{$name});
+        }
+
+        div {
+            width: divide(200px, 53);
+            background-image: image-url("obrzejk.png");
+        }
+
+------------------------------------------------------
+Funkcje operacyjne na kolorach
+
+        Operacje w SASS i LESS:
+            Podajac jeden kolor mozna modyfikowac inne. 
+                OBracac kolory
+                zmieniac jasnosc itp
+
+        W LESS
+
+        @color: #EB5AA6;
+        div
+        {
+            background-color: fadeout(@color, 20%); <-zanikanie czyli alpha
+                                greyscale <- zmienia kolor na szary ale pamieta wczesniejszy kolor
+                                difference(color1, spin(color2,180) <-zamieniamy i obracamy kolor o 180
+                                overlay(color1, spin(color2,20)) <- nakladka
+        }
+
+        Strona 
+            sassme.arc90.com - strona do zmieniania kolorow w sass
+
+--------------------------------------------------------------
+Importowanie plikow
+
+    W SASS
+
+        Zapis
+
+            @import "mixins.scss";
+            // jesli importujemy plik css to zaimportuje jesli plik scss to go nie zaimportuje
+            // import przenosi plik do pliku na samj gorze
+            // mozna dac nazwe pliku bez rozszerzenia
+            // mozna dac import po przecinku 
+            img
+            {
+                @include border-radius(20px);
+            }
+
+            _reset.scss - plik poprzedzone z podlaga zostana dodane ale nie skompilowane
+
+--------------------------------------------------------------
+Debugowanie bledow
+    SASS
+        Znajdzie blad plus dodatkowo np program koala
+
+    LESS 
+        Nie znjadzie podstawowych bledow tylko takie ktora by uzytkownika sma znalazl czyli np ;
+
+    Dodatek 
+        chrome
+            SASS Inspectro do chrome. Umozliwa sprawdzenie w ktorej lini w pilku scss jest dana 
+                wartosc przypisana(np. font-size: 12px;)
+
+        Firefox:
+            -firebug
+            -sass for firebug
+
+
+--------------------------------------------------------------
+Roznice miedzy SASS i LESS
+-inny zapis
+-innaczej interpetowane operacje na jednostkach
+-nieco inne dzialanie @import w LESS
+-LESS oblsuguje przestrzenie nazw, SASS nie
+-SASS osbluguje petle, LESS nie
+
+-------------------------------------------------------------
+Css3 Selection
+
+    Zapis:
+        
+        W pliku mixins
+        @mixin selection($color, $bgcolor: invert($color), $elem: "")
+        {
+            #{$elem}::selection
+            {
+            color: #000;
+            background-color: pink;
+            }
+        }
+
+        W pliku scss
+        @include selection(#fff, red, p);
+
+
+-----------------------------------------------------------------
+Button 
+
+    Mixiny mozna stowrzyc do dodawania prefiksow do potrzebnych nazw
+
+    Rozjaenienie koloru
+        darken($color, 15%)
+        lighten($color, 20%)
+
+    Dopisanie prefiksow w mixin
+
+        @mixin prefix($property, $value, $prefixes)
+        {
+            $noPrefixes: flase !default;
+            $prefixes: if($noPrefixes, flase, $prefixes); <- funkcja
+
+            @if $prefixes {
+                @each $prefix in $prefixes
+                {
+                    -#{prefix}-#{$property}: $value; <- jesli stworzymy $prefixes: true; to
+                        wylaczymy wszystkie prefiksy
+                }
+            }
+            
+
+        }
+
+        Wykorzystanie
+
+        @mixin border-radius($radius)
+        {
+            @include prefix(border-radius, $radius, webkit moz); <- doda nam dwa prefixy
+            border-radius: $radius;
+        }
+
+----------------------------------------------------------------------------
+Animowanie tla
+
+    Przyklad 1
+    @-webkit-keyframes bgAnimate <-animacje w sass
+    {
+        from
+        {
+            backgorund-postion: 0 0;
+        }
+
+        to
+        {   
+            background-postion: 1000px 0;
+        }
+    }
+
+-------------------------------------------------------------------------------------------------
+Czesc Biblitoek compas
+-------------------------------------------------------------------------------------------------
+
+    Przydate funkcje, mixiny itp napisane w sass 
+
+    Uruchomienie compsass
+        sciagneicie compsass
+        zanzaczenie aplikacji w koala
+        w edytorze kodu nalezy zainkludowac:
+            @impoert "compass";
+
+            Istnieje mozliwosc importowania poszczeglonych funckji compass 
+
+        Compass sam dodaje prefiksy. Istnieje mozliwosc wylaczenia prefiksow
+            dla chrome safari
+                $experimental-support-for-webkit: false;
+
+    Zaokraglanie naroznikow z compass
+        @include border-corner-radius(top, left, 10px);
+
+    @include no-bullet; <- wyrzuca ozdobniki listy
+
+----------------------------------------
+Tworzenie plikow
+
+    compass create testwoy <- projekt compass
+    compass watch testwoy <- bedzie caly czas podgladal plik. OZnacza to ze jesli zapisze zmiany w 
+        pliku to beda one sledzone
+
+    W config.rb 
+        Zmieniamy z css_dir ="stysheet" na "css" i dzieki temu bedzie includowal folder css
+
+        relative_assets - true <-realtywne szukanie sciezki
+
+        line_comments =false <- usuwanie komentarzy w pliku css
+
+        output_style <- styl pisania czy normalny czy skompresowany itp
+
+        compass sreate testowty -css-dir=css --output-style=compressed <- i zostanie utworzony z
+            takimi danymi jakie wpisalismy
+
+        mozliwosc uzywania config.rb do programu koala
+
+-----------------------------
+CSS sprite
+
+    JEst to laczenie kilkow obrazkow w jeden obrazek
+
+        // Sprites
+            Majac 3 odzielene obrazki jest mozliowsc ich polaczeni
+
+            @import "social/*.png"; <- stworzenie obrazka z 3 roznych
+
+            @include all-social-sprites; <-wygenreuje wszystkie obrazki
+
+            .facebook
+            {
+                @include social-sprite(Facebook);
+            }
+
+            a
+            {
+                @include inline-block;
+                width: 64px;
+                height: 64px;
+                @include: squish-text;
+            }
+
+            ^ Generuje klasy z backgorund dla kazdego obrazka
+            Nalezy pozniej dodac klasy obrazkow do html
+
+            Jesli plik nazwiemy z hover to compass sie domysli i podpisze ze te plikisa z hover
+  
+    ----------------------------------------------------------
+    Mapy compass
+
+    $socialIcons: sprite-map("social2/*.png");
+
+    ul
+    {
+        li
+        {
+            height: image-height(sprite-file($socialIcons, facebook));
+            padding: 0 0 0 image-width(sprite-file($socialIcons, facebook));
+            @include no-bullet;
+            backgorund: $socialIcons no-repeat;
+        
+            &.facebook
+            {
+                @include sprite($socialIcons, facebook)
+            }        
+        }
+    }
+
+    Zapis obraz horyzontalnie
+
+    $socialIcons: sprite-map("social2/*.png", $layout: horizontal);
+    ---------------------------------------------------------------------
+    Framewoork
+        Blueprint 
+            Pozwala nam tworzyc szybciej storny intenetowej gdyz posiada juz gotowe pliki css
+
+            compass create projekt 1 --using blueprint
+
+        Stitch
+        compas bootstrap
+        960grid
+        normailze
+
+        Sassy butons <- do przyciskow
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

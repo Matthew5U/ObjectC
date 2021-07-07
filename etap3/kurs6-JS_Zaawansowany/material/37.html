@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Wyrażenia regularne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:550px;">
+
+<p id="source" style="width:100%">Kurs przygotowaliśmy z myślą o praktycznym zastosowaniu języka JavaScript.</p>
+
+	<div id="message" class="alert-error" style="width:100%;"></div>
+    <br>
+    <button id="submit" class="btn">Wyślij</button>
+
+
+</div>
+
+
+<script>
+
+document.getElementById('submit').onclick = function(){
+	var sourceText = document.getElementById('source').innerHTML;
+	var expr = /\s/g; // Spacja \s
+	var result= sourceText.split(expr);
+	document.getElementById('message').innerHTML = result[result.length-1];
+}
+
+</script>
+
+
+</body>
+</html>

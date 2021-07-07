@@ -1,0 +1,284 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress - Tworzenei motywow" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep
+-------------------------------------------------------------------------------------------------
+    1. Wyglad strony
+
+    2. PLiki
+
+-------------------------------------------------------------------------------------------------
+Czesc Srodowsiko pracy z wordPress 
+-------------------------------------------------------------------------------------------------
+    Srodowisko pracy
+    mac - mamp
+    windows - wamp
+    linux - devilbox
+
+    1. wycinamy index.php na sama gore i wklejamy przed folderem 
+    2. zmieniamy bezposrednie linki
+        http://localhost/wordpress/%category%/%postname%/
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z Motywami Potomnymi 
+-------------------------------------------------------------------------------------------------
+    Omowienie gotowego motywu
+        1. Wykorzystanie gotowego Motywu - niekorzystna bo napisywane sa pliki przez tworcow motywow
+        2. Stowrzenie motywu potomnego(child theme)
+        3. Wdrozenie wlasnego motywu
+
+        Motywy:
+            -Nakladka graficzna 
+            -Moga byc tworzone przez uzytkownikow
+            -sa platne lub darmowe (darmowe na wordpress.org)(prmeium elegantthems)
+            -oferuja dodatkowe funckjonalnosci
+            -mozna je zmieniac 
+
+        Kokpit > wyglad > Motywy
+
+
+    Tworzenie Motywu Potomnego
+        1. folder wordpress > wp-content > themes > tworzymy nowy katalog
+            Tworzymy plik style.css
+
+            /*
+
+            Them Name: Moj nowy motyw
+            Description: To jest porty opis motywu
+            Author: Mateusz
+            Template: jak sie nazywa motyw bazowy
+            Version: 1.0
+            
+            */
+
+        2. Przezucenie stylow z jakiego motywu do naszego nowego pliku
+        3. Imporowanie stylow z jaiegos motywu
+
+            @import url('../sciezkadostyluinnegomotywu');
+    Nadpisywanie stylow CSS
+        Wpisywanie stylow w ostatecznim pliku daje nam to iz zmieniamy style 
+        Pliki w mtywie sa bane jako najwazniejsze
+        Jesli chcemy to wrzucamy plik index.php do naszego folderu z naszym motywie
+
+
+    Modularna struktura WordPress
+           Struktura ladowania plikow w wordpress
+
+           abspath - glowna siciezka do instalatona wordpress
+           get_header - odwolanie sie do naglowka header w innch plikach
+           get_template_part - kolejna czesc szablonu 
+            'conent' , get_post_format -  sprawdzi format sotrny na jakiej sie nzajdujemy i 
+            wygeneruje nam content i jakis format
+
+            Dodanie modularnej czesci do naszego projektu
+            ____________________________________________________________
+            <?php get_template_part( 'content', get_post_format() ); ?>
+            ____________________________________________________________
+
+            Przyklad
+            W stronie index.php dodajemy linijkie
+            <?php get_template_part( 'lorem', 'impsum'); ?>
+                i dzieki temu wczytujemy plik lorem_impsum.php
+
+            
+    Nadpisywanie funckji w Motyiwe Potmonych
+        functions.php - zawieraja funckje php
+            Odpowieada np za przycinanie kontentu
+
+            Tworzymy plik functions.php
+            _________________________________________________________________________________________________________________________________
+            <?php
+
+            function generuj_favicon(){
+                echo'<link rel="shortcut icon" type="image/x-icon" href="http://sciezaka do naszej sorny/wordpress/favicon.ico"/>' . "\n
+            }
+
+            add_action('wp_head','generuj_favicon');
+            _________________________________________________________________________________________________________________________________
+            Na stronie favicon.cc dodajemy plik favicon - logo w pasku adresu 
+            Na poczatku jest wykonywany nasz plik a dopiero pozniej plik wordpressa
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Wprowadzenie do strony kursowej
+-------------------------------------------------------------------------------------------------
+
+    Wprowadzenie do projektu
+        Opis strony w kursie
+
+
+    Frameworki do WP
+        1. code-library - bilioteka z funkcjami ktora implemntuje fnkcje do pomocy progmaiscie
+            Reverie - funkcje bazujace na responsywnosci
+            gantry - rozbudowane narzedzia do szabonow
+
+        2. starter-theme - generuje podstawowe pliki typu index.php
+            bones - framework responsywny 
+            html5reset - czysty motyw wordpressa
+            html5 blank
+            
+        Przechodzimy do folderu wordpress > wp-content > themes > i towrzymy nasz motyw do ktorego wrzucamy nasza strone
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Wprowadzenie do strony
+-------------------------------------------------------------------------------------------------
+    Notatki z tego dzialu sa rozbite na inne pliki
+
+    Struktura
+
+    is_home()----------------------------------------------------------------------------------|home.php      |----------------\
+    is_front_page()----------------------------------------------------------------------------|front-page.php|---------------\ \
+    is_404()-----------------------------------------------------------------------------------|404.php       |--------------\ \ \
+    is_search()--------------------------------------------------------------------------------|search.php    |-------------\ \ \ \
+    is_date()----------------------------------------------------------------------------------|date.php      |--\           \ \ \ \
+    is_author()---------------------------|author-nicename.php       |-|author-id.php        |-|author.php    |-\ \           \ \ \ \
+    is_category()-------------------------|category-slug.php         |-|category-id.php      |-|category.php  |-|archive.php|-|index.php|
+    is_tag()------------------------------|tag-slug.php              |-|tag-id.php           |-|tag.php       |-/ / /         / /
+    is_tax()------------------------------|taxonomy-taxonomy-team.php|-|taxonomy-taxonomy.php|-|taxonomy.php  |--/ /         / /
+    is_archive()-------------------------------------------------------|archive-posttype.php |--------------------/         / /
+    is_single()--------------------------------------------------------|single-posttype.php  |\                            / /
+                                                                                               >-|single.php  |-----------/ /     
+    is_content()--------------------------|MIME_type.php             |-|attachment.php       |/                            /  
+    is_page()-------|custom_template.php|-|page-slug.php             |-|page-id.php          |-|page.php      |-----------/
+
+-------------------------------------------------------------------------------------------------
+Czesc Rozpoczynamy tworzenie strony 
+-------------------------------------------------------------------------------------------------
+
+    Temple tags 
+        Blog info - uzyskamy przydatne informacje
+        <?php bloginfo('template_url'); ?>
+
+        <?php bloginfo('name'); ?>              Tytul bloga
+        <?php bloginfo('charset'); ?>           Kodowanie
+        <?php bloginfo('description'); ?>       Meta description
+        <?php bloginfo('url'); ?>               Adres bloga
+        <?php bloginfo('rss2_url'); ?>          URL do RSS
+        <?php bloginfo('template_url'); ?>      Sciezka szablonu
+        <?php bloginfo('pingback_url'); ?>      URL pingbackow
+        <?php bloginfo('stylesheet_url'); ?>    URL pliku css
+        <?php bloginfo('wpurl'); ?>             URL instalacja WP
+        <?php bloginfo('version'); ?>           Wersja WP
+        <?php bloginfo('html_type'); ?>         Wersja html strony
+
+        ODwolanie do plikow css
+            <?php bloginfo('stylesheet_url') ?>
+
+            Alternatywny spospob
+            <link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/reset.css">
+
+    
+    Wylaczenie paska admina na gorze
+        Uzytkowonicy > twoj porfil > Pokazuj pasek narzedzi podczas przegladania
+
+
+    Taksonomi 
+        Opisywanie roznych tresci i kategoryzownaie tresci
+
+        Kalsyfikacja typu tresci
+            Wlasne typy postow(custom post)
+                Wpisy
+                Przepisy
+                Restauracja
+                Food fight
+
+            Zadajemy pytanie 
+                Czy ta taksonomia bedzie zaweirac jeszcze jakiesj poddzieci jesli tak to sa to kategorie
+                Tagi nie sa wiazane jako rodzic dziecko
+
+                    Typ dania - kategoria
+                    jajko - tagi - w zaleznosci od buowy strony
+
+
+    Dodajemy rodzaje kuchni ale bez przynaleznosci bez rodzicow
+    Dodajac Np zupa do obiadu ustawiamy ze rodzicem zupy jest Obiad
+
+
+    Zapis:
+        <?php get_footer('home'); ?> - zalaczy nam plik z parametrem home czyli plik footer-home.php
+
+
+    Petla w Wordpress
+        Loop pozwala nam wyseitlic odpowiednio sformatowane informacje o postach.
+
+        Funkcje wewnatrz petli
+        the_permalink()     URL posta
+        the_ID()            Id posta
+        the_author()        Nazwa autora
+        the_category()      Kategoria posta
+        the_title           Tytul posta
+        the_expert          Skrot posta
+        the_content         Cala zawartosc posta
+        the_date            Data posta
+
+        Modyfikacja petli
+            query_posts() - Prosty sposob do modyfikacji standardowej petli, ktora raz pojawia sie na stronie
+
+            WP_Query() - Zaawansowane mozliwosci tworzenia zapytan dla petli ktoe wystpeuja na stronie wiele razy
+
+            get_posts() - Tworzenie dodatkwoych zaawansowanych petli na stronie
+
+
+    Wlasne pola custom field
+        Funkcja get_post_meta przyjmuje wartosci:
+
+        $post_id - identyfikator posta
+        $key - definiuje klucz wlasnego pola
+        $single - zwraca tablice albo string
+
+        <?php get_post_meta($post_id,'$key',$single);?>
+
+            Przyklad
+                <?php echo get_post_meta($post->ID,'nazwa-pola',true);?>
+
+
+    Formaty postow
+
+        add_theme_support('post-formats',array('aside','gallery'));
+
+
+    Jesli zle podpeniemy footer to wyswietli sie glowny footer
+
+    get terms- zwraca nam taksonomie
+
+    
+    Rejestrowanie wlasnego menu
+        1. Rejestracja menu z pomoca register nav menus
+        2. Stowrzenie manu w kokpicie
+        3. Pokazanie menu na stronie z pomoca wp_nav_menu
+
+    Rejestracja szablonu strony
+        1. Rejestracja w komentarzu pliku .php
+        2. Stworzenie strony w Kokpicie
+        3. Podpiecie strony do Szablonu
+
+
+    Wordpress wie w ktorej kategori siedzi
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Doadnie plikow do serwera
+-------------------------------------------------------------------------------------------------
+
+    Dodanie wordpressa do seriwsu hostingowego
+        1. Towrzymy baze danych
+        2. Przechodizmy do bazy danych 
+        3. Eksportujemy baze danych
+        4. Importujemy baze danych na hosting
+        5. Kopijuemy pliki do serwera ftp
+            Do public_html
+        6. Edytujemy plik wp-config 
+            Edytujemy wszystkie dane do bazy danych ktore sa teraz na naszym hostingu
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+

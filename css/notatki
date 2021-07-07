@@ -1,0 +1,234 @@
+_________________________________________________________________________________________________
+Kurs CSS notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. 
+-------------------------------------------------------------------------------------------------
+CSS (Cascading Style Sheets)- jezyk sluzacy do opisu formy prezentacji strony internetowej
+
+Skład:
+    seletor
+    {
+        property: value;
+        property: value;
+    }
+
+Rodzaje hiperlaczy:
+    a:link - nieodwiedzony link
+    a:visited - odwiedzony
+    a:hover - po najechaniu kursorem
+
+Dodawanie lini css
+    4. Wartosci domysle
+    3. Zewnetrzy plik
+    2. W sekcji head w pliku html (<style></style>)
+    1. Bezposrednio w znaczniku (inline)
+        style="color: green;
+
+    Kaskadowosc mozna złamac:
+        !important <-- deklaracja taka mowi przegladarce aby uzyl tego stylu
+
+W CSS dziala hierarchia = Kaskadowosc
+-------------------------------------------------------------------------------------------------
+Kurs 2. Tworzenie strony w css
+-------------------------------------------------------------------------------------------------
+font-size: rozmiar czcionki
+letter-spacing: rozstrzelenie liter
+
+Google fots - czcionki do strony
+    latin extended - (rozszerzone znaki łacińskie)
+    Zaznaczyc trzeba latin extended aby zawieral polskie znaki
+
+    Font-famyli: rodzina czcionki
+    San-serif - Nie posiada urozmaicen czcionki(zakonczenia)
+
+Styl:
+    cursor: pointer (raczka)
+
+    Cechy obramowania:
+        1. grubosc np. 2px
+        2. rodzaj np. dotted(kropkowana)
+        3. kolor
+
+    opacity: <-- nieprzezroczystosc(0.8=80%)
+
+<span> znacnzik sluzacy do zgrupowania elementow(tekstu, obazkow) zazwyczaj w celu przypisania im 
+    okreslonego stylu css(nie zmienia elementow na stronie)(<div> = <span display block>)
+
+<div> element blokowy
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. Rozwijane menu
+-------------------------------------------------------------------------------------------------
+wraper - głowny pojemnik  
+
+margin: 0 !important; - przegladarka ma domyslnie ustawione marginesy, aby to zmienic trzeba wyzerowac je
+
+.sticky
+{
+    width: 100px;
+    position: fixed; <-- przyklej
+    left: 0; <-- lewy rog
+    top: 0; <-- gorny rog
+    z-index: 100; <-- glebia, zaslanianie sie elementow na stronie "tym blizej uzytkownika"
+}
+
+    Klasa do przyklejenia menu do góry
+
+    line-height: 200%; <- ile zajmuje linia w pionie gdzie jest tekst
+
+ol > li - sylizujemy li ktorego rodzicem jest ol
+
+ol a - wszystkie lelemny a bedace w ol(obojetnie czy jest potomkiem czy nie)
+
+ol > li:first-child <-- pierwszy elelemnt (li) rodzica ol
+
+ol > li:hover > a <-- zmiana koloru linku w liscie
+
+    position: relative; <- relatywne ukladanie. Zaslania inne elementy
+
+.overlay .link <-- lapiemy klase link ktora znajdujace sie w klasie overlay
+
+Pierszenstwo okreslenia koloru linku ma znacnzik a przed divem. Dlatego zawsze zmienia sie kolorystyke
+    dla samego "a" a nie tylko diva gdzie siedzi "a"
+
+    display: none; <-- zniknie element
+    display: block; <-- pokazuj element
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Stylizacja formularza
+-------------------------------------------------------------------------------------------------
+Box shadow generator:
+    Generator do stlizowania konenerow z cieniem
+
+    -webkit-box-shadow: 10px 10px 33px 19px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 33px 19px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 33px 19px rgba(0,0,0,0.75);
+                x y rozmazanie zasieg kolor + przeswit
+                -webkit silnik renderwoania stron w chrome safari opera
+                -moz mozilla firefox
+
+input nie dziedziczy rozmiaru czcionki po zanczniku body
+Przycis ma inny rozmiar obliczania contentu
+    inpute text:
+        box-sizing: content-box; (dolozyl 10px paddingu)
+    
+    Przycisk:
+        box-sizing: border-box; (przycisk uzywa innego spospobu liczenia rozmiaru)- ustawi to 
+            input taki jaki rozmiar jest pojemnika div
+
+Zapis do stylizacji inputow :
+    
+    input[type=text],
+    input[type=password]
+    {
+        width: 300px;
+        background-color: #efefef;
+        color: #666666;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 20px;
+        box-sizing: border-box;
+        outline: none; <-- wylaczenie niebieskiej obwodki zazanczenia inputu
+    }
+
+focus = przy zyskaniu aktywnosci, skupienia uwagi na elemencie
+
+placeholder = tekst lub symbol zastepczy, tymczasowo umieszczony w polu edycyjnym 
+    (zniknie jak cos wpiszemy)
+
+this - wskaznik obiektu na rzecz ktorego dana metoda zostal wywolana
+
+onfocus="this.placeholder=''" <-- usuniecie placeholdera
+
+onblur="this.placeholder='Login'"  <-- zdarzenie utraty aktywnosci przez obiekt
+-------------------------------------------------------------------------------------------------
+Kurs 5. hovery borazkow
+-------------------------------------------------------------------------------------------------
+transform - transformacja stanu / wygladu / geometrii elementu przy uzyciu CSS
+    Posiada wiele funckji.
+
+    Wartosc 1 jest to domyslny rozmiar obrazu
+
+    transform() - zmiana rozmiaru(rozmiar dwu lub jedno argumentowy)
+    rotate() - obrot(deg)
+    skwe() - skos(deg, deg)
+
+transition - płynne przejscie pomiedzy dwoma stanami elementu w CSS
+
+    transition:[jaka wlasciowsc animujemy(mozna wpisac all)] [czas przejscia] [rodzaj przejscia];
+        slowko "all" dotyczy wszystkich wlasciowsci(przjescia do tranform)
+
+        ease
+        linear
+        ease-in
+        ease-out
+        ease-in-out
+        step-start
+        step-end
+        steps()
+        cbuic-bezier()
+
+
+
+.photo1
+{
+	width: 450px;
+	transition: all 0.2s ease-in-out; <-----
+}                                                |
+                                                 |
+.photo1:hover                                    |
+{                                                |
+	transform: scale(0.9); <----------------------
+	
+}
+
+*0.9s = .9s
+
+Position:
+    static - nie pozwala uzywac left, right, top, bottom.
+
+    absolute - mozemy przesunac elelemnt w dowolnym kierunku od miejsca polozenia w kontenerze   
+        left
+        right
+        top
+        bottom
+
+    relative - mozemy przesunac element w dowolnym kierunku do miejsca w kotwym znalazl  by sie
+        domyslnie
+    
+0px=0
+
+	overflow: hidden; <-- ukryj fakt przepelnienia diva
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+

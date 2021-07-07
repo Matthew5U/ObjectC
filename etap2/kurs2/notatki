@@ -1,0 +1,580 @@
+_________________________________________________________________________________________________
+Kurs "Responsive Web Design" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja. RWD
+-------------------------------------------------------------------------------------------------
+Nowosci w CSS Layout:
+    - Flex Box
+        Sa to kontenery ktorymi mozemy sterowac
+
+    - Grid Layout
+    
+    
+    - Kształty
+    
+    
+    - Wykluczenia
+    
+    
+    - CSS Regions
+
+Chrome Canary - przegladarka chroma ktora udostepnia funkcjonalnosci ktore bede kiedys udostepnione
+
+    Flex:
+        display: flex; <- kontener oparty o flex model, obok siebie jak float 
+        flex: 1; <- dopasowanie sie do wartosci calego kontenera, ile zostalo miejsca | dwa divy 
+            to jesli damy kazdemu po 1 to sie podzielna na pol
+        order: -1; <- wskazuje ze jest wyzej niz element nad nim znajdujacy sie w kodzie
+
+    Grid(siatka):
+        Wartosci:
+            -procenty/fixed
+            -nazuje na zawartosci
+            -elastyczny
+
+        Rozmieszczenie:
+            -header
+            --------
+            -nav
+            -article
+            -aside
+            --------
+            -footer
+
+        Funkcje:
+            column-count: 4; <- dzielenie na kolumny tekstu
+            column-rule: 1px solid red; <- obramowanie
+            column-gap: 40px; <- zarzadzanie przestrzenia
+
+    Wykluczenia:
+        wrap-flow: both; <- dla obrazka albo kontenerow zachodzi funkcja oplywania go
+        wrap-margin: <- margines
+        position: absolute;
+
+    Kształty
+        shape-outside: circle(50%, 50%, 50%) <- oplywanie obrazku, kontenera ktory ma ksztal 
+            np kola
+            
+        shape-inside: circle(50%, 50%, 50%)  <- Jest to ksztal w srodku kontenera
+
+    Regions:
+        Przeplywanie contentu z jednego diva do drugiego
+
+            Region change - zawartosc ktora chcemy rozbic
+
+            Tworzymy nowe divy do ktorych bedziemy przelweac tekst
+
+            Css w ktorym znajudje sie nasz test(w tej klasie formatujemy tekst):
+                float-into: regionyCSS; <- tworzymy wlasna nazwe
+
+
+            Css dla divu w ktorych ma sie znalesc tekst:
+                flow-from: regionyCSS; <- Flow ma byc z wczesniejszej stworzonej klasy
+
+    Laczenie filtrow css(blend)
+
+
+PRZYDATNY KOD:
+Tworzenie slidera w css:
+    <div class="slider">
+        <div class="slides-container">
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+            <div style="background-image: url('nasz obrazek')" class="slide"></div>
+        </div>
+
+        <span class="nav prev icon-left-open"></span>
+        <span class="nav next icon-right-open"></span>
+    </div>
+ 
+ ctr+d zaznacza wszystkie takie smae znaczniki
+
+box-sizing - sa liczone z ogolnym divem 
+
+Floatowane video:
+#section2 .video-player
+ {
+	overflow: hidden;
+}
+
+#section2 .video-player h1
+{
+	font-size: 18px;
+}
+
+#section2 .video-player .left
+{
+	margin-right: 330px;
+	width: auto;
+}
+
+#section2 .video-player .right
+{
+	width: 300px;
+	float: right;
+}
+
+.fluid-video-wrapper
+{
+	position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+////////////////////////////////////\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+<div class="fluid-video-wrapper">
+    <iframe src="//www.youtube.com/embed/XYm8v_eUIpQ" frameborder="0" allowfullscreen></iframe>
+</div>
+
+
+
+	text-overflow: ellipsis; <-- chowajac text dodaje trzy kropki ...
+
+    Facebookwe komentarze:
+    #fb-root 
+    {
+        display: none;
+    }
+
+    .fb_iframe_widget, 
+    .fb_iframe_widget span, 
+    .fb_iframe_widget span iframe[style] 
+    {
+        width: 100% !important;
+    }
+
+<<<<<<<<<<<<<<<< Obrazy >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Problem ladowania obrazkow w zaleznosci od wyswietlacza
+    Wpisanie na sztywno dwoch obrazow i zmienianie tylko klasy nie poprawia transferu dla
+    uzytkownika
+
+    Ustalenie obrazu w css po przez media queries (media@) optymalizujemy pod kontem konkretnego
+        urzadzenia.
+        Dzieki temu zabiegowi na malych urzadzeniach jest mozliwosc pobrania tylko malego obrazu.
+        Duzy obraz tez bedzie pobrany ale juz na duzych monitorach
+
+	background-image: -webkit-image-set(url('obraz.jpeg') 1x, url('obraz.jpeg') 2x); <- dla obrazow
+        zwyklych czyli 1x ustawiany jest jeden obrazek a jesli retina ktora sklauje x2 to drugi 
+        obrazek bedzie zaladowany
+
+    Uzycie bilioteki js - srcset-polyfill
+    <img srcset="obraz1.jpeg 2x, obraz2.jpeg 480w"> <- w znaczniku zapisujemy jakie obrazy maja byc 
+        wysiwetlane po zaladowaniu strony, trzeba odswiezyc strone aby nowy obraz zostal zaladowany
+
+    bilbiotek picturefill.js <- bilioteka ta pozwala na ladowanie obrazkow w zaleznoci od rozdizelczosci
+        monitora
+
+        <span data-picture data-alt="tekst alternatywny">
+        <span data-src="crocodile_480x285.jpg"></span>
+        <span data-src="crocodile_960x570.jpg" data-media="(min-width: 481px)"></span>
+        <span data-src="crocodile_1920x1140.jpg" data-media="(min-width: 481px) and 
+        (-webkit-min-device-pixel-ratio: 2)"></span>
+
+<noscript></noscript> Wykonuje kod w momencie blokowania js w przegladarce
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Tabele >>>>>>>>>>>>>>>>>>>>
+    Responsywne tabele:
+        -Wylaczanie kolumn 
+        -Dodanie skypru ktory kontroluje co ma byc wyswietlanie przez tabele
+        -Tabela w postaci listy - cala tabela jest zmieniana w liste
+        -Tagi na > tabele > na liste
+        -Reorganizacja tabeli. Naglowki zamieniaja sie z wartosciami miejscami
+        -Ukrycie tabeli i dopiero nacisniecie powoduje jej wyswietlenie
+        -Tabela w postaci kola
+
+PRZYDATNY KOD:
+    1. Przyklad
+        @media screen and (max-width: 64em){
+        .stock-market th:nth-child(4),
+        .stock-market th:nth-child(5),
+        .stock-market td:nth-child(4),
+        .stock-market td:nth-child(5){
+            display: none;
+            }
+        }
+
+    2. Przyklad scrollbara
+    .flip-scroll table <-- klasa do skrolowania tabel
+        .flip-scroll table{
+        width: 100%;
+        display: block;
+        position: relative;
+        border-collapse: collapse;
+        border-spacing: 0;
+        }
+
+        .flip-scroll thead{
+            display: block;
+            float: left;
+        }
+
+        .flip-scroll thead tr{
+            display: block;
+        }
+
+        .flip-scroll th{
+            display: block;
+            text-align: right;
+        }
+
+        .flip-scroll tbody{
+            display: block;
+            width: auto;
+            position: relative;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .flip-scroll tbody tr{
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .flip-scroll td{
+            display: block;
+            min-height: 1.25em;
+            text-align: left;
+        }
+    }
+
+    3. Przyklad listy
+    @media screen and (max-width: 64em){
+
+        .table-to-list table,
+        .table-to-list thead,
+        .table-to-list tbody,
+        .table-to-list th,
+        .table-to-list td,
+        .table-to-list tr{
+            display: block;
+        }
+
+
+        .table-to-list thead tr{
+            position: absolute;
+            top: -9999px; // wyrzuca gdzies po za strone (WTF?)
+            left: -9999px;
+        }
+
+        .table-to-list tr{
+            border: 1px solid #000;
+        }
+
+        .table-to-list td{
+            position: relative;
+            padding-left: 50%;
+            border: none;
+            border-bottom: 1px solid #eee;
+            white-space: normal;
+            text-align: left;
+        }
+
+        .table-to-list td:before{
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            width: 45%;
+            padding-right: 10px;
+            white-space: nowrap; // nie wchodza do nowej lini
+            text-align: left;
+            font-weight: bold;
+
+            content: attr(data-title); // dla td wartosc date-title
+        }
+
+    }
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TOUCH EVENTS >>>>>>>>>>>>>>>>>>>>>>>
+Rodzaje:
+    touchstart - dotkniecie ekranu
+    touchmove - porusza sie po ekranie
+    toucheend - zabranie palca z ekranu
+    touchenter - najedzie na element palcem
+    touchleave - opusci element palcem
+    touchcancel - wyjedzie palcem poza okno przegladarki
+
+<canvas></canvas> <- element do rysowania po obiekcie
+
+OBSLUGA GESTOW:
+Hammer.js - obsluguje gest np tapniecia itp
+
+
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< NAWIGACJA >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Strona:
+    bradfrostweb - podejscie do tworzenia menu dla urzadzen mobilnych
+        -menu na gorze. Implmentacja bez zastanwiania sie
+        -menu na spodzie. Przenoszenie sie za pomoca kotwicy
+        -menu jest zmieniae na pole select
+        -menu jest rozwijane dzieki przyciskowi - Najpopularniejsze
+        -menu ktore wyjezdza z lewej strony
+        -menu jest umieszczane na samym dole
+        -zastapienie menu przez ikony 
+        -menu sie przesuwa z prawej do lewej w nowych submenu
+        -jesli elementy sie nie mieszcza to ukrywane sa do jednego przycisku"more"
+        -karuzela z menu
+
+Implementacja off canvas:
+    - Menu z lewej strony przesuwa cala zawartosc w prawo
+    - Menu ustawiamy na stala szerokosc od lewej
+    - Kontent ma margines od lewej tyle ile ma menu
+    
+    -media queries ktory ukryje elementy dla telefony
+        -pokazanie tooglera
+        -menu przeuswamy poza lewa krawedz ekranu
+        -dla kontentu ustawimy margin na 0 
+
+        -rozwijanie menu 
+            -znalezienie element toogler
+            -i usuwanie klasy visble dla offcanvas
+            -nadajemy klase dla rodzica elemenot menu
+                -dla klasy menu lef dajemy 0px
+                -a dla visble content dajemy szerkosc menu
+            -dodanie wrapera ktory nie pozwoli na przesuwanie strony pod menu
+
+Strona speckyboy: Pluginy jquery do nawigacji
+    
+    Sider plugin:
+        - Menu resposywne po szeorkosci
+        - gdy osiagnie dana wartosc bedzie sie chowac i wysuwac z lewej strony
+            js:
+                -nakierowywujemy plugin na przycisk przelaczania nawigacji
+                -przekazujemy name menu
+                -wzorcem dla naszej nawgiacji bedzie element nawigacja
+
+    FlexNav:
+        W pluginie tem po zmiejszeniu storny menu nam znika i pojawia sie belka ktora jest 
+        rozwijana
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< Grafika Urzadzen >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+Ekrany o wiekszej rozdzielczosci softverowo skaluja elementy
+Ludzkie oko widzi do okolo 320 ppi(pikesli na cal)
+
+Graifczne elemnty ston www i aplikacji:
+    -tekst
+    -elemnty interfejsu
+    -ilustracj
+    -zdjecia
+
+Aplikacja do grafiki wektorowej jest adobe Ilustraotr
+
+Plik SVG skladnia xml:
+    wezel svg - zawiera pozycje wezlow wektorowych
+
+    Aplikacja Adobe Edge Code:
+        Kopiowanie kodu z ilustratora do tej aplikacji daje mozliwosc podgladu
+    
+    Photoshop nie tworzy grafik svg ale ksztaly sa tworzone wektorowo
+
+W zaleznosci do systemu istnieje sklaowanie
+    ios 100% 200%
+    widnows 8 100% 140 160
+    androif 4 rozne skalowania
+
+Wskazowki:
+    Zawsze pracujemy z pikselami 
+    Nie przejmujemy sie rozdizelczoscia 
+
+    Skalowanie:
+        Nie oplaca sie projektowanie w podwojnej rozdzielczosci
+        Wrzucenie obrazu na gotowa pusta strone w photoshop(musi byc to obiekt inteligentny)
+
+        Zapisanie obrazka ktory mamy skalujemy w phostoshop i zapisujemy. Jesli jesto o 200% to
+            mnozymy kazdy wymiar razy 2
+
+        Skalowanie obrazka w dol  
+        Nagrywanie akcji pomaga np resizowac inne obrazki
+
+        Generator a photoshop do powielania obrazow i zmieniania ich rozdzielczosci(ale sposob ten 
+            rozpikseluje obraz - wiec nie warto)
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<< GENERATOR W PHOTOSHOP >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+1.Tworzymy nowy plik
+2.Przezucenie obrazka do pliku
+3. crl+0 sklauje kanwas i mozemy sklaowac obraz
+    fill content-aware - wypelnienie pikselami konca obrazka
+
+4. aplikacja creative cloud > fonts > browse fonts from typkit > wybor dowolnego fontu jesli nie 
+    mamy zainstalowany nasz ulubiny font
+
+5. Przezucanie ikon osobnie aby stowrzyc intelgentne obiekty 
+
+Adobe generator:
+    Generuje obrazki z calego pliku photoshopa. (Nalezy pogrupowac obrazki np. logo jako grupa itp)
+    Generator wlaczamy w plugin dla kazdego projektu z osobna
+    File > generate > image assets
+
+    Nazywanie pliku z rozszerzeniem w warstwach tworzy nam obrazy w folderze np dom.png i utworzy nam plik
+
+    Nazewnictwo warst w Photoshop:
+    .png
+    .png8
+    .png24
+    .png32
+    .jpg (domsyle 80%)
+    .jpg1-10
+    .jpg1-100%
+    .gif
+    1-n% Skalowanie np 200% nazwapliku.png
+    Y x Z skalowanie w px np 200x200 nazwapliku.png
+
+    Mozna tworzyc kilka plikow z jednej warstwy uzywajac przecinka 
+
+Adobe Edge Reflow: (Projektowanie aktywnych stron internetowych)
+    Importowanie pliku photoshopa to Reflow
+
+    Tworzenie kit do fontow, dzieki temu bedziemy mogi podpiac pakiet z naszym fontem do strony
+
+    Zanim zimportujemy nalezy fonty zmienic na pola punktowe z pol tekstowych
+
+    Po zaimportowaniu ustalamy pozycje jak elementy maja oddzialywac na responsywanosc
+
+    Float right - daje mozliwosc ze menu przykleja sie do prawej strony
+    Stworzenie grupy lub rodzica(opakowanie do jednego diva) - daje mozliwosc zgrupowania elementow
+        Ustawiamy na 0px calej przegladarki(fixed) na bottom i dzieki temu footer nam sie przykleji
+        na samym dole przegladarki.
+
+    Ustawianie blokow min-width daje nam to iz tekst nie bedzie wyjezdzal poza blok
+
+    Dodanie breakpointa daj nam mozliwosc zmienia layoutu czyli bedzie responsywnosc
+
+    Mozliwosc polaczenia z photoshop i pracowanie jednoczesnie w photoshop i reflow
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< Responsywne Strony W Reflow >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Creativ cloud - aby dostac darmowe aplikacje od Adobe
+
+Edge Animate - tworzenie animacji z uzyciem html css js
+Edge code - Sluzy on do edycji kodu
+Edge inscept - sluzy do podgladania wynikow naszej pracy na urzadzeniach mobilnych
+Edge Reflow - Tworzenie stron internetowych ktore sa responsywne
+Edge web font, typekit - dostarczaja fonty dla uzytkownika
+    Platne, brak mozliwosci instalowania ich na dysku(lub wykupic licencje)
+
+PhoneGap build - sluzy do tworzenia aplikacji mobilnych. Ze strony internetowej na natywna aplikacje 
+    ktora instaluje sie jako aplikacja na telefonie
+
+Edge Reflow:
+    Zawiera
+        Grid(siatke)
+        Lewe menu:
+            4 narzedzie:
+                selekcja 
+                dodawanie boxa(diva)
+                dodawanie tekstu
+                dodawanie obrazka
+
+        Layout
+            Grid:
+                poziom krycia
+                ilos kolumn
+                odstepy miedzy gridami
+
+            General:
+                size 
+
+                padding itp
+        Styling(css)
+            Background(tlo)
+                opacity(krycie)
+                mozliwosc dodania gradientu
+                mozliwosc dodanie obrazku
+
+        Lewy dol okna to nasza sciezka gdzie dany elelemnt sie znajduje
+        
+        Prawy dol pozycjonuje wszystkie elementy
+        
+        Suwak
+
+        Linijka:
+            Ustalanie breakpointow - czyli rozne layouty dla telefonu, tabletu itp w zaleznosci od 
+                rozdzielczosci
+
+*Fonty bezpieczne - fonty ktore posiada kazdy uzytkownik
+
+<<<<<<<<<<<<<<<<<<<<<<<<<<<< TESTOWANIE MOBILNYCH STRON >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+Testy stron:
+    Wyglad:
+        Zlapanie za suwak i przeciaganie 
+        Doinstalowanei dodatkow do przegladarki
+
+        Strony:
+            responsivepx - strona do sprawdzania responsywnosci
+            resposivetest.net - the same 
+            mattkersley.com - ukazuje rozne rozdzieczosci na jednej stronie
+            resizemybrowser - zmienia wymiary naszej przegladarki
+
+    Funkcjonalnym:(trzeba sprawdzac funkcje np dla safari i safari ios bo sa rozne od siebie)
+        Strona:
+            caniuse
+
+            Przegladarki standardowe:
+                wpisujac adres mamy standardowe pobieranie strony pobiera wszystko i binduje
+
+            Przegladarki proxy:
+                Gdy uzytkownik wysle zadanie to nie idzie ono do serwera tylko do serwera proxy ktory
+                to o szybszym laczu wysyla do serwera strony i odbiera wyswietlajac strone, a z tamtad
+                wysyla "zrzut wygladu" do uzytkownika
+
+                Przyklad:
+                opera mini 
+
+            Przegladarki preinstalowane:
+                Przyklad:
+                    IE
+                    Android browser
+
+                    Uztykownicy telefonow raczej nie instaluja innych przegladarek
+
+            mobilehtml5 - strona pod wzgledem urzadzen mobilnych
+            html5test - przeprowadza tsty na twojej stronie i daje Ci wynik
+
+    Testy na fizycznym urzadzeniu
+        Instalujemy Adobe Edge Inspect na desktopie i urzadzeniu mobilnym
+        Reflector - mozliwosc pokazywania naszego urzadzenai na naszym komputerze
+
+    Strony emulujace urzadzenie:
+        Plate:
+            browserstack
+            saucelabs
+
+    Emulator:
+        xcode dla ios
+        sdk dla windows
+        sdk android dla androida
+
+    Safari:
+        Mozna emulowac rozne przegladarki w safari        
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

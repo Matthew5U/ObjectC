@@ -1,0 +1,310 @@
+_________________________________________________________________________________________________
+Kurs bootstrap notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 0. Co to jest bootstrap
+-------------------------------------------------------------------------------------------------
+Responsywnosc 
+    Zbior mechanizmow zaimplementowanych w witrynie. ktore sprawiaja, ze strona internetowa 
+        dostoswuje sie automatyczni do wielkosci ekranu, na ktorym jest wyswietlana
+
+RWD - Responsive Web Design
+
+Wesja mobilna - druga strona taka sama jak desktopowa powstajaca tylko dla urzadzen mobilnych
+Responsywnosc - dostosowanie strony w zaleznosci od urzadzenia
+
+Zalety:
+    -szybkosc
+    -latwosc uzycia
+    -utrzymanie witryny
+    -poularnosc
+    -bezpieczenswto
+
+Wady:
+    -powtarzanie layoutow
+    -nadmiarowsc kodu
+    -wyzszy prog wejscia
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Siatka bootstrapa
+-------------------------------------------------------------------------------------------------
+Responsive grid - siatka responsywnosci
+
+Bootstrap:
+    12 kolumn - latwa liczba w dzieleniu
+
+
+Nazewnictwo
+    col-1 <-- jedna kolumna
+    col-2 <-- dwie kolumny polaczone z dwoch pojedynczych
+    col-3
+    col-4
+    col-6
+    col-12
+
+Rozmiary okien:
+
+    extra small     do 575px        sol-xs (col-12)
+    small           576px-767px     col-sm
+    medium          768px-991px     col-md
+    large           992px-1199px    col-lg
+    extra large     od 1200px       col-xl    
+
+Oznaczenie:
+    class="col-sm-6"
+        Zajmij polowe szerokosci w rozmiarze small oraz autoamtycznie w kazdym wiekszym rozmiarze
+        zajmij szerkosc polowy ekranu bo mamy sm-6 czyli polowa na malym to tak samo polowa na duzym
+
+    W rozmiarze extra small kolumny siatki autoamtycznie ukladaja sie pionowo, zajmujac domsylnie
+        cala dostepna szerokosc ekranu 12/12
+        
+        Unikamy pisania col-12 col-sm-6
+
+1. Na poczatku podpinamy bootstrap(bootstrap.min.js) w head
+2. Pozniej dolaczamy js(javascript.min.js) pod koniec body
+3. Dwie linijki js ze strony bootstrap na koncu przed js na koncu body
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+4. Dodanie tagu meta w head na samej gorze
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+5. Umieszczenie naszej strony w klasie bootstrapa czyli 
+    -class="container"   <-- rozszerzy sie do pewnego momentu
+    -class="container-fluid" <-- rozlanie tekstu na calal strone nie ma okreslonej wartosic max
+
+ctrl+h - zamiana tekstu w dokumencie
+
+klasa row - klasa weirsza siatki - wiersz stanowi tzw wrapper opakowanie dla kolumn
+
+Poradzenie sobie z wielkoscia obrazu mozna na dwa sposoby:
+    -.img-fluid - klasa, ktorej nadanie uczyni obraz w pelni responsywny w bootstrapie 4
+        W praktyce chodzilo o nadanie obrazowi max-width: 100% i height: auto;
+    
+    -nadanie do klasy ogolenej czyli container max-width: 100% i height: auto;
+
+Offset rozmieszczanie kafelek
+1. dopisywanie do lewego kafelka komende
+    offset-md-1 <-- przesun w prawo o jedna kafelke wszystkie kafelki
+
+Odstepy miedzy kolumnami to tak zwan guttery
+    .no-gutters - klasa wylaczajaca poziome odstpey miedzy kolumnami
+
+    .w-100 - klasa ktora przypisujemy do bloku siatki, aby wymusci zakonczenie wiersz
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. Belka nawigacyjna
+-------------------------------------------------------------------------------------------------
+navabr - belka nawigacyjna w bootstrap
+navbar-dark - jeden z przykladow kolorowania tekstu
+bg-primary - kolor tla
+
+Przypisanie elementowi atrybutu display:
+    .d-wartosc(dla rozmiaru od extra small)
+        none
+        inline
+        inline-block
+        block
+        table
+        table-cell
+        table-row
+        flex
+        inline-flex
+
+    .d-rozmiar-wartosc <-- alternatywa
+
+Przypisanie elementowi odstepow:
+    .odstepkierunek-wielkosc(dla rozmiaru od extra small)
+        odstep: m, p(kolejno: m=margin, p=padding)
+        kierunek: t, b, l, r, x, y, blank(top bottom left right x=left+right y=top+bottom, 
+                                            blank= z wszystkich stron)
+        wielkosc: 0, 1, 2, 3, 4, 5, auto
+
+    .odstepkierunek-rozmiar-wielkosc
+
+Przypisanie elementowi wyownanie w pionie:(tylko dla elementow display: inline, inline block, 
+inline-table lub komorek tabeli)
+    .align-baseline
+    .align-top
+    .algin-middle
+    .align-bottom
+    .align-text-bottom
+    .align-text-top
+
+toggler - przelacznik menu (minimaluzje menu do 3 kresek)
+            JEsli mamy navbar brand ustawiony (logo) to togler idzie do prawej bo wie ze z lewej ma logo
+
+	<button class="navbar-toggler" type="button">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+navbar-expend-md - rozszerz menu dostepnego na ekranie od ielkosci md
+order-first - wiec jesli mamy brand ustawiony i wpiszemy komende order-first to togler pojawi sie 
+                z lewej a logo z prawej zmieni polozenie
+
+collapse - zapadniecie sie meni do togglera
+
+Utworzenie togglera
+    <button class="navbar-toggler order-first" type="button" data-toggle="collapse" data-target="#mainmenu"
+    aria-controls="mainmenu" aria-expended="flase" aria-label="Przełącznik">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+		
+	<div class="collapse navbar-collapse" id="mainmenu">
+	</div>
+
+        navbar-toggler - czyli toggler 
+        order-first - bedzie pokazywal sie z lewej jako pierwsyz elelemnt
+        type - zeby nei zachowywal sie jak formularz tylko jak przycisk
+        data-toglle=collapse - zapadniecie sie menu
+        data-target - co ma sie poajwic jak nacisniemy przycisk
+
+        collapse - zapadniecie sie 
+        navbar-collpase - zapadniecie sie menu nawiacji
+        id - nadajemu mu id i odwolujemy sie do data-target
+        aria-control - okresla powiazanie miedyz button a div ktory zawiera tresc colapsowi
+        aria-expended - czytnik dowiaduje sie czy menu jest zwiniete czy nie(przypisujemy false)
+        aria-label="Przelacznik nawigacji" - opisuje przelacznik
+        aria-labelledby - opisany przez nasze id
+        aria-haspopup - czy ma wyskakujace menu
+        navbar-nav - do nazywania menu
+        navbar-item - jeden z menu
+        nav-link - glowny link
+        dropdown - opuszczane menu w menu
+        dropdown-toggle - to w nim bedzie menu opuszczane
+        dropdown-menu - menu opuszczane w menu
+        dropdow-item - konkretny link w menu zwijanym ktore jest zwijane do glownego menu
+        dropdown-divider - rozdzielenie menu 
+        date-togle - sub menu (toggle)
+        role - rola linku(np przycisk)
+        
+
+
+
+ARIA = Accessible Rich Internet Applications 
+    atrybuty ułatwiające interpretowanie kodu witryny technologiom asystujacym
+        Staje sie przyjaznijsza w uzytkownaiu dla ludzi niepelnosprawnych
+
+Klasa active - mowi nam na jakiej stronie sie znajdujemy zaznaczajac to w menu 
+      disabled - wylaczenie danej sekcji w menu
+
+
+Forumlarze w navbar towrzymy po przez
+    .form-inline
+
+
+
+
+    
+-------------------------------------------------------------------------------------------------
+Kurs 3. Klasy bootstrap
+-------------------------------------------------------------------------------------------------
+<aside> -  poboczny fragment strony
+
+
+Popularne formaty dlugich poziomych banerow w ADSense:
+    728x90
+    970x90
+
+KLASY BOOTSTRAP:
+    bg-color <-- klasa ta zmienia kolor pojemnika
+    text-color <-- kolor tekstu
+    p-4 <-- klasa mowiaca o paddingu 4
+    .text-center <-- klasa ta wyrownuje POJEMNIK w bootstrap
+    .text-left itp
+    .d-block mx-auto <-- wyrownanie obrazu (cos jak text-center)
+    .m-* <-- margines klasa w bootstrap
+    .mkierunek-* <-- np my-1 rozmiar marginesu 1(rozmiaru 1)
+    Bootstrap posiada wlasne klasy od h1 do h6
+    .font-wieght-
+                 bold 
+                 normal
+                 light
+    .text-uppercase
+
+    @media - regula ktora m.in. umozliwa nam ostylowanie elementu tylko w konkretnej okreslonej
+        szerokosci okna przegladarki
+
+        Przyklad:
+        @media (max-width: 575px) <-- dla maxymalnej szerokosci zachowuj sie dla klasy wpis tak:
+        {
+            .wpis
+            {
+                margin: 40px 20px;
+                text-align: left;
+                font-size: 15px
+            }
+        }
+
+    .lead - tekst wiodacy, wprowadza do dluzszych artykulow
+    .img-fluid - obraz dopasowuje sie do bloku w ktorm siedzie
+    .img-thumbnail - to samo co fluid plus zaokroglona biala obwodka
+    .float-left - oplywanie obrazu. obraz z lewej strony
+    .list-inline + .list-inline-item <-- przypisanie elementom listy ulozenia horyzontalnego - 
+                                            itemy ukladaja sie obok siebie
+
+                                            Znacznik lsty otrzymuje klase .list-inline, zac 
+                                                kazdy jej <li> klase .list-inline-item
+
+                                            Ukladaja sie obok siebie
+
+                                            ZAMIAST <li> W BOOTSTRAP MOZNA STOSOWAC LINKI <a>
+    
+    .list-group + .list-group-item - lista zmienia sie w zgrupowanie przypominajace kolekcje blokow
+                                        Mozemy wtdy uzyc klas .active oraz .disabled
+
+    .list-unstyled - klasa ktora przypisujemy raz dla calej listy. Usuniety zostaje domyslny styl
+                        listy(marker i margines)
+
+    <blockquote class="blockquote"> - uzywana np do cytowania. Jest inna typograficzne
+
+Uzywanie bootstrapa tak samo jak wlasnych klas
+
+Typograficzne dylematy designerskie
+    1. Narzucenie wybranego kroju czcionki
+    2. NFS - Native Font Stack (stos czcionek natywnych) wypografia wityny uzalezniona jest od 
+        systemu/ przegladarki
+
+    *JESLI NIE SPRECYZUJEMY WLASNEGO FONTA TO BOOTSTRAP UZYJE NFS CZYLI W ZALEZNOSCI OD SYSTEMU 
+        WEZMIE CZCIONKE SYSTMU (na widnowsie inna, na mac os tez inna)
+
+.float-left, .float-right <-- wymienianie klas w css
+
+<footer class="blockquote-footer">Powiedzial Kamil Stoch</footer> <-- Stopka do napisania kto sie 
+                                                                        wypowiadal.
+
+Listy <ul> oraz <ol>
+    W bootstrap 4 listy maja usuniety margin-top, zac margin-bottom ma wartosc 1rem
+        *listy zagniezdzone nie posiadaja rowniez marginesu dolnego*
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
+
+
+

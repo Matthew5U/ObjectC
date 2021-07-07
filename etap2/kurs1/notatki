@@ -1,0 +1,316 @@
+_________________________________________________________________________________________________
+Kurs "Elastyczne Strony WWW" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Rozdzielczosci i photoshop
+-------------------------------------------------------------------------------------------------
+Responsive Web Designe - Skalowalne strony
+
+Rozdzielczosci:                         px
+Telefon -                               320
+Telefon pelen rozmiar(portretowy) -     480
+Tablet -                                768
+Desktop -                               960
+Deskstop Widescreen -                   1200
+Desktop HD 1080p -                      1920
+
+Wnisoki:
+1. Wyjsciowo mozemy uwzglednic 4 typu urzadzen
+2. Wielkosc ekranu nie ma znaczenia
+3. Znaczenie ma rozdzielczosc, czyli ilosc pikseli
+4. Rozdzielczosc na kazdych urzadzeniach rosnie
+5. Poza rozdzielczoscia, kluczowe sa nasycenie pikseli oraz stosunek szerokosci i wysokosci ekranu(ratio)
+6. Statystyki nie sa precyzyjne
+
+ppi(dpi) - ile pikseli na 1 cal ekranu
+
+960 grid system - freamwork do responsywnosci(photoshop)
+    Jest narzedziem dla designerow stron
+
+Photoshop:
+
+    Projektowanie strony dla kazdego urzadzenia. Dla kazdego urzadzenia projektant tworzy 
+    layout
+        - Komputer
+        - Tablet
+        - Telefon
+
+    Resample image: Photoshop powieksza wszystko
+
+    Projektowanie w photoshop na zasadzie gridu czyli siatki. Mozliwosc podzielenia gridu na 
+    12 16, 24 kolumny
+
+    Warstwy. Photoshop działa na zasadzie warstw
+        Add Anchor Point Tool - dodanie punktu wektorowego
+    
+    Tworzenie szkicu dla monitorow o rozdzielczosci 1200px
+
+    Wypelnienie gradientem - cieni
+
+    New group from layres - duplikowanie elementow
+
+    Edit> transform > flip horyzontal - obrocenie
+
+    Grupowanie elementow w photoshopie
+
+    Define patern > ustawienia wlasnego tla patern
+    Eit > fill > wypelnienie z wykorzystaniem patern
+    Tryby mieszania warstwa - laczy dwa obraz
+
+    Zapis tla z photoshop do storny html:
+        Crop tool > zaznaczami zapisujemy > save for web
+
+    Zaznaczenie zdjecia i ctrl+j zapisuje kadr do nowej warstwy
+
+    Nie skalujemy obraz na poczatku gdyz pozniejszy zmiana rozdzielczosci bedzie pikseloza
+    Zmieniamy wysokosc ale nie zatwierdzamy i wtedy zmieniamy rozdzieloczosc
+
+    Umieszczanie prostokatu - Rectangle
+
+    canvas size - powiekszanie dokumentu
+
+    maski - robienie miejsca dla obrazu. Obraz jest widoczny tylko w pewnym obrebie bloku
+        (konwert smart object - np. obiekt moze byc edytowany w innym arkuszu a zmiany zapisywane
+        sa rowniez w glownym arkuszu
+
+        zaznaczamy obraz i z ctrl zaznaczamy w jakim pojemniku ma sie znalez obraz(np blok) i 
+            zazanczamy maska
+
+    stroke - linia
+
+    Grupowanie wyglad storny na czesci 
+
+    Tworzenie osobny wyglad stony dla tabletu 768px
+
+    GUI - graphic user interface
+
+    Przygotowani obrazku np. telefon i w takim obrazku mozna tworzy layout
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja 2. Strona
+-------------------------------------------------------------------------------------------------
+Tworzenie strony:
+    text-shadow: #fff 1px 1px; - cien dla tekstu(kolor i odlegos)
+
+    16px - domysla wartosc wielkosci tekstu w przegladarce
+
+    1em = 100% - wielkosc w teksie w jednostce relatywnej(na podstawie wartosci bazowej tekstu)
+
+    0.625em to 10/16px - 16px domysla wielkosc czcionki dla przegladarki
+
+    @media all and (max-width: 480px) {} reguly css tylko dla ekranuo maxymalnej szerokosci 480px
+
+    mozliwosc tworzenia arkuszy css dla kazdego urzadzenia np. dla monitora, dla tableta lub dla telefonu
+
+    media queries - podzielenie stony na kolumny (cos jak bootstrap)
+
+    symbol * odnosi sie do wszystkich elementow na stronie
+
+        width: 80%; <- zakladamy sobie wartosc wyjsciowa np 960 px i od tego liczymy procenty
+
+    Ciecie szablonu photoshopa do mniejszych aby mozna bylo uzyc gotowych elementow 
+
+    Wycinane obiektow w photoshop. Wybieramy selekcje a poznei narzedzie crop tool
+
+    background: url("img/background-pattern.jpg") repeat top left; <- powtarzanie od lewego gornego 
+        boku tla
+
+    text-align: center; <- rowniez dla obrazu zostaje na srodku
+
+    background-color: rgba(255,255,255, .6); <- przezroczystosc koloru
+
+    margin-bottom: -40px; <- ujemny margines nanosi obrazki na siebie
+
+    overflow: hidden; <- to co znajdzie sie po za element bloku o tej wlasnosci bedzi chowane ale
+        dalej istnieje
+
+    @media all and (min-width: 720px) and (max-width: 959px) <- all -dla wszystkich wyswietlaczy 
+    o minimalnej szerokosci 720 i max 959 to uzyj tych stylow ktore podamy w ciele
+
+    class="fluid extra" <- dwie klasy
+
+    display:
+        none <- znikanie elementu
+        block <- pojawenie elementu
+        inline-block <- elemen zachwouj sie jak blok i mozna wycentrowac (text-align: center)
+
+    #logo img 
+    {
+        max-width: 100%; <- skalowanie obrazkow
+    }
+
+    Podmienianie obrazow:
+        -ukwyanie w media i odkrywanie innego
+        -stworzenie div i wpisywanie background: i wruzcanie obrazku
+
+    background-size: cover; <- Skaluje tlo jako obraz po calosci
+
+    markup - czyli nasz text w html
+
+    Testownie:
+        Strona:
+            -Web Developer - wtyczka do firefoxa umozliwajajca testowanie storny
+            -resizemybrowser - strona ktora otiwera okno w danych wymiarach ktore wybierzemy
+            -mattkersley - strona genruje nam w jednym oknie kilka okien z wybranymi rozdzielczosciami
+            -responsinator - to samo co wyzej 
+            -css-triks - rozne @media dla roznych urzadzen typu smartfon
+            -caniuse - sprawdza czy dane metody jest wspierana w danej przegladarce
+
+        Aplikacje:
+            -Adobe shadow - sprawdza strony na urzadzeniach ios lub android
+
+    Poprawienia jakosci stron:
+        -fittextjs - bilbioteka do skalowania duzego tekstu w kontenerze
+        -https://www.colorzilla.com/gradient-editor/ <-- strona do gradientu
+        -css3generator - generuje rozne opcje do css np przyciski
+
+        Funkcja:
+            text-rendering: optimizeLegibility - optymalizuje tekst, bardziej wyrazny tekst
+
+
+    max-device-width: 481px; <- uwzglednienie urzadzen typu telefon(deivce)
+
+    <meta name="viewport" content="width=device-width" > - dzieki temu znacznikowi na urzadzeniach
+        appla beda radzic sobie ze stronami bez uzycia w @media max-device-width tylko samo 
+        max-width
+
+    font-family: Georgia, 'Times New Roman', Times, serif; <- linijka ta mowi o tym ze jesli
+        uzytkownik otworzy nasza strone to wezmie pierwza czcionke czyli Georgia jesli nie ma 
+        to nastepna i tak az do czcionki szeryfowej ktora ma zainstalowana w systemie
+
+    Urzadenia typu iphone powiekszaja storne x2 gdy zageczenie pikseli jest zbyt duze dla starych
+        witryn(uzywamy zdjecia o duzej rozdzielczosci zeby w momencie sklowania z malej storny 
+        mozna bylo powiekszyc obraz bez starty jakosci)
+
+SVG - Scalable Vector Graphics - skalowalny format grafik. XML trzyma wszystkie informacje o 
+    punkcie wketorowym
+
+    <iframe src="twitter.svg" width="62" height="76"></iframe> <-- dodawanie grafiki wektorowej
+
+W adobe dreamweaver mozna towrzyc widok strony z ilosc kolumn(gridow) jak sobie wybierzemy.
+    tworzy layout
+
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja 3. Frameworki
+-------------------------------------------------------------------------------------------------
+Natywna aplikacja - jest to aplikacja zainstalowana na przyklad na telefon(Po prostu aplikacja)
+HTML 5 - Aplikacje przegladarkowe (html 5 - jezyk znacznikow)
+
+    HTML 5 moze byc przekonwertowana do natywnej aplikacji 
+
+ Natywne aplikacjie
+    -objective c (mac)
+    -java lub harmony (android)
+    -c# (windows phone)   
+
+Zalety html 5 vs natywne aplikacje
+-latwiejszy do nauki
+-wieksza baza wiedzy
+-dziala na roznych platforamch
+
+Wady html5 vs natywne aplikacje
+-brak natywnych funckji urzadzenia
+-gorsza wydajnosc
+-brak look & feel
+
+Flash nie jest juz wspierany na tablety i telefony
+
+Flash jest rozwiazaniem do plisania aplikacji natywnych w krotkim czasie 
+
+Z appstore instaluja nam sie pliki w rozszerzeniu ipa
+
+
+Frameworki
+    HTML5 boilerplate - wspomaga responsywnosc
+    PhoneGap - mozliwosc uzyskania natywnych funkcji telefonu (zyroskop) w html5
+    jQuery mobile - bardzo łatwa konwersja html do urzadzen mobilnych
+    sencha touch 2 - mobline aplikacje 
+    jquery masonry - responsywa strona plus ciekawe przejscia do innych rozdzielczosci    
+    Responsejs - definiuje brakepoint w rodzielczosci
+
+    Zestaw narzędzi dla programistów niezbędny w tworzeniu aplikacji korzystających z danej biblioteki
+
+jQuery mobile:
+    Tworzenie storny intenetowej zachwoujacej sie jak palikacja na telefonie
+        - reagowanie na dotyk itp
+
+PhoneGap - mozliowsc zastosowania np. geolokalizacji
+    Mozliwosc przekonwertowania strony internetowej na gotowe aplikacje np do androida, ios itp.
+        Site > phone builder > service > new project > continue
+
+Linki do Frameworkow:
+    - Skeleton
+    - Fluid 960 grid system
+    - 1140 grid
+    - inuitcss
+    - flurid
+    - less Framework 4
+    - tiny fluid grid
+    - pxtoem
+    - fluidgrids
+    - debuggins css media queires
+    
+    -projekt na github responsive-image 
+
+Dodatki:
+    -initial-scale <-- iphon skaluje obrazy samoistnie wiec zastosowanie tej linijki to zmienia
+
+    -developer mozilla > background-size
+
+    -css-tricks > responsive data tables
+
+    -css with cookies
+
+    -css elastic videos
+
+
+    Border nie przyjmuje wartosci relatywnych.
+    Obejscie:
+        -obnizenie marginesu
+        -dodanie paddingu > background: kolorNaszej obramowki
+
+-------------------------------------------------------------------------------------------------
+Wnioski
+-------------------------------------------------------------------------------------------------
+
+Wnioski:
+    1. Przy width=100% roznice w px miedzy przegladarkami
+    2. Usuwaj zbedne obrazki i upraszaczaj layout mobilny
+    3. Przetestuj stany hover
+    4. Brak scrollbarow na urzadzeniach mobilnych
+    5. Powiekszaj font i ikonki na malym ekranie
+    6. Roznica miedzy myszka a opuszkiem palca
+    7. Dla duzych aplikacji bazodanowych - osobna baza
+    8. Korzystaj z kalkulatorow i innych narzedzi
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

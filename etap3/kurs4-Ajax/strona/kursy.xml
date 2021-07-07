@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--<kursy>
+	<kurs>
+		<tytul>Kurs JAVA</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs C++</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs Excel</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs Joomla</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs PHP</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs jQuery</tytul>
+	</kurs>
+	<kurs>
+		<tytul>Kurs Ajax</tytul>
+	</kurs>
+</kursy>
+-->
+<kursy>	
+	<tytul>Kurs JAVA</tytul>	
+	<tytul>Kurs C++</tytul>
+	<tytul>Kurs Excel</tytul>
+	<tytul>Kurs Joomla</tytul>
+	<tytul>Kurs PHP</tytul>
+	<tytul>Kurs jQuery</tytul>
+	<tytul>Kurs Ajax</tytul>
+</kursy>

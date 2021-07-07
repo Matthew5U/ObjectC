@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<kategorie>
+	<kategoria>
+		<nazwa>Biurowe</nazwa>
+	</kategoria>
+	<kategoria>
+		<nazwa>Programowanie</nazwa>
+	</kategoria>
+	<kategoria>
+		<nazwa>Internet</nazwa>
+	</kategoria>
+	<kategoria>
+		<nazwa>Grafika</nazwa>
+	</kategoria>
+	<kategoria>
+		<nazwa>Pozostałe</nazwa>
+	</kategoria>
+</kategorie>

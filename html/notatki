@@ -1,0 +1,502 @@
+_________________________________________________________________________________________________
+Kurs HTML notatki by MAteusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 0. - Wstep
+-------------------------------------------------------------------------------------------------
+HTML - zawartosc strony www(jawny)
+CSS - wyglad elementow strony www(jawny)
+JavaScript - dodatkowe funkcjonalnosci na stronie(jawne) > jquery
+PHP - mechanika dzialania witryny(niejawny)
+SQL - (structure Query Language) struktura jazyka zapytan(do bazy danych)(niejawny)
+
+<!-- KOMENTARZ W HTML -->
+
+Frameworki - (struktura) model(szkielet) sposobu budowy witryny oparte na zasadzie MVC
+MVC - (model-View-Controller) wzorzec architektoniczny sluzacy do organizowania struktury witryny
+    w odpowiedni, przemyslany pospob
+CMS - (Content Management System) System zarzadzania trescia - oprogramowanie pozwalajace na latwe
+    utworzenie serwisu www oraz jego pozniejsza aktualizacje bez doglebnej znajomosci jezykow 
+    programowania.
+        Wordpress - blogi
+        Prestashop - sklep
+        Joomla! - strona/portal
+        Drupal - strona/portal
+
+-------------------------------------------------------------------------------------------------
+Kurs 1. Pierwsza strona www
+-------------------------------------------------------------------------------------------------
+GUI - graficzny interfejs uzytkownika. Srrodowisko graficzne, okresla sposob prezentowania 
+nformacji przez komputer, wyglad interfejsu(okienek) oraz inter ackji z userem
+
+HTML(HyperText Markup Language) - jezyk opisowy oparty na tzw. znacznikach(tagach) opisujacych zawartosc strony internetowej
+
+XML - uniewersalny jezyk opisowy przeznaczony do reprezentowania roznych danych w strukturalizowany
+    sposob. JEst niezalezyny od platformy, co umozliwaia latwa wymiane dokumentow pomiedzy roznymi 
+    systemami i zanczaco przyczynilo sie do popularnosci tego jezyka w sieci
+
+Znacznik - definuje element na stronie internetowej, jest zapisany z uzyciem nawiaso ostrych 
+    np, <a></a>
+
+Atrybut - cecha(wlasciows) znacznika, zdefiniowana w jego wnetrzu, w postaci: 
+    nazwa_atrybtu = "wartosc"
+
+Znaczniki:
+    Hiperlacze:
+        <a href="http://onet.pl">Kliknij</a>
+
+    Obraz:
+        <img width="500" height="420" src="elo.jpg">
+
+
+Wyglad budowania strony:
+    <!DOCTYPE html> - dokument w najnowszym html5
+    head - cala konfiguracja strony(kodoawnie, tytul strony itp)
+
+    <meta charset="utf-8"> - kodoawnie utf8
+    <title>Najelspze Filmy</title> - tytul
+    <meta name="description" content="Przed Toba spis moich ulubionych filmow. Sprawdz czy znacz 
+    je wszystkie. Uczta dla kinomaniaka"> - opis
+    <meta name="keywords" content="film, kino, najlespze filmy, top filmy" > - slowa klucze
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> - kompatybilne z internet explorer
+    (korzystaj z najnowszej IE)
+
+    body - caly wyglad strony
+
+    PRZEDROSTEK HTTP DODAJEMY JESLI STRONA JEST W INNEJ DOMENIE NIZ NASZA STRONA
+
+    target: -mowi gdzie ma sie strona otworzyc (nowa karta czy ta sama)
+        _blank <- nowa karta
+
+    title - podpowiedz po najechaniu na link
+
+-------------------------------------------------------------------------------------------------
+Kurs 2. Budowanie struktury strony
+-------------------------------------------------------------------------------------------------
+Edytor WYSIWYG (What You See Is What You Get)
+
+Struktura witryny
+-oparta na divach <div>
+-oparta na tabelach <table> !Nie zalecane!
+
+W divach stosujemy float: left; i na koncu clear: both;(nawet pusty pojemnik musimy zrobic)
+
+Standardowe wymiary dla reklamy 160x600px
+
+Typowa stopka
+    &copy; Wszelkie prawa zastrzeżone
+
+Tabele
+    <table> 
+    <tr> - wiersz
+    <td> - komorka
+    colspan - scalenie wierszy
+
+    valign - wyrownanie tekstu w pionie (top do gory)
+
+    W HTML w tabelach uzywajac liczb nie wpisujemy px
+        HTML > bgcolor | CSS > background-color 
+
+    Tabele nie sa SEO friendly - Search Engine Optimization(optymalizacja dla wyszukiwarek internetowcyh)
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 3. Portfolio
+-------------------------------------------------------------------------------------------------
+Podpiecie arkusza:
+        <link rel="stylesheet" href="main.css" >
+
+Czcionki
+    Podpinamy z google fonts
+
+Web fonty   
+    Podpinamy ikony
+        1. http://fontello.com/
+        2. Wrzucamy calosc do naszego folderu
+        3. Podpinamy css/fontello.css
+        4. Wrzucamy nasza ikone 
+            <i class="icon-youtube"></i>
+        5. W fontello zmieniamy rozmiar ikony 
+            .icon-youtube:before { content: '\f167'; font-size: 76px; margin-top: 35px;} /* '' */
+
+Odstep miedzy liniami w tekscie:
+    line-height: 150%;
+
+Najechanie kursorem:
+    .tile1:hover
+
+Obnizenie koloru:
+    Kazda wartosc obnizamy o jeden
+        #3095d3 > #2084c2
+
+W HTML 4 i mniejszy div nie moe byc traktowany jak link do czegos
+    display: block; /* zachowuj sie jak blok*/
+
+\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+Strony aby byly przyjazne korzystaja z pliku ".htaccess" ten plik przekierowywuje ze strony majace 
+    pryjazny link do tej samej strony z rozszerzeniem html (*dziala to na serwerze*)
+
+    ### PROTECT FILES ###
+    <FilesMatch "\.(htaccess|htpasswd|ini|fla|psd|log|sh)$">
+    Order Allow,Deny
+    Deny from all
+    </FilesMatch>
+
+    RewriteEngine on
+    RewriteRule zatrudnij-programiste-webowego index.html
+    RewriteRule kim-jestem kimjestem.html
+    RewriteRule oferta-tworzenie-stron-www oferta.html
+    RewriteRule cv-programista-php-javascript cv.html
+    RewriteRule kontakt-programista-php kontakt.html
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+
+-------------------------------------------------------------------------------------------------
+Kurs 4. Listy
+-------------------------------------------------------------------------------------------------
+Listy
+
+Text-shadow (obramowanie tekstu):
+    text-shadow: 
+        2px 2px 0 #33402a,
+        -2px 2px 0 #33402a,
+        -2px -2px 0 #33402a,
+        2px -2px 0 #33402a;
+
+        Ukladu kartezjanski jest odniesieniem do zapisu powyzszych liczb 
+            2px - x 2px -y 0-blure #kolor (1 cwiartka ukladu kartezjanskiego)
+
+Zapisywanie listy w HTML
+    1. uporządkowana <ol> (order list)
+    2. nieuporzadkowana <ul> (unorder list)
+
+    Zagniezdzone listy
+    Lista w liscie
+        ol > li dotyczy tylko li z rodzica ol
+        ol > li > ul dotyczy tylko ul z rodzica li z dziadka ol 
+
+    Style css:
+        ol > li  (rodzic ol i dziecko li | stylizuj tylko li ktore jest od razu za ol)
+        {
+        }
+        
+        CSS jest kaskadowy wiec dziedziczy
+
+            text-transform: none; - zniwelowanie zamieniania jakichkolwiek znakow uppercase na none
+
+        Lista wypunktowana:
+            list-style-type:
+                circle
+                disc
+                square
+
+        Lista numerowana
+                decimal
+                decimal-leading-zero
+                lower-alpha
+                lower-greek
+                lower-latin
+                lower-roman
+                upper-alpha
+                upper-latin
+                upper-roman
+
+        Usuniecie znacznika:
+                none;
+
+        Encja:
+            Specjalne znaki nassze kontentu
+
+        Kolorowanie znacznikow ale nie tekstu:
+            
+            ol > li > ul > li:before <- oznacza koloruj przed
+                {
+                    color: #485b3b;
+                    content: "♠"; <-wlasny znacznik
+                    margin-right: 5px;
+                }
+
+        *padding: 20px 40px;
+                    y    x
+
+        Odwolywanie sie do elelemntow na stronie
+            1. Tam gdzie ma byc link do owolania sie dajemy <a href="#wpiszemyidtutaj>
+            2. Na stronie gdzie ma nas przeniesc wpisujemy id lub name="idgornebez#" w znaczniku
+                np. <h1 id="wlasnieToIdKtoreByloPodaneWczesniej">
+                Najpierw zobacz id pozniej name(HTML5 nie wspiera name)
+
+API - Application Programming Interface
+
+Wczytanie obrazu:
+    -body: background-image
+    -.class: background
+            background: url("img/up.png") no-repaet 0px 0px; <- nie powtarzaj obrazka jesli sie
+                                                                nie zmiesci i roczpocznij od 
+                                                                punktu 0 0 
+
+this - wskaznik(referencja) obiektu na rzecz ktorego dana metoda zostala wywolana. Wniekotrych 
+    jezykach zamiast this uzyjemy self
+
+-------------------------------------------------------------------------------------------------
+Kurs 5. Nowe znaczniki HTML
+-------------------------------------------------------------------------------------------------
+Nowe znaczniki HTML
+    Znaczniki semantyczne - precyzyjne definiowanie przeznaczenia poszczegolnych czesci kodu 
+        zrodlowego. Nadanie kontentowi znaczenia i latwosc zrozumienia strony przez robota czytajacego
+        nasza strone
+
+        <header>
+            Zawartosc wewnatrz tego znacznika okreslamy jako wstpna wporwoadzajaca tresc do najblizszego
+                semantycznego poprzednika tego tagu(np artykul). Czesto umieszczane sa tam elementy 
+                nawigacyjne
+            
+            Robot patrzy czy <header> jest np w <body> czy np w <article>. Wtedy wiadomo ze jak w body
+                to znaczy ze sa to elementy nawigacyjne.
+
+
+        <na>
+            Zawartosc wewnatrz tego znacznika okreslamy jako podlinkowana tresc prowadzaca do innych 
+                podstron witryny. "wewnetrzny obszar nawigacyjny" wlasciwy dla danej witryny. stosujemy
+                <na> dla glownych elementow nawigacyjnych na stronie a nie dla kazdego linka
+        
+        
+        <article>
+            Zawartosc wewnatrz tego znacznika okreslamy jako kompletna, dajaca sie wyroznic odrebna
+                od innych tresc witrny. Stanowi autonmiaczna calosc, czesto przyjmuje tez powtarzalna forme
+                np. wpis blogowy. Znacnziki mozna te zagniezdzac
+        
+        
+        <section>
+            Zawartosc wewnatrz tego znacznika okreslamy jako tematyczne zgrupowana tresc, a temat kazdej
+                takiej sekcji powinien zostac okrelsony w jej czesci naglowkowej. Sekcje stanwoia w zalozeniu 
+                czesc wiekszej calosci, w przeciwienstwie do artykulu, ktory jest autonomicnza caloscia.
+        
+            Uzycie article i section zalezy od intencji autora strony
+        
+
+        <main>
+            Zawartosc wewnatrz tego znacznika okreslamy jako glowny, najwazniejsza tresc calej podstawy.
+                Znacnzik main to nie jest tzw. section content(nie zmienia zasiegow obowiazywania naglowkow
+                 i stopek tak jak to czyni article, aside, nav i section). Na calej podstronie znacznik main
+                 moze zostac uzyty jeden raz. Musi byc wstawiony w sekcji body tzn moze znajdowac sie np w div 
+                 ale nie moze znajdowac sie w innym semantycznym pojemniku typu article itp.
+
+
+        <aside>
+            Zawartosc wewnatrz tego znacznika okreslamy jako tresc jedynie marginalnie powiazana z 
+                glowna zawartoscia witryny(reklamy, poboczna nawigacja)
+        
+
+        <footer>
+            Zawatosc wewnatrz tego znacznika okreslamy jako tresc koncowa(stopke) najblizszego 
+                semantycznego poprzednika tego tagu. Zatem tak jak naglowkow header, znacnzikow 
+                footer moze byc wiele
+
+
+        <figure>
+            Znacznik ktory doskonale nadaje sie do zalaczenia w glownej tresci ilustracji
+
+        
+        <figcaption>
+            etykieta tekstowa, opisujaca co tez przedstawia nasza zalczona ilustracja
+
+
+        Znacnziki semenatyczne nadaja przeznaczenie wybranym trsciom witryny
+        Divy pozwalaja rozmieszczac ukladac i stylizowac trsc witryny
+
+
+        Wprowadzono je dla pozycjonowanie jak i rowniez latwiejsze czytanie i odroznianie 
+            co sie znajduje w znacznikach
+
+CZESC PRAKTYCZNA:
+    
+    Dla dzialania znacznikow w IE:
+        <!--[if lt IE 9]>
+	    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+	    <![endif]-->
+
+dashed - przerywana linia
+
+.menu > li:first-child <-- tylko dla pirwszego elementu(dziecka)
+
+.menu a <-- dla elementu a w klasie menu
+
+h1.menu <-- dla elementu h1 o klasie menu
+
+
+-------------------------------------------------------------------------------------------------
+Kurs 6 & Kurs 7. Formularze
+-------------------------------------------------------------------------------------------------
+Interfejsy sluzace uzytkownikom do wprowadzania danych wejsciowych do witryny, celem innych
+przetworzenia.
+
+<form action="login.php" method="post">**Tutaj wpisywane sa wszystkie kontrolki</form>
+
+Rodzaje atrybutow znacznika form:
+    action = Ktory skrypt PHP ma przetworzyc dane, ktore przyjda z naszego formularza?
+
+    method = jakiej metody HTTP uzyc do przeslania danych z naszego formularza(get czy post)
+
+    enctype = okreslenie idnetyfikatora MIME-type zawartosci przesylanej na serwer metoda post
+        
+        application/x-www-form-urlencoded <-- wartosc domyslna jesli atrybutu nie okreslono w tagu<form>
+            Wszystkie znaki zostana zakodowane metoda urlencode
+
+        multipart/from-data <-- Wartosc stosowana dla plikow(gdy w formularzu znajduje sie input typu file)
+            znaki nie zostaja zakodowane w urlencode
+
+        text/plain <-- Ustawienie tego MIME-type oznacza, iz pzesylane znaki reprezentuja tekst mozliwy
+            do przeczytania przez czlowieka i bezposredniego wyswietlenia przez przegladarke - nie ma
+            potrzeby zakodowania znakow specjalnych w urlencode
+
+Kazda kontrolka formularza (jeli nie jest rpzyciskiem) powinna posiadac etykiete(label)
+    
+    Wszystkie input radio, ktore stanowia wybor jednokrotny, powinny miec ustawiony atrybut name o 
+        takiej samej wartosci
+
+    Domyslnie zaznaczona wartosc uzyskiwana jest po przez slowko "checked"
+
+    Zasada ogolna:
+        We wspolczesncy hforumlarzach, zamiast znacznikow <br>, do rozmieszczania kontrolek Formularza
+            najlepiej uzyc elementow blokowych, w razie potrzeby majacych naday displya: inline-block
+            albo float: left, display: flex lub display:inline-flex
+
+    Za pomoca podwojnego znacznika <fieldset></fieldset> mozemy utowrzyc, zgrupowanie kontrolek
+        formularza otoczone ramka, opatrzone dodatkowa legenda(opisem) utworzona znacnzikiem podwojnym
+        <legen></legend>
+
+    W praktyce z wlasciowsci name korzystamy w PHP do uchwycenia wartosci kontrolki formularza,
+        zas atrybut id kontrolki sluzy do uchwycenia jej w JS albo do poprawnego dzialania etykiety 
+        z atrybutem for
+
+    Za pomoca selected tworzymy liste rozwijana. <option> jest jedna do wyboru z opcji zac wartosc
+        "selected" daj nam mowzliowsc przy zaladowania strony wyswietlic dana wartosc. 
+        
+        Atrybut size okresla jak wiele opcji ma byc widocznych
+
+        Atrybut multiple mowi o tym iz mozna zaznaczac wszystkie
+
+    Wylaczenie kontrolki mozna uzyskac po przez slowko disabled
+
+Klasyczne pole input typu tekstowe przechowuje jedna linie wczytanego tekstu(a nie tak jak to jest w 
+    textarea)
+
+Kontrolki:
+    
+    <form></form> <-- formularz
+    
+    <label></label> <-- etykieta
+    
+    <fieldset></fieldset> <-- opakowanie dla formularza
+    
+    <legend></legend> <-- legenda formularza
+    
+    <inpute type="         " <-- wprowadzanie 
+                  text <-- tekstu
+                  
+                  password <-- hasla 
+                  
+                  number <-- liczby step="1" przeskakuja wartosci co 1
+                  
+                  search <-- szukania (posiada usuwanie)
+                  
+                  checkbox <-- zaznaczenia wielokrotne
+                  
+                  radio <-- wybor jednego (kanal w radiu - tylko jeden moze grac)
+                  
+                  tel <-- numer telefonu(na telefonie automatycznie nam wlaczy klawiature numeryczna)
+                  
+                  email  <-- sprawdza email albo moze zostac pole puste (multiple - mozna wyslac 
+                             kilk emailow)
+                  
+                  date <-- mozna wpisac tylko date | PHP odbiera date jako rok-miesia-dzien
+                    min="2019-03-01" max="2019-03-01"
+                
+                  file <-- przesylanie plikow
+                    enctype="multipart/form-data" <- musimy to dopisac gdy metoda jest post 
+                                                    (aby nie zakodowac pliku)
+                    accept <- jakie pliki beda akceptowane (image/x-png,img/jpg)
+                    multiple <- wiecej niz jeden plik
+
+                  month <-- miesiac
+                  
+                  week <-- 
+
+                  hidden <-- schowany input, np. token bezpieczenstwa
+
+                  url <--link wyposazony w oznaczenie uslugi(protokolu) | sprawdza strone (http://)
+                  
+                  time <-- zapis czasu
+                    step="1" <-- dodaje sekundy
+                    min="09:00" max="10:00"
+
+                  color <-- wybor koloru (domyslnie czarny)
+                    value="#ffffff <- ustawiamy czerwony
+                  
+                  submit <-- zatwierdz formularz i wysyla
+                  
+                  button <-- jest to przycisk ale nie powoduje wyslanie formularza
+    
+                  reset <-- czysci caly formularz
+
+    <select></select> <-- wybor z menu rozwijanego
+    
+    <select multiple></select> <-- wybor wielokrotny z menu rozwijaneg
+    
+    <textarea></textarea> <-- Pole tekstowe
+        rows - ilosc wierszy
+        cols - ilosc kolumn (w praktyce liczba znakow w jednej lini)
+        resize: none; <- nie mozna zmienic rozmiaru
+        maxlength - ile znakow maksymalnie zmiesci pole
+        minlength - minimalna ilosc znakow
+    
+    <button></button> <-- podsumowuj formularz i wysyla(jest on podwojny i mozna wlozyc tam img)
+        type="button" <-- jesli dodamy ten typ wtedy nie powoduje wyslanie formularza
+    
+    <progress></progress> <-- przdstawienie postepu czegos
+        max <-- ile max value <-- ile juz jest 
+
+    <meter></meter> <-- mowi o jakiejs wielkosci w odniesieniu do czegos
+        max <-- max
+        min <-- min 
+        value <-- wartosc
+        title <-- tytul
+        low <-- od jakiej wartosci bedzie oznaczalo ze jest malo
+        high <-- od jakiej wartosci bedzie oznaczalo ze jest duzo
+        optimum <-- od jakiej wartosci bedzie oznaczalo ze jest optymalnie
+
+    placeholder <-- Podpowiedz w polu co ma zrobic uzytkownik np wpisz tutaj maila 
+
+
+Zmiana wlasnosci formularza.
+    required - wymaga aby w polu cos bylo
+    readonly - tylko do odczytu. uzytkownik nie moze zmienic wartosci(lub uzycie disabled)
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

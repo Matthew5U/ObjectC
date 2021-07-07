@@ -1,0 +1,1346 @@
+_________________________________________________________________________________________________
+Kurs "Kurs PHP 7" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Lekcja. Wprowadzenie
+-------------------------------------------------------------------------------------------------
+    PHP - Personal Home Page. Jest to jezyk skryptowy.
+
+    Komendy linux:
+        pwd <- Sciezka do obenego katalogu
+        ls <- Wyswietlenie katalgow i plikow
+        ls -l <- Zwroci liste kataglow i plikow z infroamcjami   
+        clear <- Czyszczenie konsoli
+        ls --help <- Wyswietla dokumentacje komendy 
+        ls -a -l <- Pokazuje wszystkie pliki ukryte i pliki zwyczajne
+        ls -al = ls -a -l <- Laczenie przelacznikow
+        man ls <- pelna dokumentacja komendy
+        cd <- (Change directory) zmiana katalogu
+        cd "+ 2xtabluator" <- Podglad wszystkich katalogow do ktorych mozemy sie udac
+        cd s"+ 2xtabulator" <- Podglad plikow ktore zaczynaja sie na litere s i do ktorych mozemy
+                                sie udac
+        cd sys <- Wejscie do katalogu sys
+        cd .. <- Cofniecie sie o jeden katalog wyzej
+        apt-get install php <- Instalowanie interpretera php
+        cat nazwanaszegopliku <- Podglad pliku 
+        nano <- Otworzenie pliku do edycji
+        mkdir nazwakatalogu <- Tworzenie katalogu
+        touch index.php <- Tworzenie pliku index.php
+        php index.php <- Uruchamianie naszego skryptu
+
+    Slownik linux:
+        root <- Glowny katalog
+        / <- Poczatek systemow plikow
+
+        d <- Katalog
+        - <- Plik
+        
+        rwxr-xr-x <- Kolejne 9 znakow mowia o uprawnieniach danego pliku
+        rwx <- Pierwsze 3 mowia o uprawnieniach nadanych wlascicielowi tego pliku
+        r-x <- Nastepne 3 mowia o uprawnieniach grupy do ktorej nalezy ten plik
+        r-x <- Ostatnie 3 mowia o uprawnieniach dla wszystkich pozostalych uzytkownikow
+
+        r <- Oznacza dostep do odczytu dnaego pliku badz katalogu
+        w <- Oznacza dostep do zapisywania danego pliku badz katalogu
+        x <- Oznacza iz dany plik lub katalog wykonywac
+
+        root root <- 3 i 4 kolumna mamy informacje o wlascicielu pliku oraz grupy do jakiej on
+                        nalezy
+
+        4096 <- Informacja na temat wielkosci 
+
+        mar 11 17:20 <- Data utworzenia badz tez modyfikacji
+
+        . <- Obecny katalog
+        .. <- Katalog nadrzedny
+        .dockernev <- Plik ukryty
+
+        Przyklad
+            drwxr-xr-x 16 mateusz docker  4096 mar 11 17:20  devilbox
+
+    Pakiety
+        Sa to programy z ktorych mozemy korzystac, instalowac bezposrednio z systemu linux
+        
+        Linux przechowuje odnosniki do tych programow w postaci list ktore nalezy aktualizowac
+
+        Aktualizacja listy programow oraz odnoscnikow do nich
+            apt-get update <- Aktualizacja wszystkich pakietow
+
+        Interpreter jezyka PHP 
+            Program ktory odczytuje skrypty napisane w jezyku PHP oraz je wykonuje
+
+        PHP
+            sudo apt-get install php <- Instalowanie interpretera php
+
+        Nano
+            sudo apt-get install nano <- Instalowanie edytora tekstu
+
+        Apache serwer
+            sudo apt-get install apache2 <- Serwer apache
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja Pisanie kodu
+-------------------------------------------------------------------------------------------------
+    Zapis
+        <?php
+        ?>
+
+        * Bez znacnzika zamykajacego (?>) mozemy zapisac plik. Oznacza to ze od momentu pojawienia
+            sie znacnzik <?php do konca pliku bedzie brane wszystko jako skrypt php
+
+
+    Komentarz
+        // <- Komentarz liniowy
+        /* */ <- Komentarz blokowy
+
+
+    Typ zmiennych
+        Typ dostosowuje sie do zawartosci jaka przechwouje
+
+        $zmienna <- zmienna zaczyna sie od $
+
+        Wartosci:
+            Wartosc tekstowa
+                $text = "Hello World;
+
+            Wartosc liczbowa
+                $number = 90;
+
+            Wartosc zmienno przecinkowa
+                $float = 90.1;
+
+            Wartosc boolean
+                $bool = true;
+
+            Wyswietlanie:
+                var_dump($zmiennna); <- Wyswietlenie wartosci zmiennej wlacznie z wyswietleniem jej
+                                            typu
+                
+                echo $text; <- Wyswietlenie zawartosci zmiennej
+            
+            Lista
+                $array = [1, 2, 3]; <- Lista elementow
+                *Numerowanie od 0
+
+            Wartosc null
+                $null = null; <- Brak wartosci(pusta wartosc)
+
+            Obiekt
+                Instancja danej klasy
+
+
+            Przyklad:
+                <?php
+                $text = "Hello World;
+
+                echo $text;
+                ?>
+
+
+    Nazewnictwo zmiennych
+        Regula
+            1. Zaczynamy od $
+
+            2. Po $ wpisujemy
+                -litera <- np $text
+                -_ <- podkreslenia np $_text
+
+            3. Piszemy w jezyku angielski gdyz jest uniwersalny
+
+            4. Piszemy uzywaja camelCase
+                Zapis zmiennych skladajacych sie z kilku czlonow polega na zapisie pierwszego 
+                czlonu mala litera a drugiego duza
+
+                    Przyklad
+                        $toJestZmienna
+
+
+    Zasieg zmiennych
+        1. Globalny <- Zasieg ktory jest dostpeny z kazdego miejsca kodu. Jest zdefiniowana na 
+                        najwyzszym poziomie naszego skryptu php 
+
+        2. Lokalna <- Zasieg ktory istnieje tylko w funckji i nigdzie wiecej
+            1. Zmienna lokalna
+                Przyklad
+                    function test(){
+                        $a= 100;
+                        echo $a;
+                    }
+
+            2. Uzycie zmiennej globlanej
+                Przyklad
+                    $a=90;
+                    function test(){
+                        global $a; <- W zasiegu globalnym znajduje sie zmienna a z ktorej
+                                        chcemy skorzystac w tej funckji
+                        echo "Lokalna".$a;
+                    }
+
+            3. Napisanie 
+                Przyklad
+                    $a=90;
+                    function test(){
+                        $a= 100;
+                        echo "Lokalna".$a;
+                    }
+                    test()
+                    echo "Globalna".$a;
+                    // Wyswietli ze $a = 100 <- Zostanie nadpisana zmienna a nawet ta wczesniejsza
+                                                    ktora miala 90. On tez od teraz bedzie miala 100
+
+            4. Zmienna GLOBALS
+                    Przyklad
+                        $a=90;
+                        function test(){
+                            echo "Lokalna".$GLOBALS['a']; <- Tablica zawierajaca wszystkie zmienne globalne
+                        }
+                        echo $a;
+
+
+    Operacje na zmiennych
+        1. Konkatenacja - Laczenie slow po przez operatora kropki
+            $text1 = "Hello";
+            $text2 = "World";
+
+            echo $text1." ".$text2;
+
+        2. Dolaczenie zmiennych
+            $text1 = "Hello";
+            $text2 = "World";
+
+            $helloWorld = $text1." ".$text2;
+
+        3. Nadpisywanie
+            $text1 = "Hello";
+            $text2 = "World";
+
+            $helloWorld = $text1." ".$text2;
+
+            $text1 = "Bye";
+
+            echo $helloWorld; // Wyswietli Hello World. W momencie przypisania wartosci nie jest mozliwa
+                                    jego zmiana
+
+        *php.net > documentation - szereg infromacji jak dzialaja konstrukcje
+
+        4. Dodawanie liczb
+            $a = 10;
+            $b = 5;
+
+            $c = $a + $b;
+
+            echo "Wynik: $c";
+
+        5. Cudzyslowia
+            1. Podwojne ""
+                $a = 10;
+                $b = 5;
+                $c = $a + $b;
+
+                echo "Wynik: $c";
+                // Wynik: 15
+            
+            2. Pojedyncze '' <- Oznacza traktowanie tekstu jako tekst
+                $a = 10;
+                $b = 5;
+                $c = $a + $b;
+
+                echo 'Wynik: $c';
+                // Wynik: $c
+
+
+    Funckje
+        Funckja sklada sie
+            1. Slowo function   function
+            2. Nazwa funckji    test
+            3. Lista parametrow z ktorych korzystamy    ()
+            4. Cialo funckji    {}
+
+            5. Wykonanie funckji text();
+
+                Przyklad
+                    function test()
+                    {
+                        echo "Hello";
+                    }
+
+                    test();
+
+                Przyklad z przkazaniem parametru
+                    function test($a)
+                    {
+                        echo $a;
+                    }
+
+                    test("Hi hey");
+
+                Przyklad z przkazaniem parametru z wartoscia domylna
+                    function test($a = "Domyslna")
+                    {
+                        echo $a;
+                    }
+
+                    test(); // test("Yes"); <- Zastapi warosc domyslna
+
+
+    Kalkulator
+        1. Wykonujac dzialania arytmetyczne na teksie php nie wie co zrobic.
+        2. Aby zabezpieczyc sie przed tm warto uzyc wbudowanej funkcji php 7 czyli typowania
+            int $a <- Dzieki temu zapisowi otrzymamy blad w momencie dodania tekstu do siebie 
+        
+        3. Istnieje mozliwosc zdefiniowania typu wartosci oczekiwanej 
+            function add($a, $b):int <- oczekujemy iz wartoscia oczekiwana bedzie int
+            {
+                return $a + $b;
+            }
+
+
+
+        <?php
+            function add(float $a, float $b):float
+            {
+                return $a + $b;
+            }
+
+            function deduct(float $a, float $b):float
+            {
+                return $a - $b;
+            }
+
+            function multiply(float $a, float $b):float
+            {
+
+                return $a * $b;
+                
+            }
+
+            function divide(float $a, float $b)
+            {
+                if($b == 0)
+                {
+                    return "Nie mozna dzielic przez 0";
+                }
+                //else <- Nie musi byc bo return zwroci i tak wartosc
+                //{
+                return $a / $b;
+                //}
+            }
+
+
+            //$sum = add(3,5);
+            //echo $sum; // Wypisanie
+
+            echo "Dodawanie: ".add(3,5) ."\n"; // wypisanie
+            echo "Odejmownaie: ".deduct(1,2);
+            echo "Mnozenie: ".multiply(1,2);
+            echo "Mnozenie: ".divide(1,2);
+        ?>
+
+        Symbole
+            "\n" <- Znak konca lini
+            = <- Przypisanie
+            == <- Porownanie
+            === <- Porownanie plus sprawdzenie jego typu danych(0 nie rowna sie 0.0 bo jedna 
+                    jest int a druga float)
+
+
+    Operatory 
+        Arytmetyczne
+            1. Dodawanie
+                $c = $a + $b;
+            
+            2. Odejmowanie -
+            3. Mnozenie *
+            4. Dzielenie /
+            5. Modulo % (9%4=1)
+
+
+        Przypisania
+            1. Dodanie do zmiennej pewnej wartosci
+                $a = 2;
+                $a += 2; // $a = $a + 2;
+
+            2. Odejmowanie
+                -=
+
+            3. Mnozenia
+                *=
+
+            4. Dzielenia
+                /=
+
+            5. Modulo
+                %/
+            
+            6. Operator ciagu <- Laczenie ciagow
+                .=
+
+                    Przyklad
+                        1. Dla znakow
+                            $a = "jakis ciag znakow"
+                            $a .= " zapisany";
+                            // jakis ciag znakow zapisany
+                        2. Dla liczb
+                            $a = 2;
+                            $a .= 3;
+                            // 23
+
+
+        Porownania
+            1. Sprawdzenie obu wartosci do siebie
+                ==
+                    Przyklad
+                        3 == 3
+
+            2. Porownanie z uwzglednieniem typu
+                === 
+
+                    Przyklad 
+                       3 === 3.0 // False bo jeden int drugi flout
+
+            3. Sprawdzenie nierownosci
+                !=  
+                    Przyklad
+                        3 != 4
+            
+            4. Sprawdzenie nierownosci wraz z typem
+                !==
+                    Przyklad
+                        3 !== 4
+
+            5. Sprawdzenie mniejszosci
+                > - wikeszy
+                < - mniejszy
+                >= - wieksze badz rowne
+                <= - mniejsze lub rowne
+
+        
+        Inkrementacja <- Zwiekszanie o pewna ilosc
+            1. Pre inkrementacja - Dodanie przed wyswietleniem
+                $a = 4;
+                var_dump(++$a,$a);
+                // 5, 5
+            
+            2. Post inkrementacja - Dodanie po wyswietleniu
+                $a = 4;
+                var_dump($a++,$a);
+                // 4 a pozniej 5
+
+        Dekrementacja
+            1. Pre dekrementacja - Odejmowanie przed wyswietleniem
+                $a = 4;
+                var_dump(--$a,$a);
+                // 5, 5
+            
+            2. Post dekrementacja - Odejmowanie po wyswietleniu
+                $a = 4;
+                var_dump($a++,$a);
+                // 4 a pozniej 5
+
+
+        Logiczne
+            1. AND - operator i
+
+                Przyklad
+                    $a = True;
+                    $b = True;
+
+                    var_dump($a && $b);
+                    var_dump($a AND $b);
+
+            2. OR - operator lub
+
+                Przyklad
+                    $a = True;
+                    $b = True;
+
+                    var_dump($a || $b);
+                    var_dump($a OR $b);
+
+            3. NOT - zaprzeczenie
+                
+                Przyklad
+                    $a = True;
+
+                    var_dump(!$a);
+                    var_dump(!!$a); <- Podwojne zaprzeczenie daje to samo co nic nie zrobienie
+
+            4. XOR - Tylko w przypadku gdy jedna wynosi true a druga false
+
+                Przyklad
+                    $a = True;
+                    $b = False;
+
+                    var_dump($a XOR $b); // True
+
+
+        Tablice
+            Tworzenie
+                1. Uzycie isntrukcji array
+
+                    $a = array();
+
+                    $a = array('a', 'b');
+
+                    $a = array(5 => 'a', 6 => 'b'); // => Jest to przypisanie
+
+                    $a = array(
+                        'kot' => 'a', 
+                        'pies' => 'b',
+                        'fretka' => 'c'
+                        );
+
+                    *Indeksowanie zaczyna sie od 0
+
+                2. Uzycie nawiasow kwadratowych []
+                    $a = [
+                        'kot' => 'a', 
+                        'pies' => 'b',
+                        'fretka' => 'c'
+                    ];
+
+                3. Tablice zagniezdzone
+                    $a = [
+                        'kot' => 'a', 
+                        'pies' => 'b',
+                        'fretka' => [
+                            'lapy' => 4,
+                            'ogon' => 1,
+                        ],
+                    ];
+
+            Dodawanie
+                1. Dodawanie na koncu tablicy
+                    $a = [
+                        'kot' => 'a', 
+                        'pies' => 'b',
+                        'fretka' => [
+                            'lapy' => 4,
+                            'ogon' => 1,
+                        ],
+                    ];
+
+                    $a[] = "d";
+
+                    Nadaje pierwszy wolny indeks w tablicy
+
+                2. Po przez indeks
+
+                    $a['papuga'] = "d";
+
+                3. Dodanie po przez array_push
+
+                    array_push($a, "d", "e"); <- dodawanie wiele elementow za jednym razem
+
+                4. Usuwanie elementow z tablicy
+
+                    1. Sposob
+                        Funkcja unset(); <- Niszczy nasza zmienna
+
+                        unset($a['fretka']);
+
+                    2. Sposob
+                        Funckja array_pop(); <- Usuwanie ostatniego elementu naszej tablicy 
+                                                    przy czym zwraca ten element
+
+                            $b = array_pop($a);
+            
+            Pobieranie
+                1. Po przez klucz
+                    $a = [
+                        'kot' => 'a', 
+                        'pies' => 'b',
+                        'fretka' => [
+                            'lapy' => 4,
+                            'ogon' => 1,
+                        ],
+                    ];
+
+                    $b = $a['kot];
+
+                    $c = $a['fretka']['lapy'];
+
+                2. Dynamicznie
+                    $a = [
+                        'samochod' => [
+                            'kola' => 4,
+                            'szyby' => 2,
+                        ],
+                        'motocykl' => [
+                            'kola' => 2,
+                            'szyby' => 0,
+                        ],
+                    ];
+
+                    $c = 'motocykl';// Zmienna pomocnicza
+                    if(isset($a[$c])){ // jesli istnieje (jest ustawiona)
+                        $b = $a[$c]['kola'];
+                    }
+                    else
+                    {
+                        $b = NULL;
+                    }
+                            
+            Laczenie
+                1. Funkcja explode
+                    $a = "jakas wartosc tekstowa";
+
+                    $b = explode(' ', $a); // Po czym ma byc rozdzielane na tablice
+
+                2. Funkcja implode
+
+                    $c = implode(' ', $b); // Po czym ma byc laczone
+
+            * Dokumentacja PHP Manual > Functions References > Variable and Type Related Extensions
+                > Arrays > Array Function
+
+            Iterowanie po elementach
+                1. Uzycie wlasnej funckji
+                    $a = [
+                        'kot',
+                        'pies',
+                        'rybka',
+                    ];
+
+                    function upper(&$value) // & wskaznik
+                    {
+                        $value = strtoupper($value);
+                    }
+
+                    array_walk($a, 'upper'); // przechodzenie po elementach listy
+                    
+                    var_dump($a);
+
+                2. Uzycie mapy
+                    function upper($value)
+                    {
+                        return strtoupper($value);
+                    }
+
+                    $b = array_map('upper', $a); // array map tworzy kopie z nowa wartoscia. 
+                                                    Przyjmuje parametry w odwrotnej kolejnosci
+                    
+                    var_dump($a);
+
+                3. W php 7 istnieje mozliwosc dodania funkcji anonimowych
+
+                    $b = array_map(function ($value)
+                    {
+                        return strtoupper($value);
+                    }, $a);
+
+
+        Konwersja typow
+            1. Konwersja w sposob niejawny
+                $a= 3;
+                $b= "text";
+
+                var_dump($a + $b); // Pierwsza liczba pozniej + czyli wie ze dodac nastepna
+                                        liczbe. Skoro dostal tekst to drugiej zmiennej przypisze
+                                        0 i doda. Wyjdzie 3
+
+                $b="31text";    // Przy takim zapise zapamieta liczbe 31 i doda ja do a a reszte
+                                    tekstu pominie
+
+            2. Konwersja w sposob jawny
+                $a = ['kot'];
+                var_dump((string)$a); // Nie mozna tablicy przekonwertowac na string
+
+                $a = "kot";
+                var_dump((array)$a); // Mozna przekonwertowac na tablice
+
+                $a = '31kot';
+                var_dump((int)$a); // Przekonwertowac na liczbe 
+                // 31
+
+                Teskt do liczby
+                $a = 3;
+                $b = "text";
+
+                var_dump($b .= $a); 
+                // text 3
+
+
+        Instrukcja warunkowa IF
+
+            $a = 15;
+
+            if($a > 10) // warunek 1
+            {
+                echo "Wartosc wieksza od 10";
+            }
+            else if( $a == 10) // warunek 2
+            {
+                echo " Wartos = 10";
+            }
+            else // warunek jesli zaden inny warunek nie zaistnial
+            {
+                echo "Wartosc mniejsza od 10";
+            }
+
+
+        Przelacznik SWITCH
+
+            $a= 'kot';
+
+            switch($a) // Wpisujemy nasza zmienna ktora bedziemy porownywac
+            {
+                case 'kot': // Przypadek
+                    echo "A jest kotem";
+
+                    break; // Wyjscie z funckji switch
+
+
+                case 'pies':
+                    echo "A jest psem";
+
+                    break;
+
+                
+                case 'papuga':
+                case 'kameleon': // zapis dla dwoch przypadkow
+                    echo "Dwa przypadki"; 
+
+                
+                default: // domyslne zachowanie jesli nie spelni sie zaden case
+                    echo "Nie ma pasujacego przypadku";
+            }
+
+            Dla liczb
+                $a = 15;
+
+               switch(TRUE)
+               {
+                    case $a > 10:
+                        echo "Jest wieksze od 10";
+
+                    case $a == 10:
+                        echo "A jest rowne 10";
+               
+                    default:
+                        echo "Nie ma liczby";
+               } 
+
+
+        Petla FOR
+            Prosta petla
+                for($a = 0; $a < 10; $a++)
+                {
+                    var_dump($a);
+                }
+
+            Zlozona petla
+                for($a = 0; $a <= 10 && < 30; ++$a) // B wyjdzie po za swoj warunek gdyz warunek 
+                                                        jest sprawdzany wczesniej niz wypisanie
+                {
+                    $b += 2;
+                    var_dump("B", $b, "A", $a);
+                }
+
+            Praca z tablica
+                $b = [
+                    'kot',
+                    'pies',
+                    'wydra'
+                ];
+
+                for($a = 0; $a < count($b); $a++) // count odpowiada za zliczenie elementow tablicy
+                {
+                    var_dump($b[$a]);
+                }
+
+
+        Petla WHILE
+            Petla sprawdzajaca warunek do ktoregos momentu
+
+                $a = 0;
+
+                while($a < 10) // wykonanie do momentu skonczenia warunku
+                {
+                    var_dump($a);
+
+                    $a++; 
+
+                }
+
+
+        Petla FOREACH
+            Petla do przechodzenia po kazdym elemencie naszej tablicy
+
+                $a = [
+                    'kot',
+                    'pies',
+                    'wydra',
+                ];
+
+                foreach($a as $pet) // wyswietlanie $a jako $pet w tablicy $a. Przekazujemy nasza tablice 
+                                        a pozniej nasza zmienna pomocnicza
+                {
+                    var_dump($pet);
+                }
+
+                Nie musimy wiedziec rozmiaru tablicy 
+
+                foreach($a as $index => $pet) // wyswietla index i przypisana do niego wartosc
+                {
+                    var_dump($index, $pet)
+                }
+
+                Tablica asocjacyjna - tablica skladajaca sie tylko i wylaczeni z klucz a nie z wlasnego 
+                                        nazwenictwa
+
+
+    Obietkowosc
+
+        Obiekt - Instancja danej klasy. Pewien byt ktory zostal stworzony opisany przez dana klase
+        Klasa - Opis jakiejsc rzeczywistosci ktora chcemy przeniesc do progamu
+        Atrybuty - Zmiennne pryzjmujace dane wartosci
+
+        Aby stworzyc obiekt uzywamy slowa kluczowego new
+
+        Przyklad 1.
+
+            class NewClass // Klasa
+            {
+                public $attribute = 10; // Atrybut
+
+                public function method() // Metoda
+                {
+                    return "value";
+                }
+            }
+
+            $c = new NewClass(); // Instancja klasy
+            $c->attribute = 20; // Modyfikownanie atrybutow
+            var_dump($c->attribute); // Pobieranie wartosic atrybutu
+            var_dump($c->method()); // Uzycie metody
+
+
+        Przyklad 2.
+
+        =========================Plik Wheel.php================================================
+            <?php
+            
+            namespace Vehicles;
+
+            class Wheel // Definiujemy nasz typ 
+            {
+                /**
+                * @var int
+                */
+                public $height;
+                
+                /**
+                * @var int
+                */
+                public $size;
+                
+                /**
+                * @var Car // nadanie wlasciwosci dla klasy Car do wyswietlania podpowiedzi 
+                */
+                public $car; // informacja o samochodzie
+                
+                /**
+                * @var bool // nadanie php dock dla elementow bool
+                */
+                public $burst = false; // Przechowanie info czy jest przebite kolo
+
+
+                public function setCar(Car $car) // funckja przypisania samochdou 
+                {
+
+
+                    $this->car = $car; // Do zmiennej car przypisujemy nasz samochod czyli car
+                
+
+                }
+
+                public function isBurst():bool//sprawdzenie czy opona jest przebita cyz tez nie
+                {
+                    return $this->burst; // zwracamy info czy opona jest przebita 
+                }
+
+
+                public function burst() // przebicie opony
+                {
+                    // Obslua bledow
+                    if(null === $this->car)
+                    {
+                        throw new \InvalidArgumentException("Car has not been set"); // rzucanie bledem 
+                                // dodajemy \ backsleshe gdyz jest to klasa ktora znajduje sie w globalnej namespace  
+                    }
+
+                    $this->burst = true; // Oznacza przebicie opony
+                    //$this->car->broken = true; // Informujemy ze nasz obiekt jest zepsuty
+                    $this->car->broken(); // Uzycie metody z klasy Car
+                }
+            }
+
+
+        =========================Plik Car.php================================================
+            <?php
+            
+            namespace Vehicles;
+            
+            class Car
+            {
+                public $color;
+                public $doors;
+                
+                /**
+                * @var Wheel[] // Podpowiedzi iz jest to lista konkretnego typu
+                */
+                public $wheels = []; // Lista kol
+                public $running = false;
+                public $broken = false; // Czy zepsuty samochod
+
+
+                public function addWheel(Wheel $wheel) // Definiujemy metode. W parametrach podajemy typ i 
+                                                            nasz parametr
+                {
+                    $wheel->setCar($this); // dodajemy informacje o tym samochodzie.
+                                           // this jest obiektem czyli tym obiektem w ktyrm sie w tej chwili znajduje
+
+                    array_push($this->wheels,$wheel) // Wbudowana lista wiec uzywamy array_push
+                                                    // Funkcja ktora za kazdym razem jak bedzie wywolana to 
+                                                    // do listy wheels doda kolo (wheel)
+                }
+
+                public function getBurstWheels():array // ktore kola sa zepsute
+                {
+                    $wheels = [];
+
+                    foreach($this->wheels as $wheel)
+                    {
+                        if($wheel->isBurst())
+                        {
+                            $wheels[] = $wheel; // Dodajemy opone do listy przebitych opon
+                        }
+                    }
+
+                    return $wheels; // Ma zwracac liste wheels
+                }
+
+                public function broken()
+                {
+                    $this->broken = true;
+                }
+
+                public function turnOn()
+                {
+                    $this->running = true; // Po przez this modyfikujemy atrybut running. Od teraz bedzie
+                                                uruchomiony
+                }
+
+                pubic function turnOff()
+                {
+                    $this->running = false;
+                }
+
+            }
+
+
+
+        =========================Plik index.php================================================
+            // Dodanie pliku
+            //require_once './Car.php'; // Obecny katalog ./
+            //require_once './Wheel.php';
+
+            // Zamiast tych dwoch linijek powyzej
+            function autoload(string $name) // autoloader klas
+            {   // __DIR__ - zmienna mowiaca iz ma szukac sciezki wlasnie w tym miejscu w 
+                            ktorym znajduje sie plik w ktorym sie znajdujemy
+                
+                // zamienia ona \ na /
+                $name = __DIR__ . '/' .str replace('\\','/', $name) // Zamieniamy \ (dwa backsleshe 
+                                                                        bo zapis \ musimy poprzedzic \)
+                                                                        na / a ostatni parametr jest  
+                                                                        nasz tekst na ktorym wykonujemy 
+                                                                        ta podmiane.
+                require_once $name . '.php';
+            }
+            
+            spl_autoload_register('autoload'); // rejestrujemy nasz autoloader
+
+            use Vehicles/Wheel; // Uzycie przestrzeni nazw
+
+            // Przechywtywanie bledu 
+            try{ // sproboj wykonac ten kod
+                $car = new Car(); // Tworzymy nowy obiekt
+                $car->color = 'red'; // Przypisujemy mu wlasciowsci
+                $car->doors = 5; // Przypisujemy mu wartosci 
+
+                $wheel = new Wheel();
+                $wheel->size = 17;
+                $wheel->height = 70;
+
+                // Tworzenie kopi obiektu 
+                $wheel2 = clone($wheel); // Tworzenie kopi zapasowej
+
+                $car->addWheel($wheel); // doda obiekt
+                $car->addWheel($wheel2); // drugi raz doda obiekt
+                $car->addWheel(clone($wheel)); // Uzycie kopii
+                
+                $wheel->burst(); // Przebijanie opony
+                $wheel2->burst(); // Przebijanie opony drugiej
+
+                //var_dump($car); // Wyswietlamy nasz obiekt
+                var_dump($car->getBurstWheels()); // Wyswietlamy liste opon
+            }
+            Catch(InvalidArgumentException $e) // Jesli sie nie uda wykonac powyzszego kod to zlap
+                                                     blad | Parametr to typ bledu
+            {
+                // Blok instrukcji dla bledu o parametrze InvalidArgumentException
+                var_dump($e);
+            }
+            Catch(RuntimeException $e)
+            {
+                // Blok instrukcji dla bledu o parametrze RuntimeException
+            }
+            Catch(Exception $e)
+            {
+                // Blok instruckji dla pozostalych bledow
+            }
+            
+            
+            // $car->trunOn(); // Uruchamiamy nasza metode na naszym obiekcie
+
+        ===================================================================================   
+
+        Srodowisko IDE - Zintegrowane srodowisko (zaawansowane srodowisko
+            -PhpStrom
+
+
+        Bledy
+
+            Excepion - Blad ktory jest zwracany w momence kiedy ktorys parametr jest niewlasciwy
+        
+            RuntimeException - Wydarzy sie kiedy nasza logika zawiedzie. Wydarzy sie nieoczekiwany
+                                blad ktory normalnie nigdy nie powinien sie poajwic
+
+            InvalidArgumentException - Trafny tryb bledu
+
+            Bledy konkretnych bilbiotek
+                np. polaczenia 
+
+
+        Dolaczanie skryptow
+            Regula
+                1. W jednym pliku powinna znajdowac sie jedna klasa
+                2. Plik powinien nazywac sie jak dana klasa
+
+            index - Gowna czesc calego projektu
+
+            Jak dolaczyc
+                1. include - Dolaczenie plku, jesli nie istnieje to wyswietli blad i bedzie dzialac
+                2. include_once - Dolaczenie tylko raz pliku
+                3. require - Wymaga pliku, bez niego nie uruchomi pliku  
+                4. require_once - -//- tylko jeden raz
+
+
+        Autoloading klas
+            function autoload(string $name) // autoloader klas
+            {
+                require_once $name . '.php';
+            }
+
+            spl_autoload_register('autoload'); // rejestrujemy nasz autoloader
+
+            LUB
+
+            spl_autoload_register( // rejestrujemy nasz autoloader
+                function (string $name) // autoloader klas
+                {
+                    require_once $name . '.php';
+                }
+            );
+
+
+
+        Przestrzen nazw
+            1. Tworzymy katalog 
+                Vehicles
+            2. Wrzucamy do katalogu pliki 
+                Car.php
+                Wheel.php
+            3. Definiujemy namespace w pliku z klasa
+                namespace Vehicles;
+            4. W pliku glownym  
+                1. Sposob 
+                    Dodanie sciezki
+
+                        $car = new \Vehicles\Car();
+
+                2. Sposob
+                    Dodajemy slowko 
+                        use Vehicles\Wheel;
+
+                    Dodanie do funckji wczytujacej nasze sciezki kodu
+                        // __DIR__ - zmienna mowiaca iz ma szukac sciezki wlasnie w tym miejscu w 
+                            ktorym znajduje sie plik w ktorym sie znajdujemy
+                
+                        // zamienia ona \ na /
+                        $name = __DIR__ . '/' .str replace('\\','/', $name) // Zamieniamy \ (dwa backsleshe 
+                                                                        bo zapis \ musimy poprzedzic \)
+                                                                        na / a ostatni parametr jest  
+                                                                        nasz tekst na ktorym wykonujemy 
+                                                                        ta podmiane.
+
+
+    Pliki
+        Operacje na plikach
+            fopen() - zwraca nam wskaznik(pointer) do tego konkretnego pliku
+            fread() - Czytamy plik
+            fwrite() - Zapisz do pliku
+            fclose() - Pamietamy o zamknieciu pliku
+            rewind() - Przewin na koniec
+            touch() - Funkcja do stworzenia czystego pliku
+            unlink() - Usuniecie pliku
+
+            file_get_contents() - Otworzy plik tylko do oczytu, sprawdzi czy jest wszystko ok i 
+                                    zamknie go 
+            file_put_contents() - Zapisuje dane do pliku
+
+            w+ - Tryb otworzenia, wyczyszczenia i ustawienia wskaznika na poczatku 
+            w+b - Dodatkowo b czyli binarny tryp bezpieczny
+            a+ - Zaczynamy od konca naszego pliku i dodajemy fragmenty naszego kodu
+            c+ - Otworzylismy nasz plik i dopisalismy tekst bez czyszczenia tak jak w w+
+
+            @ - Usuniecie bledow
+
+        ========================= Plik ================================================
+
+            <?php
+
+            $name = 'test.txt';
+            $f = fopen($name, 'w+b'); // otwieramy plik i ustawiamy pointer za tekstem ktory istnieje
+                                            w pliku
+            
+            if(false !== $f)
+            {
+
+                //$data = fwrite($f, 'test data'); // Przekazujemy do zapisu tekst
+                //var_dump($data);
+                // 9 <- Bo 9 znakow zapisalismy
+
+                //rewind($f);
+
+                $text = fread($f, filesize($name)); // Zawartosc czyli strumien $f i dlugosc naszego pliku
+                var_dump($text);
+                fclose($f); // zamykamy nasz plik
+            }
+
+        Ostrzezeni ze fopen wygenerowalo blad
+            1. W konfiguracji php wylaczenie warningow
+            2. Dodanie @ na poczatku danej funckji 
+                Dzieki temu wycisza warningi danej funckji
+
+        ========================= Plik ================================================
+
+            <?php
+
+                $name = 'test2.txt';
+                @touch($name);
+
+                $content = file_get_contents($name);
+                var_dump($content);
+
+
+                $text = 'wiadmosc';
+                $result = file_put-contents($name, $text);
+
+
+    Konfiguracja apache2  
+        1. cd /etc/apache2 
+        2. cd sites-enabled/
+        3. cat 000-default.conf   
+        4. Zmieniamy sciezke do naszego projektu
+        5. Restartujemy apache2
+            /etc/init.d/apache2 restart
+        * apache2ctl -M <- Sprawdzamy co uruchomil apache2
+        6. Odswierzamy liste
+            apt-get update
+        7. Instalujemy modul do apache2 do czytania kodu php
+            apt-get install libapache2-mod-php
+        8. Restartujemy serwer
+            /etc/init.d/apache2 restart      
+
+
+    HTML
+        <?php
+        echo $title;
+        ?>
+
+        To samo co 
+        
+        <?=$title?>
+
+
+    Przekazywanie danych GET
+        W zmiennej globalnej $_GET znajduja sie wszystkie dane ktore zostaly przekazane w adresie 
+            url
+
+        $x= isset($_GET['x'])? $_GET['x'] : 0; // Zadaj pytanie czy jest ustawiona ta wartosc, 
+                                                    jezeeli tak to przyjmij ta wartosc. Jezli 
+                                                    nie to przyjmij druga wartosc
+        
+    Przekazywanie danych typu POST
+        method="POST" <- Deklarowanie metody przesylu danych
+
+    Ciasteczka
+        var_dump($_REQUEST); // $_REQUEST Przechowuje infromacje albo $_GET albo $_POST
+
+        echo "<pre>"; // Mozemy ustawic szerokosc wyswietlanych danych
+        var_dump($_SERVER); // Dostajemy informaje o nasyzm serwerze np nazwa hosta itp
+
+
+        setcookie()
+            1. Nazwa
+            2. Wartosc
+            3. Czas wygasniecia ciasteczka
+            4. Sciezka
+            5. Domen
+            6. Czy to powinno byc wykorzystane tylko z poloczeniami https
+            7. Mozna przeslac za pomoca protokolu http ale nie bedzie dostepne z naszego poziomu typu js
+
+        Dostep do ciasteczek przez konsole js w przegladarce
+            document.cookie
+
+        var_dump($_COOKIE['test']) <- Zmienna globalna przechowywujaca wartosci
+
+        setcookie('rand', random_int(0, 10), time() + 10, null, null, null, true); // dostep do 
+                                                            danego pola uzyskujemy przez wpisanie
+                                                            null do wczesniejszych pol 
+
+
+    Sesja
+        Dostep do przekazywania informacji pomiedzy roznymi stronami bez posrednictwa przegladarki
+
+        session_start();
+
+        $_SESSION['test'] = "kot"; <- Zmienna istniejaca w momencie uruchomienia strony
+
+        Uzywamy kiedy chcemy przekazac informacje z jednej storny do innej bez uzycia przegladarki
+
+        Jest to po stronie serwera
+
+
+    PHPINFO
+        phpinfo(); // Otrzymamy informacje o nasyzm serwerze
+
+
+    Najczestsze bledy
+        Nieskonczona petla
+
+        Nieskonczona rekurencja
+
+            function power($i)
+            {
+                if(i === $i) return $i;
+                return $i * power($i-1);
+            }
+
+
+    Interpreter PHP
+        php - a <- Otwieramy konsole php
+
+            echo()
+        
+        ctrl+d <- Wyjscie z terminala
+
+        php -S 0.0.0.0:80 <- Uruchamianie serwera w php
+
+
+    Nowosci w PHP7
+        Scalar i anonimowe klasy
+            Scalarny tekst
+                function test(int $x) : int// pierwszy parametr typu int. Typ zwracany int
+                {
+                    return 2 * $x
+                }
+
+            Anonimowa klasa
+                $x = new class{}; // Tworzymy obiekt nie wiadomej klasy
+
+                $y = new class($a)
+                {
+                    public $test;
+
+                    public function __construct(int $a) // bedzie ona wywolywana w momencie tworzenia
+                                                            klasy
+                    {
+                        $this->test = $a;
+                    }
+                }
+
+
+        Generatory
+            function generator()
+            {
+                yield 'A';// zwracamy te wartosci
+                yield 'B';
+                return 'test'; // ma zwrocic test jesli uzyjemy getReturn
+            }
+
+            function letters()
+            {
+                yield from generator(); // odwolanie w generatorze do innego generatora
+                yield 'D';
+            }
+
+            $x = generator(); // Przypisujemy wynik do zmiennej
+            
+            foreach ($x as $item)
+            {
+                var_dump($item);
+            }
+
+            $x->getReturn(); <- zwroci zawartosc return
+
+        Listy parametrow
+            
+            function test(int ...$i) // ...  kazdy parametr wpisany od miejsca ostantiej kropki 
+                                                powinien byc liczba calkowita. ...$i musi byc ostatnim 
+                                                przekazanym parametrem
+            {                                   
+                return array_sum($i);
+            }
+
+            var_dump(test(1,2,3));
+
+        Spaceship operator
+            Uzywany jest do porownywania pewnych wartosci
+
+            var_dump(1 <=> 2); // -1 <- Jezeli wartosc po lewej stronie jest mniejsza od liczby 
+                                            prawej to jest zwracany -1
+                                        Jezeli obie sa rowne to zwracane 0
+                                        Jezeli po lewej jest wieksza od prawej to zwroci 1
+                                        Dla liter dziala dokaldnie tak samo
+
+        Stale - tablice
+
+            calss C
+            {
+                const_TEST = [  // listy stalych
+                    'kot' => 1
+                ];
+
+                public function test()
+                {
+                    self::TEST['kot']; // Odwolanie do stalej
+                }
+            }
+
+        Grupowanie USE
+            W momencie zaimportowania klasy w ramach tej smego namespace mozemy uzyc
+
+            use \Vehicle\{
+                Car,
+                Wheel
+            };
+
+            // use \Vehicle\Cars;
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
