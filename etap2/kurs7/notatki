@@ -99,28 +99,158 @@ Czesc teoretyczn i praktyczna photoshop
 Czesc STRONA
 -------------------------------------------------------------------------------------------------
 
-ZACZAC TWORZENIE STRONY GLOWNEJ - HTML DLA STRONY GLOWNEJ
+    Dolaczamy do strony fonty ktore mamy zainstalowane w komputrze po przez dany typ plikow
+        @font-face {
+        font-family: 'MuseoSlab500Regular';
+        src: url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.eot'); <- glowny plik
+        src: url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.eot?#iefix') format('embedded-opentype'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.woff') format('woff'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.ttf') format('truetype'),
+        url('../asset/Museo_Slab_500/Museo_Slab_500-webfont.svg#MuseoSlab500Regular') format('svg');
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    a
+    {   
+        font-family: inherit;
+        font-size: inherit;
+        color: inherit;
+        text-decoration: inherit;
+    }
+    ^ dzieki temu nie trzeba formatowac tekst w kontenerze formatowac rowniez liknu. Dziedziczy po
+    kontenerze
+
+    Wycinanie layout
+        - Zapisujac slice po wycinaniu zaznaczamy SELECTED SLICE
+
+        - Stowrzenie nowego pliku
+            zaznaczenie warstw i wrzucenie do nowego pliku
+                zaznaczeniem slice
+                    zapisujemy save for web
+
+    Podkaldanie obraz pod element a czyli tekst i ukrycie tekstu ale text bedzie sie indeksowac
+
+        text-indent: 1px; wciecie piksela
+
+
+    CarouFredSel - karuzela na stronie
+
+    overflow - moze wystawac za kontener
+
+
+    Dodanie mapy google
+        API key - klucz api do may googla >
+            create new project > wybieramy liste api z ktorej bedziemy korzystac
+            >overwiew > google maps api v3 >api access> kopiujemy api key
+                > wywlouje sie po przez script podajac api key googla
+
+        Na stornie towrzymy div 
+            <div id="map"></div>
+
+        script googla jest napisany w js dzieki ktoremu mozna wporawdzac zmiany
+
+        Scypt wlasny
+
+            var $headerMapCont = $('#header #map');
+
+            if($headerMapCont.size() > 0) 
+                {
+
+                    var restaurantList = [
+                        {
+                            "city":"Warszawa",
+                            "restaurantsCount":"1"
+                        }
+                    ];
+
+                    function initHeaderMap() 
+                    {
+                        //tworzenie mapki
+                        function createHeaderMap($cnt, lat, lng)
+                        {
+                            var opts = {
+                                center: new google.mpas.LatLng(lat, lng),
+                                zoom: 8,
+                                scrollwheel: flase,
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            }
+
+                            var headerMap = new google.maps.Map($cnt.get(0),opts);
+                      
+                            if(restaurantLists) 
+                            {
+                                for(var entry in restaurantList)
+                                {
+                                    (function(entry, map)   {)
+                                    var geocoder = new google.maps.Geocoder();
+
+                                    geocoder.geocode({
+
+                                        address: entry.city
+                                        }, function(results, status) {
+                                            if(status == google.maps.GeocoderStatus.OK)
+                                            {
+                                                var options = {
+                                                    strokeColor: "#000",
+                                                    strokeOpacity: 1,
+                                                    strokeWeight: 2,
+                                                    fillColor: "#F55B0C",
+                                                    fillOpacity: 1,
+                                                    center results[0].geometry.location,
+                                                    map: headerMap,
+                                                    radius: entry.restaurantsCount * 3500
+                                                }
+
+                                                    new google.maps.Circle(options);
 
 
 
+                                        }   
+                                        else
+                                        {
+                                            alert("Gelokacja sie powiadla sie" + status);
+                                        }
+                                    }
+                                    );
+                                    })(restaurantList[entry], headerMap)
+                                }
+                            }
+                      
+                      
+                      
+                      
+                        }
+
+                        //sprawdzanie geolokalizacji uzytkownika
+                        if(navigator.geolocation)
+                        {
+                            var success = function{position}
+                            {
+                                createHeaderMap($headerMapCont, position.coords.latitude, positon.coords.longitude)
+                            };
+
+                            var error=function()
+                            {
+                                createHeaderMAp($headerMapCont, 52.259, 21.020);
+                            }
+
+                            navigator.geolocation.getCurrentPosition(success, error);
+                        }
+                    }
+                } 
 
 
+                //ladujemy mape
+                google.pas.event.addDomListener(window, 'load', initHeaderMap)
+            
 
+    Animacja w programie Adobe Edge Animate
+    Wczytuje sie tam html
 
-
-
-
-
-
-
-
--------------------------------------------------------------------------------------------------
-Czesc 
--------------------------------------------------------------------------------------------------
-
-
-
+        Autokey frame mode - to oc sie zmieni zazanczy jako animacje
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
