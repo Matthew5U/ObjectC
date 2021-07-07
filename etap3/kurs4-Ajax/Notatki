@@ -1,0 +1,708 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Ajax" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Wstep
+-------------------------------------------------------------------------------------------------
+    Ajax - asynchroniczny java script
+
+    Edytory
+        Adobe dreamweaver
+        Aptana Studio 3
+        PSPad
+
+    Instalacja serwera 
+        WAMP
+
+    Katalog WWW
+
+    Dodatki do przegladarki
+        -firebug - Przegladanie oraz edytowanie kod dokumentu
+            Uruchomienie F12
+
+        -dom inspector - Przegladanie oraz edytowanie obiektowy model dokumentu 
+            Narzedzie > Dla programistow > dom inspector
+
+    Pliki zrodlowe
+
+
+
+-------------------------------------------------------------------------------------------------
+Lekcja. Ajax 
+-------------------------------------------------------------------------------------------------
+
+    Obiektowy model dokumentu - DOM 
+
+    JavaScript
+        1. Tworzymy plik z js
+        2. Podpinamy do strony
+
+    Zadania - wstep
+        get
+        post
+
+    Zadania XMLHttpRequest <- obiekt
+        Wlasciwosci
+            readState - od 0 do 4 - stan gotowosci naszego zadania
+            responseText
+            responseXML
+            satus
+            statusText
+
+        Metody
+            open
+            send
+        
+        Obsluga zdarzenia
+            onreadystatechange
+
+    Ajax - przyklad uzycia
+        
+        Xml chcemy umiescic w html
+
+        //Przyklad uzycia Ajax
+        window.onload = pokazListe;
+
+        function pokazListe()
+        {
+            var zapytanie = ""; // Zmienna zapytanie
+            zapytanie = new XMLHttpRequest(); // Przypisujemy obiekt zapytania. Jest to konstruktor
+            
+            // Gdy zmieni sie stan naszego zadania to tworzymy anonimowa funkcje
+            // Funkcja sprawdzic stan oraz status zadania
+            // Jesli bedzie prawidlowy to wtedy zawartosc pobrana z serwera umiesci w elemencie div
+            // ktory ma unikalne id lista kursow
+            zapytanie.onreadstatechange = function() // obsluga zdarzenia
+            {
+                if(zapytanie.readyState == 4 && zapytania.status == 200) // status 200 to znaczy ze wszystko ok
+                {
+                    document.getElementById("listakursow").innerHTML = zapytanie.responseText; // Zawartosc tekstowa naszego zadania
+                    // ciag znakow zwrcony przez nasze zadanie wprowadzimy do diva o id listakursow
+                }
+            }
+
+            zapytanie .open("GET", "kursy.xml", true); 
+            // 1.parametr = metoda, 2. Nazwa pliku xml, 3. Zadanie asyn czy synchroniczne (true oznacza dzialanie w tle)
+            zapytanie.send();
+
+        };
+
+    Status zadania
+        1. Wprowadzamy stylowanie w css
+            #listakursow{
+                padding-bottom: 10px;
+                font-size: 18px;
+            }
+        
+        2.Dodanie
+            else
+            {
+                document.getElementById("listakursow").innerHTML = zapytanie.status+" "+zapytanie.statusText; 
+                // odwolanie do tego smaego elementu div i sprawdzamy status bledu i nazwe
+            }
+
+    Zawartosc XML
+        window.onload = pokazListe;
+
+        function pokazListe()
+        {
+            var zapytanie = ""; // Zmienna zapytanie
+            zapytanie = new XMLHttpRequest(); // Przypisujemy obiekt zapytania. Jest to konstruktor
+            
+            // Gdy zmieni sie stan naszego zadania to tworzymy anonimowa funkcje
+            // Funkcja sprawdzic stan oraz status zadania
+            // Jesli bedzie prawidlowy to wtedy zawartosc pobrana z serwera umiesci w elemencie div
+            // ktory ma unikalne id lista kursow
+            zapytanie.onreadstatechange = function() // obsluga zdarzenia
+            {
+                if(zapytanie.readyState == 4 && zapytania.status == 200) // status 200 to znaczy ze wszystko ok
+                {
+                    var dokumentXml = zapytanie.responseXML;//zmienna przechowywyujaca xml naszego zpaytania
+                    var zawartosc = "";// bedziemy wprowadzac do id listakursow
+                    var x = dokumentXml.getElementsByTagName("tytul"); // PRzechowuje zbior wszystkich tytulow(tagi w pliku) umieszczonych w pliku xml
+                    for(i = 0; i < x.length; i++)
+                    {
+                        zawartosc += x[i].childNodes[0].nodeValue+"<br>"; 
+                        // Wezly podrzedne czyli [0]= pierwszy, i wartosc tego wezla. Wypiszemy zawratosc 
+                    }
+                    document.getElementById("listakursow").innerHTML = zawartosc;
+                }
+                else
+                {
+                    document.getElementById("listakursow").innerHTML = zapytanie.status+" "+zapytanie.statusText; 
+                    // odwolanie do tego smaego elementu div i sprawdzamy status bledu i nazwe
+                }
+            }
+
+            zapytanie .open("GET", "kursy.xml", true); 
+            // 1.parametr = metoda, 2. Nazwa pliku xml, 3. Zadanie asyn czy synchroniczne (true oznacza dzialanie w tle)
+            zapytanie.send();
+
+        };
+
+    Inna zawartosc
+        Wprowadzamy jedynie plik
+
+            zapytanie .open("GET", "kursy.html", true); 
+
+    Obrobka odpowiedzi
+        window.onload = pokazListe;
+
+        function pokazListe()
+        {
+            var zapytanie = ""; // Zmienna zapytanie
+            zapytanie = new XMLHttpRequest(); // Przypisujemy obiekt zapytania. Jest to konstruktor
+            
+            // Gdy zmieni sie stan naszego zadania to tworzymy anonimowa funkcje
+            // Funkcja sprawdzic stan oraz status zadania
+            // Jesli bedzie prawidlowy to wtedy zawartosc pobrana z serwera umiesci w elemencie div
+            // ktory ma unikalne id lista kursow
+            zapytanie.onreadstatechange = function() // obsluga zdarzenia
+            {
+                if(zapytanie.readyState == 4 && zapytania.status == 200) // status 200 to znaczy ze wszystko ok
+                {
+                var dokumentXml = zapytanie.responseXML; // odwolanie do pliku na serwerze
+                var zawartosc = "<ul>"; // otwiera nasza liste
+                var tytuly = dokumentXml.getElementsByTagName("tytul"); // odwolanie do tytulow w pliku xml
+                    for(i=0; i < tytuly.length; i++)
+                    {
+                        // Modyfikuje zmienna zawartosc
+                        // Dodajemy do nie jest poszczegolne elementy ze zbioru tytulow
+                        zawartosc += "<li>"+tytuly[i].childNodes[0].nodeValue; //Znacznik pozycji na liscie
+                        //odwolanie do elementu html
+                        document.getElementById("listakursow").innerHTML = zawartosc+"</ul>";
+                    }
+                }
+                else
+                {
+                    document.getElementById("listakursow").innerHTML = zapytanie.status+" "+zapytanie.statusText; 
+                    // odwolanie do tego smaego elementu div i sprawdzamy status bledu i nazwe
+                }
+            }
+
+            zapytanie .open("GET", "kursy.xml", true); 
+            // 1.parametr = metoda, 2. Nazwa pliku xml, 3. Zadanie asyn czy synchroniczne (true oznacza dzialanie w tle)
+            zapytanie.send();
+
+        };
+
+
+    Funkcja Ajax
+
+            window.onload = function()
+        {
+            // Dodanie dwoch plikow do dwoch roznych elementow w html
+            utworzZapytanie("kursy.xml", "listakursow"); // div ktory ma klase listakursow
+            utworzZapytanie("kategorie.xml", "listakategorie"); // div ktory ma klase listakursow
+        }
+
+        function utworzZapytanie(url, div) // dwa parametry
+        // url - nazwa pliku
+        // div - przekazmy identyfikator div do ktorego chcemy wprowadzic zawartosc pliku jako pierwszy parametr
+        {
+            var zapytanie = "";
+            zapytanie = new XMLHttpRequest(); //Zadanie xml
+            zapytanie.onreadstatechange = function()// gdy zmieni sie stan zapytania
+            {
+                if(zapytanie.readyState == 4 && zapytanie.status == 200)
+                {
+                    // parametr przy wywolaniu naszej funkcji
+                    document.getElementById(div).innerHTML = zapytanie.responseText;
+                }
+                else
+                {
+                    document.getElementById(div).innerHTML = zapytanie.status;
+                }
+            }
+            zapytanie.open("GET", url, true);
+            zapytanie.send();
+        }
+
+
+    Podstawy Ajax z php
+
+        //Podstawy Ajax z php
+        // Plik php
+        $kursy = array("Kurs Java", "Kurs C++", "Kurs C#", "Kurs php");
+
+        for($i = 0; $i < 4; $i++)
+        {
+            echo $kursy[$i]."<br>";
+        }
+        // Plik js
+        window.onload = pokazListe;
+
+        function pokazListe() 
+        {
+            var zapytanie = "";
+            zapytanie = new XMLHttpRequest(); //Zadanie xml
+            zapytanie.onreadstatechange = function()// gdy zmieni sie stan zapytania
+            {
+                if(zapytanie.readyState == 4 && zapytanie.status == 200)
+                {
+                    // parametr przy wywolaniu naszej funkcji
+                    document.getElementById("listakursow").innerHTML = zapytanie.responseText;
+                }
+                else
+                {
+                    document.getElementById("listakursow").innerHTML = zapytanie.status+" "+zapytanie.statusText;
+                }
+            }
+            zapytanie.open("GET", "kursy.php", true);
+            zapytanie.send();
+        }
+
+
+    Walidacja formularza
+
+        //Plik js
+        window.onload = inicjalizuj;
+        function inicjalizuj()
+        {
+            document.getElementById("wyslij").disabled = true; // Wylacz przycisk
+            document.getElementById("email").onblur = fnction()
+            {
+                sprawdzFormularz();
+            }
+        };
+
+        function sprawdzFormularz()
+        {
+            var zapytanie = "";
+            zapytanie = new XMLHttpRequest();
+            var email = document.getElementById("email").value;
+            var url = "form.php?email=" + email;
+            zapytanie.onreadystatechange = function()
+            {
+                if(zapytanie.readyState == 4 && zapytanie.status == 200)
+                {
+                    if(zapytanie.responseText == "Uzupelnij email")
+                    {
+                        alert("Uzupelnij pole email");
+                    }
+                    else
+                    {
+                        document.getElementById("Wyslij").disabled = false; // Wlaczamy przycisk
+                    }
+                }
+            }
+            zapytanie.open("GET", url, true);
+            zapytanie.send();
+        };
+
+        //Plik php
+        $email = empty($_GET["email"]); // Sprawdzamy pole email. Prawda jesli puste, false jesli bedzie cos zawieralo
+        if($email == false)
+        {
+            echo "Powodzenie";
+        }
+        else
+        {
+            echo "Uzupelnij email";
+        }
+
+
+    Metoda GET
+
+        // Plik js
+        window.onload = function()
+        {
+            document.getElementById("Wyslij").onclick = function()
+            {
+                sprawdzFormularz();
+            }
+        }
+
+        function sprawdzFormularz()
+        {
+            zadanie = ""; // Zmienna globalna
+            zadanie = new XMLHttpRequest(); 
+            var poleEmail = document.getElementById("email").value; // zmienna lokalna
+            var poleImie = document.getElementById("name").value;
+            var url = "form.php?email=" + poleEmail + "&name=" + poleImie;
+            zadanie.onreadystatechange = rejestracjaZakonczona;
+            zadanie.open("GET", url, true);
+            zadanie.send();
+        }
+
+        function rejestracjaZakonczona()
+        {
+            if(zadanie.readyState == 4 && zadanie.status == 200)
+            {
+                document.getElementById("newsletter").innerHTML = zadanie.responseText;
+            }
+        }
+
+            W js:
+            zmienna = ""; <- Jest to zmienna globalna
+            var zmienna = ""; <- Zmienna lokalna
+
+        // Plik php
+        <?php
+        //Metoda GET
+        $email =($_GET["email"]);
+        $name =($_GET["name"]);
+        echo "Adres Email:";
+        echo $email;
+        echo "<br/>";
+        echo "Imię:";
+        echo $name;
+        ?>
+
+
+    Metoda POST
+
+        // Plik js
+        window.onload = function()
+        {
+            document.getElementById("Wyslij").onclick = function()
+            {
+                sprawdzFormularz();
+            }
+        }
+
+        function sprawdzFormularz()
+        {
+            zadanie = ""; // Zmienna globalna
+            zadanie = new XMLHttpRequest(); 
+            var poleEmail = document.getElementById("email").value; // zmienna lokalna
+            var poleImie = document.getElementById("name").value;
+            var zawartosc = "email=" + poleEmail + "&name=" + poleImie;
+            var url = "form.php"; // Bo metoda post wiec do pliku php
+            zadanie.onreadystatechange = rejestracjaZakonczona;
+            zadanie.open("POST", url, true);
+            zadanie.setRequestHeader("Content-Type", "application/x-www-form-urlencoded"); // Naglowek zadania, serwer wie z jakim typem ma doczynienia 
+            zadanie.send(zawartosc); // Przesylamy zmienna zawartosc 
+        }
+
+        function rejestracjaZakonczona()
+        {
+            if(zadanie.readyState == 4 && zadanie.status == 200)
+            {
+                document.getElementById("newsletter").innerHTML = zadanie.responseText;
+            }
+        }
+
+        // Plik php
+        <?php
+        // Metoda POST
+        $email =($_POST["email"]);
+        $name =($_POST["name"]);
+        echo "Adres Email:";
+        echo $email;
+        echo "<br/>";
+        echo "Imię:";
+        echo $name;
+        ?>
+
+
+    Wprowadzeni do JSON
+        JSON - javascript obiect notation
+
+        // Plik js
+        window.onload = pokazObiekt;
+
+        function pokazObiekt()
+        {
+            var zawartosc = {
+                //"tytul":"Kurs C++", 
+                //"cena":"49.00", 
+                //"kategoria":"Programowanie"
+                "kursy":{
+                    "tytul":"Kurs c++",
+                    "nosnik":"DVD"
+                },// podrzedne wlasciwosci
+                "ksiazki":{
+                    "tytul":"Kurs Joomla",
+                    "strony":"346"
+                }
+            }; // Pierwsza wlasciwosc to nazwa i wartosc
+            var obiekt = eval(zawartosc) // Przekonwertowanie wartosic na obiekt
+            alert(obiekt.kursy.tytul); 
+            // obiekt = to zbior wlasciwosci
+            // obiekt.tytul = to wartosc pierwszej wlasciwosci
+        }
+
+
+    Wymiana danych z serwerem
+        
+        window.onload = wyslijZadanie;
+
+        function wyslijZadanie()
+        {
+            zadanie = "";
+            zadanie = new XMLHttpRequest();
+            zadanie.onreadystatechange = pokazZawartosc;
+            zadanie.open("GET", "dane.TXT", true);
+            zadanie.send();
+        }
+
+        function pokazZawartosc()
+        {
+            if(zadanie.readyState == 4 && zadanie.status == 200)
+            {
+                var zawartosc = "("+zadanie.responseText+")" // Uycie funkcji eval 
+                var obiekt = eval(zawartosc);
+                var text = "Tytul: "+ obiekt.tytul + "\n";
+                text +=  "Cena: " + obiekt.cena + "\n";
+                text += "Kategoria: " + obiekt.kategoria + "\n";
+                alert(text); // wysietlenie wszystkich wartosci
+            }
+        }
+
+
+    XML - ogolne zagadnienia
+        Rozne przegladarki roznie interpretuja xml
+
+    XML - struktura dokumentu
+        window.onload = wyslijZadanie;
+
+        function wyslijZadanie(){
+            zadanie = "";
+            zadanie = new XMLHttpRequest();
+            zadanie.onreadystatechange = pokazZawartosc;
+            zadanie.open("GET", "kursy.xml", true);
+            zadanie.send();
+        }
+
+        function pokazZawartosc(){
+            if(zadanie.readyState == 4)
+            {
+                if(zadanie.status == 200)
+                {
+                    var div = document.getElementById("listakursow");
+                    var zawartosc = zadanie.responseXML.documentElement.firstChild.nextSibling.firstChild.nextSibling.firstChild.nodeValue;
+                    // Pierwszy element podrzedny + odwolanie do jeggo zawartosci
+                    // firstChild - pierwszy wezel podrzedny(bialy znak)
+                    // nextSibling - wezel sasiedni na tym samym etapie(wezel kurs na tym samym poziomie co znak bialy)
+                    
+                    div.innerHTML = zawartosc;
+                }
+                else
+                {
+                    div.innerHTML = "Błąd żądania: " + zadanie.status;
+                }
+            }
+        }
+
+
+    Odwolania do wezlow
+        window.onload = wyslijZadanie;
+
+        function wyslijZadanie(){
+            zadanie = "";
+            zadanie = new XMLHttpRequest();
+            zadanie.onreadystatechange = pokazZawartosc;
+            zadanie.open("GET", "kursy.xml", true);
+            zadanie.send();
+        }
+
+        function pokazZawartosc(){
+            if(zadanie.readyState == 4)
+            {
+                if(zadanie.status == 200)
+                {
+                    var div = document.getElementById("listakursow");
+                    var zawartosc = zadanie.responseXML.documentElement.firstchild.nextSibling.firstChild.nodeValue;
+                    if(zawartosc.firstChild.nodeType == 1) // Sprawdzamy typ wezla. 1- wezel znacznika wystepuje tylko w ie
+                    {
+                        zawartosc = zawartosc.firstChild.firstChild.nodeValue; // odwolanie dla ie.  Wyswetlamy wartosc wezla
+                    }
+                    else if(zawartosc.firstChild.nodeType == 3) // Typ wezla podzednego czyli mamy doczynienia z firefox
+                    {
+                        zawartosc = zawartosc.fistChild.nextSibling.firstChild.nodeValue;
+                    }
+                    div.innerHTML = zawartosc;
+                }
+                else
+                {
+                    div.innerHTML = "Błąd żądania: " + zadanie.status;
+                }
+            }
+        }
+
+    Biblioteki 
+        
+        jQuery
+            $(document).ready(function()
+            {
+                alert("Kurs AJAX");
+            })
+
+        
+        Zadania z jQuery
+            var url = "kursy.html";
+            $(document).ready(function()
+            {
+                //$("#listakursow").load(url + " #biurowe"); // ladujemy id biurowe z pliku html
+                $("#listakursow").load(url, function()
+                {
+                    alert("Zadanie zakonczone");
+                });
+            });
+
+
+        Metoda GET
+
+            $(document).ready(function()
+            {
+                $("#wyslij").click(function()
+                {
+                    var url = "form.php"; // adrs naszego dokumentu obslug skryptu
+                    var email = $("#email").val();
+                    var imie = $("#name").val();
+                    url += "?email=" + email + "&name=" + imie;
+                    $("#newsletter").load(url);// ladujemy nasz wynik
+
+                })
+            })
+
+
+        Metoda Ajax - jQuery
+            $(document).ready(function()
+            {
+                // metoda ajax 
+                $.ajax({url:"kursy.html", async: false, success: function(odpowiedz)
+                {
+                    $("#listakursow").html(odpowiedz); // Modyfikujemy zawartosc html tego elelemntu
+                }}); 
+                // nazwa pliku gdzie chemy przeslac
+            });
+
+        Obsluga bledow
+            $(document).ready(function()
+            {
+                $("#listakursow").load("kursy.html"); // Wyswietlenie listy z kursy.html
+                $("#listakursow").ajaxError(function (e, xhr) // obiekt zdarzenia, obiekt zadania
+                {
+                    $(this).html("Blad: " + xhr.status + " " + xhr.statusText);
+                }); // Blad zadania ajax
+                //$.ajax({url:"kursy.html", error:function(blad)
+                //{
+                //    alert("Blad: "+ blad.status);//Komunikat o bledzie
+                //                                 //status bledu naszego zadania
+                //}});
+            });
+
+    Praktyczny projekt
+        Tworzenie tabeli
+            1.Tabela o nazwie kursy
+                id - int - primary - a_i: on
+                tytul - text
+                cena - decimal
+                kategoria - text
+
+            2. Wprowadzanie rekordow
+
+                <?php
+                $polaczenie = mysqli_connect('localhost', 'root');
+                $baza = mysqli_select_db('kurs_ajax', $polaczenie);
+
+                //var_export($baza); // true jesli nawiaze polaczenie
+
+                $tytul = $_GET['tytul'];
+                $cena = $_GET['cena'];
+                $kategoria = $_GET['kategoria'];
+
+                $dodajprodukt = "INSERT INTO kursy (tytul, cena, kategoria) VALUES ('$tytul', '$cena', '$kategoria')";
+                $wprowadz = mysqli_query($dodajprodukt, $baza);
+                ?>
+
+        Zadanie Ajax
+            $(document).ready(function()
+            {
+                $("#dodaj").click(function()
+                {
+                    var tytul = escape($("#tytul").val()); // escape - usuwanie spacji
+                    var cena = escape($("#cena").val()); // escape - usuwanie spacji
+                    var kategoria = escape($("#kategoria").val()); // escape - usuwanie spacji
+                    var url = "form.php?tytul=" + tytul + "&cena=" + cena + "&kategoria=" + kategoria;
+                    $.get(url);
+
+                });
+            });
+
+        Wyswietlanie rekordow
+            $polaczenie = mysqli_connect('localhost', 'root');
+            $baza = mysqli_select_db('kurs_ajax', $polaczenie);
+
+            //var_export($baza); // true jesli nawiaze polaczenie
+
+            $pokazprodukty = "SELECT * FROM kursy";
+            $rezultat = mysqli_query($pokazprodukty, $polaczenie);
+
+            while($wiersz =mysqli_fetch_assoc($rezultat))
+
+            print_r($wiersz);
+
+        Kolejne zadania
+            //Plik php
+            $polaczenie = mysqli_connect('localhost', 'root');
+            $baza = mysqli_select_db('kurs_ajax', $polaczenie);
+
+            //var_export($baza); // true jesli nawiaze polaczenie
+
+            $pokazprodukty = "SELECT * FROM kursy ORDER BY id DESC";
+            $rezultat = mysqli_query($pokazprodukty, $polaczenie);
+
+            while($wiersz =mysqli_fetch_assoc($rezultat))
+
+            print_r($wiersz);
+
+            // Plik js
+            $(document).ready(function()
+            {
+                $("#produkty").load("pokaz_kursy.php"); // Zawartosc bedzie wczytana po zaladowaniu strony
+                $("#dodaj").click(function()
+                {
+                    var tytul = escape($("#tytul").val()); // escape - usuwanie spacji
+                    var cena = escape($("#cena").val()); // escape - usuwanie spacji
+                    var kategoria = escape($("#kategoria").val()); // escape - usuwanie spacji
+                    var url = "form.php?tytul=" + tytul + "&cena=" + cena + "&kategoria=" + kategoria;
+                    $.get(url, function()
+                    {
+                        $("#produkty").load("pokaz_kursy.php"); // Zaktualizowana zawartosc tabeli
+                        
+                    });
+
+                });
+            });
+        
+        Formatowanie tabel
+
+        // Plik php
+        $polaczenie = mysqli_connect('localhost', 'root');
+        $baza = mysqli_select_db('kurs_ajax', $polaczenie);
+
+        //var_export($baza); // true jesli nawiaze polaczenie
+
+        $pokazprodukty = "SELECT * FROM kursy ORDER BY id DESC";
+        $rezultat = mysqli_query($pokazprodukty, $polaczenie);
+
+
+        echo "<table id='kursy-tabela'>
+        <tr>
+            <th>Tytul</th>
+            <th>Cena</th>
+            <th>Kategoria</th>
+        </tr>
+        ";
+
+        while($wiersz =mysqli_fetch_assoc($rezultat)) // przy przejsciu bedzie tworzony wiersz
+        {
+            echo "<tr>";
+            echo "<td>".$wiersz['tytul']."</td>";
+            echo "<td>".$wiersz['cena']."</td>";
+            echo "<td>".$wiersz['kategoria']."</td>";
+            echo "</tr>";
+        }
+        echo "</table>";
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
