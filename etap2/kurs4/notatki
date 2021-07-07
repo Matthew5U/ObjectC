@@ -1,0 +1,484 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Strony WWW z CSS3" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Mozliwosci CSS3
+-------------------------------------------------------------------------------------------------
+Mozliwosc dodania do css:
+    Strona: beta.theexpressiveweb
+        -animacji
+        -przejsc
+        -gradientow
+        -media queries
+        -shadows
+        -transform - przeksztalcenia
+        -web fonty
+
+Nie wyszla jedna specyikacja opisujaca css. Dlatego nalezy sprawdzac co i na jakiej przelgadarce
+    dziala
+
+CSS3 
+    - szereg modolow
+    - to roziniecie css2
+    - posiada status, ktory nalezy monitorowac jakie przegladarki wdrazaj dany modul
+
+Warto uzywac css3 ale nie zapomnijmy o:
+    - Zapewnij fallback dla starszych przelgadrek
+    - Sprwadzaj na biezaco dokumentacje W3C oraz jej statusy
+    - Obserwuj witryny, ktore pozwalaja sprawdzic wsparacie dla konkretnych elementow specyfikacji
+        CSS3 w poszczegolnych przegladarkach 
+            - caniuse.com
+            - html5test.com
+            -mobilehtml5.org
+            -fmbip.com
+
+    - Zadbaj o prefiksy, do czasu ustabilizowania specyfikacji
+    - Korzystaj z progresywnego wdrazania kolejnych funckjonalnosci
+    - Testuj 
+
+Edytory:
+    Po stronie przegladarki:
+        -jsfiddle.net - wpisujemy fragment html i obok w oknie css a zmiany w naszym dokumencie
+            mozemy na biezaco podgladac        
+
+        -tinkerbin
+        -cssdesk
+        -jsbin.com
+
+    Desktopowe:
+        -notepad++
+        -html.adobe.com - narzedzia od adobe (np adobe code)
+        -aptana studio 3
+        -adobe dreamweaver 
+
+    *doinstalowanie firebug dla firefoxa aby latwiej bylo pracowac w html i css
+
+    box-shadow: 
+        0px 1px 3px rgba(0, 0, 0, .5), <- przesuniecia, grubosci, kolor                
+        inset 0px 0px 2px rgba(255, 255, 255, .7); <- inset czyli w srodku cien
+
+Prefiksy: - przedrostki dotyczace silnikow przegladarek
+    internet expolrer
+        -ms- mso-
+
+    firefox
+        -moz-
+
+    Opera
+        -o-
+
+    Safari, chrome
+        -webkit-
+    Strona:
+        Prefixr - program dopisujacy prefiksy(nie dziala juz)
+
+    Biblioteka
+        -ecsstender 
+            - sprawdza poprawnosc naszej witryny z nazwami - ecsstender.js
+            -poszczegolne moduly - np wspierani border dla ie 6
+
+            Biblioteka ta autoamtycznie dodaje rozszerzenia np border-shadowa dla roznych silnikow
+                przegladarek. Nie trzeba nic dopisywac wystarczy dodac biblioteke. 
+
+        -modernizr - sluzy do wykrywania funkcjonalnosci html5 i css3
+            np. geolokalizacja
+            Dodaje klasy jesli wykryje ze przegladarka wspiera dane funckje
+
+        -selectivizr - zaltawia obsluge nowych selektorow w css3  
+
+
+-------------------------------------------------------------------------------------------------
+Czesc - Selektory
+-------------------------------------------------------------------------------------------------
+Selektory Potmkow i rodzenstwa
+
+    section ~ p - zaznacza wyszstkie elementy spelniajace dwa warunki
+                    1. Akapit zaznacza czyli akapit p jest akapitem sisostrzanym (rodzenstwem w 
+                    stosunku do section)
+                    2. Element p w kodzie ktory jest za znacznikem section
+ 
+    section > p - zaznaczy wszystkie elementy p ktore sa bezposrednio dziecmi section. p jest w 
+                    section od razu
+
+    h1 + p - pierwszy elelemnt p, ktory wystepuje pod elementem h1 ale jest bratem. Zostaje zaznaczony 
+            tylko ten pierwszy element p, nastepne elementy p  juz nie beda zaznaczane
+
+
+Pseudoklasy 
+
+    ol li:first-child - pierwsze dziecko np elementu ol czyli li
+
+    ol li:last-child - ostatnie dziecko np elementu ol czyli li
+
+    ul:befor - przed lista ul mozna wstawic jakis element za pomoca css
+
+    ul:after - tak jak befor tyle ze wstawi element za lista 
+
+Inne Pseudoklasy
+
+    root - zaznacza nam glowny element w strukturze dom glownie to bedzie html
+
+    empty - pusty znacznik
+        p:empty - mozliwosc stylizowania pustego zancznika
+    
+    first-of-type-tak jak first-child tyle ze zaznacza pierwsze dziecko danego typ
+        p:first-of-type - wszystkie p ktore sa pierwszymi dziecmi obojetnie w jakim 
+            kontenerze
+
+    last-of-type- tak jak wyzej tyle ze zaznacza ostatnie dziecko danego typu
+
+    only-child - jedyne dziecko
+        to tylko elementy p ktore jest jedynym dzieckiem jest akapit p
+
+            <div>
+                <p>
+            </div>
+
+    only-of-type -  jedyne dziecko typu p ale w dive moze byc wiecej niz jeden znacnzik
+        np dodoatkowo <h1>
+
+    :: - mozliwosc zaznaczenia pierwszej litery albo pierwsze slowo w akapitach
+
+    p::first-line
+
+    hover - po najechaniu aktywujemy
+
+    linki - do liknow a
+        link
+        visited
+        hover
+        active
+
+    nth-child(n) - n-ty znacznik np co 3 itp
+
+    tr:nth-child(even) - even od drugiego dziecko
+                (odd) - odd od pierwszego
+                (2) - 2 dziecko tylko
+
+                (an + x) - co ktore dziecko
+                (2n) - co druga komorka
+                (2n+4) - ale zaliczyma od 4 komorki
+                (-2n+8) - od 8 komorki w gore co druga 
+                (3n-1) - co trzecia poczynajac od komorki 2 (minus daje to ze 
+                    zazaczamy od 2, bo przesuwa nam w gore)
+
+    nth-last-child(n) - zalicza nam od konca
+
+    nth-child(1n+4), nth-last-child(1n+4) - zazancza ostatnie 4 i pierwsze 4  
+
+    nth-child(1n+4):nth-last-child(1n+4) - od 4 co jeden w dol i jednoczesnie od 7 co jeden
+        gore
+
+    Mozna laczyc przecinkiem wartosci
+
+Pseudoklasy - formularze i anchory
+
+    enabled - wlaczenie inputa
+
+    disabled - wylaczenie inputa
+
+    checked - zaznaczony
+
+    id="tutaj"
+
+    a href="#tuatj" <- odniensie nas na stronie do elementu ktory ma id tutaj
+
+Selektory atrybutow
+
+    img[alt]
+
+    W css:
+        img[src] <- obrazki img ktore posiadaja atrbut src
+        {
+            backogroud: red;
+        }
+
+        img[class="css"] <- obrazki img ktore posiadaja klase o nazwie css
+
+        img[alt~="miniaturka"] <- posiadajace w alt slowo miniaturka i slowo to nie musi byc 
+                                    jedynym slowem znajdujacym sie w alt
+
+        img[alt*="min"] <- tam gdziekolwiek pojawilo sie min nie musi byc cale slowo
+
+        img[alt^="miniaturka] <- dopasowanie do atrbutu ktore te atrybutu zaweiraja litery takie 
+                                    jak zostaly podane w css
+
+        Przyklad:
+        a[href^="http://"]
+        {
+
+        }
+        W html
+        <a href="http://costamjakasstrona.com">
+
+        img[src$=".jpg"] <- zaznacza tam gdzie koncokwa jest .jpg w src podanych w html
+
+        img:not(.css) <- obrazek img ktory nie ma klasy css w swojej klasie
+
+        img:not([alt~="html"]) <- te ktore nie maja w alt klasy html
+
+Typografia i css  
+        
+    Wykorzystanie @FONT-FACE
+        -Regula @font-face pozwala na osadzenie na stronie WWW dowolnych fontow
+        -fonty ktore umieszczamy nie musza byc zainstalowane w systemi uztykownika
+        - dolaczone w ten sposob fonty powiekszaja rozmiar strony WWW
+        -musimy posidac licencje, ktora zezwala na wykorzystanie  w ramcha @font-face
+        -zastosowanie @font-face sprzyja pozycjonowaniu tresci w wyszukiwarkach
+
+        -fontsquirrel.com - strona do pobierania czcionek
+        -speckyboy.com
+
+        Dzialaja one jako css i nie potrzebny jest dzialajacy js u uzytkownika
+
+    Google Web Fonts i TYPIKT
+        
+        Goog font:
+            Sa to fonty dzialajace na zasadzie js.  
+            Odsylamy uzytkownika aby font sciagnal wiec jesli uzytkownika widzial juz ten font to  
+                prawdpodobne ze juz posiada ten font i nie musi sciagac
+
+        Typekit:
+            sa to fonty od adobe. 
+            Sa to font platne
+
+Multi columns
+
+    section
+    {
+        column-count: 2; <-liczba kolumn
+        column-gap: 20px; <- przestrzen miedzy kolumnami 
+        column-rule: dotted; <- kreska miedzy kolumnami
+        column-rule-color: red; <- kolor kreski
+
+    }
+
+
+Cien dla tekstu
+    Strona:
+        -css3generator
+
+    Cien dla tekstu
+    text-shadow: -2px -2px 0px #000000;
+    filter: dropshadow(color=#000000, offx=-2, offy=-2); <- dla IE
+
+Efekty na tekscie
+    Obramowanie
+        text-stroke: 3px red; < obramowanie tekstu
+        text-fill-color: transparent; <- czyli wewnetrzy tekst jest przezroczysty a obramowanie juz
+        nie
+        ^ efekty te sa dla -webkit-
+
+        Dla firefoxa stosujemy 4 razy text shadow aby z kazdej strony zostalo stworzone obramowanie
+
+    Odbicie
+        -webkit-box-reflect: below 30px -webkit-gradien(Tutaj podajemy gradient); <-lustrzane dobicie tekstu 
+            pod spodem i odstep 30xp
+        
+Kolory CSS3:
+
+    Formaty kolorow                                         Przyklady
+        -HEX(16-tkowy)/RGB                                  #FFFFFF rgb(255,255,255)
+        -RGBA                                               rgba(255,255,255, .5)b
+        -HSL (koor, nasycenie, jasnosc)                     (12, 83%, 83%)
+        -HSLA (kolor, nasycenie, jasnosc, kanal Alfa)       (12,83%, 33%, .5)
+        -CMYK (cygan, magneta, yellow, black) <- do druku   (1, 0.5, 1, .1)
+
+        Strona 
+            kimili.com - strona do generowarani kolorow w IE
+
+
+Gradinety:
+
+    Gradient zapis:
+
+        -webkit-gradient
+        (
+            linear,
+            right top, left bottom,
+            color-stop(0, red),
+            color-stop(1, black)
+        );
+
+    Strona do generowania gradientu
+        colorzilla.com
+
+
+Kolory i photoshop
+
+    Photoshop:
+        Panel swatches - panel kolorow
+
+        Mozliwosc wczytania pliku css do photoshop
+        I w druga strone rowniez
+            Klikamy na nasz gradient w photoshop i na copy CSS
+
+Zaokraglenie naroznikow
+
+    Strona:
+        css3generator.com - border radious
+
+    Zapis:
+        border-radious: 10px; <-zaokraglenie pikseli 10 px
+                        50%; <- kolko 50%
+
+            border-top-left-radius:
+                      -right-radius:
+            
+            border-bottom-right-radius:
+                         -left-radius:
+
+
+Obrazek jako border
+
+    Zapis
+
+        border-image: url("obrazek.png")5 5 5 5 repeat repeat;
+            
+            Robimy odciecia aby nie skalowalo obrazka gdzie sa ksztalty zaokraglenia
+                4 wartosci - wszystkie odciecia osobno
+                3 wartosci - top, right / left, bottom
+                2 wartosci - top/bottom, left/right
+                1 wartosci - wszystkie odciecia razem 
+
+            Rozciaganie
+                stretch - rozciaga (domyslna)
+                repeat - powiela obraz w nieskonczonosc
+                round - powiela do krawedzi, ostatnia czesc skaluje
+                albo wszystkie osobno, albo np. wszytskie wartosci
+
+
+    css
+        border-image: url(naszobraz.png) 10 10 10 10 stretch;
+
+
+Tlo css3
+
+    Zapis
+
+        backogroud: url("naszplik.png") no-repeat #FFF; <- wczytujemy nasz obrazek
+
+        backogroud-size: 50px; <- skalujemy nasze tlo czyli np do 50px
+                         auto; <- automatycnza
+                         contain; <-zeskalowane aby dopasowalo sie do kontenrea w ktorym sie znajduje
+                         cover; <- Dostosowuje sie do kontenera ale nie bedzie sie skalowac tak zeby 
+                                    bylo zawsze widoczne. Zostanie uciete w zaleznosci od rozdzielczoci
+
+        backogroud-origin: border-box; <- tlo jest rysowane z uwzglednieniem bordera. Rysuje na borderze
+                           content-box; <- wysuje tlo w obrebie kontentu
+                           padding-box; <- uwzglednia rowniez padding
+
+        backogroud-clip: padding-box;   <- podobnie jak wyzej ^
+                         border-box; 
+
+        backogroud-repeat: round;
+                           space;
+                                    Dopasowanie do bordera
+
+        Do background mozna dodac kilka obrazkow (po przecinku)
+
+        Przyklad:
+        
+            background:
+                url("obrazek.jpeg") center 120px no-repeat,
+                url("obrazek.jpeg") center bottom repeat-x, 
+                url("obrazek.jpeg") center 0 no-repeat,
+                #AA1233;
+
+    Strona:
+        lea.verou.me - background zrobiony w css
+
+Przycinanie tekstu
+        
+        background: url(obrazek.png) no-repeat #999;
+        background-clip: text;
+        text-fill-color: transparent;
+            ^ Dzieki temu zapisowi mozemy edytowac tekst czyli nadawac tlo tekstowi. Taka jakby maska
+
+
+Zmiana rozmiaru kontenerow:
+
+    Nowy Box Model
+        Layouty mozemy budowac w dwoch orientacjach
+            -wyrownanie w poziomie
+            -wyrownanie w pionie
+
+            Marginesy padding dodaja rozmiary - wiadomo :D
+                float: left; <- trzeba pamietac zeby wymiary sie zgadzaly blokow aby byly ustawione obok siebie
+
+        Z pomoca przychodzi model pudelkowy
+
+            box-sizing: border-box; <- dodaje nam to ze wszystkie wymiary podane przez uzytkownika sa brane pod uwage
+                                        do wymiarow sprowadzaja sie wszystkie rozmiary (margin, padding). A nie to ze
+                                        dodaja one wymiary i nic sie nie zgadza
+        
+        Wykorzystanie box modelu
+
+            display: box;
+
+            display: inline-box;
+
+            display: flexbox;
+
+            Nowe wlasciwosci:
+                box-flex (numer)
+                box-orient (horizontal, vertical)
+                box-direction( reverse)
+                box-align / box-pack (start, end, center, justify)
+                box-ordinal-group
+                box-lines
+        
+        Floatowanie elementow
+            Do rodzica kontenreow ktore bedziemy skalowac dodajemy
+                display: box;
+
+                Do kazdgo elemntu kontenera ktory bedzie skalowany dodoajemy 
+                    box-flex: 1; <- czyli kazdy zajmuje taka sama wartosc jak inne(rowno sie skaluja)
+
+                    box-flex: 5; <- zajmuje 5 czyli bedzie wiekszy niz inne ktore maja 1
+
+        Zmiana orientacji
+            Do rodzica kontenerow ktore bedziemy skalowac dodajemy
+                box-orient: vertical; <-ulozenie wertykalne kontenerow
+                            horizontal; < ulozenie horyzontalne kontenerow
+
+
+
+ZACZAC WYROWNANIE KONTENEROW - ELASTYCZNY MODEL PUDELKOWY
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________
