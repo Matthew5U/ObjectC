@@ -245,23 +245,40 @@ Czesc Rozpoczynamy tworzenie strony
 
     Jesli zle podpeniemy footer to wyswietli sie glowny footer
 
+    get terms- zwraca nam taksonomie
 
-ZACZAC SEKCJA ADMINISTACYJNA I DYNAMICZNE TRESCI - LOOP NA STONIE GLOWNEJ
+    
+    Rejestrowanie wlasnego menu
+        1. Rejestracja menu z pomoca register nav menus
+        2. Stowrzenie manu w kokpicie
+        3. Pokazanie menu na stronie z pomoca wp_nav_menu
+
+    Rejestracja szablonu strony
+        1. Rejestracja w komentarzu pliku .php
+        2. Stworzenie strony w Kokpicie
+        3. Podpiecie strony do Szablonu
 
 
-
-
-
-
-
+    Wordpress wie w ktorej kategori siedzi
 
 
 
 
 
 -------------------------------------------------------------------------------------------------
-Czesc 
+Czesc Doadnie plikow do serwera
 -------------------------------------------------------------------------------------------------
+
+    Dodanie wordpressa do seriwsu hostingowego
+        1. Towrzymy baze danych
+        2. Przechodizmy do bazy danych 
+        3. Eksportujemy baze danych
+        4. Importujemy baze danych na hosting
+        5. Kopijuemy pliki do serwera ftp
+            Do public_html
+        6. Edytujemy plik wp-config 
+            Edytujemy wszystkie dane do bazy danych ktore sa teraz na naszym hostingu
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
