@@ -1,0 +1,65 @@
+
+_________________________________________________________________________________________________
+Kurs "Kurs Wordpress - Tworzenei motywow" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------------------------
+Czesc Wstep
+-------------------------------------------------------------------------------------------------
+    1. Wyglad strony
+
+    2. PLiki
+
+-------------------------------------------------------------------------------------------------
+Czesc Srodowsiko pracy z wordPress 
+-------------------------------------------------------------------------------------------------
+    Srodowisko pracy
+    mac - mamp
+    windows - wamp
+    linux - devilbox
+
+    1. wycinamy index.php na sama gore i wklejamy przed folderem 
+    2. zmieniamy bezposrednie linki
+        http://localhost/wordpress/%category%/%postname%/
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z Motywami Potomnymi 
+-------------------------------------------------------------------------------------------------
+    Omowienie gotowego motywu
+        1. Wykorzystanie gotowego Motywu - niekorzystna bo napisywane sa pliki przez tworcow motywow
+        2. Stowrzenie motywu potomnego(child theme)
+        3. Wdrozenie wlasnego motywu
+
+        Motywy:
+            -Nakladka graficzna 
+            -Moga byc tworzone przez uzytkownikow
+            -sa platne lub darmowe (darmowe na wordpress.org)(prmeium elegantthems)
+            -oferuja dodatkowe funckjonalnosci
+            -mozna je zmieniac 
+
+        Kokpit > wyglad > Motywy
+
+
+    Tworzenie Motywu Potomnego
+        1. folder wordpress > wp-content > themes > tworzymy nowy katalog
+            Tworzymy plik style.css
+
+            /*
+
+            Them Name: Moj nowy motyw
+            Description: To jest porty opis motywu
+            Author: Mateusz
+            Template: jak sie nazywa motyw bazowy
+            Version: 1.0
+            
+            */
+
+        2. Przezucenie stylow z jakiego motywu do naszego nowego pliku
+        3. Imporowanie stylow z jaiegos motywu
+
+            @import url('../sciezkadostyluinnegomotywu');
+
+
+    Nadpisywanie stylow CSS
+        DOKONCZYC

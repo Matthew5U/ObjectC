@@ -304,18 +304,308 @@ Czesc Edytor i Formatowanie Tresci
 Czesc Role, Uzytkownicy i Komentarze
 -------------------------------------------------------------------------------------------------
 
-ZACZAC ZARZADZANIE UZYTKOWNIKAMI
+Uzytkownicy > Dodaj nowego uzytkownika
+        -Dodanie nazyw uzytkownika admin dodajac najnizsze uprawnienia aby hakerzy nie dostali 
+        sie do storny
+
+        5 rol do nadania uzytkownikowi
+            Super admin - glowna glowa + zarzadzanie networkami
+            admin - glowna glowa
+            edytor - zajmuje sie postami, i innych uzytkownikow
+            autor - zarzadza wlasnymi postami
+            contributor - widzi wszystkie posty ale nie bedzie mogl zarzadza postami
+            subskrybent - moze tylko zarzadzac swoim kontem i nic wiecej
+
+    Ustawienia> ogolne > czlonkowstwo > domyslna rola nowych uzytkowniko - w momencie rejestracji 
+    istnieje mozliwosc od razu dodania im praw
+
+        mozliwosc wylaczenia obrazkow w komentarzach
 
 
+    Tworzenie wlasnych rol
+        Wtyczki > dodaj nowa > Advanced Access Manager
+            Mozliowsc oddania nowych rol
+
+            Zakladka AAM > Prawa czesc 
+                Role
+                    Menagerole
+                        Mozemy ustawic co widzi uzytkownik
+                        Capabilities - mozliwosc dodania praw roznym rolom
+                Znaczek plusa - dodanie nowego uzytkownika i przypisac mu jakie role chcemy        
+
+                USers - widzimy jakich mamy uzytkownikow 
 
 
+    Praca Z komentarzami
+        UStawienia > dyskusja
+            Zanim komentarz pojaw sie na blogu komentarz musi byc zatwierdzony
+            Zagneizdzoen komentarze - Dobra wartoscia jest 3
+            Ile komentarzy ma byc na stronie
+            Dzielenie komentarzy
+            Porzadkowanie komentarzy
+
+            email z informacja o komnetarzach
+
+            moderacja koemtarzy - przed zatwierdzeniem mozemy sprawdzic
+
+            czarna lita komentarzy
 
 
+    Wtyczka Akismet
+        Wtyczka do spamu
+            Trzeba go ustawic
+                Uzyskaj klucz API > add personal substriction > wybieramu 0 zl > kopiujmy klucz i go wklejamy
+
+            W panelu admin bedzie wyswietla komentarze ktore sa spamem
+
+-------------------------------------------------------------------------------------------------
+Czesc Wyglad i Funkcje strony
+-------------------------------------------------------------------------------------------------
+
+    Wyglad > menu 
+        edytuj menu - tworzenie menu
+            Usun menu
+
+            NAzwa menu
+            Po lewej stronie opcje do zarzadzania menu
+                Mozliwosc dodania stron do menu
+                Mozliwosc dodania wpisu do menu
+                Mozliwosc dodania odnosnikow
+            
+            Zarzadzaj w podgladzie na zywo - ogladanie na zywo menu
+                Stworz nowe menu - mozliwosc tworzenia nwoego menu
+
+        zarzadzaj rozmieszczeniem -umieszczanie menu w dowolnym miesjcu w ktorym wspiera nasz motyw
+
+
+    Widgety
+        Wyglad > widgety
+            Mozliwosc oddawnia widgetow po przez wordpressa lub wtyczki
+            Mozliwosc podpiecia mapy google
+        Podglad nazywo -podgladanie widgeotw na zywo
+
+
+    Wlasne widget
+        Wtyczki > Content Aware Sidebars - unlimited Widget Areas
+            Dzieki tej aplikacji mozemy dodawac wlasne sidebary
+            
+            Panel Pasi boczne > dodaj nowy 
+                Wprowadzamy tytul
+                Gdzie ma sie pojawic
+                
+                Po prawej stronie sa Opcje
+                    Scalanie stopek albo dodanie pod lub nad stopka
+
+                Sidebar onditon > ustawienia  > negativ conditon - on
+
+        Wyglad > widgety > po prawej Newsletter > np. dodanie kalendarza
+
+        Wyglad > edytor > functions.php > mozliwosc dodania widgetu po przez kod
+            _________________________________________________________
+            function arphabet_widgets_init(){
+
+                register_sidebar( array(
+                    'name'  => 'Newsletter',
+                    'id'    => 'newsletter-right',
+                    'before_widget' => '<div>',
+                    'after_wiget' => '</div>',
+                    'before_title' => '<h2 class="rounded">',
+                    'after_title' => '</h2>',
+
+                ) );
+            }
+            _________________________________________________________
+
+            W edytorze trzeba wskazac gdzie ma sie nzajdowac widget
+                1.towrzymy strone np. sidebar.php i dkolejamy
+                2.W header.php wklejamy kod
+                __________________________________________________________________________________
+                <?php if ( is_active_sidebar( 'newsletter-right' ) ) : ?>
+                <div id="priamry-sidebar" class="pimary-sidebar widget-area" role="complementary">
+                    <?php dynamic_sidebar( 'newsletter-right'); ?>
+                </div>
+                <?php endif; ?>
+                __________________________________________________________________________________
+                Musimy dodac style aby ladnie sie wyseitlao
+
+        Mozliwosc skorzystania z kodu html i w kodzie wrzuci widget
+
+        Zainstalowanie wtyczki Newsletter Sign-Up
+            settings > ustawienie email
+
+            Wyglad > widget > Wtyczka odnosnie wyslania emailow
+
+
+        Motywy w WordPress
+            Wyglad > Motywy
+                szczegoly > aktywuj, podglad an zywo lub usun
+                    Customizowanie motywu
+                        Olowek pokazuje wlasciwosci widgetu
+
+                Dodaj nowy motyw > Wszystkie darmowe motywy
+                    Mozliwosc filtorwania motywow
+                        Zainstaluj 
+                            Motywy > podglad na zywo
+                                Po lewej stronie jest menu do ustawien motywu
+                                Jesli chcemy uzywac funckji pro w motywie trzeba zaplacic
+
+
+        Pobieranie i instalacja Motywow
+            envatomarket - storna z platnymi motywami
+                Pobarny moyw jest zazwyczaj w zip
+                    1.Motywy> dodja motywy > wysjli motyw na serwer > zainstaluj teraz
+                    2. Rozpakowanie motywu > folder z plikamy wklejamy do wordpressa w wp-conntent >thems 
+                        (jesli pliki sa na serwerze to wysylamy na serwer)
+                        JEsli motyw nie dziala to go usuwamy w folderze czyli w plikach 
+
+-------------------------------------------------------------------------------------------------
+Czesc Modyfikacje Motywu
+-------------------------------------------------------------------------------------------------
+    Tworzenie Motywu Potmonego
+        Wtyczka > dodaj nowa > child theam Configurator
+            Wtyczka do tworzenia klonow istniejacego motywu
+
+            Narzedzia > child themes > Wybieranie motywu > Create new child theam
+
+            Wyglad > motywy > aktywacja motywu child 
+
+    
+    Struktura WordPressa
+        Wyglad > dostosuj >dodatkowy css
+            Waznosc: 
+                Core wordpress - glowna czesc
+                szblon.php - czesc mniej inwazyjna ale wazna
+                szablon html/css - bezpieczne operowanie na plikach
+
+    
+    Modyfikacje kodu CSS
+        Wyglad > odstosuj > dodatkowy CSS
+            wybieramy na stronie zbadaj elementy > sprawdzamy w jakich klasach siedza dane elementy
+            Wipsujemy dana klase po lewej stornie i przypisujemy jej style
+            W ustaweiniach obok publikuj mozemy dodac kiedy ma byc opbulikowane 
+
+            We wpisie w blok mozmey przygotowac sobie link czyli kotwica html.
+                Mozemy dzieki temu utowrzyc osbie link #nazwanaszejkotwicy
+
+        Blok z tekstem > blok > zawwansowane > dodatkowe klasy css > nadanie jakiejs klasy - czyli 
+            dodanie nowej klasy
+
+        Wyglad > dostosuj > dodatkowe css 
+            wpisujemy klase i kodujemy ja 
+
+
+    Wlasne fonty na stronie
+        1.Wybieramy font jaki chcemy z google fonts
+            Kopiujemy link > wyglad > edytor > header.php > sekcja head > wklejamy kod
+
+            Wchodzimy w nasz wpisc > dodatkowe css > i np h2{ i nasz font}
+
+        2. Easy gogole Fonts - wtyczka
+            MAmy w edycji wpisu - Typography
+            ^Czas wadowania naszej strony jst zbyt duza gdy zuyjemy wszedzie inny font
+    
+
+    Logo i pliki SVG
+        Strona
+            Na stronie mybrandnewlogo - mozemy wygenerowac logo
+            Canva.com - strona do generowania logo
+
+        Oprogramownaie figma
+            zarejestrowac sie > ikona z plusem 
+                Tworzenie wlasnego loga na canvasie
+
+        safe svg - wtyczka pozwalajaca do wrzucania plikow svg
+            media > dodaj nowe > nasz plik svg
+
+        Wyglad >dostosuj > tozsamosc witrynyn > logo
+            Logo musi 190x190px
+
+            Wyglad > edytor > header.php > wklejamy obrazek dodajemy wlasna klase
+
+    Zaawansowana Edycja CSS 
+        Strona  > dodaj nowa > tworzym stone
+        Wyglad > dostosuj > storna glowna > utworzona nasza strona
+
+        Wylaczenie widgetow na naszej stronie
+            widget context - wtyczka do wlaczania/wylaczania widgetow na naszej stronie
+
+            PRzechodzimy do edycji naszej strony > widgety > widget context - mozliowsc ukryci 
+                widgetu
+
+            Dodanie kodu do home w css zmieni tylko strone glowna 
+
+
+    Shortcodes
+        WP Show Posts - wtyczka do pokazywania postow gdzielkowie tlko zechcemy
+
+        Przechodzimy do WP Show Posts
+            >Dodajemy nowe posty i informacje o tych postach
+                >po prawej>  uslug > shortcodes
+                    Sa to takie rzeczy znajudje sie w nawiasie kwadratowym dzeki czemu mozna wsstrzykac kod
+
+                    Strony > wybieramy nasza strone > wklejamy shortcode
 
 
 -------------------------------------------------------------------------------------------------
-Czesc 
+Czesc Migracja WordPressa i Wtyczki
 -------------------------------------------------------------------------------------------------
+
+    PRzeniesienie plikow na serwer
+        1. Potrzebyn jest serwer i domena
+        2. Program do przenoszenia plikow z serwerem
+        3. Szukamy folderu
+            -Public html
+            lub 
+            -www
+        4. Czyscimy public html -czyli dane o dostawcy
+        5. W panelu odstawcy hostingu mozna stowrzyc baze danych
+        6. PRzechodzi do pliku z konfiguracjami w plikach zo wrzucilismy dane do bay danych
+        7. Tworzymy w bazie dnaych na hostingu uzytkonika
+
+        8.Na local host php my admin
+            Baza wordpress > export > custom > save output to a file > add drop table statment > go 
+            Mamy plik sql
+
+        9. Wchdozimy do pane phpmyadmin na hostingu
+        10. Importujemy nasza baze danych
+        *11. JEsli przedrostki sie nie zgadzaja bo hostingo dawaca wymaga innnej nazwy
+        *12. PRzechdizmy do plikow na serwerze i edytujemy config.php
+        *13. Table prefix
+        11. Wordpres na sztywno zapisuje adresy ktore nalezy zmienic w bazie dnaych
+            Zmieniamy dane na nasze adresy
+        _________________________________________________________________________________________________________________________________________________________________________________
+        UPDATE wp_options SET option_value = replace(option_value, 'http://localhost', 'https://eduweb.space/wordpress-podstawy') WHERE option_name = 'home' OR option_name = 'siteurl';
+
+        UPDATE wp_posts SET guid = replace(guid, 'http://localhost','https://eduweb.space/wordpress-podstawy');
+
+        UPDATE wp_posts SET post_content = replace(post_content, 'http://localhost', 'https://eduweb.space/wordpress-podstawy');
+
+        UPDATE wp_postmeta SET meta_value = replace(meta_value,'http://localhost','https://eduweb.space/wordpress-podstawy');
+        _________________________________________________________________________________________________________________________________________________________________________________
+
+
+    Backup W WordPress
+        Wtyczki > dodaj nowa
+            Duplicator - wordPRess Migration Plugin - wtyczka do zarzadzaia migracja 
+                Panel Duplicator > create new  > ustawiami ustawienia > next > budujemy paczki > 
+                    sciagami installer i archive > i wrzucamy je na serwer ktore zostanie zainstaowana
+
+        Narzedzia > export > tworzym backup naszego wordpressa jednak to nie jest calkowity dump
+        Narzedzia > import > wordpress > i wgranie naszego dumpa ktory byl stworzony z export w narzedziach
+
+            BackWPup - wtyczka pozwala tworzyc bardzo zawansowane exporty
+                Add new job > wykonwyania kopi zaposowych naszego wordpressa co jakis czas
+         
+
+    Popularne Wtyczki
+        Googl analitycs dashboard  for wp - analityka google
+        Jetpack  - daje wglad  w analityke strony
+        Hotjar Connecticator - Zastosowanie ankiet
+        Contact Form 7 - forumlarz kontaktowy
+        Yoast SEO - formowanie tresci pod kontem SEO
+        google XML Sitemaps - generowanie site map. Dla robota wyszukiwarki 
+        w3 total cache - gdy blog bedzie wiekszy. packowanie jako paczki do szybszego ladowania strony
+        BackWPup 
 
 
 -------------------------------------------------------------------------------------------------
