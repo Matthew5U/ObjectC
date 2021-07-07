@@ -112,17 +112,30 @@ Czesc Tworzenie rozszerzen dla wordpressa
     Priorytet nawiekszy jest 10
 
 
-
-ZACZAC KOMUNIKACJA Z BAZA DANYCH OBIEKT WDPB CZ1
-
+    $sql = 'SELECT * FROM '.$wpdb->postmeta;  // wpdb posiada informacje na temat domyslnych tabel  
 
 
+    Jesli naglowki rzada zostaly juz wyslane to nalezy dodac do glowne pliku wtyczki na poczatku pliku w klamrach php
+        ob_sart(); <- na poczatku
+        ob_flush(); <- na koncu
+
+    Widget
+        Kazdy widget jest pluginem ale nie kazdy plugin jest widgetem
 
 
--------------------------------------------------------------------------------------------------
-Czesc 
--------------------------------------------------------------------------------------------------
+    Nie trzeba dodawac znacnzikow <form> gdyz wordpress sam dodaje znaczniki
 
+    Cron - zawsze bedzie uruchamial sie np co godzine
+
+    WP_CRON - zawsze uruchumai zadania gdy nadzieje odpowiednia pora
+
+        Uruchamia tylko wtedy gdy ktos wejdzie na witryne
+
+        Plugin Debug bar > Cron
+
+
+        
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
