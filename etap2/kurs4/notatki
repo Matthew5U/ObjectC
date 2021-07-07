@@ -475,10 +475,256 @@ Zmiana rozmiaru kontenerow:
                             horizontal; < ulozenie horyzontalne kontenerow
 
 
+Wyrownaie kontenerow
+    box-direction: reverse <- Zmienia na odwrotna kolejnosc  divow
 
-ZACZAC WYROWNANIE KONTENEROW - ELASTYCZNY MODEL PUDELKOWY
+    box-ordinal-group: 2 <- wpisuje dany box w 2 miejscu
+
+    box-align: start; <- ustawa eleemnty na gorze
+    box-align: center; <-mozliowsc wycentrowania kontenerow
+    box-align: end; <- uklada boxy na spodzie kontenera w ktorym sie znajduja
+
+
+    White-space: nowrap; <- tekst nie bedzie zawijany
+    overflow: hidden; <- to co wyjdzie po za box bedzie ukryte
+    text-overflow: ellipsis; <- doda 3 kropki oznaczajac ze jest dalsza czesc tekstu znajduje sie 
+
+
+Transformacje
+
+    Do transoframcji uzywam slowka
+    transform:
+        -Przekrzywanie(SKEW)
+        
+        -Rotacja(ROTATE)
+        
+        -Skalowanie(SCALE)
+        
+        -Przesuniecie(Translate)
+
+    Przyklad:
+        W css
+            transform: translate(10px);
+                       rotate(90deg); (OBROT ZGODNIE ZE WSKAZOWKAMI ZEGARA)
+                       scale(0.5,1.5); <- o polowe horyzontalnie i o 1.5 wertykalnie
+                       skew(10deg); <- przekrzywienie
+                        skewX(2); <- tylko w osi x
+
+                        skew(10deg) translate(10px) <- mozliwosc  wpisania kilka transformacji
+
+                Zmiana punkta rotacji
+                transform-origin: 0% 0% <-lewy gorny rog
+                                  50% 50% <- srodek
+                                  100% 100% <- prawy dolny rog
+                                  left 40px 0; <- os x, os y, os z
+                                  ^do lewej w dol 40px i 0 w osi z
+                    Przyklad
+                        img
+                        {
+                            tranform: rotate(45deg);
+                            trnasform-origin: 0% 0%;
+                        }
+
+Przejscia (transition)
+
+    Przejscia:
+        TRANSITION-PROPERTY (co ma miec przejscie. czy wszystko czy tylko np skalowanie)
+        TRANSITION-DELAY (opoznienie w sekundach kiedy animacja ma wystartowac)
+        TRANSITION-DURATION (Czas trwania takiej animacji)
+        TRANSITION-TIMING-FUNCTION (funkcje przejscia EASINGU)
+
+                        Funkcje Easingu:
+                            linear - liniowa animacja jest rowna w czasie
+                            Ease-in - animacja zwlania na poczatku
+                            ease-out - animacja zwalnia na koncu
+                            Ease, Ease-in-out - Animacja przyspiesza na poczatku i zwlania na koncu
+    
+        Przyklad:
+            Przjescia nakladamy na obrazek  a np dla hvoera przypisujemy skalowanie
+            img
+            {
+                transition-property: scale;
+                transition-duration: 2s;
+            }
+
+            img:hover
+            {
+                transform: scale(0.5);
+            }
+
+            Animacja sama wroci do wartosci poczatkowych
+
+        *Skrocona notacja
+            Transition: property duration timin{delay} 
+            Transition: color 1s ease 1s
+
+
+Box shadow (css3 generator)
+    -wewnatrz kontenera
+    -na zewnatrz kontenrea
+
+        box-shadow: 2px 2px 4px 0px #444; <- horizontal length, vertical length, blur radius,
+                                                spread(krawedzie cienia).
+
+
+Transforamcje 3D
+
+    Wlasciwosci transformacji
+        -matrix3d
+        -perspective
+        -rotateX, rotateY, rotateZ, rotate3d
+        -scaleX, sclaeY, scaleZ, scale3d
+        -translateX, translateY, translateZ, translate3d
+
+        Przyklad
+            img
+            {
+                trnaform: rotateY(0deg);
+                transition: all 2s ease-in-out;
+            }
+
+            img:hover
+            {
+                transform: rotateY(180deg);
+            }
+
+        Strona:
+            westciv.com 
+
+
+Animacje (Animation) 
+    Mozna ja sterowac za pomoca klatek kluczowych
+
+    klatki kluczowe - wyznaczanie klatek w ktorej odbywa sie jakas animacja
+
+    Wlasciwosci:
+        animation-name (nazwa animacji)
+        animation-duration (czas trwania animacji)
+        animation-direction (kierunek animacji)
+        animation-timing-function (wlasciwosci easyingu)
+        animation-iteration-count (odtwarzanie naszej animacji iles razy)(1 , 2 itp lub infinite)
+
+    Przyklad
+
+    W css
+    @-webkit-keyframes logo
+    {
+        from
+        {
+            tranform: sclae(1) rotate(0deg); <- zaczynamyod takiego stanu
+        }
+
+        to
+        {
+            tranform: sclae(0.5) rotate(-30deg); <- konczymy na takim stanie 
+        }
+    }
+
+    lub kilka animacji w jednej
+    @-webkit-keyframes logo
+    {
+        0%
+        {
+            tranform: sclae(1) rotate(0deg); <- zaczynamyod takiego stanu
+        }
+
+        50%
+        {
+            tranform: sclae(0.5) rotate(-30deg); <- dochodzimy do pewnego momentu
+        }
+
+        100%
+        {
+            tranform: sclae(1) rotate(0deg); <- konczymy na takim stanie 
+        }
+    }
+
+    img
+    {
+        -webkit-animation-name: logo; <- nazwe ktora nadalismy wyzej
+        -webkit-animation-duration: 2s;
+        -webkit-animation-timing-function: ease-in;
+
+        innaczej -webkit-animation-name: logo 2s infinite ease-in;
+        
+        -webkit-animation-direction: alternative;
+        -webkit-animation-iteration-count: infinite; < podobne do zapisu z procentami
+    }
+
+    W html
+    <img src="naszobraz.jpg">
+        
+
+Strona: 
+    matthewlein.com/ceaser <- do tworzenia wlasny easingow. Efekt przejscia
+
+Animacje:
+    Jesli posiadamy obiekt wektorowy to za pomoca adobe mozemy stworzyc animacje
+
+    1. Rysujemy obramowanie obrazku czyli tak zwana sciezke
+    2. zapisujemy nasza sama sciezke jako plik svg
+    3. otwieramy nasz kod w przegladarce
+    4. kopiujemy go i przechodzimy do storny csspathanimation.calyptus.eu
+    5. wklejamy nasz kod svh(xml)
+    6. Wygenerowany kod wklejamy do animacji
+
+
+Media queries
+
+    Zapis:
+        @media all and (max-width: 480px)<- jesli urzadzenie ma max 480 px to wykona instrukcje
+        {
+            div
+            {
+                background: #FFFF00;
+            }
+
+        }
+
+        @media all and (max-width: 481px) and (max-width: 768px)
+        {
+            div:nth-child(even)
+            {
+                display: none;
+            }
+
+        }
+
+        @media all and (min-width: 769px)
+        {
+            div:nth-child(1):before
+            { 
+                content: "JEstes w rozdzielczosci desktopowej";
+            }
+        }
+
+    Nowy zapis:
+        @media all and (orientation: landscape) <- jesli ktos obroci telfon lub tablet
+        {
+            div
+            {
+                background: #9933CC;
+                color: red;
+            }
+            section
+            {
+                box-orient: horizontal;
+            
+            }
+        }
+
+
+jQuery
+    jquery-scrollTo - bilbiotek do scrolowania elementow na stronie. Przenoszenia do konkretnego 
+        dzialu.
+
+    Dodanie bilbiotek srollTo 
+    Doadanie bibliotek z serwera googla
+
+
 
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
