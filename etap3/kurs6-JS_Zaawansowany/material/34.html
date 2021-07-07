@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<meta charset="utf-8" />
+	<title>Dane JSON</title>
+	<script src="jquery-1.10.2.min.js"></script>
+</head>
+
+<body>
+
+<div id="content">
+
+
+
+
+
+	<!--
+    <p>Nazwa: <span id="p_name"></span></p>
+    <p>Cena: <span id="p_price"></span></p>
+    <p>Kategoria: <span id="p_category"></span></p>
+-->
+
+</div>
+
+<script>
+/*
+	var data = {
+		"products" : [
+			{
+				"name" : "kurs php",
+				"price" : 60,
+				"category" : "internet"
+			},
+			{
+				"name" : "kurs mysql",
+				"pirce" : 55,
+				"category" : "programowanie"
+			}
+		]
+	};
+*/
+/*
+	document.getElementById("p_name").innerHTML = data.products[0].name;
+	document.getElementById("p_price").innerHTML = data.products[0].price;
+	document.getElementById("p_category").innerHTML = data.products[0].category;
+*/
+/*
+	var output = "<ul>";
+		for(var i in data.products)
+		{
+			output += "<li>" + data.products[i].name + "</li>";
+			output += "<li>" + data.products[i].price + "</li>";
+			output += "<li>" + data.products[i].category + "</li>";
+		}
+	output += "</ul>";
+
+	document.getElementById('content').innerHTML = output;
+*/
+
+$.getJSON('data.json', function(data)
+{
+	var output = "<ul>";
+	for (var i in data.products)
+	{
+		output += "<li>" + data.products[i].name + "</li>";
+		output += "<li>" + data.products[i].price + "</li>";
+		output += "<li>" + data.products[i].category + "</li>";
+	}
+	output += "</ul>";
+
+	document.getElementById('content').innerHTML = output;
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8" />
+<title>Wyrażenia regularne</title>
+
+<link type="text/css" rel="stylesheet" href="bootstrap.min.css" />
+
+</head>
+
+<body>
+
+
+
+<div id="content" style="margin-left: 100px; margin-top:100px; width:300px;">
+
+<p id="source">Lorem ipsum dolor 33-100 sit amet, consectetur adipiscing elit. Donec id magna ornare, porta enim eu, malesuada 44-400 sem. Ut elementum ligula at 81-090 nisl 55-678 hendrerit posuere.</p>
+
+	<p id="message" class="alert-error" style="width:100%"></p>
+    <br>
+    <button id="submit" class="btn">Wyślij</button>
+
+
+</div>
+
+
+<script>
+
+document.getElementById('submit').onclick = function(){
+	var sourceText = document.getElementById('source').innerHTML;
+	var expr  = /[0-9]{2}-[0-9]{3}/; // przechowuje wyrazenie
+	var result = sourceText.match(expr);
+	document.getElementById('message').innerHTML = "Znaleziono" + result.join(", ");
+}
+
+</script>
+
+
+</body>
+</html>
