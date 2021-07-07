@@ -1,0 +1,16 @@
+@import "mixins";
+
+@include animate(bgAnimate) {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: 1000px 0;
+    }
+}
+
+body {
+    @include prefix(animation, bgAnimate 10s infinite alternate, webkit moz o);
+    animation: bgAnimate 10s infinite alternate;
+}

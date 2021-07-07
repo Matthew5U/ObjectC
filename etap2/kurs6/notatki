@@ -1,0 +1,258 @@
+_________________________________________________________________________________________________
+Kurs "Kurs Photoshop dla DEsignerow" notatki by Mateusz Krajewski
+_________________________________________________________________________________________________
+-------------------------------------------------------------------------------------------------
+Szablon:
+-------------------------------------------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="style.css" >
+    <script src="scripts.js"></script>
+
+    <!-- LESS -->
+    <link rel="stylesheet/less" type="text/css" href="styles.less" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/less.js/3.9.0/less.min.js" ></script>
+
+</head>
+
+
+
+<body>
+
+</body>
+
+</html>
+
+-------------------------------------------------------------------------------------------------
+Skroty
+-------------------------------------------------------------------------------------------------
+ctrl+spacja - podpowiedzi przez edytor tekstu
+ctrl+e - otwarcie styli dla danego znacznika
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Kolory w photoshop
+-------------------------------------------------------------------------------------------------
+
+Zarzadzanie kolorami dla sieci
+    -Standard ICC <- domysle ustawienia
+        -gamma 1.8/2.2 <-wartosc jasnosci
+        -white point D65 <- bialy punkt
+        -profil sRGB <- profil rgb. Mozna dostosowac softwerowo lub hardweorowo
+
+    Photoshop przyporzadkowuje profil kolorystyczny co wplywa na przesuniecie kolorow
+        -Adobre rgb <- profil photoshop
+        
+        -------
+        -monitor RGB <- profil optymalny dla sieci czyli taki z ekranu
+        -asid prifile <- metoda nieszkodlawia dla kolorow naszego pliku
+        -convert profil <- modyfikujemy nasz profil kolortyczny w pliku
+        -odzanczamy sRGB i embed color profile przy zpaisie dla web
+        -------
+
+        kolor dla sieci wybieramy color setting sRGB <- na tym dzialamy. moze nie do konca zgadzac
+            sie z tym co bedzie w seci
+
+            Aby to obejsc
+                view > proof setup > monitor rgb podgladanie kolorow jak beda wygladac pliki wyslane
+                strone
+
+            Mozna przy zapisie do sieci(web) zapisac convert to sRGB ale nie trzeba bo i tak pracujemy
+                z tym trybem
+
+--------------------------------------------
+Techniki pracy z kolorem
+    Kolory w sieci 
+        kod 16 #RRGGBB
+
+        Probnik koloru:
+        wciesniety alt i probnik daje mozliwosc zmiany koloru background
+
+        Panel:
+            color <- wybor koloru
+            swatches <- mozliwosc wyboru gotowego koloru
+
+                Mozliowsc zapisania wlasnych kolorow na swatches <> pliki.aco 
+
+                kuler.adobe.com <- zestawy kolorustyczne
+
+                Regula kola kolorow <- rozne reguly przy wyborze kolorow
+
+                Adobe kuler w photoshop 
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Przydatne techniki
+-------------------------------------------------------------------------------------------------
+
+    Nagrywanie akcji
+        Window> action > nowy katalog> nazwa katalogu > record > wszystko co zostanie wykonane w 
+            photoshopie zostanie nagrana akcja
+
+
+    Window > tmeline < wszystkie warstwy zostana dodane do timeline
+        Dzieki temu mozemy tworzyc animacje
+            Dodawanie klatek mowi nam jak pa wygladac animacja
+
+        file > export > export videos
+
+
+    Save for web > gif
+
+
+    -------------------------------------
+    Pikselowa perfekcja
+
+    W adobe ilustrator. Tworzenie grafiki wektorowej. Zamian grafiki wektorowej na bitmae daje ta 
+        mozliwosc ze piksele sa rowno ustawione. Nie da sie trafic na siatke pikseli gdzie piksel 
+        bedzie na srodku siatki 
+
+    ctl+k > snap vector tools and transforms to pixel grid > piksele sa wyrownywane do grda bitmapy
+
+-------------------------------------------------------------------------------------------------
+Czesc Praca z wzorami
+-------------------------------------------------------------------------------------------------
+
+    Definiowanie wzorow
+        Adobe ilustrator
+        symbol > object > patter > make > done 
+            > swatches <- i jest nasz wzor
+
+        Photoshop
+            kwadrat 2x2 > robimy wzor > edit >define patter >
+                patter stamp tool <- malujemy wzorem
+
+            shift+alt+prawy_przyciskmyszy <-zmianakolour
+
+            alt+prawyprzyciskmyszy <- zmiana rozmiaru pedzla 
+
+            Szum nadkladanie na warstwe z tlem > filter > noise
+
+    ------------------------------------------------
+    Ksiezycowy obraz
+
+        Generujemy szum (generowane sa na podstawie pikseli ktore juz sa na warstwie)
+        image > adjustment > Brightness /contrast
+        Skalowanie istneijacej warstwy
+        filt >sharpen > smart sharpen > amount
+        ctrl + e laczenie warstw
+        szybka maska
+        to co jest biale jest widoczne to co jest czarne jest niewidoczne
+        filtr > render > clouds
+        gumka ycieranie wybranej warstwy
+
+        alternatywe
+        filtre >render > lighting effects
+        infinit light -zarzadzanie swiatlem dla sceny
+
+        render > lighitn efect > presets ,- rowne modyfikacje oswietlenia
+
+        render > lens flare - rodzaj flary (Taki blysk)
+
+    ---------------------------------------------------
+    Wykorzystanie z pattern
+
+        Zaznaczyc plik i wyodrbnic to co jest na canvasie(lub copy merged) i wklejamy 
+        Edit > defin pattern
+        filter > other > offset 
+        Przesuwanie wymiarow o 200
+        patter overley > zebra 2 
+        zaznaczam fragment > edit > fill > content-avare
+        defin patern
+
+
+-------------------------------------------------------------------------------------------------
+Czesc Projektowanie layoutuow na wiele urzadzen
+-------------------------------------------------------------------------------------------------
+    Przygotowanie na wiele rodzielczosci. Teraz juz sie nei projektuje strony na kilka roznych 
+        rozdzielczosci tylko trzeba miec na uwadze iz teraz jest zbyt duzo rozdizeloczosci aby 
+        tworzyc na jedna z nich.
+
+    Towrzenie nowych plikow z layoutem towrzymy wymiary dokumentu
+        Liie podzialku pomagaja utrzymac wymiary okna
+        Nalezy wziac pod uwage na elementy przelgadraki typu scroll bar itp
+
+        Na telefonie nie mam scroll barow - wiec tam nie trzeba rezerwowac miejsca na te narzedzia
+
+    Wykorzystanie grid 960.gs w photoshop
+        Kazdy plik zawiera kolumny 12, 16, 24.
+        Na takej siatce latwo mozna stowrzyc strone ktora jest idealnie rozmieszczona przez pomocnicze
+            siatki.
+
+            Istnieje plagin dla photoshop 960.gs
+                Window > action > 960 grids 
+
+-------------------------------------------------------------------------------------------------
+Czesc inne przydatne funckje
+-------------------------------------------------------------------------------------------------
+
+    Nie warto zapisywac pliku do html z photoshopa
+
+    -----------------------------------------------------
+    Smart object
+
+        W adobi ilustrator kopiujemy grafike do photoshop jako smart boject 
+
+            Taki obiekt 
+                - mozna skalowac bez utraty jakosci
+                - mozna go edytowac w dowolnym czasie w np aplikacji adoby ilustrator. Zmiany tam 
+                    wprowadzone sa zapisywane i wysylane do aplikacji w ktorej jest grafik juz otwarta 
+                    czyli np w photoshop 
+
+    -------------------------------------------------------------
+    Layer Comps
+
+        Windows >layer comps <- jest ot warstwa do np symulacji rozwijania menu na stronie
+        Dodanie nowego layer comp 
+            applay to layer
+                visibilite <- ukryta lub odslonieta pozycja
+                position <- polezenie warst w widoku layers
+                appearance <- zapis zmiany stylu warstw
+
+                ^to jest do warstw ktore cos maja do pokazania a nie do menu ktore istnieje i jest 
+                    tylko przenoszone na layoucie 
+
+        Do rozsuwania menu ktore istnieje ale jest poza canvasem sluzy
+            window > history >create snapshoot 
+                
+                    dzieki temu podejsciu maozemy przelaczac sie miedzy tymi tak jakby stronami
+
+-------------------------------------------------------------------------------------------------
+Czesc PRaktyczny projekt
+-------------------------------------------------------------------------------------------------
+
+
+ZACZAC OD USTAWIENIA PLIKU I SIATKI PRAKTYCZNY PROJEKT
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+Czesc
+-------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------------------------
+_________________________________________________________________________________________________

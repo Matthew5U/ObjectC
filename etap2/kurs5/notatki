@@ -773,61 +773,233 @@ Funkcje operacyjne na kolorach
         Strona 
             sassme.arc90.com - strona do zmieniania kolorow w sass
 
+--------------------------------------------------------------
+Importowanie plikow
+
+    W SASS
+
+        Zapis
+
+            @import "mixins.scss";
+            // jesli importujemy plik css to zaimportuje jesli plik scss to go nie zaimportuje
+            // import przenosi plik do pliku na samj gorze
+            // mozna dac nazwe pliku bez rozszerzenia
+            // mozna dac import po przecinku 
+            img
+            {
+                @include border-radius(20px);
+            }
+
+            _reset.scss - plik poprzedzone z podlaga zostana dodane ale nie skompilowane
+
+--------------------------------------------------------------
+Debugowanie bledow
+    SASS
+        Znajdzie blad plus dodatkowo np program koala
+
+    LESS 
+        Nie znjadzie podstawowych bledow tylko takie ktora by uzytkownika sma znalazl czyli np ;
+
+    Dodatek 
+        chrome
+            SASS Inspectro do chrome. Umozliwa sprawdzenie w ktorej lini w pilku scss jest dana 
+                wartosc przypisana(np. font-size: 12px;)
+
+        Firefox:
+            -firebug
+            -sass for firebug
 
 
+--------------------------------------------------------------
+Roznice miedzy SASS i LESS
+-inny zapis
+-innaczej interpetowane operacje na jednostkach
+-nieco inne dzialanie @import w LESS
+-LESS oblsuguje przestrzenie nazw, SASS nie
+-SASS osbluguje petle, LESS nie
+
+-------------------------------------------------------------
+Css3 Selection
+
+    Zapis:
+        
+        W pliku mixins
+        @mixin selection($color, $bgcolor: invert($color), $elem: "")
+        {
+            #{$elem}::selection
+            {
+            color: #000;
+            background-color: pink;
+            }
+        }
+
+        W pliku scss
+        @include selection(#fff, red, p);
 
 
+-----------------------------------------------------------------
+Button 
 
+    Mixiny mozna stowrzyc do dodawania prefiksow do potrzebnych nazw
 
+    Rozjaenienie koloru
+        darken($color, 15%)
+        lighten($color, 20%)
 
+    Dopisanie prefiksow w mixin
 
+        @mixin prefix($property, $value, $prefixes)
+        {
+            $noPrefixes: flase !default;
+            $prefixes: if($noPrefixes, flase, $prefixes); <- funkcja
 
+            @if $prefixes {
+                @each $prefix in $prefixes
+                {
+                    -#{prefix}-#{$property}: $value; <- jesli stworzymy $prefixes: true; to
+                        wylaczymy wszystkie prefiksy
+                }
+            }
+            
 
+        }
 
+        Wykorzystanie
 
-ZACZAC IMPORTOWANIE PLIKOW - LESS I SASS -konstrukcje jezyka
+        @mixin border-radius($radius)
+        {
+            @include prefix(border-radius, $radius, webkit moz); <- doda nam dwa prefixy
+            border-radius: $radius;
+        }
 
+----------------------------------------------------------------------------
+Animowanie tla
 
+    Przyklad 1
+    @-webkit-keyframes bgAnimate <-animacje w sass
+    {
+        from
+        {
+            backgorund-postion: 0 0;
+        }
 
+        to
+        {   
+            background-postion: 1000px 0;
+        }
+    }
 
+-------------------------------------------------------------------------------------------------
+Czesc Biblitoek compas
+-------------------------------------------------------------------------------------------------
 
+    Przydate funkcje, mixiny itp napisane w sass 
 
+    Uruchomienie compsass
+        sciagneicie compsass
+        zanzaczenie aplikacji w koala
+        w edytorze kodu nalezy zainkludowac:
+            @impoert "compass";
 
+            Istnieje mozliwosc importowania poszczeglonych funckji compass 
 
+        Compass sam dodaje prefiksy. Istnieje mozliwosc wylaczenia prefiksow
+            dla chrome safari
+                $experimental-support-for-webkit: false;
 
+    Zaokraglanie naroznikow z compass
+        @include border-corner-radius(top, left, 10px);
 
+    @include no-bullet; <- wyrzuca ozdobniki listy
 
+----------------------------------------
+Tworzenie plikow
 
+    compass create testwoy <- projekt compass
+    compass watch testwoy <- bedzie caly czas podgladal plik. OZnacza to ze jesli zapisze zmiany w 
+        pliku to beda one sledzone
 
+    W config.rb 
+        Zmieniamy z css_dir ="stysheet" na "css" i dzieki temu bedzie includowal folder css
 
+        relative_assets - true <-realtywne szukanie sciezki
 
+        line_comments =false <- usuwanie komentarzy w pliku css
 
+        output_style <- styl pisania czy normalny czy skompresowany itp
 
+        compass sreate testowty -css-dir=css --output-style=compressed <- i zostanie utworzony z
+            takimi danymi jakie wpisalismy
 
+        mozliwosc uzywania config.rb do programu koala
 
+-----------------------------
+CSS sprite
 
+    JEst to laczenie kilkow obrazkow w jeden obrazek
 
+        // Sprites
+            Majac 3 odzielene obrazki jest mozliowsc ich polaczeni
 
+            @import "social/*.png"; <- stworzenie obrazka z 3 roznych
 
+            @include all-social-sprites; <-wygenreuje wszystkie obrazki
 
+            .facebook
+            {
+                @include social-sprite(Facebook);
+            }
 
+            a
+            {
+                @include inline-block;
+                width: 64px;
+                height: 64px;
+                @include: squish-text;
+            }
 
+            ^ Generuje klasy z backgorund dla kazdego obrazka
+            Nalezy pozniej dodac klasy obrazkow do html
 
+            Jesli plik nazwiemy z hover to compass sie domysli i podpisze ze te plikisa z hover
+  
+    ----------------------------------------------------------
+    Mapy compass
 
+    $socialIcons: sprite-map("social2/*.png");
 
+    ul
+    {
+        li
+        {
+            height: image-height(sprite-file($socialIcons, facebook));
+            padding: 0 0 0 image-width(sprite-file($socialIcons, facebook));
+            @include no-bullet;
+            backgorund: $socialIcons no-repeat;
+        
+            &.facebook
+            {
+                @include sprite($socialIcons, facebook)
+            }        
+        }
+    }
 
+    Zapis obraz horyzontalnie
 
+    $socialIcons: sprite-map("social2/*.png", $layout: horizontal);
+    ---------------------------------------------------------------------
+    Framewoork
+        Blueprint 
+            Pozwala nam tworzyc szybciej storny intenetowej gdyz posiada juz gotowe pliki css
 
+            compass create projekt 1 --using blueprint
 
+        Stitch
+        compas bootstrap
+        960grid
+        normailze
 
-
-
-
-
-
-
-
-
+        Sassy butons <- do przyciskow
 
 
 
