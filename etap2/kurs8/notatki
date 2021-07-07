@@ -380,51 +380,163 @@ Czesc Praca z interfejsami
             Font awesome - bibliotek ikon ktora mozemy wykorzystac w photoshopie
                 fontawesome cheatsheet > wybieramy ikonke > wrzucamy ja do ps  > wybieramy font na font awesome
 
+        ---------------------------------------------------------------------
+        Funkcja Focus area
+            Select > focus area -skupienie na pierwszym planie
 
+        ---------------------------------------------------------------------
+        Color range
+            select > color range > pipetka z + > zazanczamy elementy > quic selection tool > zazaczamy 
+            elementy ktore wchodza w tryb malowania
+            
+            zaznaczyc warstwe > refind edge - wygladza krawedzi
+            burn toool - wypalenie bialych pikseli
 
+        -----------------------------------------------------------------------
+        Korekta koloro cery
+            Select > color range > select > skin tones - zaznacza kolory skory
 
+        -----------------------------------------------------------------------
+        Maskowanie z kanalami
+            channels > edit> fill > color >black > mode >overlay
+            select > modyfi > contract
 
+        ------------------------------------------------------------------------
+        Rozmycie elekecji
+            lasso > feader - rozmycie
+            lasso > zaznaczenie warstwy > zrobienie maski > feader
+            lasso > szybka maska (q) > blur
 
+        ----------------------------------------------------------------
+        Selekcja na kanalach
+            channels (obok layout) > wybor kontrastu najbardzeej wyraznego > kopia kanalau ktory 
+            chcemy modyfikowac > przyciemniamy kolor > pedzel > mode: overlay
 
+        -------------------------------------------------------------------
+        Jeszcze bardzej skomplikowane kanaly
+            kanaly > rgb > image > calculation >red+blue
 
+        -------------------------------------------------------------------
+        Rozdzka i lasso
+            lasso > zaznaczamy dana teren > rozdzka + alt i odejmujemy dany teren
 
-ZACZAC TECHNIKI SELEKCJI - NOWA FUNKCJA FOCUS AREA
+        ------------------------------------------------------------------
+        Precyzyjna selekcja z Piorkem
+            peen tool *itnieje panel sciez paths > rawer bean
+                *auto add/ delet - dodanie punktow wektorowych 
+            Zaznaczenie cie obiektu > ctrl+enter
 
+        -------------------------------------------------------------------
+        Gumka tla
+            gumka na drugim miejscu > reset tool > powiekszamy ja > sampling once - wycieranie tla
 
+        -------------------------------------------------------------
+        Tryby mieszania a wycinanie
+            Tryb mieszania > multiply  - dla bialgo tla
+            tryb mieszania > screen - dla czarnego tla
+                             overlay - dla tla szarego
 
+        ---------------------------------------------------------------- 
+        Dopasowanie selekcji
+            Quick selection > zanzaczaym >select > refind edge > shift edge >refind radius tool (np do zaznaczania wlosow)
+            *mozliwosc uzycia shiftu dla prostych krawedzi
 
+        -----------------------------------------------------------------
+        Wycinanie wlsowow
+            Znajdujemy w googlu -maska wlosow > wklejamy maske z wlosamy > zanzaczamy dany wfragment > warp > dostosowywujemy wlosy 
+            przechodzmi na maske > ctrl+shift" alt > odmalywywujemy miejsca poza wlosami
+            pedzelkiem z malym flow  podmalowac wlosy
 
+        ----------------------------------------------------------------
+        Praca z color Match
+        1. clon warsty > filter > blur > avarage (usredniony kolor pikseli) > laczymy warstwy > opacity
+        2. Image Adjustment > match color > image staticics > wskazujemy obray > mieszamy obrazy
 
+        -----------------------------------------------------------------
+        Zautomatyzowanie rozmiarow do druku
+            window > action > nagrywanie akcji > przycianie obrazu > ratio > i wybieramy rozmiary > image > size > resolution > odnzaczamy resample > ustawiamy
+            rozmairy w cm > zaznaczamy resample > zmieniamy resolution> i zpaisujemy do druku 
 
+            Odznaczenie w danym miejscu akcji daje nam mozliwosc dostosowania pojedynczej akcji
 
+        ------------------------------------------------------------------
+        Akcje jak w instagram
+            Strona photoshoptuturials > akcje > z preferencji > load action > nasz a akcja > zapisanie naszej akcji
 
+        ----------------------------------------------------------------
+        Domysle stle warst 
+            W layer style mozna ustawic wlasne domyslne ustawiania. UStawiamy tak jak chcemy i zaznaczamy make default
 
+            PEdzel > ikona pedzla > new preset - daje mozliwosc ustawienia wlasnych wartosc
 
+        ------------------------------------------------------------
+        Sztuczka z Drop shaodws
+            LAyer stye > drop shadow 
 
+        ------------------------------------------------------------------------
+        Efekty warstw
+            Klikniecie prawym przyciskiem mysyz na warstwe
+                >scale effect - zmiana efektu warstwy
+                >create layer - przenosi warsty na osobne warstwy
 
+        -------------------------------------------------------------------
+        Sztuczkaz z flara
+            filter > render > lens flare - dodanie flary domyslnie bez mozliwosci modyfikacji
+            Na nowej warstwie dajemy kolor czarny> mieszamy warstwy lighten >i mozliowsc modyfikacji flary
 
+        --------------------------------------------------------------
+        Ogien
+            pen tool > sciezka >filter > render > flame - mozliwosc dodania ognia
+            text > create work path (sciezka na podstawie tekstu)>filter > render> flame
 
+        ----------------------------------------------------------
+        Ramka w photoshop
+            UTowrzenie nowej warstwy > filter > redner > picture frame
 
+        --------------------------------------------------------------
+        Drzewa w photoshop
+            Dodanie nowej warstwy > filter > render > tree
+            nowa warstwa > grey overlay > i dodaje nam to cien drzew
 
+        --------------------------------------------------------------------
+        Wprowadzenie do 3D
+            nowa warstwa > naryswoanie ksztatltu > 3d > new 3d extusion with selection path
+             > deform section > depth - dlogosc
+                                twist -skrecic
+            time line - towrzy animacje
 
+        ---------------------------------------------------------------------
+        Extrude tekstu do 3d
+            Narzedzie tekstowe > nasz tekst > 3D > mozliwosc zastosoawnia tekstu 
+            3D > split extusion > kazda litera jest brana osobno
+            Render
 
+        -------------------------------------------------------------------
+        Praca z bibliotekami
+            Librares > create new library > mozliwosc przezucania warstw do biblioteki 
+            *dzieki temu  mozemy wrzucac elementy strony internetowej (layout)
 
+        ---------------------------------------------------------------
+        Synchronizacja ustawien
+            Edit> preferences > sync settings > upload lub download
+            edit > sam dol > upload seeting - wysyla ustawienie do chmury  
 
+        -------------------------------------------------------------------
+        Wersjowanie plikow
+            preference > file handling > recent file contains
+            save in backgound - zapisywanie podczas pracy
+            auto save - automatyczne zapisywania kopi
+            desable compression of psd and psb files -ciezsze ale szybszy zapis
 
+            dzieki chmurze mozna podgladac prace nad naszym projektem
 
+        ---------------------------------------------------------------------
+        Kreatwyny market
+            pixelbuddha
+            pixden
+            graphicburgr
 
-
-
-
--------------------------------------------------------------------------------------------------
-Czesc 
--------------------------------------------------------------------------------------------------
-
-
-
-
-
-
+            Creativ cloud > zasoby > market
 
 
 
