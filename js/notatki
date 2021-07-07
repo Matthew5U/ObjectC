@@ -158,23 +158,137 @@ new Audio("sciezka) <- do dziwekow
 
 
 -------------------------------------------------------------------------------------------------
-Kurs 4.
+Kurs 4. Liczby
 -------------------------------------------------------------------------------------------------
+W js liczby calkowite to reprezentacje zmiennoprzecinkowe zapisane w standardzie IEEE 754
+
+System zapisu wykladnika i mantysa uzywa js
+    zapis po przecinku liczby w js wynika z faktu iz mantysa nie zmiesci wystarczajac liczbe bitow 
+    do reprezentacji liczby
+
+Najwieksza liczba calkowita w js to : Liczby calkowite az do 2^53 sa reprezentowanie dokladnie
+    9007199254740992 
+
+Kiedy tylko mozna, uzywa sie tzw. NATYWNYCH INTOW, to znaczy rodzimy dla danej architektury
+
+Math.pow(2,53) <-- potegowanie w js
+
+Maksymalny int obslugiwany w js - to taka liczba calkowita ktora sama jest poprawnie reprezentowana
+w js(IEEE 754), jak i rowniez kazda liczba mniejsza od niej jest poprawnie obslugiwna
+
+Sposoby zaokraglania po przecinku
+    1.
+    Math.round() - zaokraglanie 
+
+        x = Math.round((0.1 + 0.2)*10) / 10;
+
+            DOKLADNOS NP 2 MIEJSC PO PRZECINKU UZYWAMY 100 I DZIELIMY NA 100
+
+            !1.005 = 1 dla dwoch miejsc dla tej funkcji
+
+    2.
+    toFixed(miejsc) - metoda formatuje wartosc liczby do zadanej ilosci miejsc po przecinku, ale uwaga: 
+        wynikiem jej dzialania bedzie lancuch znakow ( a nie liczba w notacji wykladniczej)
+
+        !1.005 = 1.00 dla dwoch miejsc dla tej funcji 
+    
+    3.
+    Przebudowanie funckji round
+
+            Number.prototype.round = function(miejsc) <-- pzebudowanie prototypu funckji round
+            {
+            return +(Math.round(this+"e+"+miejsc) + "e-"+miejsc); <- +(); zapis daje nam pewnosc ze nastapi zapisanie ze stringa 
+                                                na number
+            }
+
+                this - wskazuje na obiekt na rzecz ktorego wywolano nasz Funckje
+                x.round(2) = zaokraglenie zmiennej x do 2 miejsc po przecinku
+                Dzieki uzyciu this metoda round wie, ze chodzi nam o zakraglenie x(czyli this 
+                zwraca uchwyt obiektu po lewej stronie operatora kropki)
+                e = exponent = wykladnik
+                e+ oznacza zwiekszanie go
+                e- oznacza zmniejszanie go
+
+
+Inne spospoby zaokraglania
+    Math.round() od 0.0 do 0.4 zaokragli w dol a od 0.5 i wyzej zaokragli w gore
+
+    Math.Floor() zaokragli w dol
+
+    Math.ceil() zaokragli zawsze w gore
+
+    Math.trunc() usunie czesc ulamkowa
 
 
 
 
 -------------------------------------------------------------------------------------------------
-Kurs 5.
+Kurs 5. jQuery
 -------------------------------------------------------------------------------------------------
+Biblioteka narzedziowa
+
+jQuery 
+    query - zapytanie. Nazwa taka poniewaz kierujemy zapytania
+
+    Funkcja globalna:
+
+        jQuery() = $();
+
+        Uchwyty
+            js: document.getElementById('pojemnik)
+            html: <div id="pojemnik"></div>
+
+            jQuery: $('#container') - (identyfikaor) - selektor css
+                    '.kafelek' - klasa
+                    'input' - znacnzik
+                    '[alt="kot"]' - lancuch
+                    document - obiekt
+                    '<br>' - kod html
+                    function(){} - funkcja
+
+        Metody
+            $('a).attr('target','_blank');
+                attr = attribute
 
 
+Funkcja jquery zwraca obiekt jquery
+    Obiekt jQuery moze reprezentowac nie tylko jeden element ale caly ich zbior
 
+    var obiekt1 = $('#container');
 
+addEventListener() - dodaj nasluchiwacza dla zdarzenia
+
+element.addEventListener() 
+    pozwala dodac do elelemntu dowolna ilosc "nasluchiwaczy" danego zdarzenia( w przeciwsienstwie 
+    do sposobu z atrybutami - wowczas jestesmy ograniczeni do jednej funckji obslugujacej zdarzenie)
+
+    Nie zadziala w IE<9
+
+Implementujemy jquery przed implementacja naszych skryptow
+
+jQuery - funkcje
+    element.css(co ma byc zmienione, na co ma byc zmienione) - stylizacja css w jqerry
+
+    addClass() - dodaj klase do elementu. Dodaje a nie usuwa juz istniejeacej wczesniej zdefiniowanych
+                    klasy
+    
+    removeClass() - odpina juz istniejaca klase
+
+    toggleClass() - Jesli elelemnt posiada przypieta klase to ja usuwamy z elementu, zas w przeciwnym
+                    wypadku jesli elelemnt nie posiada przypietej klasy to wowczas dodaj klase do tego 
+                    obiektu(ponownie dodaj a nie zastap)
+
+    element.html() - zmienia html znacznika
+
+Blokowanie systemu po przez flagi boolean. 
 
 
 -------------------------------------------------------------------------------------------------
 _________________________________________________________________________________________________
+
+
+
+
 
 
 

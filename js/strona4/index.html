@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="utf-8">
+    <title>Matematyka w JS</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="" >
+    <meta htp-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <script src="timer.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+
+<body>
+
+
+    <script>
+
+        /* Zapisy liczb, podstawowe operacje
+        document.write(0.1*5); document.write("<br>");
+        
+
+        document.write(Math.pow(2,53)); document.write("<br>");
+
+        if(0.1+0.2 == 0.3) document.write("true <br>");
+        else document.write("false <br>")
+
+        var x;
+
+        x = Math.round((0.1 + 0.2)*10) / 10;
+        document.write(x+"<br>")
+
+        x=0.15 * 3;
+        x= x.toFixed(2);
+        document.write(x+"<br><br>")
+
+
+        x = 1.005;
+        x = Math.round(x*100) / 100;
+        document.write(x+"<br>")
+
+        x = 1.005;
+        x= x.toFixed(2);
+        document.write(x+"<br>")
+
+
+
+        Number.prototype.round = function(miejsc)
+        {
+            return +(Math.round(this+"e+"+miejsc) + "e-"+miejsc);
+        }
+
+        x = 1.005;
+        x= x.round(2);
+        document.write(x+"<br>")
+        */
+
+        var pln = 1000;
+        document.write("wpłata: "+pln+" PLN <br><br>");
+
+        // Przewalutowanie 
+        var usd = pln / 4.00835701;
+        document.write("Saldo: "+usd+" USD <br><br>");
+
+        usd = Math.floor(usd *100) / 100;
+        document.write("wpłata: "+usd+" USD <br><br>");
+
+        // Zakupy
+        var zakupy = 23.99;
+        document.write("Zakupy: "+zakupy+" USD <br><br>");
+
+        var prowizja = 0.02 * zakupy;
+        document.write("Prowizja: "+prowizja+" USD <br><br>");
+
+        prowizja = Math.ceil(prowizja * 100) / 100;
+        document.write("Prowizja: "+prowizja+" USD <br><br>");
+
+        // Po zakupach
+        usd = usd - zakupy - prowizja;
+        document.write("Konto: "+usd+" usd  <br><br>");
+
+        usd = 225.99;
+        usd =Math.trunc(usd);
+        document.write("Trunc: "+usd+" PLN <br><br>");
+    </script>
+
+</body>
+
+</html>
